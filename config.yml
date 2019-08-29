@@ -1,0 +1,6 @@
+development:
+  password: 8b446f5b529bb4fb5f08913c602cedbb
+  theme_id: "39239712823"
+  store: sentaler-studio-ltd.myshopify.com
+  ignore_files:
+    - config/settings_data.json

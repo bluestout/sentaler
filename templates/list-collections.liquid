@@ -1,0 +1,32 @@
+
+<section class="list-collection-heading">
+  <div class="list-collection-heading-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="list-collection-heading-inner">
+          <h1 class="page-title"><span>{{ 'collections.list_collections.product_collections' | t }}</span></h1>
+          <div class="breadcrumb clearfix">
+            <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="{{ shop.url }}" title="{{ shop.name | escape }}" itemprop="url"><span itemprop="title">{{ 'general.breadcrumbs.home' | t }}</span></a></span>
+            <span class="arrow-space">/</span>
+            <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/collections" title="{{'collections.list_collections.title'|t}}"><span itemprop="title">{{'collections.list_collections.title'|t}}</span></a></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> 
+
+<section class="list-collection-content">
+  <div class="list-collections-wrapper">
+    <div class="container">
+      <div class="row products masonry">
+        {% for collection in collections %}
+        {% unless collection.all_products_count == 0 or collection.handle == "frontpage" %}
+        {% include 'collection-grid-item' %}
+        {% endunless %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+

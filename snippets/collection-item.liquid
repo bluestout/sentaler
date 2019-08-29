@@ -1,0 +1,117 @@
+{% unless grid_image_width %}
+  {%- assign grid_image_width = '600x600' -%}
+{% endunless %}
+  <div class="row-container list-unstyled clearfix">
+    <div class="row-left">
+      <a href="{{ product.url | within: collection }}" class="hoverBorder container_item"> 
+         <img src="{{ product.featured_image | product_img_url: '1000X1000' }}" class="img-responsive front" alt="{{ product.featured_image.alt | escape }}" />
+       {% comment %} <div class="hoverBorderWrapper">
+          {% for image in product.images %}
+          {% endfor %}
+          {% capture number_of_images %}{{ product.images | size }}{% endcapture %}
+          {% assign number_images = number_of_images | plus:0 %}
+          <img src="{{ product.featured_image | product_img_url: grid_image_width , crop: 'bottom' }}" class="{% if settings.product_item_effect != 'rotation' %}not-rotation{% endif %} img-responsive front" alt="{{ product.featured_image.alt | escape }}" />
+          <div class="mask"></div>          
+          {% if number_images > 1 and settings.product_hover_effect %}
+          <span class="hidden-sm hidden-xs back">
+            <img src="{{ product.images[1]| product_img_url: grid_image_width , crop: 'bottom' }}" class="rotation img-responsive" alt="{{ product.images[1].alt | escape }}" />    
+          </span>
+          {% endif %}
+        </div>        {% endcomment %}
+      </a>   
+    
+    </div>
+
+    <div class="row-right animMix">
+      <div class="collec-title">
+          
+             {% for tag in product.tags %}
+               {% if tag contains 'new in' %}     
+                  <span style="color:#949494">New in</span>
+        	   {% elsif tag contains 'IN SUPPORT OF SICKKIDS' %}
+        		  <span style="color:#4870AE">IN SUPPORT OF SICKKIDS</span>
+               {% endif %}
+            {% endfor %}
+          
+         
+          <div class="wishlist hidden-xs">
+                    <a title="Add To Wishlist" class="wishlist wishlist-{{ product.handle }}" data-wishlisthandle="{{ product.handle }}"><i class="fa fa-heart-o" aria-hidden="true"></i></a>    
+         </div>
+              <div class="product-title"><a class="title-5" href="{{ product.url | within: collection }}">{{ product.title }}</a></div>
+        </div>
+
+      <div class="color_option">
+          {% for option in product.options %}
+            {% if option == 'Color' or option == 'Colour' %}
+        
+            {% assign index = forloop.index0 %}
+      
+            {% assign colorlist = '' %}
+            {% assign color = '' %}
+            {% for variant in product.variants %}
+       
+            {% capture color %}
+            {{ variant.options[index] }}
+            {% endcapture %}
+           
+            {% unless colorlist contains color %}
+            
+            <span>{{color}}</span>
+            {% capture tempList %}
+            {{colorlist | append: color | append: ' '}}
+            {% endcapture %}
+            {% assign colorlist = tempList %}
+            {% endunless %}
+            {% endfor %}
+            {% endif %}
+       
+            {% endfor %}
+        </div>
+      <div class="group_price_rating">
+        <div class="rating-star">
+          <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+        </div>
+        
+        <div class="product-price">
+          {% if product.available %}
+          {% if product.compare_at_price_max > product.price %}
+
+          {% assign found_one_in_stock = false %}
+          {% for variant in product.variants %}
+          {% if variant.available and variant.compare_at_price and found_one_in_stock == false %}
+          {% assign found_one_in_stock = true %}
+
+          <span class="price_sale">{{ variant.price | money }}</span>
+          <del class="price_compare"> {{ variant.compare_at_price | money }}</del>
+
+          {% endif %}
+          {% endfor %}
+
+          {% if found_one_in_stock == false %}
+          {% for variant in product.variants %}
+          {% if variant.available and found_one_in_stock == false %}
+          {% assign found_one_in_stock = true %}
+          <span class="price">
+            {{ variant.price | money }}
+          </span>
+          {% endif %}
+          {% endfor %}
+          {% endif %}
+          {% else %}
+          <span class="price">
+            {% if product.price_varies %} 
+            {{ product.price | money }}
+            {% else %}
+            {{ product.price | money }}
+            {% endif %}
+          </span>
+          {% endif %}  
+          {% else %}
+          <span class="sold_out">Sold Out</span>
+          {% endif %}
+        </div>   
+      </div>
+    
+      
+    </div>   
+  </div> 

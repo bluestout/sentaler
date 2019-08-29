@@ -1,0 +1,140 @@
+<div class="page-width logo-bar-wrapper">
+  {% unless section.settings.full %}
+  <div class="container">
+    <div class="row">
+  {% endunless %}
+
+      {% case section.blocks.size %}
+        {% when 1 %}
+          {%- assign column_size = 'col-1' -%}
+          {%- assign column_class = '100%' -%}
+        {% when 2 %}
+          {%- assign column_size = 'col-2' -%}
+          {%- assign column_class = '50%' -%}
+        {% when 3 %}
+            {%- assign column_size = 'col-3' -%}
+            {%- assign column_class = '33.333333%' -%}
+        {% when 4 %}
+            {%- assign column_size = 'col-4' -%}
+            {%- assign column_class = '25%' -%}
+        {% when 5 %}
+          {%- assign column_size = 'col-5' -%}
+          {%- assign column_class = '20%' -%}
+        {% else %}
+          {%- assign column_size = 'col-6' -%}
+          {%- assign column_class = '16.66666%' -%}
+      {% endcase %}
+      
+      {% if section.blocks.size > 0 %}
+      <div class="logo_bar_group">
+        <div class="logo-bar-inner col-sm-6">
+          <div class="logo-bar {{ column_size }} logo-slider">
+            {% for block in section.blocks %}
+            <div class="logo-bar__item">
+              <a href="{{ block.settings.link }}" class="logo-bar__link">            
+                {% if block.settings.image != blank %}
+                {{ block.settings.image | img_url: '160x160' | img_tag: section.settings.image.alt, 'logo-bar__image' }}
+                {% else %}
+                <img src="{{ '155x50.png' | asset_url }}" alt="" />
+                {% endif %}            
+              </a> 
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="introduction-block col-sm-6">
+          <div class="group_introduction_block">
+            {{ section.settings.aboutus }}
+          </div>
+        </div>
+      </div>
+      {% endif %}
+
+      {% if section.blocks.size == 0 %}
+      {% include 'no-blocks' %}
+      {% endif %}
+  {% unless section.settings.full %}
+    </div>
+  </div>
+  {% endunless %}
+</div>
+
+{% schema %}
+{
+  "name": "Logo list",
+  "class": "index-section",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "full",
+      "label": "Show full width",
+      "default": false
+    },
+    {
+      "type": "textarea",
+      "id": "aboutus",
+      "label": "Introduction Text in Right"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "logo_image",
+      "name": "Logo",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link",
+          "info": "Optional"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Logo list",
+      "category": "Image",
+      "blocks": [
+        {
+          "type": "logo_image"
+        },
+        {
+          "type": "logo_image"
+        },
+        {
+          "type": "logo_image"
+        },
+        {
+          "type": "logo_image"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<script>
+  if($(".logo-slider").length){
+    $(".logo-slider").owlCarousel({
+      navigation : true,
+      pagination: false,
+      autoPlay: false,     
+      paginationSpeed: 800,
+      items: 4,
+      slideSpeed : 200,
+      rewindSpeed : 1000,
+      itemsDesktop : [1199,4],
+      itemsDesktopSmall : [979,3],
+      itemsTablet: [768,2],
+      itemsTabletSmall: [540,1],
+      itemsMobile : [360,1],
+      navigationText: ['<i class="fa fa-angle-left" title="Previous" data-toggle="tooltip" data-placement="top"></i>', '<i class="fa fa-angle-right" title="Next" data-toggle="tooltip" data-placement="top"></i>']
+    });
+  }
+</script>

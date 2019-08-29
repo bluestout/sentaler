@@ -1,0 +1,57 @@
+{% assign number_of_related_products_to_show = 4 %}
+
+{% assign number_of_related_products_to_fetch = number_of_related_products_to_show | plus: 1 %}
+  
+{% if collection == null or collection.handle == 'frontpage' or collection.handle == 'all' %}
+{% assign found_a_collection = false %}
+{% for c in product.collections %}
+  {% if found_a_collection == false and c.handle != 'frontpage' and c.handle != 'all' and c.all_products_count > 1 %}
+    {% assign found_a_collection = true %}
+    {% assign collection = c %}
+  {% endif %}
+{% endfor %}
+{% endif %}
+
+{% if collection and collection.products_count > 1 %}
+    
+<div class="related-products">
+  <div class="text-center">
+  <h3 class="las_25"><span>You May also Like</span></h3>
+  <span class="subdes">Other products from this category</span>
+  </div>
+	<div class="rp-slider">
+    {% assign current_product = product %}
+    {% assign current_product_found = false %}
+    {% for product in collection.products limit: number_of_related_products_to_fetch %}
+      {% if product.handle == current_product.handle %}
+        {% assign current_product_found = true %}
+      {% else %}
+        {% unless current_product_found == false and forloop.last %}
+         
+    		{% include 'collection-item' with collection.handle %}
+
+        {% endunless %}
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+
+<script>
+  $(".related-products .rp-slider").owlCarousel({
+      navigation : true,
+      pagination: false,
+      items: 4,
+      slideSpeed : 200,
+      paginationSpeed : 800,
+      rewindSpeed : 1000,
+      itemsDesktop : [1199,4],
+      itemsDesktopSmall : [979,2],
+      itemsTablet: [768,2],
+      itemsTabletSmall: [540,2],
+      itemsMobile : [360,2],
+      navigationText: ['<i class="sticon-caret-l-large" title="Previous" data-toggle="tooltip" data-placement="top"></i>', '<i class="sticon-caret-r-large" title="Next" data-toggle="tooltip" data-placement="top"></i>']
+    });
+</script>
+
+{% endif %}

@@ -1,0 +1,765 @@
+{% if settings.tfcode == '' %}
+<div class="emthemesModez-header-topSection">
+  <div class="container" style="background:floralwhite; text-align:center; color: #000; font-size:11px; padding:5px 0; font-weight:400; letter-spacing:0; font-style:italic;box-shadow: 0 2px 5px rgba(0,0,0,0.2);border-bottom: 1px solid #999;text-transform: none;">      
+    Notice: Please enter your <strong>Item Purchase Code</strong> in <strong>Theme Customizer</strong> > <strong>Theme Settings</strong> tab > <strong>Item Purchase Code</strong> to activate your theme license and remove this notice.<img src="https://www.emthemes.com/media/shopify-logo-everything.png" alt="" />
+  </div>
+</div>
+{% endif %}
+
+<section class="top-header">
+  <div class="top-header-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="top-header-inner col-sm-12">
+          <div class="col-sm-4">
+          <div class="shipto">
+                <span class="ship_l">Ship to:</span>
+                <span class="ship_country">Czechia</span>
+            	<span class="sticon-caret-d-small"></span>
+              </div>
+          </div>
+          <div class="col-sm-4 text-center">
+          <div class="left-area">
+            {% if section.settings.show_phone %}
+            <div class="contact-info">{{ section.settings.phone_text }}</div>
+            {% endif %}            
+          </div>
+          </div>
+          <div class="col-sm-4 text-right">
+          <div class="right-area">
+          {% if section.settings.show_location %}
+            <a href="tel:{{section.settings.loc_text | replace: ' ', ''}}"><i class="sticon-phone" aria-hidden="true"></i><span>{{section.settings.loc_text}}</span></a>
+            <a href="{{section.settings.link_loc}}"><i class="sticon-location" aria-hidden="true"></i><span>{{section.settings.location}}</span></a>
+            {% endif %}
+           {% comment %}
+            <ul class="unstyled customer_accounts">
+              {% if section.settings.show_location %}
+                <li class="store-location"><a href="{{ section.settings.loc_link}}"><i class="sticon-location" aria-hidden="true"></i> {{ section.settings.loc_text }}</a></li>
+              {% endif %}
+              <!-- Customer Links -->            
+              {% if shop.customer_accounts_enabled %}            
+                {% if customer  %}
+                <li class="toolbar-customer my-account"><a href="/account"><i class="fa fa-user"></i> {{ 'layout.customer.your_account' | t }}</a></li>                
+                <li class="toolbar-customer log-out"><a href="/account/logout"><i class="fa fa-sign-out"></i> {{ 'layout.customer.logout' | t }}</a></li>
+                {% else %}
+                <li class="toolbar-customer login-account">                    
+                  <span id="loginButton" class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="sub-dropdown1 visible-sm visible-md visible-lg"></i>
+                    <i class="sub-dropdown visible-sm visible-md visible-lg"></i>
+                    <i class="fa fa-unlock-alt"></i>                                        
+                    {{ 'sections.header.top_header_login' | t | customer_login_link }}
+                  </span>                    
+                  <div id="loginBox" class="dropdown-menu text-left">
+                    {% form 'customer_login' %}
+                    <div id="bodyBox">
+                      <ul class="control-container customer-accounts list-unstyled">
+                        <li class="clearfix">
+                          <label for="customer_email_box" class="control-label">{{'layout.header.login_dropdown.customer_email'|t}} <span class="req">*</span></label>
+                          <input type="email" value="" name="customer[email]" id="customer_email_box" class="form-control" />
+                        </li>
+                        {% if form.password_needed %}
+                        <li class="clearfix">
+                          <label for="customer_password_box" class="control-label">{{'layout.header.login_dropdown.customer_password'|t}} <span class="req">*</span></label>
+                          <input type="password" value="" name="customer[password]" id="customer_password_box" class="form-control password" />
+                        </li>
+                        {% endif %}
+                        <li class="clearfix">
+                          <span class="required field">*{{'layout.header.login_dropdown.required'|t}}</span>
+                        </li>
+                        <li class="clearfix">
+                          <a href="/account/login#recover"><span class="red">?</span> {{'layout.header.login_dropdown.forgot'|t}}</a>
+                        </li>
+                        <li class="clearfix">
+                          <button class="btn btn-1" type="submit">{{'layout.header.login_dropdown.login'|t}}</button>
+                        </li>                  
+                        <li class="clearfix">
+                          <a class="action btn btn-3" href="/account/register">{{'layout.header.login_dropdown.create'|t}}</a>
+                        </li>
+                      </ul>
+                    </div>
+                    {% endform %}
+                  </div>
+                </li>
+                <li class="toolbar-customer create-account">                          
+                  <i class="fa fa-key"></i>
+                  {{ 'sections.header.top_header_register' | t | customer_register_link }}                  
+                </li>                  
+                {% endif %} 
+                <li class="toolbar-customer my-wishlist navUser-item--wishlist">
+                  <a href="/pages/wish-list">
+                    <i class="fa fa-heart"></i>
+                    {{ 'layout.customer.wishlist' | t }} 
+                    <span class="wishlist-quantity"></span>
+                  </a>
+                </li>
+                <!-- Currency -->            
+                {% if settings.show_multiple_currencies %}
+                <li class="currency_group">
+                  <div class="currencies-switcher">
+                    {% include 'currencies-switcher' with settings.currency_style %}
+                  </div>
+                </li>
+                {% endif %}            
+              {% endif %}    
+            </ul>
+            {% endcomment %}
+            </div> 
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="shipinfo" style="display:none;">
+    <span>We ship to <span class="ship_country">United States</span>.</span>
+    <p>You can change shipping preferences. Be advised that changing your location will remove all the contents from your shopping bag.
+    </p>
+    <span class="ship_l">Ship to:</span>
+    <div class="country_select">
+       
+        
+            <select id="country" name="country" class="form-control">
+                <option value="Afghanistan">Afghanistan</option>
+                <option value="Åland Islands">Åland Islands</option>
+                <option value="Albania">Albania</option>
+                <option value="Algeria">Algeria</option>
+                <option value="American Samoa">American Samoa</option>
+                <option value="Andorra">Andorra</option>
+                <option value="Angola">Angola</option>
+                <option value="Anguilla">Anguilla</option>
+                <option value="Antarctica">Antarctica</option>
+                <option value="Antigua and Barbuda">Antigua and Barbuda</option>
+                <option value="Argentina">Argentina</option>
+                <option value="Armenia">Armenia</option>
+                <option value="Aruba">Aruba</option>
+                <option value="Australia">Australia</option>
+                <option value="Austria">Austria</option>
+                <option value="Azerbaijan">Azerbaijan</option>
+                <option value="Bahamas">Bahamas</option>
+                <option value="Bahrain">Bahrain</option>
+                <option value="Bangladesh">Bangladesh</option>
+                <option value="Barbados">Barbados</option>
+                <option value="Belarus">Belarus</option>
+                <option value="Belgium">Belgium</option>
+                <option value="Belize">Belize</option>
+                <option value="Benin">Benin</option>
+                <option value="Bermuda">Bermuda</option>
+                <option value="Bhutan">Bhutan</option>
+                <option value="Bolivia">Bolivia</option>
+                <option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option>
+                <option value="Botswana">Botswana</option>
+                <option value="Bouvet Island">Bouvet Island</option>
+                <option value="Brazil">Brazil</option>
+                <option value="British Indian Ocean Territory">British Indian Ocean Territory</option>
+                <option value="Brunei Darussalam">Brunei Darussalam</option>
+                <option value="Bulgaria">Bulgaria</option>
+                <option value="Burkina Faso">Burkina Faso</option>
+                <option value="Burundi">Burundi</option>
+                <option value="Cambodia">Cambodia</option>
+                <option value="Cameroon">Cameroon</option>
+                <option value="Canada">Canada</option>
+                <option value="Cape Verde">Cape Verde</option>
+                <option value="Cayman Islands">Cayman Islands</option>
+                <option value="Central African Republic">Central African Republic</option>
+                <option value="Chad">Chad</option>
+                <option value="Chile">Chile</option>
+                <option value="China">China</option>
+                <option value="Christmas Island">Christmas Island</option>
+                <option value="Cocos (Keeling) Islands">Cocos (Keeling) Islands</option>
+                <option value="Colombia">Colombia</option>
+                <option value="Comoros">Comoros</option>
+                <option value="Congo">Congo</option>
+                <option value="Congo, The Democratic Republic of The">Congo, The Democratic Republic of The</option>
+                <option value="Cook Islands">Cook Islands</option>
+                <option value="Costa Rica">Costa Rica</option>
+                <option value="Cote D'ivoire">Cote D'ivoire</option>
+                <option value="Croatia">Croatia</option>
+                <option value="Cuba">Cuba</option>
+                <option value="Cyprus">Cyprus</option>
+                <option value="Czech Republic">Czech Republic</option>
+                <option value="Denmark">Denmark</option>
+                <option value="Djibouti">Djibouti</option>
+                <option value="Dominica">Dominica</option>
+                <option value="Dominican Republic">Dominican Republic</option>
+                <option value="Ecuador">Ecuador</option>
+                <option value="Egypt">Egypt</option>
+                <option value="El Salvador">El Salvador</option>
+                <option value="Equatorial Guinea">Equatorial Guinea</option>
+                <option value="Eritrea">Eritrea</option>
+                <option value="Estonia">Estonia</option>
+                <option value="Ethiopia">Ethiopia</option>
+                <option value="Falkland Islands (Malvinas)">Falkland Islands (Malvinas)</option>
+                <option value="Faroe Islands">Faroe Islands</option>
+                <option value="Fiji">Fiji</option>
+                <option value="Finland">Finland</option>
+                <option value="France">France</option>
+                <option value="French Guiana">French Guiana</option>
+                <option value="French Polynesia">French Polynesia</option>
+                <option value="French Southern Territories">French Southern Territories</option>
+                <option value="Gabon">Gabon</option>
+                <option value="Gambia">Gambia</option>
+                <option value="Georgia">Georgia</option>
+                <option value="Germany">Germany</option>
+                <option value="Ghana">Ghana</option>
+                <option value="Gibraltar">Gibraltar</option>
+                <option value="Greece">Greece</option>
+                <option value="Greenland">Greenland</option>
+                <option value="Grenada">Grenada</option>
+                <option value="Guadeloupe">Guadeloupe</option>
+                <option value="Guam">Guam</option>
+                <option value="Guatemala">Guatemala</option>
+                <option value="Guernsey">Guernsey</option>
+                <option value="Guinea">Guinea</option>
+                <option value="Guinea-bissau">Guinea-bissau</option>
+                <option value="Guyana">Guyana</option>
+                <option value="Haiti">Haiti</option>
+                <option value="Heard Island and Mcdonald Islands">Heard Island and Mcdonald Islands</option>
+                <option value="Holy See (Vatican City State)">Holy See (Vatican City State)</option>
+                <option value="Honduras">Honduras</option>
+                <option value="Hong Kong">Hong Kong</option>
+                <option value="Hungary">Hungary</option>
+                <option value="Iceland">Iceland</option>
+                <option value="India">India</option>
+                <option value="Indonesia">Indonesia</option>
+                <option value="Iran, Islamic Republic of">Iran, Islamic Republic of</option>
+                <option value="Iraq">Iraq</option>
+                <option value="Ireland">Ireland</option>
+                <option value="Isle of Man">Isle of Man</option>
+                <option value="Israel">Israel</option>
+                <option value="Italy">Italy</option>
+                <option value="Jamaica">Jamaica</option>
+                <option value="Japan">Japan</option>
+                <option value="Jersey">Jersey</option>
+                <option value="Jordan">Jordan</option>
+                <option value="Kazakhstan">Kazakhstan</option>
+                <option value="Kenya">Kenya</option>
+                <option value="Kiribati">Kiribati</option>
+                <option value="Korea, Democratic People's Republic of">Korea, Democratic People's Republic of</option>
+                <option value="Korea, Republic of">Korea, Republic of</option>
+                <option value="Kuwait">Kuwait</option>
+                <option value="Kyrgyzstan">Kyrgyzstan</option>
+                <option value="Lao People's Democratic Republic">Lao People's Democratic Republic</option>
+                <option value="Latvia">Latvia</option>
+                <option value="Lebanon">Lebanon</option>
+                <option value="Lesotho">Lesotho</option>
+                <option value="Liberia">Liberia</option>
+                <option value="Libyan Arab Jamahiriya">Libyan Arab Jamahiriya</option>
+                <option value="Liechtenstein">Liechtenstein</option>
+                <option value="Lithuania">Lithuania</option>
+                <option value="Luxembourg">Luxembourg</option>
+                <option value="Macao">Macao</option>
+                <option value="Macedonia, The Former Yugoslav Republic of">Macedonia, The Former Yugoslav Republic of</option>
+                <option value="Madagascar">Madagascar</option>
+                <option value="Malawi">Malawi</option>
+                <option value="Malaysia">Malaysia</option>
+                <option value="Maldives">Maldives</option>
+                <option value="Mali">Mali</option>
+                <option value="Malta">Malta</option>
+                <option value="Marshall Islands">Marshall Islands</option>
+                <option value="Martinique">Martinique</option>
+                <option value="Mauritania">Mauritania</option>
+                <option value="Mauritius">Mauritius</option>
+                <option value="Mayotte">Mayotte</option>
+                <option value="Mexico">Mexico</option>
+                <option value="Micronesia, Federated States of">Micronesia, Federated States of</option>
+                <option value="Moldova, Republic of">Moldova, Republic of</option>
+                <option value="Monaco">Monaco</option>
+                <option value="Mongolia">Mongolia</option>
+                <option value="Montenegro">Montenegro</option>
+                <option value="Montserrat">Montserrat</option>
+                <option value="Morocco">Morocco</option>
+                <option value="Mozambique">Mozambique</option>
+                <option value="Myanmar">Myanmar</option>
+                <option value="Namibia">Namibia</option>
+                <option value="Nauru">Nauru</option>
+                <option value="Nepal">Nepal</option>
+                <option value="Netherlands">Netherlands</option>
+                <option value="Netherlands Antilles">Netherlands Antilles</option>
+                <option value="New Caledonia">New Caledonia</option>
+                <option value="New Zealand">New Zealand</option>
+                <option value="Nicaragua">Nicaragua</option>
+                <option value="Niger">Niger</option>
+                <option value="Nigeria">Nigeria</option>
+                <option value="Niue">Niue</option>
+                <option value="Norfolk Island">Norfolk Island</option>
+                <option value="Northern Mariana Islands">Northern Mariana Islands</option>
+                <option value="Norway">Norway</option>
+                <option value="Oman">Oman</option>
+                <option value="Pakistan">Pakistan</option>
+                <option value="Palau">Palau</option>
+                <option value="Palestinian Territory, Occupied">Palestinian Territory, Occupied</option>
+                <option value="Panama">Panama</option>
+                <option value="Papua New Guinea">Papua New Guinea</option>
+                <option value="Paraguay">Paraguay</option>
+                <option value="Peru">Peru</option>
+                <option value="Philippines">Philippines</option>
+                <option value="Pitcairn">Pitcairn</option>
+                <option value="Poland">Poland</option>
+                <option value="Portugal">Portugal</option>
+                <option value="Puerto Rico">Puerto Rico</option>
+                <option value="Qatar">Qatar</option>
+                <option value="Reunion">Reunion</option>
+                <option value="Romania">Romania</option>
+                <option value="Russian Federation">Russian Federation</option>
+                <option value="Rwanda">Rwanda</option>
+                <option value="Saint Helena">Saint Helena</option>
+                <option value="Saint Kitts and Nevis">Saint Kitts and Nevis</option>
+                <option value="Saint Lucia">Saint Lucia</option>
+                <option value="Saint Pierre and Miquelon">Saint Pierre and Miquelon</option>
+                <option value="Saint Vincent and The Grenadines">Saint Vincent and The Grenadines</option>
+                <option value="Samoa">Samoa</option>
+                <option value="San Marino">San Marino</option>
+                <option value="Sao Tome and Principe">Sao Tome and Principe</option>
+                <option value="Saudi Arabia">Saudi Arabia</option>
+                <option value="Senegal">Senegal</option>
+                <option value="Serbia">Serbia</option>
+                <option value="Seychelles">Seychelles</option>
+                <option value="Sierra Leone">Sierra Leone</option>
+                <option value="Singapore">Singapore</option>
+                <option value="Slovakia">Slovakia</option>
+                <option value="Slovenia">Slovenia</option>
+                <option value="Solomon Islands">Solomon Islands</option>
+                <option value="Somalia">Somalia</option>
+                <option value="South Africa">South Africa</option>
+                <option value="South Georgia and The South Sandwich Islands">South Georgia and The South Sandwich Islands</option>
+                <option value="Spain">Spain</option>
+                <option value="Sri Lanka">Sri Lanka</option>
+                <option value="Sudan">Sudan</option>
+                <option value="Suriname">Suriname</option>
+                <option value="Svalbard and Jan Mayen">Svalbard and Jan Mayen</option>
+                <option value="Swaziland">Swaziland</option>
+                <option value="Sweden">Sweden</option>
+                <option value="Switzerland">Switzerland</option>
+                <option value="Syrian Arab Republic">Syrian Arab Republic</option>
+                <option value="Taiwan, Province of China">Taiwan, Province of China</option>
+                <option value="Tajikistan">Tajikistan</option>
+                <option value="Tanzania, United Republic of">Tanzania, United Republic of</option>
+                <option value="Thailand">Thailand</option>
+                <option value="Timor-leste">Timor-leste</option>
+                <option value="Togo">Togo</option>
+                <option value="Tokelau">Tokelau</option>
+                <option value="Tonga">Tonga</option>
+                <option value="Trinidad and Tobago">Trinidad and Tobago</option>
+                <option value="Tunisia">Tunisia</option>
+                <option value="Turkey">Turkey</option>
+                <option value="Turkmenistan">Turkmenistan</option>
+                <option value="Turks and Caicos Islands">Turks and Caicos Islands</option>
+                <option value="Tuvalu">Tuvalu</option>
+                <option value="Uganda">Uganda</option>
+                <option value="Ukraine">Ukraine</option>
+                <option value="United Arab Emirates">United Arab Emirates</option>
+                <option value="United Kingdom">United Kingdom</option>
+                <option value="United States" selected>United States</option>
+                <option value="United States Minor Outlying Islands">United States Minor Outlying Islands</option>
+                <option value="Uruguay">Uruguay</option>
+                <option value="Uzbekistan">Uzbekistan</option>
+                <option value="Vanuatu">Vanuatu</option>
+                <option value="Venezuela">Venezuela</option>
+                <option value="Viet Nam">Viet Nam</option>
+                <option value="Virgin Islands, British">Virgin Islands, British</option>
+                <option value="Virgin Islands, U.S.">Virgin Islands, U.S.</option>
+                <option value="Wallis and Futuna">Wallis and Futuna</option>
+                <option value="Western Sahara">Western Sahara</option>
+                <option value="Yemen">Yemen</option>
+                <option value="Zambia">Zambia</option>
+                <option value="Zimbabwe">Zimbabwe</option>
+            </select>
+      <span class="sticon-caret-d-small"></span>
+    </div>
+  </div>
+</section>
+
+<section class="main-header {% if template =='index' %}index{% endif %}">
+  <div class="main-header-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="main-header-inner">
+          <div data-section-id="{{ section.id }}" data-section-type="header-section">  
+            <div class="top_header_wrapper">
+              <div class="top_header">
+                
+                <div class="middle-area col-sm-4">
+                 
+                  <div class="desk_hide mobile_ham">
+                    <span class="sticon-menu"></span> Menu
+                  </div>
+                 
+                  <nav class="site-nav small--hide" id="AccessibleNav" role="navigation">
+                    {% include 'site-nav', nav_alignment: 'site-nav--centered', nav_link: section.settings.main_linklist %}              
+                  </nav>				
+                </div>
+                <div class="left-area col-sm-4 text-center">
+                  <div class="{{ logo_classes }}">        
+                    {% if section.settings.logo %}
+                    <a href="/" itemprop="url" class="site-header__logo-image">              
+                      <span class="sticon-sentaler-full"></span>
+                      <span class="sticon-sentaler" style="display:none"></span>
+                    </a>
+                    
+                    {% else %}
+                    <a class="site-header__logo-link" href="/" itemprop="url">
+                      <img src="{{ 'logo_200x.png' | asset_url }}" alt="" itemprop="logo">
+                    </a>
+                    {% endif %}
+                  </div>                  
+                </div>
+                <div class="right-area col-sm-4">
+                   <span class="sticon-search desk_hide" id="m_search"></span>
+                    <div class="site-header__search m_hide">
+                      {% include 'search-form' %}
+                    </div>
+                  {% if shop.customer_accounts_enabled %}
+                  <div class="customer_account m_hide">
+      				{% if customer  %}
+                      <a href="/account">
+                        <i class="sticon-user" aria-hidden="true"></i>
+                      </a>
+                    {% else %}
+                      <a href="/account/login">
+                        <i class="sticon-user" aria-hidden="true"></i>
+                      </a>
+                    {% endif %}
+                  </div>
+                  {% endif %}
+                  {% if shop.customer_accounts_enabled %}
+                  <div class="wish-list-area border-it m_hide">
+                    {% if customer  %}
+                    <li class="toolbar-customer my-wishlist logged-wishlist" title="Wish List"><a href="/pages/wish-list"><i class="sticon-heart"></i></a></li>
+                    {% else %}
+                    <li class="toolbar-customer my-wishlist" title="Wish List"><a href="/pages/wish-list"><i class="sticon-heart"></i></a></li>
+                    {% endif %}
+                  </div>
+                  {% endif %}
+                  <div id="cart-target" class="toolbar-cart">
+                    <a href="/cart" class="cart"  title="Shopping Cart">
+                      <i class="sub-dropdown1 visible-sm visible-md visible-lg"></i>
+                      <i class="sub-dropdown visible-sm visible-md visible-lg"></i> 
+                      <div class="num-items-in-cart">
+                       {% if  cart.item_count > 0 %}
+<!--                         <div class="number">{{ cart.item_count }}</div> -->
+                        {% endif %}
+                        <div class="block-cart"><i class="sticon-bag"></i></div>                                              
+                      </div>
+                    </a>
+                    <div id="cart-info" class="dropdown-menu">
+                      <div id="cart-content">
+                        <div class="loading">
+                          <img src="{{'loader.gif' | asset_url}}" alt="" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="overlay_g"></div>
+</section>
+ 
+{% if section.settings.nav_sticky %}
+<div class="fix-sticky"></div>
+{% endif %}
+
+<section class="mobile-nav-header">
+  <div class="mobile-nav-header-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="mobile-nav-header-inner">                                            
+          <div class="mobile-top-navigation visible-xs">      
+            <button id="showLeftPush" class="visible-xs"><i class="fa fa-bars fa-2x"></i></button>
+            <ul class="list-inline">        
+              {% if shop.customer_accounts_enabled %}
+              <li class="is-mobile-login">
+                <div class="btn-group">
+                  <div class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="fa fa-user"></i>
+                  </div>
+                  <ul class="customer dropdown-menu">
+                    {% if customer %}
+                    <li class="toolbar-customer log-out">
+                      <a href="/account/logout">{{ 'layout.customer.logout' | t }}</a>
+                    </li>
+                    <li class="toolbar-customer my-account">
+                      <a href="/account">{{ 'layout.customer.your_account' | t }}</a>
+                    </li>
+                    <li class="toolbar-customer my-wishlist">
+                      <a href="/pages/wish-list">{{ 'layout.customer.wishlist' | t }}</a>
+                    </li>
+                    {% else %}
+                    <li class="logout">
+                      <a href="/account/login">{{'layout.header.login_dropdown.login'|t}}</a>
+                    </li>
+                    <li class="account">
+                      <a href="/account/register">{{'layout.header.login_dropdown.create'|t}}</a>
+                    </li>
+                    {% endif %}
+                  </ul>
+                </div>
+              </li>
+              {% endif %}
+
+              {% if settings.show_multiple_currencies %}
+              <li class="is-mobile-currency currency_group">
+                <div class="currencies-switcher"> 
+                  {% include 'currencies-switcher' with settings.currency_style %}
+                </div>
+              </li>
+              {% endif %}
+              
+              <li class="is-mobile-cart">
+                <a href="/cart" title="Shopping Cart">
+                  <div class="num-items-in-cart">
+                    <i class="fa fa-shopping-cart"></i>
+                      <span class="icon">
+                        <span class="number">{{ cart.item_count }}</span>
+                      </span>
+                    <div class="ajax-subtotal" style="display:none;"></div>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+          
+          <div class="mobile-search visible-xs">
+            <div id="mobile-search-info">
+              <form action="/search" method="get" class="search-header search" role="search">
+                <div class="collections-selector">
+                  <select class="single-option-selector" data-option="collection-option" id="collection-option" name="collection">
+                    <option value="all">{{'sections.header.all_collection'|t}}</option>
+                    {% for collection in collections %}                          
+                    {% unless collection.all_products_count == 0 or collection.handle == "frontpage" %}
+                    <option value="{{collection.handle}}">{{collection.title}}</option>
+                    {% endunless %}
+                    {% endfor %}                        
+                  </select>
+                </div>
+                <input class="search-header__input search__input"
+                       type="search"
+                       name="q"
+                       placeholder="{{ 'general.search.placeholder' | t }}"
+                       aria-label="{{ 'general.search.placeholder' | t }}">
+                <button class="search-header__submit search__submit btn--link" type="submit">
+                  {% include 'icon-search' %}
+                  <span class="icon__fallback-text">{{ 'general.search.submit' | t }}</span>
+                </button>
+              </form>     
+            </div> 
+          </div> 
+          
+          <div class="is-mobile-nav-menu nav-menu visible-xs" id="is-mobile-nav-menu">
+            <ul class="nav navbar-nav hoverMenuWrapper">
+              {% for l in linklists[section.settings.main_linklist].links %}
+              {% include 'header_navigation' %}
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% include 'mobile-menu',nav_link: section.settings.main_linklist %}
+{% if section.settings.nav_sticky %}
+<script>
+  function addaffix(scr){
+    if($(window).innerWidth() >= 992){
+      if(scr > 150){
+        if(!$('.main-header').hasClass('baffix')){
+          $('.main-header').addClass('affix').addClass('animated');
+        }
+      }
+      else{
+        if($('.main-header').hasClass('affix')){          
+          $('.main-header').removeClass('affix').removeClass('animated');
+        }
+      }
+    }
+    else $('.main-header').removeClass('affix');
+  }
+  $(window).scroll(function() {
+    var scrollTop = $(this).scrollTop();
+    addaffix(scrollTop);
+  });
+  $( window ).resize(function() {
+    var scrollTop = $(this).scrollTop();
+	addaffix(scrollTop);
+  });
+</script>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+	{
+        "type": "header",
+        "content": "General Setting"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image"
+    },       
+	{
+        "type": "header",
+        "content": "Welcome text"
+    },
+	{
+        "type": "checkbox",
+        "id": "show_phone",
+        "label": "Show?"
+    },
+	{
+        "type": "textarea",
+        "id": "phone_text",
+        "label": "Input Welcome Text"
+    },
+	{
+        "type": "header",
+        "content": "Onformation"
+    },
+	{
+        "type": "checkbox",
+        "id": "show_location",
+        "label": "Show?"
+    },
+	{
+        "type": "text",
+        "id": "loc_text",
+        "label": "Phone Text"
+    },
+	{
+        "type": "text",
+        "id": "location",
+        "label": "Store Locator"
+    }, 
+    {
+        "type": "url",
+        "id": "link_loc",
+        "label": "Store Locator link"
+    },
+	{
+        "type": "header",
+        "content": "All Collections"
+    },
+	{
+        "type": "header",
+        "content": "Navigation Setting"
+      },
+      {
+        "type": "link_list",
+        "id": "main_linklist",
+        "label": "Select Link list for main Navigation",
+        "default": "main-menu"
+      }, 	  
+	  {
+        "type": "checkbox",
+        "id": "nav_sticky",
+        "label": "Active Sticky (float) Navigation?",
+        "default": true
+      },
+	  {
+        "type": "header",
+        "content": "Mega Menu"
+      },
+	  {
+		"type":"textarea",
+		"id":"mega_item",
+		"label":"Mega menu item comma seprated"
+	  }
+      
+  ],
+"blocks": [
+	{
+      "type": "mega_menu_handle",
+      "name": "Mega menu Handle",
+      "settings": [
+		{
+			"type":"text",
+			"id":"mega_handle",
+			"label":"Menu Title"
+		}
+      ]
+    },
+    {
+      "type": "mega_menu_items",
+      "name": "Mega inner Items",
+      "settings": [
+		{
+			"type":"text",
+			"id":"mega_title",
+			"label":"Menu Title"
+		},
+		{
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "image_picker",
+          "id": "image1",
+          "label": "Image"
+        },
+		{
+			"type":"text",
+			"id":"heading1",
+			"label":"Heading"
+		},
+        {
+          "type": "url",
+          "id": "link1",
+          "label": "Link"
+        },
+		{
+          "type": "image_picker",
+          "id": "image2",
+          "label": "Image"
+        },
+		{
+			"type":"text",
+			"id":"heading2",
+			"label":"Heading"
+		},
+        {
+          "type": "url",
+          "id": "link2",
+          "label": "Link"
+        },
+        {
+          "type": "image_picker",
+          "id": "image3",
+          "label": "Image"
+        },
+		{
+			"type":"text",
+			"id":"heading3",
+			"label":"Heading"
+		},
+        {
+          "type": "url",
+          "id": "link3",
+          "label": "Link"
+        },
+		{
+          "type": "image_picker",
+          "id": "image4",
+          "label": "Image"
+        },
+		{
+			"type":"text",
+			"id":"heading4",
+			"label":"Heading"
+		},
+        {
+          "type": "url",
+          "id": "link4",
+          "label": "Link"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

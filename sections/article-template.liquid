@@ -1,0 +1,211 @@
+<section class="article-heading">
+  <div class="article-heading-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="article-heading-inner">
+          <h1 class="page-title"><span>{{ 'blogs.article.title' | t }}</span></h1>
+          <div class="breadcrumb clearfix">
+            <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="{{ shop.url }}" title="{{ shop.name | escape }}" itemprop="url"><span itemprop="title">{{ 'general.breadcrumbs.home' | t }}</span></a></span>
+            <span class="arrow-space">&#62;</span>
+            <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">{{ blog.title | link_to: blog.url }}</span>
+            <span class="arrow-space">&#62;</span>
+            <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+              <a href="{{ article.url }}" title="{{ article.title }}">{{ article.title }}</a>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="article-content">
+  <div class="article-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="article-inner">
+          {% paginate article.comments by 100 %}
+
+            <div class="col-sm-9 article">
+              <!-- Begin article -->
+
+              <div class="group_content_article">
+                <div class="article-image">
+                  <a href="{{ article.url }}"><img src="{{article.image | img_url: 'master'}}" alt="" /></a>
+                </div>
+                <div class="group-blog-date">
+                  <div class="article-date">
+                    <p>
+                      <span>{{ article.published_at | date: "%d" }}</span>
+                      <small>{{ article.published_at | date: "%b" }}</small>                        
+                    </p>
+                  </div>                    
+                </div>
+                <div class="group-blog-title">
+                  <h2 class="article-name"><a href="{{ article.url }}">{{ article.title }}</a></h2>
+                </div>
+                <ul class="article-info  list-inline">          
+                  {% if article.comments_enabled? %}
+                  <li class="article-cmt">
+                    {{ article.comments_count }} {{ article.comments_count | pluralize: 'Comment', 'Comment(s)' }}
+                  </li>
+                  <li>/</li>
+                  {% endif %}
+                  <li class="article-author">
+                    {{'blogs.article.sidebar_author'| t : author: article.author }}
+                  </li>
+                </ul>   
+                <div class="article-content">{{ article.content }}</div>
+                <div class="article-bottom">
+                  <ul>
+                    <li class="article-tags">
+                      <span>{{ 'blogs.sidebar.tags' | t }}: </span>
+                      {% for tag in article.tags %}
+                      {% if tag == article.tags.last %} {{ tag | link_to_tag: tag }} {% else %} {{ tag | link_to_tag: tag }}, {% endif%}
+                      {% endfor %}
+                    </li>
+                    <li class="article-share">
+                      <!-- Begin social buttons -->
+                      {% if section.settings.show_share_buttons %}
+                      <div>
+                        {% include 'social-sharing' %}
+                      </div>
+                      {% endif %}
+                    </li>
+                  </ul>
+                </div>
+              </div>              
+
+              <!-- Begin comments -->
+
+              {% if blog.comments_enabled? %}
+              <div id="comments" class="comments">
+
+                {% if article.comments.size > 0 or comment.created_at %}
+                <h4 class="comment-title">{{ 'blogs.comments.title' | t }}</h4>
+
+                {% if comment and comment.created_at %}
+                <div id="comment-{{ comment.id }}" class="comment border-bottom clearfix">
+                  <h3 class="author">
+                    {% capture comment_date %}<strong><time datetime=\"{{ comment.created_at | date: format: 'short' }}\">{{ comment.created_at | date: format: 'short' }}</time></strong>{% endcapture %}{{ 'blogs.article.comment_meta_html' | t: author: comment.author, date: comment_date }}</h3>
+                  <div>{{ comment.content }}</div>
+                </div> <!-- /.comment -->
+                {% endif %}
+
+                {% for comment in article.comments %}
+                <div id="comment-{{ comment.id }}" class="comment border-bottom clearfix">
+                  <h3 class="author">{{ 'blogs.article.comment_meta_html' | t: author: comment.author, date: '' }}<strong><time datetime=\"{{ comment.created_at | date: format: 'short' }}\">{{ comment.created_at | date: format: 'short' }}</strong></h3>
+                    <div>{{ comment.content }}</div>
+                    </div>
+                  {% endfor %}
+
+                  {% include 'pagination' %}
+
+                  {% endif %}
+                  <div class="comment_form">
+                    {% form "new_comment", article %}
+                    <h4 class="comment-title">{{ 'blogs.comments.form_title' | t }}</h4>
+
+                    {% if form.posted_successfully? %}
+                    {% if blog.moderated? %}
+                    <p class="subtext success">{{ 'blogs.comments.success_moderated' | t }}</p>
+                    {% else %}
+                    <p class="subtext success">{{ 'blogs.comments.success' | t }}</p>
+                    {% endif %}
+                    {% endif %}
+
+                    {% if form.errors %}
+                    <p class="subtext error">{{ 'blogs.comments.error' | t }}</p>
+                    {% endif %}
+
+                    <label for="comment_author">{{ 'blogs.comments.name' | t }}</label>
+                    <input type="text" id="comment_author" name="comment[author]" size="40" class="text" />
+                    <label for="comment_email">{{ 'blogs.comments.email' | t }}</label>
+                    <input type="text" id="comment_email" name="comment[email]" size="40" class="text" />
+                    <label for="comment_body">{{ 'blogs.comments.message' | t }}</label>
+                    <textarea id="comment_body" name="comment[body]" cols="40" rows="5" class="text">{{form.body}}</textarea>
+
+                    <input type="submit" value="{{ 'blogs.comments.post' | t }}" class="btn" id="comment-submit" />
+
+                    {% if blog.moderated? %}
+                    <div class="notice">{{ 'blogs.comments.moderated' | t }}</div>
+                    {% endif %}
+
+                    {% endform %}
+                  </div>
+                </div> 
+                {% endif %}
+                <!-- End comments -->
+              </div>            
+            <!-- Begin sidebar -->
+            {% include 'blog_sidebar' %}
+            <!-- End sidebar -->
+            {% endpaginate %}          
+          </div>
+        </div>
+      </div>
+    </div>
+    </section>
+
+{% schema %}
+{
+  "name": "Posts",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_share_buttons",
+      "label": "Show social sharing buttons",
+      "default": true
+    },
+  	{
+        "type": "header",
+        "content": "Blog Sidebar"
+      },
+      {
+        "type": "checkbox",
+        "id": "blog_recent_show",
+        "label": "Display this widget?",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "blog_recent_title",
+        "label": "Title",
+        "default": "Recent articles"
+      },
+      {
+        "type": "blog",
+        "id": "blog_recent_blog",
+        "label": "Use blog"
+      },
+      {
+        "type": "text",
+        "id": "blog_recent_number",
+        "label": "Number of",
+        "default": "3"
+      },
+      {
+        "type": "paragraph",
+        "content": "Sidebar Banner"
+      },
+      {
+        "type": "checkbox",
+        "id": "side_banner_show",
+        "label": "Sidebar Banner",
+        "default": true
+      },
+      {
+        "type": "image_picker",
+        "id": "blog_sidebar",
+        "label": "Upload image for sale banner",
+        "info": "PNG format"
+      },
+      {
+        "type": "image_picker",
+        "id": "blog_sidebar2",
+        "label": "Upload image for support banner",
+        "info": "PNG format"
+      }
+  ]
+}
+{% endschema %}

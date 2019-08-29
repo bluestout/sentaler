@@ -1,0 +1,137 @@
+<section class="blog-heading">
+  <div class="blog-heading-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="blog-heading-inner">
+          <h1 class="page-title"><span>{{ blog.title }}</span></h1>
+          <div class="breadcrumb clearfix">
+            <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="{{ shop.url }}" title="{{ shop.name | escape }}" itemprop="url"><span itemprop="title">{{ 'general.breadcrumbs.home' | t }}</span></a></span>
+            <span class="arrow-space">&#62;</span>
+            <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+              <a href="{{ blog.url }}" title="{{ blog.title }}">{{ blog.title }}</a>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="blog-content">
+  <div class="blog-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="blog-inner">
+          <div id="blog">   
+            {% paginate blog.articles by section.settings.blog_num %}  
+              <div class="col-sm-9 articles">
+                {% for article in blog.articles %}
+                <div class="article clearfix">
+                  <div class="group-blog-date">
+                    <div class="article-date">
+                      <p>
+                        <span>{{ article.published_at | date: "%d" }}</span>
+                        <small>{{ article.published_at | date: "%b" }}</small>                        
+                      </p>
+                    </div>                    
+                  </div>
+                    <div class="article-image">
+                      <a href="{{ article.url }}"><img src="{{article.image | img_url: 'master'}}" alt="" /></a>
+                    </div> 
+                  <div class="group-blog-title">
+                    <h2 class="article-name"><a href="{{ article.url }}">{{ article.title }}</a></h2>
+                  </div>
+                  <ul class="article-info  list-inline">          
+                    {% if article.comments_enabled? %}
+                    <li class="article-cmt">
+                      {{ article.comments_count }} {{ article.comments_count | pluralize: 'Comment', 'Comment(s)' }}
+                    </li>
+                    <li>/</li>
+                    {% endif %}
+                    <li class="article-author">
+                      {{'blogs.article.sidebar_author'| t : author: article.author }}
+                    </li>
+                  </ul>
+                  <div class="article-content">{{ article.content | strip_html | truncatewords: 80 }}</div>
+                  <div class="article-post-action">
+                    <a class="enable hidden-xs" href="{{article.url}}#comments" title="Add your thoughts"><i class="fa fa-angle-double-right"></i> {{'blogs.article.action'|t}}</a>
+                  </div>
+                </div>                
+                {% endfor %}
+                {% include 'pagination' %}
+              </div>   
+            {% include 'blog_sidebar' %}
+            {% endpaginate %}                        
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Blog pages",
+  "settings": [
+    {
+        "type": "header",
+        "content": "Blog setting"
+      },
+      {
+        "type": "text",
+        "id": "blog_num",
+        "label": "Number Post per page",
+        "default": "3"
+      },
+      {
+        "type": "header",
+        "content": "Blog Sidebar"
+      },
+      {
+        "type": "checkbox",
+        "id": "blog_recent_show",
+        "label": "Display this widget?",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "blog_recent_title",
+        "label": "Title",
+        "default": "Recent articles"
+      },
+      {
+        "type": "blog",
+        "id": "blog_recent_blog",
+        "label": "Use blog"
+      },
+      {
+        "type": "text",
+        "id": "blog_recent_number",
+        "label": "Number of",
+        "default": "3"
+      },
+      {
+        "type": "paragraph",
+        "content": "Sidebar Banner"
+      },
+      {
+        "type": "checkbox",
+        "id": "side_banner_show",
+        "label": "Sidebar Banner",
+        "default": true
+      },
+      {
+        "type": "image_picker",
+        "id": "blog_sidebar",
+        "label": "Upload image for sale banner",
+        "info": "PNG format"
+      },
+      {
+        "type": "image_picker",
+        "id": "blog_sidebar2",
+        "label": "Upload image for support banner",
+        "info": "PNG format"
+      }
+  ]
+}
+{% endschema %}

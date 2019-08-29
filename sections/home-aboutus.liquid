@@ -1,0 +1,106 @@
+<section data-section-id="{{ section.id }}">
+  <div class="container">
+    <div class="row">
+      <div class="aboutus">
+        <div class="home-title">{{ section.settings.about_title }}</div>
+        <div class="home-subtitle">{{ section.settings.about_stitle }}</div>
+        <div class="home-desctext">
+          {{ section.settings.about_text }}          
+        </div>
+        <div class="home-action">          
+          <a href="{{ section.settings.about_readmorelink }}">{{ section.settings.about_readmoretext }}</a>
+        </div>
+        <div class="home-content">
+          {% case section.blocks.size %}
+            {% when 1 %}
+              {%- assign column_size = 'col-1' -%}
+              {%- assign column_class = '100%' -%}
+            {% when 2 %}
+              {%- assign column_size = 'col-2' -%}
+              {%- assign column_class = '50%' -%}
+          {% when 3 %}
+              {%- assign column_size = 'col-3' -%}
+              {%- assign column_class = '33.33333%' -%}
+          {% when 4 %}
+              {%- assign column_size = 'col-4' -%}
+              {%- assign column_class = '25%' -%}
+          {% when 5 %}
+              {%- assign column_size = 'col-5' -%}
+              {%- assign column_class = '20%' -%}
+            {% else %}
+              {%- assign column_size = 'col-6' -%}
+              {%- assign column_class = '16.66666%' -%}
+          {% endcase %}
+          {% for block in section.blocks %}
+          {%- assign img_url = '' -%}
+          {% if block.settings.image != blank %}
+          {%- assign img_url = block.settings.image | img_url: "1170x500", crop: 'center' -%}
+          {% else %}
+          {%- assign img_url = '170x170.png' | asset_url -%}
+          {% endif %}      
+          <div class="banner-element" style="float:left; width:{{ column_class }}"><a href="{{block.settings.link}}"><img src="{{ img_url }}" alt="" /></a></div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "About us",
+  "class": "index-section index-section--flush",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "text",
+      "id": "about_title",
+      "label": "Title"
+    },
+	{
+      "type": "text",
+      "id": "about_stitle",
+      "label": "Sub Title"
+    },
+	{
+      "type": "textarea",
+      "id": "about_text",
+      "label": "Explain text"
+    },
+	{
+      "type": "text",
+      "id": "about_readmoretext",
+      "label": "Read more text"
+    },
+	{
+      "type": "url",
+      "id": "about_readmorelink",
+      "label": "Read more text"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link",
+          "info": "Optional"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "About us",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

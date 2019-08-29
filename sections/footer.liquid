@@ -1,0 +1,549 @@
+{%- assign social_icons = false -%}
+
+{% if
+  settings.social_twitter_link != blank
+  or settings.social_facebook_link != blank
+  or settings.social_pinterest_link != blank
+  or settings.social_instagram_link != blank
+  or settings.social_tumblr_link != blank
+  or settings.social_snapchat_link != blank
+  or settings.social_youtube_link != blank
+  or settings.social_vimeo_link != blank
+  or template contains 'article'
+  or template contains 'blog'
+%}
+  {%- assign social_icons = true -%}
+{% endif %}
+
+<footer class="site-footer" role="contentinfo">  
+
+  <section class="footertop-block">
+    <div class="footertop_wrapper">
+      <div class="container">
+        <div class="row">
+          <div class="footertop_inner">
+       		<div class="footnews col-sm-12">
+                  <div class="footer-title">{{ section.settings.footer_newsletter_heading }}</div>
+                  <div class="footer-stitle">{{ section.settings.footer_newsletter_subtext }}</div>
+                  <div class="footer-content">
+                    <div class="newsletter-form">
+                      <form action="{{ section.settings.mailing_list_form_action }}" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank">            
+                        <div class="input-group">
+                          <input type="hidden" name="MERGE1" id="MERGE1" size="25" value="First Name">
+                          <input type="hidden" name="MERGE2" id="MERGE2" size="25" value="Last Name">
+                          <input type="email" autocapitalize="off" autocorrect="off" name="MERGE0" id="MERGE0" value="" placeholder="{{ 'general.newsletter_form.email_placeholder' | t }}">                
+                          <span class="input-group__btn">
+                            <button type="submit" class="btn newsletter__submit" name="subscribe" id="subscribe">
+                              <span class="newsletter__submit-text--large">{{ 'general.newsletter_form.submit' | t }}</span>
+                            </button>
+                          </span>
+                        </div>
+                      </form> 
+                    </div>
+                  </div>
+                </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+ 
+  <section class="footer_info-block">
+    <div class="footer_info_wrapper">
+      <div class="container">
+        <div class="row">
+          <div class="footer_info_inner">
+            <div class="footer_info_group">
+              <div class="footer_inf-content">
+                <div class="col-sm-9">
+                {% for i in (1..4) %}
+                  {% assign footmenu = 'footer_link' | append: i %}
+                  {% assign footmenu = section.settings[footmenu] %}
+                 
+                  {% if footmenu %}
+                  
+                  <ul class="col-sm-3">
+                    <span class="foot_head">{{linklists[footmenu].title}} <span class="sticon-caret-u-small"></span></span>
+                    <div>
+                  	{% for l in linklists[footmenu].links %}
+                    
+                  <li>
+                    <a href="{{ l.url }}"><span>{{ l.title }}</span></a>
+                  </li>
+                     
+                  {% endfor %}
+                    </div>
+                    {% endif %}
+                  </ul>
+                {% endfor %}
+                </div>
+                <div class="col-sm-3 foot-info">
+                  <span class="foot_head">{{section.settings.footerinfo_head}}</span>
+                  {% if section.settings.footerinfo_image %}
+                  <img src="{{section.settings.footerinfo_image | img_url: "master" }}"/>
+                  {% endif %}
+                  <div class="content">{{section.settings.footertop_text}}</div>
+                </div>
+               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+  <section class="copy-right">
+    <div class="copy-right-wrapper">
+      <div class="container">
+        <div class="row">
+          <div class="copy-right-group">
+             <div class="col-sm-9">
+              <div class="col-sm-4 pad_0">
+         	  <div class="shipto">
+                <span class="ship_l">Ship to:</span>
+                <span class="ship_country">Czechia</span>
+            	<span class="sticon-caret-d-small"></span>
+              </div>
+                <div class="shipinfo" style="display:none;">
+    <span>We ship to <span class="ship_country">United States</span>.</span>
+    <p>You can change shipping preferences. Be advised that changing your location will remove all the contents from your shopping bag.
+    </p>
+    <span class="ship_l">Ship to:</span>
+    <div class="country_select">
+        <select id="country" name="country" class="form-control">
+                <option value="Afghanistan">Afghanistan</option>
+                <option value="Åland Islands">Åland Islands</option>
+                <option value="Albania">Albania</option>
+                <option value="Algeria">Algeria</option>
+                <option value="American Samoa">American Samoa</option>
+                <option value="Andorra">Andorra</option>
+                <option value="Angola">Angola</option>
+                <option value="Anguilla">Anguilla</option>
+                <option value="Antarctica">Antarctica</option>
+                <option value="Antigua and Barbuda">Antigua and Barbuda</option>
+                <option value="Argentina">Argentina</option>
+                <option value="Armenia">Armenia</option>
+                <option value="Aruba">Aruba</option>
+                <option value="Australia">Australia</option>
+                <option value="Austria">Austria</option>
+                <option value="Azerbaijan">Azerbaijan</option>
+                <option value="Bahamas">Bahamas</option>
+                <option value="Bahrain">Bahrain</option>
+                <option value="Bangladesh">Bangladesh</option>
+                <option value="Barbados">Barbados</option>
+                <option value="Belarus">Belarus</option>
+                <option value="Belgium">Belgium</option>
+                <option value="Belize">Belize</option>
+                <option value="Benin">Benin</option>
+                <option value="Bermuda">Bermuda</option>
+                <option value="Bhutan">Bhutan</option>
+                <option value="Bolivia">Bolivia</option>
+                <option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option>
+                <option value="Botswana">Botswana</option>
+                <option value="Bouvet Island">Bouvet Island</option>
+                <option value="Brazil">Brazil</option>
+                <option value="British Indian Ocean Territory">British Indian Ocean Territory</option>
+                <option value="Brunei Darussalam">Brunei Darussalam</option>
+                <option value="Bulgaria">Bulgaria</option>
+                <option value="Burkina Faso">Burkina Faso</option>
+                <option value="Burundi">Burundi</option>
+                <option value="Cambodia">Cambodia</option>
+                <option value="Cameroon">Cameroon</option>
+                <option value="Canada">Canada</option>
+                <option value="Cape Verde">Cape Verde</option>
+                <option value="Cayman Islands">Cayman Islands</option>
+                <option value="Central African Republic">Central African Republic</option>
+                <option value="Chad">Chad</option>
+                <option value="Chile">Chile</option>
+                <option value="China">China</option>
+                <option value="Christmas Island">Christmas Island</option>
+                <option value="Cocos (Keeling) Islands">Cocos (Keeling) Islands</option>
+                <option value="Colombia">Colombia</option>
+                <option value="Comoros">Comoros</option>
+                <option value="Congo">Congo</option>
+                <option value="Congo, The Democratic Republic of The">Congo, The Democratic Republic of The</option>
+                <option value="Cook Islands">Cook Islands</option>
+                <option value="Costa Rica">Costa Rica</option>
+                <option value="Cote D'ivoire">Cote D'ivoire</option>
+                <option value="Croatia">Croatia</option>
+                <option value="Cuba">Cuba</option>
+                <option value="Cyprus">Cyprus</option>
+                <option value="Czech Republic">Czech Republic</option>
+                <option value="Denmark">Denmark</option>
+                <option value="Djibouti">Djibouti</option>
+                <option value="Dominica">Dominica</option>
+                <option value="Dominican Republic">Dominican Republic</option>
+                <option value="Ecuador">Ecuador</option>
+                <option value="Egypt">Egypt</option>
+                <option value="El Salvador">El Salvador</option>
+                <option value="Equatorial Guinea">Equatorial Guinea</option>
+                <option value="Eritrea">Eritrea</option>
+                <option value="Estonia">Estonia</option>
+                <option value="Ethiopia">Ethiopia</option>
+                <option value="Falkland Islands (Malvinas)">Falkland Islands (Malvinas)</option>
+                <option value="Faroe Islands">Faroe Islands</option>
+                <option value="Fiji">Fiji</option>
+                <option value="Finland">Finland</option>
+                <option value="France">France</option>
+                <option value="French Guiana">French Guiana</option>
+                <option value="French Polynesia">French Polynesia</option>
+                <option value="French Southern Territories">French Southern Territories</option>
+                <option value="Gabon">Gabon</option>
+                <option value="Gambia">Gambia</option>
+                <option value="Georgia">Georgia</option>
+                <option value="Germany">Germany</option>
+                <option value="Ghana">Ghana</option>
+                <option value="Gibraltar">Gibraltar</option>
+                <option value="Greece">Greece</option>
+                <option value="Greenland">Greenland</option>
+                <option value="Grenada">Grenada</option>
+                <option value="Guadeloupe">Guadeloupe</option>
+                <option value="Guam">Guam</option>
+                <option value="Guatemala">Guatemala</option>
+                <option value="Guernsey">Guernsey</option>
+                <option value="Guinea">Guinea</option>
+                <option value="Guinea-bissau">Guinea-bissau</option>
+                <option value="Guyana">Guyana</option>
+                <option value="Haiti">Haiti</option>
+                <option value="Heard Island and Mcdonald Islands">Heard Island and Mcdonald Islands</option>
+                <option value="Holy See (Vatican City State)">Holy See (Vatican City State)</option>
+                <option value="Honduras">Honduras</option>
+                <option value="Hong Kong">Hong Kong</option>
+                <option value="Hungary">Hungary</option>
+                <option value="Iceland">Iceland</option>
+                <option value="India">India</option>
+                <option value="Indonesia">Indonesia</option>
+                <option value="Iran, Islamic Republic of">Iran, Islamic Republic of</option>
+                <option value="Iraq">Iraq</option>
+                <option value="Ireland">Ireland</option>
+                <option value="Isle of Man">Isle of Man</option>
+                <option value="Israel">Israel</option>
+                <option value="Italy">Italy</option>
+                <option value="Jamaica">Jamaica</option>
+                <option value="Japan">Japan</option>
+                <option value="Jersey">Jersey</option>
+                <option value="Jordan">Jordan</option>
+                <option value="Kazakhstan">Kazakhstan</option>
+                <option value="Kenya">Kenya</option>
+                <option value="Kiribati">Kiribati</option>
+                <option value="Korea, Democratic People's Republic of">Korea, Democratic People's Republic of</option>
+                <option value="Korea, Republic of">Korea, Republic of</option>
+                <option value="Kuwait">Kuwait</option>
+                <option value="Kyrgyzstan">Kyrgyzstan</option>
+                <option value="Lao People's Democratic Republic">Lao People's Democratic Republic</option>
+                <option value="Latvia">Latvia</option>
+                <option value="Lebanon">Lebanon</option>
+                <option value="Lesotho">Lesotho</option>
+                <option value="Liberia">Liberia</option>
+                <option value="Libyan Arab Jamahiriya">Libyan Arab Jamahiriya</option>
+                <option value="Liechtenstein">Liechtenstein</option>
+                <option value="Lithuania">Lithuania</option>
+                <option value="Luxembourg">Luxembourg</option>
+                <option value="Macao">Macao</option>
+                <option value="Macedonia, The Former Yugoslav Republic of">Macedonia, The Former Yugoslav Republic of</option>
+                <option value="Madagascar">Madagascar</option>
+                <option value="Malawi">Malawi</option>
+                <option value="Malaysia">Malaysia</option>
+                <option value="Maldives">Maldives</option>
+                <option value="Mali">Mali</option>
+                <option value="Malta">Malta</option>
+                <option value="Marshall Islands">Marshall Islands</option>
+                <option value="Martinique">Martinique</option>
+                <option value="Mauritania">Mauritania</option>
+                <option value="Mauritius">Mauritius</option>
+                <option value="Mayotte">Mayotte</option>
+                <option value="Mexico">Mexico</option>
+                <option value="Micronesia, Federated States of">Micronesia, Federated States of</option>
+                <option value="Moldova, Republic of">Moldova, Republic of</option>
+                <option value="Monaco">Monaco</option>
+                <option value="Mongolia">Mongolia</option>
+                <option value="Montenegro">Montenegro</option>
+                <option value="Montserrat">Montserrat</option>
+                <option value="Morocco">Morocco</option>
+                <option value="Mozambique">Mozambique</option>
+                <option value="Myanmar">Myanmar</option>
+                <option value="Namibia">Namibia</option>
+                <option value="Nauru">Nauru</option>
+                <option value="Nepal">Nepal</option>
+                <option value="Netherlands">Netherlands</option>
+                <option value="Netherlands Antilles">Netherlands Antilles</option>
+                <option value="New Caledonia">New Caledonia</option>
+                <option value="New Zealand">New Zealand</option>
+                <option value="Nicaragua">Nicaragua</option>
+                <option value="Niger">Niger</option>
+                <option value="Nigeria">Nigeria</option>
+                <option value="Niue">Niue</option>
+                <option value="Norfolk Island">Norfolk Island</option>
+                <option value="Northern Mariana Islands">Northern Mariana Islands</option>
+                <option value="Norway">Norway</option>
+                <option value="Oman">Oman</option>
+                <option value="Pakistan">Pakistan</option>
+                <option value="Palau">Palau</option>
+                <option value="Palestinian Territory, Occupied">Palestinian Territory, Occupied</option>
+                <option value="Panama">Panama</option>
+                <option value="Papua New Guinea">Papua New Guinea</option>
+                <option value="Paraguay">Paraguay</option>
+                <option value="Peru">Peru</option>
+                <option value="Philippines">Philippines</option>
+                <option value="Pitcairn">Pitcairn</option>
+                <option value="Poland">Poland</option>
+                <option value="Portugal">Portugal</option>
+                <option value="Puerto Rico">Puerto Rico</option>
+                <option value="Qatar">Qatar</option>
+                <option value="Reunion">Reunion</option>
+                <option value="Romania">Romania</option>
+                <option value="Russian Federation">Russian Federation</option>
+                <option value="Rwanda">Rwanda</option>
+                <option value="Saint Helena">Saint Helena</option>
+                <option value="Saint Kitts and Nevis">Saint Kitts and Nevis</option>
+                <option value="Saint Lucia">Saint Lucia</option>
+                <option value="Saint Pierre and Miquelon">Saint Pierre and Miquelon</option>
+                <option value="Saint Vincent and The Grenadines">Saint Vincent and The Grenadines</option>
+                <option value="Samoa">Samoa</option>
+                <option value="San Marino">San Marino</option>
+                <option value="Sao Tome and Principe">Sao Tome and Principe</option>
+                <option value="Saudi Arabia">Saudi Arabia</option>
+                <option value="Senegal">Senegal</option>
+                <option value="Serbia">Serbia</option>
+                <option value="Seychelles">Seychelles</option>
+                <option value="Sierra Leone">Sierra Leone</option>
+                <option value="Singapore">Singapore</option>
+                <option value="Slovakia">Slovakia</option>
+                <option value="Slovenia">Slovenia</option>
+                <option value="Solomon Islands">Solomon Islands</option>
+                <option value="Somalia">Somalia</option>
+                <option value="South Africa">South Africa</option>
+                <option value="South Georgia and The South Sandwich Islands">South Georgia and The South Sandwich Islands</option>
+                <option value="Spain">Spain</option>
+                <option value="Sri Lanka">Sri Lanka</option>
+                <option value="Sudan">Sudan</option>
+                <option value="Suriname">Suriname</option>
+                <option value="Svalbard and Jan Mayen">Svalbard and Jan Mayen</option>
+                <option value="Swaziland">Swaziland</option>
+                <option value="Sweden">Sweden</option>
+                <option value="Switzerland">Switzerland</option>
+                <option value="Syrian Arab Republic">Syrian Arab Republic</option>
+                <option value="Taiwan, Province of China">Taiwan, Province of China</option>
+                <option value="Tajikistan">Tajikistan</option>
+                <option value="Tanzania, United Republic of">Tanzania, United Republic of</option>
+                <option value="Thailand">Thailand</option>
+                <option value="Timor-leste">Timor-leste</option>
+                <option value="Togo">Togo</option>
+                <option value="Tokelau">Tokelau</option>
+                <option value="Tonga">Tonga</option>
+                <option value="Trinidad and Tobago">Trinidad and Tobago</option>
+                <option value="Tunisia">Tunisia</option>
+                <option value="Turkey">Turkey</option>
+                <option value="Turkmenistan">Turkmenistan</option>
+                <option value="Turks and Caicos Islands">Turks and Caicos Islands</option>
+                <option value="Tuvalu">Tuvalu</option>
+                <option value="Uganda">Uganda</option>
+                <option value="Ukraine">Ukraine</option>
+                <option value="United Arab Emirates">United Arab Emirates</option>
+                <option value="United Kingdom">United Kingdom</option>
+                <option value="United States" selected>United States</option>
+                <option value="United States Minor Outlying Islands">United States Minor Outlying Islands</option>
+                <option value="Uruguay">Uruguay</option>
+                <option value="Uzbekistan">Uzbekistan</option>
+                <option value="Vanuatu">Vanuatu</option>
+                <option value="Venezuela">Venezuela</option>
+                <option value="Viet Nam">Viet Nam</option>
+                <option value="Virgin Islands, British">Virgin Islands, British</option>
+                <option value="Virgin Islands, U.S.">Virgin Islands, U.S.</option>
+                <option value="Wallis and Futuna">Wallis and Futuna</option>
+                <option value="Western Sahara">Western Sahara</option>
+                <option value="Yemen">Yemen</option>
+                <option value="Zambia">Zambia</option>
+                <option value="Zimbabwe">Zimbabwe</option>
+            </select>
+      <span class="sticon-caret-d-small"></span>
+    </div>
+  </div>
+              <span class="foot_copy">  &copy; {{ 'now' | date: "%Y" }} {{ shop.name }}, All Right Reserved</span>
+               
+              </div>
+              <div class="col-sm-8">
+              <div class="fi-follow">
+                <div class="footer-title">{{ section.settings.follow_text }}</div>
+                  
+                  <div class="footer-content">                 
+                    <div class="followus-content">
+                      {% if section.settings.facebook_link != blank %}<a href="{{ section.settings.facebook_link }}" title="Facebook" class="icon-social facebook" data-toggle="tooltip" data-placement="top"><span class="sticon-fb"></span></a>{% endif %}
+                      {% if section.settings.twitter_link != blank %}<a href="{{ section.settings.twitter_link }}" title="Twitter" class="icon-social twitter" data-toggle="tooltip" data-placement="top"><span class="sticon-tw"></span></a>{% endif %}
+                      {% if section.settings.instagram_link != blank %}<a href="{{ settings.instagram_link }}" title="Instagram" class="icon-social instagram" data-toggle="tooltip" data-placement="top"><span class="sticon-in"></span></a>{% endif %}
+                      {% if section.settings.google_link != blank %}<a href="{{ section.settings.google_link }}" title="Google+" class="icon-social google" data-toggle="tooltip" data-placement="top"><span class="sticon-email"></span></a>{% endif %}
+                      {% if section.settings.pinterest_link != blank %}<a href="{{ section.settings.pinterest_link }}" title="Pinterest" class="icon-social pinterest" data-toggle="tooltip" data-placement="top"><span class="fa-stack fa-lg"><i class="fa fa-pinterest-p fa-stack-1x fa-inverse"></i></span></a>{% endif %}            
+                      {% if section.settings.youtube_link != blank %}<a href="{{ section.settings.youtube_link }}" title="Youtube" class="icon-social youtube" data-toggle="tooltip" data-placement="top"><span class="sticon-yo"></span></a>{% endif %}
+                      
+                      {% if section.settings.atom_link != blank %}<a href="{{ section.settings.atom_link }}" title="{{ 'layout.footer.news' | t: shop: shop.name }}" class="icon-social atom" data-toggle="tooltip" data-placement="top"><span class="fa-stack fa-lg"><i class="fa fa-share-alt fa-stack-1x fa-inverse"></i></span></a>{% endif %}
+                      {% if section.settings.vimeo_link != blank %}<a href="{{ section.settings.vimeo_link }}" title="Vimeo" class="icon-social vimeo" data-toggle="tooltip" data-placement="top"><span class="fa-stack fa-lg"><i class="fa fa-vimeo-square fa-stack-1x fa-inverse"></i></span></a>{% endif %}
+                      {% if section.settings.tumblr_link != blank %}<a href="{{ section.settings.tumblr_link }}" title="Tumblr" class="icon-social tumblr" data-toggle="tooltip" data-placement="top"><span class="fa-stack fa-lg"><i class="fa fa-tumblr fa-stack-1x fa-inverse"></i></span></a>{% endif %}
+                    </div> 
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-3 pad_0">
+              <div class="col-sm-12 foot_bot pad_0">
+                <span class="foot_head">{{section.settings.footser_head}}</span>
+                <div class="content">{{section.settings.footser_info}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [	
+	  {
+        "type": "header",
+        "content": "Footer Top"
+      },
+	  {
+        "type": "header",
+        "content": "Newsletter"
+      },
+      {
+          "type": "text",
+          "id": "footer_newsletter_heading",
+          "label": "Heading"
+      },
+      {
+          "type": "text",
+          "id": "footer_newsletter_subtext",
+          "label": "Explain text"
+      },
+      {
+          "type": "textarea",
+          "id": "mailing_list_form_action",
+          "label": "Mailchimp form action URL",
+          "info": "[Find your MailChimp form action URL](https:\/\/docs.shopify.com\/manual\/configuration\/store-customization\/communicating-with-customers\/accounts-and-newsletters\/get-a-mailchimp-form-action-url)."
+      },
+	  
+      {
+        "type": "link_list",
+        "id": "footer_link1",
+        "label": "Select Link list"
+      },
+	  {
+        "type": "link_list",
+        "id": "footer_link2",
+        "label": "Select Link list"
+      },
+	  {
+        "type": "link_list",
+        "id": "footer_link3",
+        "label": "Select Link list"
+      },
+	  {
+        "type": "link_list",
+        "id": "footer_link4",
+        "label": "Select Link list"
+      },
+	  {
+        "type": "header",
+        "content": "Footer Information"
+      },
+	  {
+        "type": "text",
+        "id": "footerinfo_head",
+        "label": "Heading"
+      },
+	  {
+        "type": "image_picker",
+        "id": "footerinfo_image",
+        "label": "Image"
+      },
+      {
+        "type": "textarea",
+        "id": "footertop_text",
+        "label": "Explain text"
+      },
+	  {
+        "type": "header",
+        "content": "Service Info"
+      },
+	  {
+        "type": "text",
+        "id": "footser_head",
+        "label": "Heading"
+      },
+	  {
+        "type": "textarea",
+        "id": "footser_info",
+        "label": "Information"
+      },
+	  {
+        "type": "header",
+        "content": "Follow us"
+      },   
+	  {
+        "type": "text",
+        "id": "follow_text",
+        "label": "Title text"
+      },
+      {
+        "type": "text",
+        "id": "twitter_link",
+        "label": "Twitter",
+        "info": "https:\/\/twitter.com\/shopify"
+      },
+      {
+        "type": "text",
+        "id": "facebook_link",
+        "label": "Facebook",
+        "info": "https:\/\/www.facebook.com\/shopify"
+      },
+      {
+        "type": "text",
+        "id": "google_link",
+        "label": "Google+",
+        "info": "https:\/\/plus.google.com\/+shopify"
+      },
+      {
+        "type": "text",
+        "id": "youtube_link",
+        "label": "Youtube",
+        "info": "https:\/\/www.youtube.com\/user\/shopify"
+      },
+      {
+        "type": "text",
+        "id": "vimeo_link",
+        "label": "Vimeo",
+        "info": "https:\/\/vimeo.com\/shopify"
+      },
+      {
+        "type": "text",
+        "id": "pinterest_link",
+        "label": "Pinterest",
+        "info": "https:\/\/www.pinterest.com\/shopify\/"
+      },
+      {
+        "type": "text",
+        "id": "instagram_link",
+        "label": "Instagram",
+        "info": "https:\/\/instagram.com\/shopify\/"
+      },
+      {
+        "type": "text",
+        "id": "tumblr_link",
+        "label": "Tumblr",
+        "info": "http:\/\/shopify.tumblr.com\/"
+      },
+      {
+        "type": "text",
+        "id": "atom_link",
+        "label": "Blog feed",
+        "info": "\/blogs\/news.atom"
+      }
+  ]
+}
+{% endschema %}

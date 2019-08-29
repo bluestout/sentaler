@@ -1,0 +1,1073 @@
+[
+  {
+    "name": "theme_info",
+    "logo": "https:\/\/cdn2.shopify.com\/s\/files\/1\/0074\/7575\/7148\/files\/logo-black.png",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Kala Store - Multipurpose Responsive Shopify theme"
+      },
+      {
+        "type": "paragraph",
+        "content": "This theme is officially supported by www.kalathemes.com , if you have any questions please [open conversation here](https:\/\/kalathemes.kayako.com\/conversation\/new)."
+      }
+    ]
+  },
+  {
+    "name": "Item Purchase Code",
+    "settings": [
+      {
+        "type": "text",
+        "id": "tfcode",
+        "label": "Enter [Purchase Code](https:\/\/help.market.envato.com\/hc\/en-us\/articles\/202822600-Where-Is-My-Purchase-Code-) to activate your theme license:"
+      }
+    ]
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Colors"
+      },
+      {
+        "type": "color",
+        "id": "color_text_general",
+        "label": "Color General",
+        "default": "#a1a1a1"
+      },
+      {
+        "type": "color",
+        "id": "color_hover_general",
+        "label": "Color hover General",
+        "default": "#1c8a71"
+      },
+      {
+        "type": "color",
+        "id": "color_text_header",
+        "label": "Color Header",
+        "default": "#c2c2c2"
+      },
+      {
+        "type": "color",
+        "id": "color_text_menu",
+        "label": "Color Menu",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_text_heading",
+        "label": "Color Text Heading",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "color_text_title",
+        "label": "Color Text Title",
+        "default": "#434343"
+      },
+      {
+        "type": "color",
+        "id": "color_text_banner",
+        "label": "Color Text Banner",
+        "default": "#ffffff"
+      },
+      {
+        "type": "header",
+        "content": "Line"
+      },
+      {
+        "type": "color",
+        "id": "border_general",
+        "label": "Line General",
+        "default": "#e1e1e1"
+      },
+      {
+        "type": "color",
+        "id": "border_header",
+        "label": "Line Header",
+        "default": "#343434"
+      },
+      {
+        "type": "color",
+        "id": "border_title",
+        "label": "Line Title",
+        "default": "#33c1a9"
+      },
+      {
+        "type": "color",
+        "id": "border_submenu",
+        "label": "Line Submenu",
+        "default": "#e9e9e9"
+      },
+      {
+        "type": "header",
+        "content": "Background"
+      },
+      {
+        "type": "checkbox",
+        "id": "use_bg_image",
+        "label": "Use a background image"
+      },
+      {
+        "type": "image",
+        "id": "bg.png"
+      },
+      {
+        "type": "color",
+        "id": "shop_bg_color",
+        "label": "Background Body",
+        "default": "#fbfbfb"
+      },
+      {
+        "type": "color",
+        "id": "bkg_top_header",
+        "label": "Background Header Top",
+        "default": "#1b1b1b"
+      },
+      {
+        "type": "color",
+        "id": "bkg_main_header",
+        "label": "Background Header Main",
+        "default": "#272727"
+      },
+      {
+        "type": "color",
+        "id": "bkg_nav_header",
+        "label": "Background Menu",
+        "default": "#272727"
+      },
+      {
+        "type": "color",
+        "id": "bkg_breadcrumb",
+        "label": "Background Breakcrumb",
+        "default": "#f7f7f7"
+      },
+      {
+        "type": "color",
+        "id": "bkg_title",
+        "label": "Background title",
+        "default": "#464646"
+      },
+      {
+        "type": "color",
+        "id": "bkg_logo_brand",
+        "label": "Background Logo Brand",
+        "default": "#1c8a71"
+      },
+      {
+        "type": "checkbox",
+        "id": "use_bg_image_footer",
+        "label": "Use a background image footer"
+      },
+      {
+        "type": "image",
+        "id": "bg_footer.png"
+      },
+      {
+        "type": "color",
+        "id": "bkg_footer",
+        "label": "Background Footer",
+        "default": "#272727"
+      },
+      {
+        "type": "header",
+        "content": "Button"
+      },
+      {
+        "type": "color",
+        "id": "color_text_button",
+        "label": "Color text Button",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_border_button",
+        "label": "Color border Button",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "bkg_button",
+        "label": "Color background Button",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_text_button_hover",
+        "label": "Color text Button hover",
+        "default": "#434343"
+      },
+      {
+        "type": "color",
+        "id": "bkg_button_hover",
+        "label": "Color background Button hover",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_border_button_hover",
+        "label": "Color border Button hover",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_text_button1",
+        "label": "Color Text Button1",
+        "default": "#434343"
+      },
+      {
+        "type": "color",
+        "id": "color_border_button1",
+        "label": "Color Border Button1",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "bkg_button1",
+        "label": "Color Background Button1",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_text_button1_hover",
+        "label": "Color Text Button1 hover",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "bkg_button1_hover",
+        "label": "Color Background Button1 hover",
+        "default": "#1c8a71"
+      },
+      {
+        "type": "color",
+        "id": "color_border_button1_hover",
+        "label": "Color Border Button1 hover",
+        "default": "#1c8a71"
+      },
+      {
+        "type": "color",
+        "id": "color_text_button2",
+        "label": "Color Text Button2",
+        "default": "#434343"
+      },
+      {
+        "type": "color",
+        "id": "color_border_button2",
+        "label": "Color Border Button2",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "bkg_button2",
+        "label": "Color Background Button2",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_text_button2_hover",
+        "label": "Color Text Button2 hover",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "bkg_button2_hover",
+        "label": "Color Background Button2 hover",
+        "default": "#1c8a71"
+      },
+      {
+        "type": "color",
+        "id": "color_border_button2_hover",
+        "label": "Color Border Button2 hover",
+        "default": "#1c8a71"
+      },
+      {
+        "type": "select",
+        "id": "bg_alignment",
+        "label": "Image style",
+        "options": [
+          {
+            "value": "fill contained",
+            "label": "Fill, sides of page"
+          },
+          {
+            "value": "fill entire",
+            "label": "Fill, entire page"
+          },
+          {
+            "value": "tiled contained",
+            "label": "Tiled, sides of page"
+          },
+          {
+            "value": "tiled entire",
+            "label": "Tiled, entire page"
+          }
+        ],
+        "default": "fill contained"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "select",
+        "id": "base_font",
+        "label": "Body font",
+        "options": [
+          {
+            "value": "Google+Arvo",
+            "label": "Arvo",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Asap",
+            "label": "Asap",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Cabin",
+            "label": "Cabin",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Copse",
+            "label": "Copse",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Droid+Sans",
+            "label": "Droid Sans",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Droid+Serif",
+            "label": "Droid Serif",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Gentium+Book+Basic",
+            "label": "Gentium Book Basic",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Josefin+Slab",
+            "label": "Josefin Slab",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Josefin+Sans",
+            "label": "Josefin Sans",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Kreon",
+            "label": "Kreon",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Lato",
+            "label": "Lato",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Lora",
+            "label": "Lora",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Merriweather",
+            "label": "Merriweather",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Old+Standard+TT",
+            "label": "Old Standard TT",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Open+Sans",
+            "label": "Open Sans",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Raleway",
+            "label": "Raleway",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Montserrat",
+            "label": "Montserrat",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Playfair+Display",
+            "label": "Playfair Display",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Poppins",
+            "label": "Poppins",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "proxima-nova",
+            "label": "Proxima Nova",
+            "group": "Adobe Typekit Fonts"
+          },
+          {
+            "value": "Helvetica, Arial, sans-serif",
+            "label": "Helvetica\/Arial",
+            "group": "Sans-serif"
+          },
+          {
+            "value": "Impact, Charcoal, Helvetica, Arial, sans-serif",
+            "label": "Impact",
+            "group": "Sans-serif"
+          },
+          {
+            "value": "'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Lucida, Helvetica, Arial, sans-serif",
+            "label": "Lucida Grande",
+            "group": "Sans-serif"
+          },
+          {
+            "value": "Trebuchet MS, sans-serif",
+            "label": "Trebuchet MS",
+            "group": "Sans-serif"
+          },
+          {
+            "value": "Verdana, Helvetica, Arial, sans-serif",
+            "label": "Verdana",
+            "group": "Sans-serif"
+          },
+          {
+            "value": "Garamond, Baskerville, Caslon, serif",
+            "label": "Garamond",
+            "group": "Serif"
+          },
+          {
+            "value": "Georgia, Utopia, 'Times New Roman', Times, serif",
+            "label": "Georgia",
+            "group": "Serif"
+          },
+          {
+            "value": "Palatino, 'Palatino Linotype', 'Book Antiqua', serif",
+            "label": "Palatino",
+            "group": "Serif"
+          },
+          {
+            "value": "'Times New Roman', Times, serif",
+            "label": "Times New Roman",
+            "group": "Serif"
+          },
+          {
+            "value": "'Courier New', Courier, monospace",
+            "label": "Courier New",
+            "group": "Monospace"
+          },
+          {
+            "value": "Monaco, 'Lucida Console', 'DejaVu Sans Mono', monospace",
+            "label": "Monaco\/Lucida Console",
+            "group": "Monospace"
+          },
+          {
+            "value": "'neue-haas-grotesk-display',sans-serif",
+            "label": " Neue Haas Grotesk"
+          },
+          {
+            "value": "'neuzeit-grotesk',sans-serif",
+            "label": "neuzeit-grotesk"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "header_font",
+        "label": "Heading font",
+        "options": [
+          {
+            "value": "Google+Arvo",
+            "label": "Arvo",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Asap",
+            "label": "Asap",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Cabin",
+            "label": "Cabin",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Copse",
+            "label": "Copse",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Droid+Sans",
+            "label": "Droid Sans",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Droid+Serif",
+            "label": "Droid Serif",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Gentium+Book+Basic",
+            "label": "Gentium Book Basic",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Josefin+Slab",
+            "label": "Josefin Slab",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Josefin+Sans",
+            "label": "Josefin Sans",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Kreon",
+            "label": "Kreon",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Lato",
+            "label": "Lato",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Lora",
+            "label": "Lora",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Merriweather",
+            "label": "Merriweather",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Old+Standard+TT",
+            "label": "Old Standard TT",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Open+Sans",
+            "label": "Open Sans",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Raleway",
+            "label": "Raleway",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Montserrat",
+            "label": "Montserrat",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Playfair+Display",
+            "label": "Playfair Display",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Poppins",
+            "label": "Poppins",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "proxima-nova",
+            "label": "Proxima Nova",
+            "group": "Adobe Typekit Fonts"
+          },
+          {
+            "value": "Helvetica, Arial, sans-serif",
+            "label": "Helvetica\/Arial",
+            "group": "Sans-serif"
+          },
+          {
+            "value": "Impact, Charcoal, Helvetica, Arial, sans-serif",
+            "label": "Impact",
+            "group": "Sans-serif"
+          },
+          {
+            "value": "'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Lucida, Helvetica, Arial, sans-serif",
+            "label": "Lucida Grande",
+            "group": "Sans-serif"
+          },
+          {
+            "value": "Trebuchet MS, sans-serif",
+            "label": "Trebuchet MS",
+            "group": "Sans-serif"
+          },
+          {
+            "value": "Verdana, Helvetica, Arial, sans-serif",
+            "label": "Verdana",
+            "group": "Sans-serif"
+          },
+          {
+            "value": "Garamond, Baskerville, Caslon, serif",
+            "label": "Garamond",
+            "group": "Serif"
+          },
+          {
+            "value": "Georgia, Utopia, 'Times New Roman', Times, serif",
+            "label": "Georgia",
+            "group": "Serif"
+          },
+          {
+            "value": "Palatino, 'Palatino Linotype', 'Book Antiqua', serif",
+            "label": "Palatino",
+            "group": "Serif"
+          },
+          {
+            "value": "'Times New Roman', Times, serif",
+            "label": "Times New Roman",
+            "group": "Serif"
+          },
+          {
+            "value": "'Courier New', Courier, monospace",
+            "label": "Courier New",
+            "group": "Monospace"
+          },
+          {
+            "value": "Monaco, 'Lucida Console', 'DejaVu Sans Mono', monospace",
+            "label": "Monaco\/Lucida Console",
+            "group": "Monospace"
+          },
+          {
+            "value": "'neue-haas-grotesk-display',sans-serif",
+            "label": " Neue Haas Grotesk"
+          },
+          {
+            "value": "'neuzeit-grotesk',sans-serif",
+            "label": "neuzeit-grotesk"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "misc_font",
+        "label": "MISC font",
+        "options": [
+          {
+            "value": "Google+Arvo",
+            "label": "Arvo",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Asap",
+            "label": "Asap",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Cabin",
+            "label": "Cabin",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Copse",
+            "label": "Copse",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Droid+Sans",
+            "label": "Droid Sans",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Droid+Serif",
+            "label": "Droid Serif",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Gentium+Book+Basic",
+            "label": "Gentium Book Basic",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Josefin+Slab",
+            "label": "Josefin Slab",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Josefin+Sans",
+            "label": "Josefin Sans",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Kreon",
+            "label": "Kreon",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Lato",
+            "label": "Lato",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Lora",
+            "label": "Lora",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Merriweather",
+            "label": "Merriweather",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Old+Standard+TT",
+            "label": "Old Standard TT",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Open+Sans",
+            "label": "Open Sans",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Raleway",
+            "label": "Raleway",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Montserrat",
+            "label": "Montserrat",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Playfair+Display",
+            "label": "Playfair Display",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "Google+Poppins",
+            "label": "Poppins",
+            "group": "Google Web Fonts"
+          },
+          {
+            "value": "proxima-nova",
+            "label": "Proxima Nova",
+            "group": "Adobe Typekit Fonts"
+          },
+          {
+            "value": "Helvetica, Arial, sans-serif",
+            "label": "Helvetica\/Arial",
+            "group": "Sans-serif"
+          },
+          {
+            "value": "Impact, Charcoal, Helvetica, Arial, sans-serif",
+            "label": "Impact",
+            "group": "Sans-serif"
+          },
+          {
+            "value": "'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Lucida, Helvetica, Arial, sans-serif",
+            "label": "Lucida Grande",
+            "group": "Sans-serif"
+          },
+          {
+            "value": "Trebuchet MS, sans-serif",
+            "label": "Trebuchet MS",
+            "group": "Sans-serif"
+          },
+          {
+            "value": "Verdana, Helvetica, Arial, sans-serif",
+            "label": "Verdana",
+            "group": "Sans-serif"
+          },
+          {
+            "value": "Garamond, Baskerville, Caslon, serif",
+            "label": "Garamond",
+            "group": "Serif"
+          },
+          {
+            "value": "Georgia, Utopia, 'Times New Roman', Times, serif",
+            "label": "Georgia",
+            "group": "Serif"
+          },
+          {
+            "value": "Palatino, 'Palatino Linotype', 'Book Antiqua', serif",
+            "label": "Palatino",
+            "group": "Serif"
+          },
+          {
+            "value": "'Times New Roman', Times, serif",
+            "label": "Times New Roman",
+            "group": "Serif"
+          },
+          {
+            "value": "'Courier New', Courier, monospace",
+            "label": "Courier New",
+            "group": "Monospace"
+          },
+          {
+            "value": "Monaco, 'Lucida Console', 'DejaVu Sans Mono', monospace",
+            "label": "Monaco\/Lucida Console",
+            "group": "Monospace"
+          },
+          {
+            "value": "'neue-haas-grotesk-display',sans-serif",
+            "label": " Neue Haas Grotesk"
+          },
+          {
+            "value": "'neuzeit-grotesk',sans-serif",
+            "label": "neuzeit-grotesk"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "General Settings",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Preloading screen"
+      },
+      {
+        "type": "checkbox",
+        "id": "general_loadingscreen",
+        "label": "Active Preloading screen",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Mailing List Widget (Mailchimp) Popup"
+      },
+      {
+        "type": "checkbox",
+        "id": "mailing_list_active",
+        "label": "Active Popup?"
+      },
+      {
+        "type": "text",
+        "id": "news_title",
+        "label": "Heading text"
+      },
+      {
+        "type": "textarea",
+        "id": "news_sub",
+        "label": "Subtext"
+      },
+      {
+        "type": "text",
+        "id": "news_input",
+        "label": "Input text"
+      },
+      {
+        "type": "textarea",
+        "id": "mailchimp_form_action",
+        "label": "Mailchimp form action [( ? )](http:\/\/support.shopify.com\/customer\/portal\/articles\/640278)"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Where do I get my MailChimp Form Action?](http:\/\/support.shopify.com\/customer\/portal\/articles\/640278)"
+      },
+      {
+        "type": "text",
+        "id": "news_ignore",
+        "label": "Ignore text"
+      },
+      {
+        "type": "text",
+        "id": "news_time",
+        "label": "Timeout (seconds)",
+        "default": "10"
+      },
+      {
+        "type": "image",
+        "id": "mailing_bg.png",
+        "label": "Upload a image for Background",
+        "info": "PNG format"
+      },
+      {
+        "type": "header",
+        "content": "Scroll to Top"
+      },
+      {
+        "type": "checkbox",
+        "id": "general_gototop",
+        "label": "Active Scroll to Top",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Header",
+    "settings": [
+      {
+        "type": "image",
+        "id": "bg_header.jpg",
+        "label": "Upload a image for Background",
+        "info": "JPG format"
+      }
+    ]
+  },
+  {
+    "name": "Products",
+    "settings": [
+      {
+        "type": "header",
+        "content": "General Settings"
+      },
+      {
+        "type": "checkbox",
+        "id": "product_hover_effect",
+        "label": "Active hover effect to change product image",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Ajax Add to cart Modal"
+      },
+      {
+        "type": "checkbox",
+        "id": "ajax_active",
+        "label": "Active Ajax Add to Cart",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "ajax_timeout",
+        "label": "Set time out, auto close",
+        "default": "5000",
+        "info": "(seconds)"
+      }
+    ]
+  },
+  {
+    "name": "Password Front-end Page",
+    "settings": [
+      {
+        "type": "image",
+        "id": "logo.png",
+        "label": "Upload logo"
+      },
+      {
+        "type": "text",
+        "id": "password_link",
+        "label": "Password link text",
+        "default": "Enter using password"
+      },
+      {
+        "type": "text",
+        "id": "password_opening_soon",
+        "label": "Opening Soon text",
+        "default": "Opening Soon"
+      },
+      {
+        "type": "text",
+        "id": "password_signup_form_success",
+        "label": "Signup Form Success text",
+        "default": "We will send you an email right before we open!"
+      },
+      {
+        "type": "text",
+        "id": "password_signup_form_heading",
+        "label": "Signup Form Heading text",
+        "default": "Find out when we open:"
+      },
+      {
+        "type": "text",
+        "id": "password_spread_the_word",
+        "label": "Spread The Word text",
+        "default": "Spread the word:"
+      },
+      {
+        "type": "text",
+        "id": "password_signup_form_email_label",
+        "label": "Signup Form Email Label text",
+        "default": "Email"
+      },
+      {
+        "type": "text",
+        "id": "password_signup_form_email_placeholder",
+        "label": "Signup Form Email Placeholder text",
+        "default": "Your email"
+      },
+      {
+        "type": "text",
+        "id": "password_signup_form_submit",
+        "label": "Signup Form Submit text",
+        "default": "Submit"
+      },
+      {
+        "type": "text",
+        "id": "password_powered_by_shopify_html",
+        "label": "Powered By Shopify text",
+        "default": "This shop will be powered by"
+      },
+      {
+        "type": "text",
+        "id": "password_login_form_heading",
+        "label": "Login Form Heading text",
+        "default": "Enter store using password:"
+      },
+      {
+        "type": "text",
+        "id": "password_login_form_password_label",
+        "label": "Login Form Password text",
+        "default": "Password"
+      },
+      {
+        "type": "text",
+        "id": "password_login_form_password_placeholder",
+        "label": "Login Form Password Placeholder text",
+        "default": "Your password"
+      },
+      {
+        "type": "text",
+        "id": "password_login_form_submit",
+        "label": "Login Form Submit text",
+        "default": "Enter"
+      },
+      {
+        "type": "text",
+        "id": "password_admin_link_html",
+        "label": "Admin Link text",
+        "default": "Are you the store owner? <a href='\/admin' class='text-link'>Log in here<\/a>"
+      },
+      {
+        "type": "text",
+        "id": "password_close",
+        "label": "close text",
+        "default": "Close (Esc)"
+      },
+      {
+        "type": "image",
+        "id": "password_bkg.jpg",
+        "label": "Upload image background"
+      },
+      {
+        "type": "header",
+        "content": "Social media sharing"
+      },
+      {
+        "type": "checkbox",
+        "id": "share_facebook",
+        "label": "Share on Facebook"
+      },
+      {
+        "type": "checkbox",
+        "id": "share_twitter",
+        "label": "Tweet on Twitter"
+      },
+      {
+        "type": "checkbox",
+        "id": "share_pinterest",
+        "label": "Pin on Pinterest"
+      },
+      {
+        "type": "checkbox",
+        "id": "share_google",
+        "label": "+1 on Google Plus"
+      }
+    ]
+  }
+]

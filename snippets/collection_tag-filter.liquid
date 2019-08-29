@@ -1,0 +1,306 @@
+<!-- filter tags group -->
+<div class="filter-tag-group">
+	{% assign array_tag1 = section.settings.group_tag_1 | split: ',' %}
+	{% assign array_tag2 = section.settings.group_tag_2 | split: ',' %}
+	{% assign array_tag3 = section.settings.group_tag_3 | split: ',' %}
+    {% assign array_tag4 = section.settings.group_tag_4 | split: ',' %}
+	
+	<!-- tags groupd 1 -->
+	{% if array_tag1.size > 0 %}
+	<div class="tag-group  {% if section.settings.group_tag_1_label contains 'Color' or section.settings.group_tag_1_label contains 'color' %}color{% else %}non-color{% endif %}" id="coll-filter-1">
+		{% assign swatch = false %}
+		{% if section.settings.group_tag_1_label contains 'Color' or section.settings.group_tag_1_label contains 'color' %}
+			{% assign swatch = true %}
+		{% endif %}
+      <p class="title">{{ section.settings.group_tag_1_label }}<span class="sticon-caret-d-small"></span></p>
+		<ul>
+          <span class="closeit">
+            <span class="desk_hide">Filter By {{ section.settings.group_tag_1_label }}</span>
+          <svg width="64" version="1.1" xmlns="http://www.w3.org/2000/svg" height="64" viewBox="0 0 64 64" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 64 64">
+            <g>
+              <path fill="#1D1D1B" d="M28.941,31.786L0.613,60.114c-0.787,0.787-0.787,2.062,0,2.849c0.393,0.394,0.909,0.59,1.424,0.59   c0.516,0,1.031-0.196,1.424-0.59l28.541-28.541l28.541,28.541c0.394,0.394,0.909,0.59,1.424,0.59c0.515,0,1.031-0.196,1.424-0.59   c0.787-0.787,0.787-2.062,0-2.849L35.064,31.786L63.41,3.438c0.787-0.787,0.787-2.062,0-2.849c-0.787-0.786-2.062-0.786-2.848,0   L32.003,29.15L3.441,0.59c-0.787-0.786-2.061-0.786-2.848,0c-0.787,0.787-0.787,2.062,0,2.849L28.941,31.786z"/>
+            </g>
+          </svg>
+          </span>
+		{% for t in array_tag1 %}
+			{% assign tag = t | strip %}
+			{% if collection.tags contains tag %}
+				{% if swatch %}
+					{% assign color_img = tag | downcase | append: '.png' | asset_url %}
+					{% assign style = 'background-color: ' | append: tag | downcase | append: '; background-image: url(' | append: color_img | append: ');' %}
+					{% if current_tags contains tag %}
+						<li class="active swatch-tag {% if tag == 'White' or tag == 'white' %} white-color{% endif %}">
+                          <a href="{{tag}}"><span style="{{ style }}" class="btooltip" data-toggle="tooltip" data-placement="top" title="{{tag}}"></span> {{tag}}</a>
+          				</li>
+					{% else %}
+						<li class="swatch-tag {% if tag == 'White' or tag == 'white' %} white-color{% endif %}">
+                         <a href="{{tag}}"><span style="{{ style }}" class="btooltip" data-toggle="tooltip" data-placement="top" title="{{tag}}"></span> {{tag}}</a>
+          				</li>
+					{% endif %}
+					
+				{% else %}
+					{% if current_tags contains tag %}
+						<li class="active" rel="{{tag}}">{{ '<span class="fe-checkbox"></span> ' | append: tag | link_to_remove_tag: tag }}</li>
+					{% else %}
+						<li rel="{{tag}}">{{ '<span class="fe-checkbox"></span> ' | append: tag | link_to_add_tag: tag }}</li>
+					{% endif %}
+				{% endif %}
+			{% endif %}
+		{% endfor %}
+          <div class="filter_btn">
+          <span class="clear">Clear</span>
+          <span class="apply">Apply filters</span>
+          </div>
+		</ul>
+	</div>
+	{% endif %}
+	
+	<!-- tags groupd 2 -->
+	{% if array_tag2.size > 0 %}
+	<div class="tag-group  {% if section.settings.group_tag_2_label contains 'Color' or section.settings.group_tag_2_label contains 'color' %}color{% else %}non-color{% endif %}" id="coll-filter-2">
+		{% assign swatch = false %}
+		{% if section.settings.group_tag_2_label contains 'Color' or section.settings.group_tag_2_label contains 'color' %}
+			{% assign swatch = 'swatch-tag' %}
+		{% endif %}
+		<p class="title">{{ section.settings.group_tag_2_label }}<span class="sticon-caret-d-small"></span></p>
+		<ul>
+          <span class="closeit">
+            <span class="desk_hide">Filter By {{ section.settings.group_tag_2_label }}</span>
+            <svg width="64" version="1.1" xmlns="http://www.w3.org/2000/svg" height="64" viewBox="0 0 64 64" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 64 64">
+            <g>
+              <path fill="#1D1D1B" d="M28.941,31.786L0.613,60.114c-0.787,0.787-0.787,2.062,0,2.849c0.393,0.394,0.909,0.59,1.424,0.59   c0.516,0,1.031-0.196,1.424-0.59l28.541-28.541l28.541,28.541c0.394,0.394,0.909,0.59,1.424,0.59c0.515,0,1.031-0.196,1.424-0.59   c0.787-0.787,0.787-2.062,0-2.849L35.064,31.786L63.41,3.438c0.787-0.787,0.787-2.062,0-2.849c-0.787-0.786-2.062-0.786-2.848,0   L32.003,29.15L3.441,0.59c-0.787-0.786-2.061-0.786-2.848,0c-0.787,0.787-0.787,2.062,0,2.849L28.941,31.786z"/>
+            </g>
+          </svg>
+          </span>
+		{% for t in array_tag2 %}
+			{% assign tag = t | strip %}
+			{% if collection.tags contains tag %}
+				{% if swatch %}
+					{% assign color_img = tag | downcase | append: '.png' | asset_url %}
+					{% assign style = 'background-color: ' | append: tag | downcase | append: '; background-image: url(' | append: color_img | append: ');' %}
+					{% if current_tags contains tag %}
+						<li rel="{{tag}}" class="active swatch-tag {% if tag == 'White' or tag == 'white' %} white-color{% endif %}">
+                         <a href="{{tag}}"><span style="{{ style }}" class="btooltip" data-toggle="tooltip" data-placement="top" title="{{tag}}"></span> {{tag}}</a>
+          				</li>
+					{% else %}
+						<li rel="{{tag}}" class="swatch-tag {% if tag == 'White' or tag == 'white' %} white-color{% endif %}">
+                         <a href="{{tag}}"><span style="{{ style }}" class="btooltip" data-toggle="tooltip" data-placement="top" title="{{tag}}"></span> {{tag}}</a>
+          				</li>
+					{% endif %}
+					
+				{% else %}
+					{% if current_tags contains tag %}
+						<li rel="{{tag}}" class="active">{{ '<span class="fe-checkbox"></span> ' | append: tag | link_to_remove_tag: tag }}</li>
+					{% else %}
+						<li rel="{{tag}}" >{{ '<span class="fe-checkbox"></span> ' | append: tag | link_to_add_tag: tag }}</li>
+					{% endif %}
+				{% endif %}
+			{% endif %}
+		{% endfor %}
+          <div class="filter_btn">
+          <span class="clear">Clear</span>
+          <span class="apply">Apply filters</span>
+          </div>
+		</ul>
+	</div>
+	{% endif %}
+	
+	<!-- tags groupd 3 -->
+	{% if array_tag3.size > 0 %}
+	<div class="tag-group {% if section.settings.group_tag_3_label contains 'Color' or section.settings.group_tag_3_label contains 'color' %}color{% else %}non-color{% endif %}" id="coll-filter-3">
+		{% assign swatch = false %}
+		{% if section.settings.group_tag_3_label contains 'Color' or section.settings.group_tag_3_label contains 'color' %}
+			{% assign swatch = 'swatch-tag' %}
+		{% endif %}
+		<p class="title">{{ section.settings.group_tag_3_label }}<span class="sticon-caret-d-small"></span></p>
+		<ul>
+          <span class="closeit">
+            <span class="desk_hide">Filter By {{ section.settings.group_tag_3_label }}</span>
+            <svg width="64" version="1.1" xmlns="http://www.w3.org/2000/svg" height="64" viewBox="0 0 64 64" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 64 64">
+            <g>
+              <path fill="#1D1D1B" d="M28.941,31.786L0.613,60.114c-0.787,0.787-0.787,2.062,0,2.849c0.393,0.394,0.909,0.59,1.424,0.59   c0.516,0,1.031-0.196,1.424-0.59l28.541-28.541l28.541,28.541c0.394,0.394,0.909,0.59,1.424,0.59c0.515,0,1.031-0.196,1.424-0.59   c0.787-0.787,0.787-2.062,0-2.849L35.064,31.786L63.41,3.438c0.787-0.787,0.787-2.062,0-2.849c-0.787-0.786-2.062-0.786-2.848,0   L32.003,29.15L3.441,0.59c-0.787-0.786-2.061-0.786-2.848,0c-0.787,0.787-0.787,2.062,0,2.849L28.941,31.786z"/>
+            </g>
+          </svg>
+          </span>
+		{% for t in array_tag3 %}
+			{% assign tag = t | strip %}
+			{% if collection.tags contains tag %}
+				{% if swatch %}
+					{% assign color_img = tag | downcase | append: '.png' | asset_url %}
+					{% assign style = 'background-color: ' | append: tag | downcase | append: '; background-image: url(' | append: color_img | append: ');' %}
+					{% if current_tags contains tag %}
+						<li rel="{{tag}}" class="active swatch-tag {% if tag == 'White' or tag == 'white' %} white-color{% endif %}">
+                         <a href="{{tag}}"><span style="{{ style }}" class="btooltip" data-toggle="tooltip" data-placement="top" title="{{tag}}"></span> {{tag}}</a>
+          				</li>
+					{% else %}
+						<li rel="{{tag}}" class="swatch-tag {% if tag == 'White' or tag == 'white' %} white-color{% endif %}">
+                        <a href="{{tag}}"><span style="{{ style }}" class="btooltip" data-toggle="tooltip" data-placement="top" title="{{tag}}"></span> {{tag}}</a>
+          				</li>
+					{% endif %}
+					
+				{% else %}
+					{% if current_tags contains tag %}
+						<li rel="{{tag}}" class="active">{{ '<span class="fe-checkbox"></span> ' | append: tag | link_to_remove_tag: tag }}</li>
+					{% else %}
+						<li rel="{{tag}}">{{ '<span class="fe-checkbox"></span> ' | append: tag | link_to_add_tag: tag }}</li>
+					{% endif %}
+				{% endif %}
+			{% endif %}
+		{% endfor %}
+          <div class="filter_btn">
+          <span class="clear">Clear</span>
+          <span class="apply">Apply filters</span>
+          </div>
+		</ul>
+	</div>
+	{% endif %}
+  
+    <!-- tags groupd 4 -->
+	{% if array_tag4.size > 0 %}
+	<div class="tag-group  {% if section.settings.group_tag_4_label contains 'Color' or section.settings.group_tag_4_label contains 'color' %}color{% else %}non-color{% endif %}" id="coll-filter-4">
+		{% assign swatch = false %}
+		{% if section.settings.group_tag_4_label contains 'Color' or section.settings.group_tag_4_label contains 'color' %}
+			{% assign swatch = 'swatch-tag' %}
+		{% endif %}
+		<p class="title">{{ section.settings.group_tag_4_label }}<span class="sticon-caret-d-small"></span></p>
+		<ul>
+         <span class="closeit">
+           <span class="desk_hide">Filter By {{ section.settings.group_tag_4_label }}</span>
+           <svg width="64" version="1.1" xmlns="http://www.w3.org/2000/svg" height="64" viewBox="0 0 64 64" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 64 64">
+            <g>
+              <path fill="#1D1D1B" d="M28.941,31.786L0.613,60.114c-0.787,0.787-0.787,2.062,0,2.849c0.393,0.394,0.909,0.59,1.424,0.59   c0.516,0,1.031-0.196,1.424-0.59l28.541-28.541l28.541,28.541c0.394,0.394,0.909,0.59,1.424,0.59c0.515,0,1.031-0.196,1.424-0.59   c0.787-0.787,0.787-2.062,0-2.849L35.064,31.786L63.41,3.438c0.787-0.787,0.787-2.062,0-2.849c-0.787-0.786-2.062-0.786-2.848,0   L32.003,29.15L3.441,0.59c-0.787-0.786-2.061-0.786-2.848,0c-0.787,0.787-0.787,2.062,0,2.849L28.941,31.786z"/>
+            </g>
+          </svg>
+          </span>
+		{% for t in array_tag4 %}
+			{% assign tag = t | strip %}
+			{% if collection.tags contains tag %}
+				{% if swatch %}
+					{% assign color_img = tag | downcase | append: '.png' | asset_url %}
+					{% assign style = 'background-color: ' | append: tag | downcase | append: '; background-image: url(' | append: color_img | append: ');' %}
+					{% if current_tags contains tag %}
+						<li rel="{{tag}}" class="active swatch-tag {% if tag == 'White' or tag == 'white' %} white-color{% endif %}">
+                         <a href="{{tag}}"><span style="{{ style }}" class="btooltip" data-toggle="tooltip" data-placement="top" title="{{tag}}"></span> {{tag}}</a>
+          				</li>
+					{% else %}
+						<li rel="{{tag}}" class="swatch-tag {% if tag == 'White' or tag == 'white' %} white-color{% endif %}">
+                          <a href="{{tag}}"><span style="{{ style }}" class="btooltip" data-toggle="tooltip" data-placement="top" title="{{tag}}"></span> {{tag}}</a>
+          			    </li>
+					{% endif %}
+					
+				{% else %}
+					{% if current_tags contains tag %}
+						<li rel="{{tag}}" class="active">{{ '<span class="fe-checkbox"></span> ' | append: tag | link_to_remove_tag: tag }}</li>
+					{% else %}
+						<li rel="{{tag}}">{{ '<span class="fe-checkbox"></span> ' | append: tag | link_to_add_tag: tag }}</li>
+       
+					{% endif %}
+				{% endif %}
+			{% endif %}
+		{% endfor %}
+          <div class="filter_btn">
+          <span class="clear">Clear</span>
+          <span class="apply">Apply filters</span>
+          </div>
+		</ul>
+	</div>
+	{% endif %}
+</div>
+<script>
+  Shopify.queryParams = {};
+  if (location.search.length) {
+    for (var aKeyValue, i = 0, aCouples = location.search.substr(1).split('&'); i < aCouples.length; i++) {
+      aKeyValue = aCouples[i].split('=');
+      if (aKeyValue.length > 1) {
+        Shopify.queryParams[decodeURIComponent(aKeyValue[0])] = decodeURIComponent(aKeyValue[1]);
+      }
+    }
+  }
+  $('.tag-group').each(function() {
+    if($(this).find('ul li').hasClass('active')){
+      $(this).addClass('active');
+    }
+  });
+ 
+    var getlength = $('#coll-filter-1 ul li').length;
+      if(getlength > 5)
+      {
+        $('#coll-filter-1').addClass('halfli');
+      }
+    var getlength2 = $('#coll-filter-2 ul li').length;
+     if(getlength2 > 5)
+      {
+        $('#coll-filter-2').addClass('halfli');
+      }
+   var getlength3 = $('#coll-filter-3 ul li').length;
+  	if(getlength3 > 5)
+      {
+        $('#coll-filter-3').addClass('halfli');
+      }
+   var getlength4 = $('#coll-filter-4 ul li').length;
+    if(getlength4 > 5)
+      {
+        $('#coll-filter-4').addClass('halfli');
+      }
+  
+  $(function () {
+    var tags=[];
+    $('.tag-group ul li a').click(function(e){
+      e.preventDefault();
+      $(this).closest('li').toggleClass('active');
+    });
+    $('.apply').click(function(){
+       tags=[];
+     var tagstr = tagsjoin(); 
+    
+    delete Shopify.queryParams.page;
+   {% if collection.handle %}
+    var newURL = '/collections/{{ collection.handle }}/';
+    newURL += tagstr;
+    var search = jQuery.param(Shopify.queryParams);
+    if (search.length) {
+      newURL += '?' + search;
+    }
+    location.href = newURL;
+    {% else %}
+    if (tagstr.length) {
+      Shopify.queryParams.constraint = tagstr;
+    }
+    else {
+      delete Shopify.queryParams.constraint;
+    }
+    location.search = jQuery.param(Shopify.queryParams);
+    {% endif %}
+
+     
+    });
+    $('.active .clear').click(function(){
+      var search = jQuery.param(Shopify.queryParams);
+      var tagstr = tagsjoin();  
+      var get_url = window.location.href;
+      if (get_url.indexOf(tagstr) > 0) {
+	    var clean_uri = get_url.substring(0, get_url.indexOf(tagstr));
+	     window.location.href = clean_uri
+	}
+    });
+  function tagsjoin()
+    {
+      $( ".tag-group ul li.active" ).each(function() {
+        var url = $(this).attr('rel');
+        
+        tags.push($(this).attr('rel'));
+      
+      });
+      if(tags.length > 1){
+        var tagstr = tags.join("+");
+        return tagstr;
+      }
+      else{
+         var tagstr = tags;
+        return tagstr;
+      }
+      
+    }
+
+  });
+</script>

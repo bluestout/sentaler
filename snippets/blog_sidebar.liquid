@@ -1,0 +1,55 @@
+<div class="col-sm-3 sidebar">
+
+  {% if section.settings.blog_recent_show %}
+  <div class="recent-article sb-content">
+    <h3 class="sidebar-title">{{ section.settings.blog_recent_title }}</h3>
+    {% for article in blogs[section.settings.blog_recent_blog].articles limit:section.settings.blog_recent_number %}
+    <div class="ra-item">
+      <h5><a href="{{ article.url }}">{{ article.title }}</a></h5>      
+      <ul class="article-info  list-inline">          
+        {% if article.comments_enabled? %}
+        <li class="article-cmt">
+          {{ article.comments_count }} {{ article.comments_count | pluralize: 'Comment', 'Comment(s)' }}
+        </li>
+        <li>/</li>
+        {% endif %}
+        <li class="article-author">
+          {{'blogs.article.sidebar_author'| t : author: article.author }}
+        </li>
+      </ul>        
+      <div class="article-info ">{{ article.content | strip_html | truncatewords: 20 }}</div>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {% if blog.all_tags.size > 0 %}
+  <div class="clearfix">
+    <h3>{{ 'blogs.sidebar.tags' | t }}</h3>
+    <ul class="tags">
+      <li{% unless current_tags %} class="active"{% endunless %}><a href="{{ shop.url}}/blogs/{{ blog.handle }}">{{ 'blogs.sidebar.all' | t }}</a></li>
+      {% for tag in blog.all_tags %}
+      {% if current_tags contains tag %}
+      <li class="active">{{ tag | link_to_remove_tag: tag }}</li>
+      {% else %}
+      <li>{{ tag | link_to_tag: tag }}</li>
+      {% endif %}
+      {% endfor %}
+    </ul>
+
+  </div>
+  {% endif %}
+
+  {% if section.settings.side_banner_show %}
+  <div class="sb-content sb-sidebar-banner">
+    <div class="sidebar_banner1 clearfix">
+      <img src='{{ section.settings.blog_sidebar | img_url: "1170x500", crop: 'center'}}' alt="sidebar banner" />
+    </div>
+  </div>
+  <div class="sb-content">
+    <div class="sidebar_banner2 clearfix">
+      <img src='{{ section.settings.blog_sidebar2 | img_url: "1170x500", crop: 'center'}}' alt="sidebar banner" />
+    </div>
+  </div>
+  {% endif %}
+</div>

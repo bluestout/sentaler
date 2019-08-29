@@ -1,0 +1,21 @@
+{% assign submenu = l.title | handleize %}
+{% if linklists[submenu].links.size > 0 %}
+<li class="{% if l.active %}active{% endif %} dropdown li-sub-mega">
+  <a href="javascript:void(0)">
+    <span>{{ l.title }}</span>
+    <i class="fa fa-angle-down"></i>
+    <i class="sub-dropdown1  visible-sm visible-md visible-lg"></i>
+    <i class="sub-dropdown visible-sm visible-md visible-lg"></i>
+  </a>
+  <ul class="dropdown-menu">
+    <li class="list-title">{{ l.title }}</li>
+    {% for l in linklists[submenu].links %}
+    {% include 'navigation_sub-links' %}
+    {% endfor %}
+  </ul>
+</li>
+{% else %}
+<li class="{% if l.active %}active {% endif %}li-sub-mega">
+  <a tabindex="-1" href="{{ l.url }}">{{ l.title }}</a>
+</li>
+{% endif %}

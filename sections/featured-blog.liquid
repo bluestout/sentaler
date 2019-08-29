@@ -1,0 +1,149 @@
+<div class="home-blog">
+  <div class="container">
+    <div class="row">
+      <div class="home-blog-wrapper">
+        {% if section.settings.title != blank %}
+        <header class="section-header text-center">
+          <h2>{{ section.settings.title | escape }}</h2>
+        </header>
+        {% endif %}
+
+        {%- assign blog = blogs[section.settings.blog] -%}
+
+        {% unless blog.empty? %}
+        <div class="grid grid--uniform grid--blog blog-slider">
+          {% for article in blog.articles limit: section.settings.post_limit %}
+          <div class="grid__item col-sm-6">
+            <div class="blog-item-group">
+              {% if article.image %}
+              <a href="{{ article.url }}" class="article__grid-image col-xs-6">
+                {{ article | img_url: '400x' | img_tag: article.title }}
+              </a>
+              {% endif %}
+
+              <div class="blog-des article__grid-meta{% if article.image %} article__grid-meta--has-image{% endif %} col-xs-6">
+                <h2 class="h3 article__title">
+                  <a href="{{ article.url }}">{{ article.title }}</a>
+                </h2>
+                <div class="article__desc">{{ article.content | strip_html | truncatewords: 10 }}</div>
+                <ul class="article__info  list-inline">
+                  <li class="article-date">
+                    <i class="fa fa-calendar-check-o" aria-hidden="true"></i> {{ article.published_at | date: "%d %b %y" }}
+                  </li>          
+                  {% if article.comments_enabled? %}
+                  <li>|</li>  
+                  <li class="article-cmt">
+                    <i class="fa fa-comments" aria-hidden="true"></i> {{ article.comments_count }} {{ article.comments_count | pluralize: 'Comment', 'Comment(s)' }}
+                  </li>
+                  {% endif %}                    
+                </ul>
+                {% if section.settings.show_view_all %}
+                <ul class="list--inline article__meta-buttons">
+                  <li>
+                    <a href="{{ article.url }}" class="article__action">
+                      <i class="fa fa-angle-double-right"></i> {{ 'blogs.article.read_more' | t }}
+                    </a>
+                  </li>
+                </ul>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          {% else %}
+              {% for i in (1..section.settings.post_limit) %}
+              <div class="fi-blog-item col-sm-6">
+                <div class="fi-blog-item-wrapper">
+                  <div class="fbi-left blog-date col-xs-6">
+                    <div class="fbi-image">
+                      <a href="#">
+                        <img src="{{'400x270.png' | asset_url }}" alt="" />
+                      </a>                                                
+                    </div>                    
+                  </div>
+                  <div class="blog-des article__grid-meta col-xs-6">
+                    <h2 class="h3 article__title">
+                      <a href="{{ article.url }}">{{ 'homepage.onboarding.blog_title' | t }}</a>
+                    </h2>                    
+                    <ul class="article__info  list-inline">
+                      <li class="article-date">
+                        <i class="fa fa-calendar-check-o" aria-hidden="true"></i> {{ article.published_at | date: "%d %b %y" }}
+                      </li>          
+                      {% if article.comments_enabled? %}
+                      <li>|</li>  
+                      <li class="article-cmt">
+                        <i class="fa fa-comments" aria-hidden="true"></i> {{ article.comments_count }} {{ article.comments_count | pluralize: 'Comment', 'Comment(s)' }}
+                      </li>
+                      {% endif %}  
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+            {% endfor %}
+        </div>
+        {% endunless %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Blog posts",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Blog posts"
+    },
+    {
+      "id": "blog",
+      "type": "blog",
+      "label": "Blog"
+    },
+    {
+      "type": "select",
+      "id": "post_limit",
+      "label": "Posts",
+      "default": "2",
+      "options": [
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        },
+        {
+          "value": "6",
+          "label": "6"
+        },
+        {
+          "value": "8",
+          "label": "8"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Show 'Read more' button",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "Blog posts",
+      "category": "Blog",
+      "settings": {
+        "blog": "News",
+        "post_limit": "3"
+      }
+    }
+  ]
+}
+{% endschema %}
+

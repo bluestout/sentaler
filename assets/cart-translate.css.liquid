@@ -1,0 +1,17 @@
+@media (max-width: 767px) {
+  #cart #cartform table td.image:after {
+    content: '{{ 'cart.label.image' | t }}';
+  }
+  #cart #cartform table td.price:after {
+    content: '{{ 'cart.label.price' | t }}';
+  }
+  #cart #cartform table td.qty:after {
+    content: '{{ 'cart.label.quantity' | t }}';
+  }
+  #cart #cartform table td.total:after {
+    content: '{{ 'cart.label.total' | t }}';
+  }
+  #cart #cartform table td.remove:after {
+    content: '{{ 'cart.general.remove' | t }}';
+  }
+}

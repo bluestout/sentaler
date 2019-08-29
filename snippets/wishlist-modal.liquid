@@ -1,0 +1,54 @@
+<div class="modal fade" id="modalwishlist0" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">        
+      <div class="modal-body">{{ 'wishlist.none' | t }}</div>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>          
+    </div>
+  </div>
+</div> 
+
+<div class="wishlist-model">
+  <div class="modal fade" id="modalwishlist1" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog white-modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <i class="fa fa-times" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="wishlist-left">
+            <div class="wishlist-note">
+              <span class="cirle"><i class="fa fa-check"></i></span>
+              {{ 'wishlist.successful' | t }} <a href="/pages/wish-list">{{ 'wishlist.title' | t }}</a>
+            </div>
+            <div class="wishlist-product">
+              <div class="product-left">
+                <div class="wishlist-image"></div>
+              </div>
+              <div class="product-right">
+                <div class="wishlist-name"></div>
+                <div class="wishlist-price"></div>
+              </div>
+            </div>
+          </div>
+          <div class="wishlist-right">
+            <div class="wishlist-cart">
+              <form action="/cart/add" method="post" class="variants-form variants" id="wishlist-form-cart" enctype="multipart/form-data">                  
+                <div class="others-bottom">
+                  <a class="btn btn-quick-shop" href="/pages/wish-list">{{ 'wishlist.view_wishlist' | t }}</a>
+                  <a id="wishlist-addToCart" class="btn add-to-cart">{{ 'wishlist.add_to_cart' | t }}</a>
+                </div>
+                <div id="wishlist-variants-container" class="variants-wrapper"></div> 
+                <div class="quantity-content">
+                  <label>{{ 'wishlist.qty' | t }}</label>
+                  <input type="text" size="5" class="item-quantity item-quantity-qs" name="quantity" value="1" />
+                </div>
+              </form> 
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

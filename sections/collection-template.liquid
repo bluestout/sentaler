@@ -1,0 +1,485 @@
+
+
+<div data-section-id="{{ section.id }}" data-section-type="collection-template">
+ 
+  <section class="collection-banner">
+    <div class="collection-banner-wrapper">
+      <div class="container c_pad0">
+        <div class="row">
+          <div class="collection-banner-inner">
+            {% if collection.handle == 'all' %}
+            <div class="collection-panner">
+              <img src="{{ section.settings.collection_banner_img | img_url: "1170x", crop: 'center' }}" class="img-responsive" alt="" />
+            </div>
+    		{% else %}
+            {% if section.settings.collection_image or section.settings.collection_desc %}
+            <div class="collection-image-wrapper row">
+              {% if section.settings.collection_image %}
+              <div class="collection-image col-sm-12 text-center">
+                {% if collection.image %}
+                <img src="{{ collection.image.src | collection_img_url: 'original' }}" alt="{{ collection.title | escape }}" />
+                {% else %}
+                <img src="{{ collection.products.first.featured_image | product_img_url: 'original' }}" alt="{{ collection.title | escape }}" />
+                {% endif %}
+              </div>
+              {% endif %}
+
+              {% if section.settings.collection_desc %}
+              {% if collection.description != empty %}
+              <div class="col-sm-12">
+                <div class="collection-description text-left">
+                  <div class="description content">{{ collection.description }}</div>
+                </div>
+              </div>
+              {% endif %}
+              {% endif %}
+            </div>
+            {% endif %}
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>    
+  <section class="collection-heading">
+    <div class="collection-heading-wrapper">
+      <div class="container c_pad0">
+        <div class="row">
+          <div class="collection-heading-inner text-center">
+            <h1 class="las_25 spac_4"><span>{{ collection.title }}</span></h1>
+           
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section class="collection-content">
+    <div class="collection-content-wrapper">
+      <div class="container c_pad0">
+        <div class="row">
+          <div class="collection-content-inner">
+            <!-- Tags loading -->
+            <div id="tags-load" style="display:none;"><i class="fa fa-spinner fa-pulse fa-2x"></i></div>
+            <div id="collection">
+              {% paginate collection.products by 18 %}
+              <div class="collection-toolbar">
+                    {% if section.settings.enable_tagsfilter %}
+                    <!-- Tags Filter -->
+                    
+                    {% endif %}
+                    <!-- Showing -->
+                   <div class="showing-number">   
+                        {{collection.products_count}} items
+                    </div>
+                     {% if section.settings.enable_tagsfilter %}
+                   {% include 'collection_tag-filter' %}
+                  {% endif %}
+                    <div class="list-inline text-right">
+                      <!-- View as -->
+                      
+                    <!-- Sort by -->
+                    {% if section.settings.collection_sort and collection.products_count > 1 %}
+                    <div class="sortBy">
+                      <div id="sortButtonWarper" class="dropdown-toggle" data-toggle="dropdown">
+                        <button id="sortButton">
+                          <span class="name">{{'collections.sorting.featured'|t}}</span><i class="sticon-caret-d-small"></i>
+                        </button>
+                        <i class="sub-dropdown1"></i>
+                        <i class="sub-dropdown"></i>
+                      </div>
+                      <div id="sortBox" class="control-container dropdown-menu">
+                        <ul id="sortForm" class="list-unstyled option-set text-left list-styled" data-option-key="sortBy">
+                          <li class="sort manual"><a href="{% if collection.handle == "all" %}/collections/all{% else %}{{ collection.url }}{% endif %}/?sort_by=manual">{{'collections.sorting.featured'|t}}</a></li>
+                          <li class="sort price-ascending"><a href="{% if collection.handle == "all" %}/collections/all{% else %}{{ collection.url }}{% endif %}/?sort_by=price-ascending">{{'collections.sorting.price_ascending'|t}}</a></li>
+                          <li class="sort price-descending"><a href="{% if collection.handle == "all" %}/collections/all{% else %}{{ collection.url }}{% endif %}/?sort_by=price-descending">{{'collections.sorting.price_descending'|t}}</a></li>
+                          <li class="sort title-ascending"><a href="{% if collection.handle == "all" %}/collections/all{% else %}{{ collection.url }}{% endif %}/?sort_by=title-ascending">{{'collections.sorting.az'|t}}</a></li>
+                          <li class="sort title-descending"><a href="{% if collection.handle == "all" %}/collections/all{% else %}{{ collection.url }}{% endif %}/?sort_by=title-descending">{{'collections.sorting.za'|t}}</a></li>
+                          <li class="sort created-ascending"><a href="{% if collection.handle == "all" %}/collections/all{% else %}{{ collection.url }}{% endif %}/?sort_by=created-ascending">{{'collections.sorting.date_ascending'|t}}</a></li>
+                          <li class="sort created-descending"><a href="{% if collection.handle == "all" %}/collections/all{% else %}{{ collection.url }}{% endif %}/?sort_by=created-descending">{{'collections.sorting.date_descending'|t}}</a></li>
+                          <li class="sort best-selling"><a href="{% if collection.handle == "all" %}/collections/all{% else %}{{ collection.url }}{% endif %}/?sort_by=best-selling">{{'collections.sorting.best_selling'|t}}</a></li>
+                        </ul>
+                      </div>
+                    </div>        
+                    {% endif %}                                    
+                    </div>
+                  </div>
+                 
+
+                  {% if collection.products.size == 0 %}
+                    {% include 'helper-default-products' %}
+                  {% endif %}
+
+                  <div class="collection-items clearfix">
+                    <div class="AjaxinateLoop_desktop products m_hide">
+                      {% case section.settings.grid %}
+                        {% when '2' %}
+                        {%- assign grid_item_width = '50%' -%}
+                        {%- assign image_size = '570x' -%}
+                        {% when '3' %}
+                        {%- assign grid_item_width = '33.33333%' -%}
+                        {%- assign image_size = '370x' -%}
+                        {% when '4' %}
+                        {%- assign grid_item_width = '25%' -%}
+                        {%- assign image_size = '270x' -%}
+                        {% when '5' %}
+                        {%- assign grid_item_width = '20%' -%}
+                        {%- assign image_size = '210x' -%}
+                        {% when '6' %}
+                        {%- assign grid_item_width = '16.666666%' -%}
+                        {%- assign image_size = '170x' -%}
+                        <style> 
+                          @media(max-width: 1024px) {
+                            .hoverBorderWrapper img {
+                              width: 250px;
+                            }
+                          }
+                          @media(max-width: 320px) {
+                            .hoverBorderWrapper img {
+                              width: 290px;
+                            }
+                          }
+                        </style>
+                        {% endcase %}
+                      
+                    {% for product in collection.products %}
+                     
+                     {% if collection.metafields["global"]["col_addv1"] == blank or collection.metafields["global"]["col_addv2"] == blank %}
+                    <div class="product-item-wrapper {% cycle 'first', '', '', 'last' %}" style="float:left; width:{{grid_item_width}};">
+                        {% include 'collection-item', grid_image_width: image_size %}
+                      </div>
+                      {% else %}
+                      
+                      {% if paginate.current_page == 1 %}
+                     	 {% if forloop.index == 5 or forloop.index == 15 %}<div class="custom_prd_item_wrap">{% endif %}
+                      {% endif %}
+                      {% if forloop.index == 9 and paginate.current_page == 1 %}
+                      </div>
+                      <div class="cusatomwidt">
+                        {{ collection.metafields["global"]["col_addv1"] }}
+                      </div>
+                      {% elsif forloop.index == 14 and paginate.current_page == 1 %}
+                      <div class="cusatomwidt">
+                         {{ collection.metafields["global"]["col_addv2"] }}
+                      </div>
+                        {% else %}
+                      {% if forloop.index == 19 and paginate.current_page == 1 %}
+                    </div>
+                    {% endif %}
+                
+                      <div class="product-item-wrapper {% cycle 'first', '', '', 'last' %}" style="float:left; width:{{grid_item_width}};">
+                        {% include 'collection-item', grid_image_width: image_size %}
+                      </div>
+                   
+                       {% endif %}
+                     {% endif %}
+                    {% endfor %}
+                    </div>
+         	
+                  </div>
+                  <div class="AjaxinateLoop_mobile products desk_hide">
+                      {% case section.settings.grid %}
+                        {% when '2' %}
+                        {%- assign grid_item_width = '50%' -%}
+                        {%- assign image_size = '570x' -%}
+                        {% when '3' %}
+                        {%- assign grid_item_width = '33.33333%' -%}
+                        {%- assign image_size = '370x' -%}
+                        {% when '4' %}
+                        {%- assign grid_item_width = '25%' -%}
+                        {%- assign image_size = '270x' -%}
+                        {% when '5' %}
+                        {%- assign grid_item_width = '20%' -%}
+                        {%- assign image_size = '210x' -%}
+                        {% when '6' %}
+                        {%- assign grid_item_width = '16.666666%' -%}
+                        {%- assign image_size = '170x' -%}
+                        <style> 
+                          @media(max-width: 1024px) {
+                            .hoverBorderWrapper img {
+                              width: 250px;
+                            }
+                          }
+                          @media(max-width: 320px) {
+                            .hoverBorderWrapper img {
+                              width: 290px;
+                            }
+                          }
+                        </style>
+                        {% endcase %}
+                    {% for product in collection.products %}
+                     
+                      
+                    <div class="product-item-wrapper {% cycle 'first', '', '', 'last' %}" style="float:left; width:{{grid_item_width}};">
+                        
+                        {% include 'collection-item', grid_image_width: image_size %}
+                       
+                      </div>
+                    {% endfor %}
+                    </div>
+               	{% if paginate.next %}
+            	<div class="custombtn m_hide">
+                 	 <div class="AjaxinatePagination  pagi_desktop">
+                		<a href="{{ paginate.next.url }}">View All</a>
+					 </div>
+                   <span class="custpag" >{{paginate.items  | minus:16 }}</span>
+               </div>
+            {% endif %}
+            	{% if paginate.next %}
+            	<div class="custombtn desk_hide">
+                 	 <div class="AjaxinatePagination pagi__mobile">
+                		<a href="{{ paginate.next.url }}">View All</a>
+					 </div>
+                   <span class="custpag" >{{paginate.items  | minus:16 }}</span>
+               </div>
+            {% endif %}
+              {% endpaginate %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script type="text/javascript">
+
+    $(document).ready(function() {
+      if(location.search.search("sort_by=") == -1){
+
+      }
+      else{
+      if(location.search != ""){
+        var stpo = location.search.search("sort_by=")+8, sortby_url = '.'+location.search.substr(stpo).split('='), sortby_url_a = sortby_url+" a";
+        $(sortby_url).addClass("active");
+        $('#sortButton .name').html($(sortby_url_a).html());
+      }
+      else{
+         $('.manual').addClass("active");
+      }
+      }    
+    });
+    $.fn.isInViewport = function() {
+  var elementTop = $(this).offset().top;
+  var elementBottom = elementTop + $(this).outerHeight();
+
+  var viewportTop = $(window).scrollTop();
+  var viewportBottom = viewportTop + $(window).height();
+
+  return elementBottom > viewportTop && elementTop < viewportBottom;
+};
+$(function(){
+    $(window).scroll(function() {
+      if ($('.collection-heading-inner').isInViewport()) {
+        $('.collection-toolbar').removeClass('scroll_fixed');
+      }
+      else
+      {
+        $('.collection-toolbar').addClass('scroll_fixed');
+      }
+    });
+});
+  </script>    
+
+
+
+
+{% schema %}
+{
+  "name": "Collection pages",
+  "settings": [
+	{
+          "type": "header",
+          "content": "Layout setting"
+    },
+   
+    {
+      "type": "select",
+      "id": "grid",
+      "label": "Products per row (grid only)",
+      "default": "4",
+      "options": [
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        },
+        {
+          "value": "5",
+          "label": "5"
+        },
+        {
+          "value": "6",
+          "label": "6"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "rows",
+      "label": "Rows per page (grid only)",
+      "default": "6",
+      "options": [
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        },
+        {
+          "value": "5",
+          "label": "5"
+        },
+        {
+          "value": "6",
+          "label": "6"
+        },
+        {
+          "value": "7",
+          "label": "7"
+        },
+        {
+          "value": "8",
+          "label": "8"
+        }
+      ]
+    },
+	{
+          "type": "header",
+          "content": "General Settings"
+    },
+
+      {
+        "type": "image_picker",
+        "id": "collection_banner_img",
+		"label":"Upload image"
+      },
+    {
+        "type": "checkbox",
+        "id": "collection_image",
+        "label": "Display Collection Featured image",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "collection_desc",
+        "label": "Display Collection Description",
+        "default": true
+      },
+    {
+        "type": "header",
+        "content": "Collection Filters Toolbar"
+      },
+      {
+        "type": "checkbox",
+        "id": "collection_showing",
+        "label": "Display \"Showing\" number",
+        "default": true
+      },
+	  {
+        "type": "checkbox",
+        "id": "collection_grid_list",
+        "label": "Display View as List\/Grid",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "collection_sort",
+        "label": "Display Sort by filter",
+        "default": true
+      },      
+      {
+        "type": "header",
+        "content": "Tags filter"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_tagsfilter",
+        "label": "Enable Tag Filter",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_openfilter",
+        "label": "Filter in Open status",
+        "default": true
+      },
+      {
+        "type": "paragraph",
+        "content": "Group tag filter 1"
+      },
+      {
+        "type": "text",
+        "id": "group_tag_1_label",
+        "label": "Label:",
+        "default": "Size"
+      },
+      {
+        "type": "text",
+        "id": "group_tag_1",
+        "label": "Keys:",
+        "default": "S,M,L,XL",
+        "info": "Separate tags with comma"
+      },
+      {
+        "type": "paragraph",
+        "content": "Group tab filter 2"
+      },
+      {
+        "type": "text",
+        "id": "group_tag_2_label",
+        "label": "Label:",
+        "default": "Color"
+      },
+      {
+        "type": "text",
+        "id": "group_tag_2",
+        "label": "Keys:",
+        "default": "Green, Black, Blue, Red, Yellow, White, Brown, Silver, Gray, Pink, Orange",
+        "info": "Separate tags with comma"
+      },
+      {
+        "type": "paragraph",
+        "content": "Group tab filter 3"
+      },
+      {
+        "type": "text",
+        "id": "group_tag_3_label",
+        "label": "Label:",
+        "default": "Brand"
+      },
+      {
+        "type": "text",
+        "id": "group_tag_3",
+        "label": "Keys:",
+        "default": "Chanel, Dior, Gap, Lucci, Louis, Hermes",
+        "info": "Separate tags with comma"
+      },
+      {
+        "type": "paragraph",
+        "content": "Group tab filter 4"
+      },
+      {
+        "type": "text",
+        "id": "group_tag_4_label",
+        "label": "Label:",
+        "default": "Price"
+      },
+      {
+        "type": "text",
+        "id": "group_tag_4",
+        "label": "Keys:",
+        "default": "Under $100, $100 - $200, Above $200",
+        "info": "Separate tags with comma"
+      }
+  ]
+}
+{% endschema %}

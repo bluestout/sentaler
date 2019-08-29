@@ -1,0 +1,18 @@
+<div id="newsletter-popup" class="modal fade" style="display: none;" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="nl-wraper-popup bounceInDown" style="background-image: url({{ 'mailing_bg.png' | asset_url }})">
+    <div class="nl-wraper-popup-inner"> 
+      <form action="{{ settings.mailchimp_form_action }}" method="post" name="mc-embedded-subscribe-form" target="_blank">
+        <h4>{{ settings.news_title }}</h4>    
+        {{ settings.news_sub }}      
+        <div class="group_input">
+          <input class="form-control" type="email" name="EMAIL" placeholder="{{ settings.news_input }}" />
+          <button class="btn" type="submit"><i class="fa fa-paper-plane" data-toggle="tooltip" data-placement="top" title="Submit"></i></button>
+        </div>       
+      </form>
+      <div id="popup-hide">
+        <input type="checkbox" id="mc-popup-hide" value="0" onclick="checkcookie()" checked="checked"> <label for="mc-popup-hide">{{ settings.news_ignore }}</label>
+      </div>
+      <div class="nl-popup-close"><span onclick="$('#newsletter-popup').modal('hide')"  data-toggle="tooltip" data-placement="top" title="Close"><i class="fa fa-times"></i></span></div>
+    </div>
+  </div>
+</div>

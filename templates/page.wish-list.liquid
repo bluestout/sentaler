@@ -1,0 +1,49 @@
+<section class="page-heading">
+  <div class="page-heading-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="page-heading-inner">
+          <h1 class="page-title"><span>{{ page.title }}</span></h1>
+          <div class="breadcrumb clearfix">
+            <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="{{ shop.url }}" title="{{ shop.name | escape }}" itemprop="url"><span itemprop="title">{{ 'general.breadcrumbs.home' | t }}</span></a></span>
+            <span class="arrow-space">&#62;</span>
+            <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+              <a href="{{ page.url }}" title="{{ page.title }}">{{ page.title }}</a>
+            </span>              
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+{% assign wishlistIsEmpty = true %}
+
+<div class="container wishlist-page shop_area">
+  <div class="row">
+    <div id="wishlistcontent">
+      <span class="none" style="display:none;">{{ 'wishlist.none' |t }}</span>
+      <span class="wishlist-count"></span>
+      <ul>
+        <li class="wishlist-heading">
+          <div class="wishlist-image">
+            {{ 'wishlist.image' | t }}
+          </div>
+          <div class="wishlist-name">
+            {{ 'wishlist.name' | t }}
+          </div>
+          <div class="wishlist-price">
+            {{ 'wishlist.price' | t }}
+          </div>
+          <div class="wishlist-addCart">
+            {{ 'wishlist.add_to_cart' | t }}
+          </div>
+          <div class="wishlist-remove">
+            {{ 'wishlist.remove' | t }}
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

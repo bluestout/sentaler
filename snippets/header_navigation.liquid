@@ -1,0 +1,160 @@
+{% assign submenu = l.title | handleize %}
+
+{% if section.settings.megamenu_items_1 == l.title or section.settings.megamenu_items_2 == l.title %}
+<li class="{% if l.active %}active {% endif %}dropdown mega-menu">
+  <a href="{{ l.url }}" class="dropdown-toggle dropdown-link" data-toggle="dropdown">
+    <span>{{ l.title }}</span>
+    <i class="fa fa-angle-down"></i>
+    <i class="sub-dropdown1 visible-sm visible-md visible-lg"></i>
+    <i class="sub-dropdown visible-sm visible-md visible-lg"></i>
+  </a>
+  {% if section.settings.megamenu_items_1 == l.title %}
+  {% capture i %}{% increment j %}{% endcapture %}{% if section.settings.mega_linklist_1 != "" %} {% capture i %}{% increment j %}{% endcapture %}{% endif %}{% if section.settings.mega_linklist_2 != "" %} {% capture i %}{% increment j %}{% endcapture %}{% endif %}{% if section.settings.mega_linklist_3 != "" %} {% capture i %}{% increment j %}{% endcapture %}{% endif %}{% if section.settings.display_menu_image_1 %} {% capture i %}{% increment j %}{% endcapture %}{% endif %}
+  <div class="megamenu-container col-{{i}} megamenu-container-1 dropdown-menu">
+    <ul class="sub-mega-menu">
+      {% if section.settings.mega_linklist_1 != "" %}
+      <li class="col-links col-links01">
+        {% assign list = linklists[section.settings.mega_linklist_1] %}
+        <ul>
+          <li class="list-title">{{ list.title }}</li>
+          {% for link in list.links %}
+          <li class="list-unstyled li-sub-mega">
+            <a href="{{ link.url }}">{{ link.title | escape }}</a>           
+          </li>
+          {% endfor %}
+        </ul>
+      </li>
+      {% endif %}
+      {% if section.settings.mega_linklist_2 != "" %}
+      <li class="col-links col-links02">
+        {% assign list = linklists[section.settings.mega_linklist_2] %}
+        <ul>
+          <li class="list-title">{{ list.title }}</li>
+          {% for link in list.links %}
+          <li class="list-unstyled li-sub-mega">
+            <a href="{{ link.url }}">{{ link.title | escape }}</a>           
+          </li>
+          {% endfor %}
+        </ul>
+      </li>
+      {% endif %}
+      {% if section.settings.mega_linklist_3 != "" %}
+      <li class="col-links col-links03">
+        {% assign list = linklists[section.settings.mega_linklist_3] %}
+        <ul>
+          <li class="list-title">{{ list.title }}</li>
+          {% for link in list.links %}
+          <li class="list-unstyled li-sub-mega">
+            <a href="{{ link.url }}">{{ link.title | escape }}</a>           
+          </li>
+          {% endfor %}
+        </ul>
+      </li>
+      {% endif %}
+      {% if section.settings.display_menu_image_1 %}
+      <li class="col-img">
+        <img src="{{ section.settings.mega-bg-01 | img_url: '300x' }}" alt="Mega menu image 1" />
+      </li>
+      {% endif %}
+    </ul>
+    {% if i == '4' or i == '3' %}
+    <script>
+      $(window).ready(function($) {
+        $('.megamenu-container-1').css("width",$('.main-header-inner').innerWidth());
+      });
+      $( window ).resize(function() {
+        $('.megamenu-container-1').css("width",$('.main-header-inner').innerWidth());
+      });
+    </script>
+    {% endif%}
+  </div>  
+  {% endif %}
+  
+  {% if section.settings.megamenu_items_2 == l.title %}
+  {% capture i %}{% increment j %}{% endcapture %}{% if section.settings.mega_linklist_4 != "" %} {% capture i %}{% increment j %}{% endcapture %}{% endif %}{% if section.settings.mega_linklist_5 != "" %} {% capture i %}{% increment j %}{% endcapture %}{% endif %}{% if section.settings.mega_linklist_6 != "" %} {% capture i %}{% increment j %}{% endcapture %}{% endif %}{% if section.settings.megamenu_text_2 != "" %} {% capture i %}{% increment j %}{% endcapture %}{% endif %}
+  <div class="megamenu-container col-{{i}} megamenu-container-2 dropdown-menu" {% if section.settings.display_menu_image_2 %} style="background-image:url({{ section.settings.mega-bg-02 | img_url: '1200x' }})"{% endif %}>
+    <ul class="sub-mega-menu">
+      {% if section.settings.megamenu_text_2 != "" %}
+      <li class="col-sampletext">
+        {{ section.settings.megamenu_text_2 }}
+      </li>
+      {% endif %}
+      {% if section.settings.mega_linklist_4 != "" %}
+      <li class="col-links col-links01">
+        {% assign list = linklists[section.settings.mega_linklist_4] %}
+        <ul>
+          <li class="list-title">{{ list.title }}</li>
+          {% for link in list.links %}
+          <li class="list-unstyled li-sub-mega">
+            <a href="{{ link.url }}">{{ link.title | escape }}</a>           
+          </li>
+          {% endfor %}
+        </ul>
+      </li>
+      {% endif %}
+      {% if section.settings.mega_linklist_5 != "" %}
+      <li class="col-links col-links02">
+        {% assign list = linklists[section.settings.mega_linklist_5] %}
+        <ul>
+          <li class="list-title">{{ list.title }}</li>
+          {% for link in list.links %}
+          <li class="list-unstyled li-sub-mega">
+            <a href="{{ link.url }}">{{ link.title | escape }}</a>           
+          </li>
+          {% endfor %}
+        </ul>
+      </li>
+      {% endif %}
+      {% if section.settings.mega_linklist_6 != "" %}
+      <li class="col-links col-links03">
+        {% assign list = linklists[section.settings.mega_linklist_6] %}
+        <ul>
+          <li class="list-title">{{ list.title }}</li>
+          {% for link in list.links %}
+          <li class="list-unstyled li-sub-mega">
+            <a href="{{ link.url }}">{{ link.title | escape }}</a>           
+          </li>
+          {% endfor %}
+        </ul>
+      </li>
+      {% endif %}
+    </ul>
+    {% if i == '9' or i == '3' %}
+    <script>
+      $(window).ready(function($) {
+        $('.megamenu-container-2').css("width",$('.main-header-inner').innerWidth());
+      });
+      $( window ).resize(function() {
+        $('.megamenu-container-2').css("width",$('.main-header-inner').innerWidth());
+      });
+    </script>
+    {% endif%}
+  </div>  
+  {% endif %}
+</li>
+
+{% else %}
+
+{% if linklists[submenu].links.size > 0 %}
+<li class="nav-item{% if l.active %} active{% endif %} dropdown navigation">
+  <a href="{{ l.url }}" class="dropdown-toggle dropdown-link" data-toggle="dropdown">
+    <span>{{ l.title }}</span>
+    <i class="fa fa-angle-down"></i>
+    <i class="sub-dropdown1  visible-sm visible-md visible-lg"></i>
+    <i class="sub-dropdown visible-sm visible-md visible-lg"></i>
+  </a>
+  <ul class="dropdown-menu">
+    <li class="list-title">{{ l.title }}</li>
+    {% for l in linklists[submenu].links %}
+    {% include 'navigation_sub-links' with forloop.index %}
+    {% endfor %}
+  </ul>
+</li>
+{% else %}
+<li class="nav-item{% if l.active %} active{% endif %}">
+  <a href="{{ l.url }}">
+    <span>{{ l.title }}</span>
+  </a>
+</li>
+{% endif %}
+{% endif %}

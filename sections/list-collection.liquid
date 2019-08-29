@@ -1,0 +1,64 @@
+<div class="index-list-collection text-center">
+  {% for block in section.blocks %}
+  <div class="custom_list_col col_{{section.blocks.size}}">
+    <a href="{{block.settings.link}}">
+    <img class="desk-img" src="{{block.settings.image | img_url: "master" }}"/>
+    <img class="mob_img" src="{{block.settings.imagem | img_url: "master" }}"/>
+    {% if block.settings.btn_text %}
+    <div class="list-btn">
+      <span class="index_btn white" href="{{block.settings.link}}">{{block.settings.btn_text}}</span>
+    </div>
+    {% endif %}
+    </a>
+  </div>
+  {% endfor %}
+</div>
+{% schema %}
+  {
+    "name": "List Collection",
+	 "max_blocks": 4,
+    "settings": [],
+	 "blocks": [
+    {
+      "type": "collection",
+      "name": "collection",
+	 
+      "settings": [
+		{
+			"type":"image_picker",
+			"id":"image",
+			"label":"Image"
+		},
+		{
+			"type":"image_picker",
+			"id":"imagem",
+			"label":"Mobile Image"
+		},
+		{
+          "type": "text",
+          "id": "btn_text",
+          "label": "Button Text"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "link"
+        }
+      ]
+    }
+  ],
+"presets": [
+    {
+      "name": "List Collection",
+      "category": "Collection"
+     
+    }
+  ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

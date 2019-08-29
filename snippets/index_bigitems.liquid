@@ -1,0 +1,184 @@
+ 
+  <div class="row-container list-unstyled clearfix {{ product.handle }}">
+    <div class="row-left">
+      <a href="{{ product.url | within: collection }}" class="hoverBorder container_item"> 
+        <div class="hoverBorderWrapper product-featured-img">
+          {% for image in product.images %}
+          {% endfor %}
+          {% capture number_of_images %}{{ product.images | size }}{% endcapture %}
+          {% assign number_images = number_of_images | plus:0 %}
+          <img src="{{ product.featured_image | product_img_url: '390x390' , crop: 'bottom' }}" class="{% if settings.product_item_effect != 'rotation' %}not-rotation{% endif %} img-responsive front" alt="{{ product.featured_image.alt | escape }}" />
+          <div class="mask"></div>
+        </div>        
+      </a>      
+    </div>
+
+    <div class="row-right animMix" style="padding-left: 10px; padding-right: 10px;">
+      <div class="collec-title">
+          {% for collection in product.collections %}
+            <a href="{{collection.url}}">{{ collection.title }}</a>
+            {% break %}
+          {% endfor %}
+      </div>
+      <div class="product-title"><a class="title-5" href="{{ product.url | within: collection }}">{{ product.title }}</a></div>
+      <div class="rating-star">
+        <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+      </div>      
+      <div class="product-price">
+        {% if product.available %}
+        {% if product.compare_at_price_max > product.price %}
+
+        {% assign found_one_in_stock = false %}
+        {% for variant in product.variants %}
+        {% if variant.available and variant.compare_at_price and found_one_in_stock == false %}
+        {% assign found_one_in_stock = true %}
+
+        <span class="price_sale">{{ variant.price | money }}</span>
+        <del class="price_compare"> {{ variant.compare_at_price | money }}</del>
+
+        {% endif %}
+        {% endfor %}
+
+        {% if found_one_in_stock == false %}
+        {% for variant in product.variants %}
+        {% if variant.available and found_one_in_stock == false %}
+        {% assign found_one_in_stock = true %}
+        <span class="price">
+          {{ variant.price | money }}
+        </span>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+        {% else %}
+        <span class="price">
+          {% if product.price_varies %} 
+          {{ product.price | money }}
+          {% else %}
+          {{ product.price | money }}
+          {% endif %}
+        </span>
+        {% endif %}  
+        {% else %}
+        <span class="sold_out">Sold Out</span>
+        {% endif %}
+      </div>         
+      <div class="hover-mask">
+        <div class="group-mask">
+          <div class="inner-mask">            
+            <form action="/cart/add" method="post">
+              {% if product.available %}
+              <div class="hide clearfix"> 
+                <select name="id" >
+                  {% if product.compare_at_price_max > product.price %}
+
+                  {% assign found_one_in_stock = false %}
+                  {% for variant in product.variants %}
+                  {% if variant.available and variant.compare_at_price and found_one_in_stock == false %}
+                  {% assign found_one_in_stock = true %}
+                  {% assign found_variant_id = variant.id %}
+                  {% break %}
+                  {% endif %}
+                  {% endfor %}
+
+                  {% if found_one_in_stock == false %}
+                  {% for variant in product.variants %}
+                  {% if variant.available and found_one_in_stock == false %}
+                  {% assign found_one_in_stock = true %}
+                  {% assign found_variant_id = variant.id %}
+                  {% break %}
+                  {% endif %}
+                  {% endfor %}
+                  {% endif %}
+
+                  {% for variant in product.variants %}
+                  {% if variant.id == found_variant_id %}
+                  <option selected="selected" value="{{ variant.id }}">{{ variant.title | escape }}</option>
+                  {% else %}
+                  <option value="{{ variant.id }}">{{ variant.title | escape }}</option>
+                  {% endif %}
+                  {% endfor %}
+                  {% else %}
+                  {% assign found_one_in_stock = false %}
+                  {% for variant in product.variants %}
+                  {% if variant.available and found_one_in_stock == false %}
+                  {% assign found_one_in_stock = true %}
+                  <option selected="selected" value="{{ variant.id }}">{{ variant.title | escape }}</option>
+                  {% else %}
+                  <option value="{{ variant.id }}">{{ variant.title | escape }}</option>
+                  {% endif %}
+                  {% endfor %}
+                  {% endif %}
+                </select>
+              </div>  
+              {% endif %}
+              <div class="effect-ajax-cart">
+                {% if product.available %}
+                <input type="hidden" name="quantity" value="1" />
+                {% if product.variants.size == 1 %}
+                <button class="btn add-to-cart" data-parent=".parent-fly" type="submit" name="add">{{ 'products.product.add_to_cart' | t }}</button>
+                {% else %}
+                <button class="btn select-option" type="button" onclick="window.location='{{product.url}}';">{{ 'products.product.select_option' | t }}</button>
+                {% endif %}
+                {% else %}
+                <button class="btn disabled" disabled="disabled" type="button" name="add">{{ 'products.product.add_to_cart' | t }}</button>
+                {% endif %}
+              </div>
+            </form>
+            <ul class="quickview-wishlist-wrapper">
+              <li class="quickview">
+                {% if product.available %}
+                <div class="product-ajax-cart hidden-xs hidden-sm">
+                  <span class="overlay_mask"></span>
+                  <div data-handle="{{product.handle}}" data-target="#quick-shop-modal" class="quick_shop" data-toggle="modal">
+                    <a class=""><i class="fa fa-eye" title="Quick View"></i></a>
+                    <span class="product-json hide">{{ product | json }}</span>
+                  </div>
+                </div>
+                {% endif %}
+              </li>
+              <li class="wishlist">
+                {% if product.available %}
+                  {% if customer %}
+                    {% include 'wish-list' %}
+                  {% else %}
+                    <a class="wish-list" href="/account/login"><span class="hidden-xs"><i class="fa fa-heart-o" title="Wishlist"></i></span></a>
+                  {% endif %}
+                {% endif %}
+              </li>
+            </ul>
+          </div><!--inner-mask-->   
+        </div><!--Group mask-->   	
+      </div>
+    </div> 
+    {% if product.images.size > 1%}
+      <div class="thumbs gallery clearfix">
+        <div class="gallery-slider">
+          {% assign featured_image = product.selected_or_first_available_variant.featured_image | default: product.featured_image %}
+          {% for image in product.images limit:4 %}
+            <div class="image col-sm-3">
+              <a href="{{ image | product_img_url: '390x390' , crop: 'bottom' }}" data-original-image="{{ image | product_img_url: '390x390' , crop: 'bottom' }}">
+                <img src="{{ image | product_img_url: '390x390' , crop: 'bottom' }}" alt="{{ image.alt | escape }}" />
+              </a>
+            </div>
+          {% endfor %}           
+        </div>
+      </div>
+      <script>
+        $(window).load(function() {
+          var k = ".{{ product.handle }} .gallery div.image";
+          var i = ".{{ product.handle }} .gallery .gallery-slider div.image";
+          var j = ".{{ product.handle }} .product-featured-img img";
+	      $(k).on('click', function(event) {
+            event.preventDefault();
+            var $this = $(this).children("a");
+            var img_url = $this.attr("href");
+            $(j).attr("src",img_url);
+            $( i ).each(function() {
+              $(this).removeClass("active");
+            });
+            $(this).addClass("active");
+          });
+        });
+       </script>
+    {% endif %}
+  </div> 

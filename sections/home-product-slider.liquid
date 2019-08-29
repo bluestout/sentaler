@@ -1,0 +1,257 @@
+<div class="home-product-slider">
+  <div class="container">
+    <div class="row">
+      {% if section.settings.title != blank %}
+        <div class="section-header text-center">
+          <h2>{{ section.settings.title | escape }}</h2>
+        </div>
+      {% endif %}
+
+      {% case section.settings.grid %}
+        {% when '2' %}
+          {%- assign image_size = '570x' -%}
+        {% when '3' %}          
+          {%- assign image_size = '370x' -%}
+        {% when '4' %}          
+          {%- assign image_size = '270x' -%}
+        {% when '5' %}          
+          {%- assign image_size = '195x' -%}
+      {% endcase %}
+      
+      {%- assign collection = collections[section.settings.collection] -%}
+  	  {%- assign product_limit = section.settings.limit -%}
+
+      <div class="grid grid--uniform grid--view-items home-productslider">
+        {% for product in collection.products limit: product_limit %}
+          <div class="grid__item {{ grid_item_width }}">
+            {% include 'product-item', grid_image_width: image_size %}
+          </div>
+        {% else %}
+          {% for i in (1..product_limit) %}
+          <div class="grid__item {{ grid_item_width }}">
+            <div class="row-container list-unstyled clearfix">
+              <div class="row-left">
+                <div class="grid-view-item__image">
+                  {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+                  {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+                </div>
+              </div>
+              <div class="row-right animMix">
+                <div class="product-title"><a href="#">{{ 'homepage.onboarding.product_title' | t }}</a></div>
+                <div class="product-price">
+                  {% include 'product-price' %}
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        {% endfor %}
+      </div>
+
+      {% if section.settings.show_view_all %}
+        <div class="text-center">
+          <a href="{{ collection.url }}" class="btn">
+            {{ 'collections.general.view_all' | t }}
+          </a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product Slider",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Featured Product"
+    },
+    {
+      "id": "collection",
+      "type": "collection",
+      "label": "Collection"
+    },    	
+    {
+      "type": "text",
+      "id": "limit",
+      "label": "Limit",
+      "default": "4"
+    },
+	{
+      "type": "checkbox",
+      "id": "auto",
+      "label": "Set Auto play",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "time",
+      "label": "Time (miliseconds)",
+      "default": "5000"
+    },
+	{
+      "type": "select",
+      "id": "grid",
+      "label": "Desktop (from 1200px) - Products per row",
+      "default": "3",
+      "options": [
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        }
+      ]
+    },
+	{
+      "type": "select",
+      "id": "grid2",
+      "label": "Desktop Small (from 979px) - Products per row",
+      "default": "3",
+      "options": [
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        },
+        {
+          "value": "5",
+          "label": "5"
+        }
+      ]
+    },
+	{
+      "type": "select",
+      "id": "grid3",
+      "label": "Tablet (from 768px) - Products per row",
+      "default": "3",
+      "options": [
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        },
+        {
+          "value": "5",
+          "label": "5"
+        }
+      ]
+    },
+	{
+      "type": "select",
+      "id": "grid4",
+      "label": "Tablet Small (from 540px) - Products per row",
+      "default": "3",
+      "options": [
+		{
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        },
+        {
+          "value": "5",
+          "label": "5"
+        }
+      ]
+    },
+	{
+      "type": "select",
+      "id": "grid5",
+      "label": "Mobile (from 360px) - Products per row",
+      "default": "3",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        },
+        {
+          "value": "5",
+          "label": "5"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Slider",
+      "category": "Collection"
+    }
+  ]
+}
+{% endschema %}
+
+
+{% stylesheet %}
+
+{% endstylesheet %}
+
+<script>
+  if($(".home-productslider").length){
+    $(".home-productslider").owlCarousel({
+      navigation : true,
+      pagination: false,
+      {% if section.settings.auto %}
+      autoPlay: {{ section.settings.time }},
+      {% else %}
+      autoPlay: false,
+      {% endif %}      
+      paginationSpeed: 800,
+      items: {{ section.settings.grid }},
+      slideSpeed : 200,
+      rewindSpeed : 1000,
+      itemsDesktop : [1199,{{ section.settings.grid }}],
+      itemsDesktopSmall : [979,{{ section.settings.grid2 }}],
+      itemsTablet: [768,{{ section.settings.grid3 }}],
+      itemsTabletSmall: [540,{{ section.settings.grid4 }}],
+      itemsMobile : [360,{{ section.settings.grid5 }}],
+      navigationText: ['<i class="fa fa-angle-left" title="Previous" data-toggle="tooltip" data-placement="top"></i>', '<i class="fa fa-angle-right" title="Next" data-toggle="tooltip" data-placement="top"></i>']
+    });
+  }
+</script>

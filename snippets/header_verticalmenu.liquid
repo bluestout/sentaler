@@ -1,0 +1,23 @@
+{% assign submenuv = v.title | handleize %}
+{% if linklists[submenuv].links.size > 0 %}
+<li class="nav-item{% if l.active %} active{% endif %} dropdown navigation">
+  <a href="{{ v.url }}" class="dropdown-toggle dropdown-link" data-toggle="dropdown">
+    <span>{{ v.title }}</span>
+    <i class="fa fa-angle-down"></i>
+    <i class="sub-dropdown1  visible-sm visible-md visible-lg"></i>
+    <i class="sub-dropdown visible-sm visible-md visible-lg"></i>
+  </a>
+  <ul class="dropdown-menu">
+    <li class="list-title">{{ v.title }}</li>
+    {% for v in linklists[submenuv].links %}
+    {% include 'navigation_sub-links_vertical' with forloop.index %}
+    {% endfor %}
+  </ul>
+</li>
+{% else %}
+<li class="nav-item">
+  <a href="{{ v.url }}">
+    <span>{{ v.title }}</span>
+  </a>
+</li>
+{% endif %}

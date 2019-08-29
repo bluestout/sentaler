@@ -1,0 +1,338 @@
+
+<section class="page-heading">
+  <div class="page-heading-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="page-heading-inner">
+          <h1 class="page-title"><span>{{ page.title }}</span></h1>
+          <div class="breadcrumb clearfix">
+            <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="{{ shop.url }}" title="{{ shop.name | escape }}" itemprop="url"><span itemprop="title">{{ 'general.breadcrumbs.home' | t }}</span></a></span>
+            <span class="arrow-space">&#62;</span>
+            <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+              <a href="{{ page.url }}" title="{{ page.title }}">{{ page.title }}</a>
+            </span>              
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="page-content">
+  <div class="page-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="page-inner">
+          <div id="page">
+            <div class="details">              
+              {{ page.content }}
+              <div class="content">
+              <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                {% if section.settings.faq-text1-head != "" %}
+                <div class="panel panel-default">
+                  <div class="panel-heading" role="tab" id="headingOne">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        <span class="faq-icon"><i class="fa fa-question-circle"></i></span>
+                        {{section.settings.faq-text1-head}}
+                      </a>
+                    </h4>
+                  </div>
+                  <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="panel-body">
+                      {{section.settings.faq-text1-cont}}
+                    </div>
+                  </div>
+                </div>
+                {% endif %}
+                {% if section.settings.faq-text2-head != "" %}
+                <div class="panel panel-default">
+                  <div class="panel-heading" role="tab" id="headingTwo">
+                    <h4 class="panel-title">
+                      <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        <span class="faq-icon"><i class="fa fa-question-circle"></i></span>
+                        {{section.settings.faq-text2-head}}
+                      </a>
+                    </h4>
+                  </div>
+                  <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                    <div class="panel-body">
+                      {{section.settings.faq-text2-cont}}
+                    </div>
+                  </div>
+                </div>
+                {% endif %}
+                {% if section.settings.faq-text3-head != "" %}
+                <div class="panel panel-default">
+                  <div class="panel-heading" role="tab" id="headingThree">
+                    <h4 class="panel-title">
+                      <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        <span class="faq-icon"><i class="fa fa-question-circle"></i></span>
+                        {{section.settings.faq-text3-head}}
+                      </a>
+                    </h4>
+                  </div>
+                  <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                    <div class="panel-body">
+                      {{section.settings.faq-text3-cont}}
+                    </div>
+                  </div>
+                </div>
+                {% endif %}
+                {% if section.settings.faq-text4-head != "" %}
+                <div class="panel panel-default">
+                  <div class="panel-heading" role="tab" id="headingFour">
+                    <h4 class="panel-title">
+                      <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                        <span class="faq-icon"><i class="fa fa-question-circle"></i></span>
+                        {{section.settings.faq-text4-head}}
+                      </a>
+                    </h4>
+                  </div>
+                  <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+                    <div class="panel-body">
+                      {{section.settings.faq-text4-cont}}
+                    </div>
+                  </div>
+                </div>
+                {% endif %}
+                {% if section.settings.faq-text5-head != "" %}
+                <div class="panel panel-default">
+                  <div class="panel-heading" role="tab" id="headingFive">
+                    <h4 class="panel-title">
+                      <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                        <span class="faq-icon"><i class="fa fa-question-circle"></i></span>
+                        {{section.settings.faq-text5-head}}
+                      </a>
+                    </h4>
+                  </div>
+                  <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+                    <div class="panel-body">
+                      {{section.settings.faq-text5-cont}}
+                    </div>
+                  </div>
+                </div>
+                {% endif %}
+                {% if section.settings.faq-text6-head != "" %}
+                <div class="panel panel-default">
+                  <div class="panel-heading" role="tab" id="headingSix">
+                    <h4 class="panel-title">
+                      <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                        <span class="faq-icon"><i class="fa fa-question-circle"></i></span>
+                        {{section.settings.faq-text6-head}}
+                      </a>
+                    </h4>
+                  </div>
+                  <div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix">
+                    <div class="panel-body">
+                      {{section.settings.faq-text6-cont}}
+                    </div>
+                  </div>
+                </div>
+                {% endif %}
+                {% if section.settings.faq-text7-head != "" %}
+                <div class="panel panel-default">
+                  <div class="panel-heading" role="tab" id="headingSv">
+                    <h4 class="panel-title">
+                      <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSv" aria-expanded="false" aria-controls="collapseSv">
+                        <span class="faq-icon"><i class="fa fa-question-circle"></i></span>
+                        {{section.settings.faq-text7-head}}
+                      </a>
+                    </h4>
+                  </div>
+                  <div id="collapseSv" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSv">
+                    <div class="panel-body">
+                      {{section.settings.faq-text7-cont}}
+                    </div>
+                  </div>
+                </div>
+                {% endif %}
+                {% if section.settings.faq-text8-head != "" %}
+                <div class="panel panel-default">
+                  <div class="panel-heading" role="tab" id="heading8">
+                    <h4 class="panel-title">
+                      <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse8" aria-expanded="false" aria-controls="collapse8">
+                        <span class="faq-icon"><i class="fa fa-question-circle"></i></span>
+                        {{section.settings.faq-text8-head}}
+                      </a>
+                    </h4>
+                  </div>
+                  <div id="collapse8" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading8">
+                    <div class="panel-body">
+                      {{section.settings.faq-text8-cont}}
+                    </div>
+                  </div>
+                </div>
+                {% endif %}
+                {% if section.settings.faq-text9-head != "" %}
+                <div class="panel panel-default">
+                  <div class="panel-heading" role="tab" id="heading9">
+                    <h4 class="panel-title">
+                      <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse9" aria-expanded="false" aria-controls="collapse9">
+                        <span class="faq-icon"><i class="fa fa-question-circle"></i></span>
+                        {{section.settings.faq-text9-head}}
+                      </a>
+                    </h4>
+                  </div>
+                  <div id="collapse9" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading9">
+                    <div class="panel-body">
+                      {{section.settings.faq-text9-cont}}
+                    </div>
+                  </div>
+                </div>
+                {% endif %}
+                {% if section.settings.faq-text10-head != "" %}
+                <div class="panel panel-default">
+                  <div class="panel-heading" role="tab" id="heading10">
+                    <h4 class="panel-title">
+                      <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse10" aria-expanded="false" aria-controls="collapse10">
+                        <span class="faq-icon"><i class="fa fa-question-circle"></i></span>
+                        {{section.settings.faq-text10-head}}
+                      </a>
+                    </h4>
+                  </div>
+                  <div id="collapse10" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading10">
+                    <div class="panel-body">
+                      {{section.settings.faq-text10-cont}}
+                    </div>
+                  </div>
+                </div>
+                {% endif %}
+              </div>
+              <script>
+                 jQuery(function ($) {
+                    var $active = $('#accordion .panel-collapse.in').prev().addClass('active');
+                    $('#accordion').on('show.bs.collapse', function (e) {
+                        $('#accordion .panel-heading.active').removeClass('active');
+                        $(e.target).prev().addClass('active');
+                    })
+                });
+              </script>  
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "FAQs Content",
+  "settings": [
+	  {
+        "type": "text",
+        "id": "faq-text1-head",
+        "label": "FAQ 1 - Heading",
+        "default": "What are the delivery charges for orders from the Online Shop?"
+      },
+      {
+        "type": "textarea",
+        "id": "faq-text1-cont",
+        "label": "FAQ 1 - Content",
+        "default": "Transform indicator overcome injustice pursue these aspirations natural resources. Maintain, social analysis Bloomberg; accelerate planned giving. Revitalize economic independence, foundation sharing economy, rights-based approach medical supplies eradicate celebrate informal economies. International medicine social worker participatory monitoring Bill and Melinda Gates our ambitions justice relief transform the world. Resolve emergency response accelerate progress, maximize collaborative cities lifting people up tackle frontline.  Transform indicator overcome injustice pursue these aspirations natural resources. Maintain, social analysis Bloomberg; accelerate planned giving. Revitalize economic independence, foundation sharing economy, rights-based approach medical supplies eradicate celebrate informal economies. International medicine social worker participatory monitoring Bill and Melinda Gates our ambitions justice relief transform the world. Resolve emergency response accelerate progress, maximize collaborative cities lifting people up tackle frontline."
+      },
+      {
+        "type": "text",
+        "id": "faq-text2-head",
+        "label": "FAQ 2 - Heading",
+        "default": " Which payment methods are accepted in the Online Shop?"
+      },
+      {
+        "type": "textarea",
+        "id": "faq-text2-cont",
+        "label": "FAQ 2 - Content"
+      },
+      {
+        "type": "text",
+        "id": "faq-text3-head",
+        "label": "FAQ 3 - Heading",
+        "default": " How long will delivery take?"
+      },
+      {
+        "type": "textarea",
+        "id": "faq-text3-cont",
+        "label": "FAQ 3 - Content"
+      },
+      {
+        "type": "text",
+        "id": "faq-text4-head",
+        "label": "FAQ 4 - Heading",
+        "default": "How secure is shopping in the Online Shop? Is my data protected?"
+      },
+      {
+        "type": "textarea",
+        "id": "faq-text4-cont",
+        "label": "FAQ 4 - Content"
+      },
+      {
+        "type": "text",
+        "id": "faq-text5-head",
+        "label": "FAQ 5 - Heading",
+        "default": " What exactly happens after ordering?"
+      },
+      {
+        "type": "textarea",
+        "id": "faq-text5-cont",
+        "label": "FAQ 5 - Content"
+      },
+      {
+        "type": "text",
+        "id": "faq-text6-head",
+        "label": "FAQ 6 - Heading",
+        "default": "Do I receive an invoice for my order?"
+      },
+      {
+        "type": "textarea",
+        "id": "faq-text6-cont",
+        "label": "FAQ 6 - Content"
+      },
+      {
+        "type": "text",
+        "id": "faq-text7-head",
+        "label": "FAQ 7 - Heading",
+        "default": "How much does it cost to update my site or to maintain it?"
+      },
+      {
+        "type": "textarea",
+        "id": "faq-text7-cont",
+        "label": "FAQ 7 - Content"
+      },
+      {
+        "type": "text",
+        "id": "faq-text8-head",
+        "label": "FAQ 8 - Heading",
+        "default": "How do you manage my web solution project and how do I communicate with you?"
+      },
+      {
+        "type": "textarea",
+        "id": "faq-text8-cont",
+        "label": "FAQ 8 - Content"
+      },
+      {
+        "type": "text",
+        "id": "faq-text9-head",
+        "label": "FAQ 9 - Heading",
+        "default": "What after-sales support do you offer?"
+      },
+      {
+        "type": "textarea",
+        "id": "faq-text9-cont",
+        "label": "FAQ 9 - Content"
+      },
+      {
+        "type": "text",
+        "id": "faq-text10-head",
+        "label": "FAQ 10 - Heading",
+        "default": "How much does a web site cost?"
+      },
+      {
+        "type": "textarea",
+        "id": "faq-text10-cont",
+        "label": "FAQ 10 - Content"
+      }
+
+  ]
+}
+{% endschema %}

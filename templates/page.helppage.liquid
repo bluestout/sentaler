@@ -1,0 +1,187 @@
+<!--<div id="page" class="desktop-12 tablet-6 mobile-3">
+  <div id="page-content" class="desktop-9 tablet-4 mobile-3">
+    <h1 class="page-title">{{ page.title }}</h1>
+    <div class="rte">{{ page.content }}</div>
+  </div>
+  
+  <div id="page-sidebar" class="desktop-3 tablet-2 mobile-3">
+    <h2>{{ settings.page-sidebar-title }}</h2>
+    <ul>
+      {% for link in linklists[settings.pagelist].links %}
+      <li>{{ link.title | link_to: link.url }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div> -->
+
+<div class="row hao">
+<div class="col-md-12">
+<div class="shop-page-center">
+<div class="row">
+<div class="col-sm-3 shop-page">
+  <h1 class="page-title">{{ page.title }}</h1>
+  {{ settings.help-sidebar-links }} 
+</div>
+<div class="col-sm-9">
+ <div class="pageslider"> 
+ <section class="homepage-section animate wow fadeIn">
+  {% if settings.help-display-wide %}
+  {% else %}
+  <div class="row">
+    <div class="desktop-12 tablet-6 mobile-3">
+      {% endif %}
+
+      {% if settings.help-display == 'video' %}
+      <div class="videoWrapper">
+        {{ settings.help-video-embed }}
+      </div>
+
+      {% elsif settings.help-display == 'slideshow' %}
+	  <div class="flexslider">
+	        <ul class="slides">
+
+
+	          {% for i in (1..5) %}
+	          {% assign slide_show = 'help-slide-' | append: i | append: '-check' %}
+
+	          {% if settings[slide_show] %}
+	          {% assign index = 'help-slide' | append: i %}
+	          {% assign slide_link_url = 'help-slide' | append: i | append: '_url' %}
+	          {% assign slide_img_url = 'help-slide' | append: i | append: '.jpg' %}
+	          {% assign slide_img_alt = 'help-slide' | append: i | append: '_alt' %}
+	          {% assign slide_title = 'help-slide-' | append: i | append: '-title' %}
+	          {% assign slide_caption = 'help-slide-' | append: i | append: '-caption' %}
+	          {% assign slide_button = 'help-slide-' | append: i | append: '-button' %}
+	          {% assign slide_button_text = 'help-slide-' | append: i | append: '-button-text' %}        
+
+	          <li>
+	            <a href="{{ settings[slide_link_url] }}"> 
+	              <img src="{{ slide_img_url | asset_url }}" alt="{{ settings[slide_img_alt] }}" />
+	            </a>
+	            <div class="flex-caption {{ index }}">
+	  			{% if settings[slide_title] != blank %}                        
+	              <h2 class="slide-title">{{ settings[slide_title] }}</h2>
+	              {% endif %}
+	  			{% if settings[slide_caption] != blank %}            
+	              <p class="caption">{{ settings[slide_caption] }}</p>
+	              {% endif %}
+	              {% if settings[slide_button] %}
+	              <div class="cta">
+	                <a href="{{ settings[slide_link_url] }}">{{ settings[slide_button_text] }}</a>
+	              </div>
+	              {% endif %}            
+	            </div>
+	          </li>
+	          {% endif %}
+	          {% endfor %} 
+	        </ul>
+	      </div> 
+      {% endif %} 
+
+      {% if settings.help-display-wide %}
+      {% else %}
+    </div>
+  </div>
+    {% endif %}    
+<div class="clear"></div>  
+</section> 
+</div>
+  
+{{ page.content }}
+  
+<p> </p>
+<h4>CONTACT US</h4>
+<h5 style="text-align: center;"><strong></strong></h5>
+<h5 style="text-align: center;"><strong>SENTALER HEAD OFFICE</strong></h5>
+<p style="text-align: center;">555 Richmond St. West, Suite 403 <br /> PO Box 1103<br />Toronto, ON  M5V 3B1, Canada<br /><strong><br /></strong>+1 888 259 3374<br /><strong>General:</strong> <a href="mailto:service@sentaler.com">service@sentaler.com</a><br /><strong>Business Inquiries: </strong><a href="mailto:sales@sentaler.com">sales@sentaler.com</a><br /><strong>Media: </strong><a href="mailto:pr@sentaler.com">pr@sentaler.com</a></p>
+<span style="color: #ffffff;"><a style="color: #ffffff;" name="findstore"></a>FIND A STORE</span>
+<h4>STORE LOCATIONS</h4>
+<h4 style="text-align: center;"> </h4>
+<meta charset="utf-8" />
+<div style="text-align: center;">
+<h5 style="text-align: center;"><strong></strong></h5>
+<h5 style="text-align: center;"><strong>SENTALER SHOWROOM</strong></h5>
+<div style="text-align: center;"><strong>OPEN TO THE PUBLIC - SHOP THE ENTIRE COLLECTION</strong></div>
+  <span>555 Richmond St. West, Suite 404</span><br /><span>Toronto, ON  M5V 3B1</span><br /><span>+1 888 259 3374</span></div>
+<div style="text-align: center;"></div>
+<p> </p>
+<div style="text-align: center;"><strong>Showroom Hours</strong><br />Open Mon - Sat:<strong> </strong><span>9AM - 5:30PM EST</span></div>
+<div style="text-align: center;"><span>Evenings & Sundays by Appointment </span></div>
+<p> </p>
+<p> </p>
+<br/><div style="text-align: center;"><strong>Available Online At:</strong></div>
+<p> </p>
+<div style="text-align: center;"><span>Sentaler.com</span></div>
+<p> </p>
+<div style="text-align: center;"><span>Bergdorfgoodman.com</span></div>
+<p> </p>
+<div style="text-align: center;"><span>Neimanmarcus.com</span></div>
+<p> </p>
+<div style="text-align: center;"><span>Saks.com</span></div>
+<div style="text-align: center;"><span>To ensure authenticity, genuine SENTALER products are sold exclusively online and through official SENTALER retail partners listed.</span></div>
+<p> </p>
+<p> </p>
+<div style="text-align: center;"><span></span></div>
+<div style="text-align: center;"><span></span></div>
+<!-- <div style="text-align: center;">[powr-map id=013edee2_1497574180]</div> -->
+{% include 'sca.storelocator' %}
+<div style="text-align: center;"><span></span></div>
+<div style="text-align: center;"><span style="color: #ff0000;"><strong> </strong></span></div>
+<h3><span style="color: #ffffff;"><a style="color: #ffffff;" name="sizeguide"></a>SIZE GUIDE</span></h3>
+<h4>SIZE GUIDE</h4>
+<meta charset="utf-8" />
+<table class="tg">
+<tbody>
+<tr>
+<th class="tg-5j4b"></th>
+<th class="tg-5j4b">
+<p> </p>
+<p style="text-align: left; line-height: 20px;"><strong><img src="https://cdn.shopify.com/s/files/1/1146/0840/files/SENTALER_General_Size_Chart_1.jpg?5070058361663479159" alt="" /></strong> </p>
+<p style="text-align: left; line-height: 20px;"> </p>
+<p style="text-align: left;"> </p>
+<p style="text-align: left; line-height: 20px;"> </p>
+</th>
+</tr>
+</tbody>
+</table>
+
+<br /><br />
+<h3><a name="qualitycare"></a><span style="color: #ffffff;">QUALITY &amp; CARE</span></h3>
+<div class="about-page-body scrollbar" style="background: url('/sites/default/files/node-10.jpg') no-repeat bottom right;">
+<h4>QUALITY &amp; CARE</h4>
+<p><br />All SENTALER pieces are made from natural fine fabrics. SENTALER coats and capes are soft and silky to the touch, with a rich handle and sensual drape. The main fabric used in the collections is alpaca, a specialist organic fibre, which is harvested by shearing a Peruvian alpaca animal.</p>
+<p>Raised at high altitudes in freezing Andes, alpaca animals have developed microscopic air pockets in their fibre, which provide thermal insulation. As a result, SENTALER outerwear is lightweight and warm. SENTALER alpaca coats are resilient - they will not easily mat, pill, stain, lose shape nor colour.</p>
+<p>Alpaca fibre is naturally hypoallergenic. Unlike wool, alpaca fibre does not contain lanolin, thus acting very comfortable, especially for sensitive skin. It is extremely strong and durable, resembling silk and is nonflammable.</p>
+<p>SENTALER collection is mainly made of baby alpaca, which comes from the first shearing of a young alpaca. This is the softest and most desired fibre.</p>
+<p>SENTALER also carries pieces made of the rare Suri alpaca, which contain longer, rich-looking hair that is very silky and lustrous.</p>
+<p>Alpaca is an oilier fibre and is more water-resistant that other wools. Spills are easier to clean before water saturates the fibre thus decreasing the chances of stain development.</p>
+<p>Although alpaca also tends to resist dust, it is recommended that our clients keep their SENTALER coat in the SENTALER garment bag for protection during off-season.</p>
+<p>It is recommended that the SENTALER alpaca coat is taken to the dry-cleaners every couple of seasons.<br /><br /></p>
+<h3><span style="color: #ffffff;"><a style="color: #ffffff;" name="privacy"></a>PRIVACY POLICY &amp; TERMS</span></h3>
+<div class="rte">
+<h4>PRIVACY POLICY &amp; TERMS</h4>
+<p><strong><br />Copyright and Trademark</strong><br /> The copyright in all material provided on this website is held by Sentaler Studio Ltd., in further text referred as SENTALER. Any unauthorized use of any material contained on this website may violate copyright laws, trademark laws, the laws of privacy and publicity, and communications regulations and statutes. None of the material on this website may be copied, reproduced, distributed, republished, downloaded, displayed, posted or transmitted in any form or by any means, including, but not limited to, electronic, mechanical, photocopying, recording, or otherwise, without the prior written permission of SENTALER.</p>
+<p><strong>Privacy Statement</strong><br /> At SENTALER, your right to privacy and data security is a primary concern. SENTALER respects your privacy. That's why, when you visit <a href="http://www.sentaler.com">www.sentaler.com</a>, any information you provide will be kept strictly confidential. We strive to protect the security of your personal data by use of appropriate measures and processes. At any time you may contact SENTALER with any privacy questions or concerns you may have. You also may ask at any time to see the personal data you have given us and request correction or deletion.</p>
+<p><strong>How is information collected, used, and disclosed?</strong><br /> We do not collect personal information-including your e-mail address-unless we first ask you for it. We may request that you voluntarily supply us with information, including your e-mail address, telephone number or other information so that we may respond to your requests. Whether you provide any information is entirely up to you. If you have voluntarily provided information, you consented to the collection and use of your personally identifiable information as described in this Privacy Statement. SENTALER will not disclose your personal information. We do not sell or rent personal information (such as name, address and phone number) collected through this website to anyone.<br /> SENTALER may disclose information in special cases when we have a good faith belief that such action is necessary to: (a) conform to legal requirements or comply with legal process; (b) protect and defend our rights or property; (c) enforce the Website Terms of Use; or (d) act to protect the interests of our users or others.</p>
+<p><strong>Website Statistics</strong><br /> SENTALER may gather aggregate statistics about visitors to our website, such as volume, traffic patterns, and related website information, but these statistics will include no personally identifiable information.</p>
+<p>SENTALER's website, like many other commercial websites, may utilize a standard technology called "cookies" to collect information about how our website is used. These cookies are designed to help save and remember any preferences that may have been set while the user was browsing the website. Cookies are small strings of text that websites can send to your browser. Cookies cannot retrieve any other data from your hard drive or obtain your e-mail address. If you are simply browsing the SENTALER website, a cookie may be used to identify your browser as one that has visited the website before.<br /><br /> We may also make use of memory-based cookies in support of authenticating the user of SENTALER web applications. Similarly, if you are a registered user of a website providing service to SENTALER clients (and have a user ID and password), we may use cookies so that we can provide personalized information based on preferences you have indicated while using the website. Although you have the ability to modify your browser to either accept all cookies, notify you when a cookie is sent, or reject all cookies, it may not be possible to utilize SENTALER services which require registration if you reject cookies.</p>
+<p><strong>You can opt-out of SENTALER's marketing list at any time</strong><br /> If you have voluntarily provided personal information, we may, from time to time, send you mail or email regarding our solutions and services. If you do not want to be included on SENTALER's marketing list, simply tell us when you give us your personal information. Or, at any time you can easily opt-out of SENTALER's marketing list or update your information by sending us email.</p>
+<p><strong>How do we protect your information?</strong><br /> We exercise great care to protect your personal information. This includes, among other things, using industry standard techniques such as firewalls, encryption, intrusion detection and website monitoring. Data transmitted to and from SENTALER client websites is encrypted for the user's protection.</p>
+<p>However, the security of information transmitted through the Internet can never be guaranteed. This is especially true for information you transmit to us via e-mail. We have no way of protecting that information until it reaches us. As a result, while we strive to protect your personally identifiable information, we cannot ensure or warrant the security of any information you transmit to us or receive from us. Once we receive your transmission, we make our best effort to ensure its security on our servers. SENTALER is not responsible for any interception or interruption of any communications through the Internet or for changes to or losses of data.</p>
+<p>User is responsible for maintaining the security of any password, user ID, or other form of authentication involved in obtaining access to password protected or secure areas of SENTALER website. In order to protect you and your data, SENTALER may suspend your use of a client website, without notice, pending an investigation, if any breach of security is suspected.</p>
+<p><strong>Laws and Regulations</strong><br /> Access to and use of this website are subject to all applicable international, state, and local laws and regulations. User agrees not to use the website in any way, which violates such laws or regulations.</p>
+<p><strong>Limitation of Liability</strong><br /> Under no circumstances shall SENTALER be liable for any damages suffered by you (the guest), including any incidental, special or consequential damages (including, without limitation, any lost profits or damages for business interruption, loss of information, programs or other data) that result from access to, use of, or inability to use this website or due to any breach of security associated with the transmission of information through the internet, even if SENTALER was advised of the possibility of such damages.</p>
+<p><strong>No Warranties</strong><br /> Information and documents provided on this website are provided "as is" without warranty of any kind, either express or implied, including without limitation warranties of merchantability, fitness or a particular purpose, and non-infringement. SENTALER uses reasonable efforts to include accurate and up-to-date information on this website; it does not; however, make any warranties or representations as to its accuracy or completeness. SENTALER periodically adds, changes, improves, or updates the information and documents on this website without notice. SENTALER assumes no liability or responsibility for any errors or omissions in the content of this website. You use this website at your own risk.</p>
+<p><strong>Access to Password Protected/Secure Areas</strong><br /> Access to and use of password protected and/or secure area of the website is restricted to authorized users only. Unauthorized access to such areas is prohibited and may lead to criminal prosecution.</p>
+<p><strong>Third Party Information</strong><br /> While SENTALER makes every effort to insure the accuracy of all information on the Site, SENTALER makes no warranty as to the accuracy of any such information.</p>
+<p><strong>Links to Third Party Sites</strong><br /> This website may contain links that will let you access other Web websites that are not under the control of SENTALER. The links are only provided as a convenience and SENTALER does not endorse any of these websites. SENTALER assumes no responsibility or liability for any material that may accessed on other Web websites reached through his website, nor does SENTALER make any representation regarding the quality of any product or service contained at any such website.</p>
+<p><strong>Links from Third Party Websites</strong><br /> SENTALER prohibits unauthorized links to the website and the framing of any information contained on the website or any portion of the website. SENTALER reserves the right to disable any unauthorized links or frames. SENTALER has no responsibility or liability for any material on other websites that may contain links to this website.</p>
+</div>
+</div>
+<p> </p>
+  
+</div>
+</div>
+</div>
+</div>
+</div>

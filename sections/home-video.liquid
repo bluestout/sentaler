@@ -1,0 +1,90 @@
+{% if section.settings.caption %}
+{%- assign bkg = section.settings.caption | img_url: "1920x", crop: 'center' -%}
+{% else %}
+{%- assign bkg = '1920x750.png' | asset_url -%}
+{% endif %}
+<section data-section-id="{{ section.id }}" class="video" style="background-image:url({{ bkg }})">
+  {% unless section.settings.full %}
+  <div class="container">
+    <div class="row">
+  {% endunless %}
+      
+    <div class="group_video">
+      <div class="video-content">
+        <ul class="left-content">
+          {% if section.settings.caption_above %}
+            {%- assign img_url = section.settings.caption_above | img_url: "1920x", crop: 'center' -%}
+          {% else %}
+            {%- assign img_url = '1170x270.png' | asset_url -%}
+          {% endif %}
+          <div data-toggle="modal" data-target="#videomodal" >
+            <a href="#"><img class="image-bkg" src="{{ img_url }}" alt="" /></a>
+            <span class="effect-line-02"></span>
+          </div>
+          <div class="modal fade" id="videomodal" tabindex="-1" role="dialog" aria-labelledby="videomodal">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                {{ section.settings.video_link }}
+              </div>
+            </div>
+          </div>
+          <script>
+            $('#videomodal').on('show.bs.modal', function (e) {
+              $("iframe").vimeo("play");
+            });
+            $('#videomodal').on('hidden.bs.modal', function (e) {
+              $("iframe").vimeo("pause");
+            });
+          </script>
+        </ul>
+      </div>
+    </div>  
+      
+  {% unless section.settings.full %}
+    </div>
+  </div>
+  {% endunless %}
+</section>
+      
+
+{% schema %}
+{
+  "name": "Video",
+  "class": "index-section index-section--flush",
+  "settings": [    
+	{
+      "type": "checkbox",
+      "id": "full",
+      "label": "Show full width",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "caption",
+      "label": "Background for Parallax effect"
+    },
+	{
+      "type": "image_picker",
+      "id": "caption_above",
+      "label": "Caption Image"
+    },
+	{
+      "type": "textarea",
+      "id": "video_link",
+      "label": "Video link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video",
+      "category": "Custom"   
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

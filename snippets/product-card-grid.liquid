@@ -1,0 +1,17 @@
+{% unless grid_image_width %}
+  {%- assign grid_image_width = '600x600' -%}
+{% endunless %}
+<div class="grid-view-item{% unless product.available %} product-price--sold-out grid-view-item--sold-out{% endunless %}">
+  <a class="grid-view-item__link" href="{{ product.url | within: collection }}">
+    <img class="grid-view-item__image" src="{{ product.featured_image.src | img_url: grid_image_width }}" alt="{{ product.featured_image.alt }}">
+    <div class="product_desc_group">
+      <div class="grid-view-item__title">{{ product.title }}</div>
+      <div class="rating-star">
+        <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+      </div>
+      <div class="grid-view-item__meta">
+        {% include 'product-price' %}
+      </div>
+    </div>
+  </a>
+</div>

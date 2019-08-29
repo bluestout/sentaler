@@ -1,0 +1,137 @@
+<div class="top_banner ">
+  {% if section.settings.banner == blank %}
+  <div class="banner_container">
+    {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+  </div>
+  {% else %}
+  <div class="banner_container" style="background-image:url({{ section.settings.banner | img_url : 'master' }})">
+    <img class="hide" src="{{ section.settings.banner | img_url : 'master' }}"/>
+  </div>
+  {% endif %}
+  <div class="banner_text_container">
+      <h1 style="color:{{ section.settings.color }}">{{ section.settings.banner_head }}</h1>
+      <p style="color:{{ section.settings.color }}">{{ section.settings.banner_subhead }}</p>
+    </div>
+</div>
+<div class="help_guide text-center">
+  <div class="search-404">
+    <p class="free_text">{{ section.settings.guide_text }}</p>
+    <form class="search" action="/search">
+    <input type="text" placeholder="Search Sentaler.com, try Kate coat, capes..." name="q" value="{{ search.terms | escape }}"  />
+      <button type="submit" ><span class="sticon-search"></span></button>
+    </form>
+  </div>
+  <h1>{{ section.settings.head }}</h1>  
+  <p>Call / Text<a href="tel:{{ section.settings.contact_number | replace: ' ', '' }}">{{ section.settings.contact_number }}</a></p>
+  <p>Email:<a target="_blank" class="c-link" href="mailto:{{ section.settings.mail }}">{{ section.settings.mail }}</a></p>
+  <p class="hours">{{section.settings.hours}}</p>
+</div>
+<div class="index-list-collection text-center">
+  {% for block in section.blocks %}
+  <div class="custom_list_col col_{{section.blocks.size}}">
+    <a href="{{block.settings.link}}">
+    <img class="desk-img" src="{{block.settings.image | img_url: "master" }}"/>
+    <img class="mob_img" src="{{block.settings.imagem | img_url: "master" }}"/>
+    {% if block.settings.btn_text %}
+    <div class="list-btn">
+      <span class="index_btn white" href="{{block.settings.link}}">{{block.settings.btn_text}}</span>
+    </div>
+    {% endif %}
+    </a>
+  </div>
+  {% endfor %}
+</div>
+{% schema %}
+  {
+    "name": "List Collection",
+	 "max_blocks": 4,
+    "settings": [
+		{
+			"type":"image_picker",
+			"id":"banner",
+			"label":"Banner"
+		},
+        {
+            "type" : "color",
+            "id" : "color",
+            "label" : "Banner Text Color",
+			"default" : "#000"
+        },
+		{
+			"type":"text",
+			"id":"banner_head",
+			"label":"Banner Heading"
+		},
+		{
+			"type":"text",
+			"id":"banner_subhead",
+			"label":"Banner Sub-Heading"
+		},
+        {
+            "type" : "header",
+            "content" : "Help Guide Text"
+        },
+        {
+			"type":"textarea",
+			"id":"guide_text",
+			"label":"Free Text"
+		},
+		{
+			"type":"text",
+			"id":"head",
+			"label":"Help Heading"
+		},
+		{
+			"type":"text",
+			"id":"contact_number",
+			"label":"Help Number"
+		},
+		{
+			"type":"text",
+			"id":"mail",
+			"label":"Help Mail"
+		},
+		{
+			"type":"text",
+			"id":"hours",
+			"label":"Hours"
+		}
+		
+	],
+	 "blocks": [
+    {
+      "type": "collection",
+      "name": "collection",
+	 
+      "settings": [
+		{
+			"type":"image_picker",
+			"id":"image",
+			"label":"Image"
+		},
+		{
+			"type":"image_picker",
+			"id":"imagem",
+			"label":"Mobile Image"
+		},
+		{
+          "type": "text",
+          "id": "btn_text",
+          "label": "Button Text"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "link"
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

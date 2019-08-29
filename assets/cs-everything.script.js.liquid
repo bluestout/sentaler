@@ -1,0 +1,557 @@
+var touch = false, clickEv = 'click';
+
+/* Handle detect platform */
+function handleDetectPlatform(){
+  /* DETECT PLATFORM */
+  $.support.touch = 'ontouchend' in document;
+  
+  if ($.support.touch) {
+    touch = true;
+    $('body').addClass('touch');
+    clickEv = 'touchstart';
+  }
+  else{
+    $('body').addClass('notouch');
+    if (navigator.appVersion.indexOf("Mac")!=-1){
+      if (navigator.userAgent.indexOf("Safari") > -1){
+        $('body').addClass('macos');
+      }
+      else if (navigator.userAgent.indexOf("Chrome") > -1){
+        $('body').addClass('macos-chrome');
+      }
+        else if (navigator.userAgent.indexOf("Mozilla") > -1){
+          $('body').addClass('macos-mozilla');
+        }
+    }
+  }
+}
+
+/* Fucntion get width browser */
+function getWidthBrowser() {
+	var myWidth;
+
+	if( typeof( window.innerWidth ) == 'number' ) { 
+		//Non-IE 
+		myWidth = window.innerWidth;
+		//myHeight = window.innerHeight; 
+	} 
+	else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) { 
+		//IE 6+ in 'standards compliant mode' 
+		myWidth = document.documentElement.clientWidth; 
+		//myHeight = document.documentElement.clientHeight; 
+	} 
+	else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) { 
+		//IE 4 compatible 
+		myWidth = document.body.clientWidth; 
+		//myHeight = document.body.clientHeight; 
+	}
+	
+	return myWidth;
+}
+
+/* Handle dropdown box */
+function handleDropdown(){
+  if($('.dropdown-toggle').length){
+    $('.dropdown-toggle').parent().hover(function (){
+      if(touch == false && getWidthBrowser() > 767 ){
+        $(this).find('.dropdown-menu').stop(true, true).slideDown(300);
+      }
+    }, function (){
+      if(touch == false && getWidthBrowser() > 767 ){
+        $(this).find('.dropdown-menu').hide();
+      }
+    });
+  }
+  
+  $('nav .dropdown-menu').each(function(){
+    $(this).find('li').last().addClass('last');
+  });
+  
+  $('.dropdown').on('click', function() {
+      if(touch == false && getWidthBrowser() > 767 ){
+        var href = $(this).find('.dropdown-link').attr('href');
+        window.location = href;
+    }
+  });
+  
+  $('.cart-link').on('click', function() {
+      if(touch == false && getWidthBrowser() > 767 ){
+        var href = $(this).find('.dropdown-link').attr('href');
+        window.location = href;
+    }
+  });
+}
+
+/* Function update scroll product thumbs */
+function updateScrollThumbsQS(){
+  if($('#gallery_main_qs').length){
+     $('#quick-shop-image .fancybox').on(clickEv, function() {
+      var _items = [];
+      var _index = 0;
+      var product_images = $('#gallery_main_qs .image-thumb');
+      product_images.each(function(key, val) {
+        _items.push({'href' : val.href, 'title' : val.title});
+        if($(this).hasClass('active')){
+          _index = key;
+        }
+      });
+      $.fancybox(_items,{
+        closeBtn: true,
+        index: _index,
+        helpers: {
+          buttons: {}
+        }
+      });
+      return false;
+    });
+
+    $('#quick-shop-image').on(clickEv, '.image-thumb', function() {
+
+      var $this = $(this);
+      var background = $('.product-image .main-image .main-image-bg');
+      var parent = $this.parents('.product-image-wrapper');
+      var src_original = $this.attr('data-image-zoom');
+      var src_display = $this.attr('data-image');
+      
+      background.show();
+      
+      parent.find('.image-thumb').removeClass('active');
+      $this.addClass('active');
+      
+      parent.find('.main-image').find('img').attr('data-zoom-image', src_original);
+      parent.find('.main-image').find('img').attr('src', src_display).load(function() {
+        background.hide();
+      });
+      
+      return false;
+    });
+  }
+}
+
+/* Handle Grid - List */
+function handleGridList(){
+  
+  
+  if($('#goList').length){
+    $('#goList').on(clickEv, function(e){
+      $(this).parent().find('li').removeClass('active');
+      $(this).addClass('active');
+      $('.collection-items').addClass('full_width');
+      $('.collection-items').removeClass('no_full_width');
+      $('.collection-items .row-left').addClass('col-md-4');
+      $('.collection-items .row-right').addClass('col-md-8');
+      $('.collection-items').removeClass('animated {{settings.general_gridanieffect}}');
+      $('.collection-items').addClass('jemiz-animated');
+    });
+  }
+  
+  if($('#goGrid').length){
+    $('#goGrid').on(clickEv, function(e){
+      $(this).parent().find('li').removeClass('active');
+      $(this).addClass('active');
+      $('.collection-items').removeClass('full_width');
+      $('.collection-items').addClass('no_full_width');
+      $('.collection-items .row-left').removeClass('col-md-4');
+      $('.collection-items .row-right').removeClass('col-md-8');
+    });
+  }
+}
+
+/* Handle product quantity */
+function handleQuantity(){
+  if($('.quantity-wrapper').length){
+    $('.quantity-wrapper').on(clickEv, '.qty-up', function() {
+      var $this = $(this);
+
+      var qty = $this.data('src');
+      $(qty).val(parseInt($(qty).val()) + 1);
+    });
+    $('.quantity-wrapper').on(clickEv, '.qty-down', function() {
+      var $this = $(this);
+
+      var qty = $this.data('src');
+
+      if(parseInt($(qty).val()) > 1)
+        $(qty).val(parseInt($(qty).val()) - 1);
+    });
+  }
+}
+      
+function colorwarches(){
+   jQuery('.swatch :radio').change(function() {
+     var optionIndex = jQuery(this).closest('.swatch').attr('data-option-index');
+     var optionValue = jQuery(this).val();
+     jQuery(this)
+       .closest('form')
+       .find('.single-option-selector')
+       .eq(optionIndex)
+       .val(optionValue)
+       .trigger('change');
+   }); 
+} 
+
+function toggleLeftMenu(){ 
+  if(window.innerWidth <= 767 ){
+    var menuLeft = document.getElementById( 'is-mobile-nav-menu' ),				
+        showLeftPush = document.getElementById( 'showLeftPush' ),	
+        body = document.body;			
+    showLeftPush.onclick = function() {
+      classie.toggle( this, 'active' );
+      classie.toggle( body, 'pushed' );
+      classie.toggle( menuLeft, 'leftnavi-open' );
+      if(classie.has( this, 'active' ))
+        $('#showLeftPush').html("<i class='fa fa-times fa-2x'></i>");
+      else $('#showLeftPush').html("<i class='fa fa-bars fa-2x'></i>");
+    };
+  }
+};
+      
+function toggleTagsFilter(){ 
+  if(window.innerWidth >= 768 ){
+    var tagsbutton = document.getElementById( 'showTagsFilter' ),				
+        tagscontent = document.getElementById( 'tags-filter-content' );    
+    if(tagsbutton != null ){
+      tagsbutton.onclick = function() {
+        classie.toggle( this, 'closed' );
+        classie.toggle( tagscontent, 'tags-closed' );
+        if(classie.has( this, 'closed' ))
+          $('#showTagsFilter').html("Filter <i class='fa fa-angle-down'></i>");
+        else $('#showTagsFilter').html("Filter <i class='fa fa-angle-up'></i>");
+      };
+    }
+  }
+}
+      
+/* Carousel Product*/
+function HandleCarousel(){
+ 
+}
+
+// handle scroll-to-top button
+function handleScrollTop() {
+  function totop_button(a) {
+    var b = $("#scroll-to-top");
+    b.removeClass("off on");
+    if (a == "on") { b.addClass("on") } else { b.addClass("off") }
+  }
+  $(window).scroll(function() {
+    var b = $(this).scrollTop();
+    var c = $(this).height();
+    if (b > 0) { 
+      var d = b + c / 2;
+    } 
+    else { 
+      var d = 1 ;
+    }    
+    if (d < 1e3 && d < c) { 
+      totop_button("off");
+    } 
+    else {
+      totop_button("on"); 
+    }
+  });  
+  $("#scroll-to-top").click(function (e) {
+    e.preventDefault();
+    $('body,html').animate({scrollTop:0},800,'swing');
+  });
+}   
+
+function ModalNewsletter(){
+  {% unless setting.mailing_list_active %}
+  	if ($.cookie('modular-fs-cookie') != "active"){
+  	  $('#newsletter-popup').modal('toggle');
+  	  $('.nl-wraper-popup').addClass('animated'); 
+      var tnout = {{ settings.news_time }} ;
+      setTimeout (function() { 
+        $('#newsletter-popup').modal('hide');
+      }, tnout*1000 );
+    }
+  
+  {% endunless %}
+}
+
+function checkcookie(){
+    $.cookie('modular-fs-cookie', 'deactive', { expires: 10});
+}
+
+$( window ).resize(function() {
+  toggleLeftMenu();
+});
+
+$(window).ready(function($) {
+  handleDropdown();
+  handleGridList();
+  handleQuantity();
+  colorwarches();
+  toggleLeftMenu();
+  toggleTagsFilter();
+  HandleCarousel();  
+  handleScrollTop();
+  
+  {% if settings.general_loadingscreen %}
+    $("#loader-div").addClass("fadeOut animated");
+    $("#loader-div").fadeOut(500);    
+  {% endif %}
+  ModalNewsletter();
+  $.cookie('modular-fs-cookie', 'active', { expires: 10});
+});
+$(document).ready(function(){
+  $('.index_prd_slider').owlCarousel({
+      navigation : true,
+      pagination: false,
+      autoPlay: false,     
+      paginationSpeed: 800,
+      items: 3,
+      loop:false,
+      scrollPerPage : true,
+      slideSpeed : 200,
+      rewindSpeed : 1000,
+      itemsDesktop : [1199,3],
+      itemsDesktopSmall : [979,3],
+      itemsTablet: [768,1],
+      itemsTabletSmall: [540,1],
+      itemsMobile : [360,1],
+      rewind:false,
+      navigationText: ['<i class="sticon-caret-l-large" title="Previous" data-toggle="tooltip" data-placement="top"></i>', '<i class="sticon-caret-r-large" title="Next" data-toggle="tooltip" data-placement="top"></i>']
+    });
+  $('.footer_inf-content .foot_head').click(function(){
+    $(this).closest('ul').toggleClass('m_open');
+  });
+$('.megadropdown ul li:first-child div.merga-imgblock').css('display','flex');
+ $(".megawrap li").hover(function(){
+   $(this).find('.merga-imgblock').css('display','flex');
+  }, function(){
+  $(this).find('.merga-imgblock').css('display','none');
+});
+  $(".site-nav li.has_deskmega").hover(function(){
+   $('.main-header-wrapper').addClass('whitebg');
+    
+  }, function(){
+  $('.main-header-wrapper').removeClass('whitebg');
+  });
+  
+ AOS.init({
+   once: true
+});
+  $('.desk_hide.mobile_ham').click(function(){
+    $('.mobile-menu').addClass('showmenu');
+  });
+   $('.mobile-menu span.close').click(function(){
+    $('.mobile-menu').removeClass('showmenu');
+  });
+  $(document).on("click",".tag-group p.title",function() {
+    $('.tag-group ul').hide();
+    $(this).closest('.tag-group').find('ul').show();
+    $(this).closest('.collection-content-inner').addClass('col_overlay');
+  });
+  $('span.closeit svg').click(function(){
+    $('.tag-group ul').hide();
+    $('.collection-content-inner').removeClass('col_overlay');
+  });
+
+  $('div#cart-target a').click(function(e){
+    e.preventDefault();
+    $('#cart-info,.overlay_g').show();
+  });
+  
+  $(document).on("click",".cart-top svg,",function() {
+    $('#cart-info,.overlay_g').hide();
+  });
+  $('.description span.more').click(function(){
+    $('.description').addClass('long_desc');
+  });
+  $('section.main-header.affix.animated span#go,span#m_search').click(function(){
+   window.location.href= '/search' ;
+  });
+  if($('.description span.short').length){
+  var gethtml = $('.description span.short').html();
+  var formattedHtml = gethtml.replace('&nbsp;','');
+  }
+  if($('.description span.long').length){
+  $('.description span.short').html(formattedHtml);
+ var gethtml = $('.description span.long').html();
+  var formattedHtml = gethtml.replace('&nbsp;','');
+  $('.description span.long').html(formattedHtml);
+  }
+  if ($(window).width() < 1024) {
+
+     $('.accordion-section-title').click(function(e){
+       e.preventDefault();
+       
+         var currentAttrvalue = $(this).attr('href');
+         if($(this).hasClass('active')){
+             $(this).removeClass('active');
+             $('.accordion-section-content:visible').slideUp(300);
+         } else {
+             $('.accordion-section-title').removeClass('active').filter(this).addClass('active');
+             $('.accordion-section-content').slideUp(300).filter(currentAttrvalue).slideDown(300);
+         }
+     });
+
+  
+  }
+  $('.prd_magni').click(function(){
+   $(this).closest('div.prd_img_wrap').find('a[data-fancybox]').trigger('click');
+  });
+$('#featuted-image a[data-fancybox]').fb({
+    padding:0,
+    'titleShow': false,
+    overlayColor: '#000000',
+    overlayOpacity: 0.2
+  });
+  $('.c_pop').click(function(){
+    $('#'+$(this).attr('rel')+'').show();
+    $('.overlay_g').show();
+    
+  });
+  $('.custompop svg').click(function(){
+  	$('.custompop,.overlay_g').hide();
+  });
+  $('.overlay_g').click(function(){	$('.custompop,.overlay_g,#cart-info').hide();  });
+  $('.qtyplus').click(function(e){
+      
+        // Stop acting like a button
+        e.preventDefault();
+        // Get the field name
+        fieldName = $(this).attr('field');
+        // Get its current value
+        console.log(fieldName);
+        var currentVal = parseInt( $('input.'+fieldName+'').val());
+        // If is not undefined
+        if (!isNaN(currentVal)) {
+            // Increment
+            $('input.'+fieldName+'').val(currentVal + 1);
+        } else {
+            // Otherwise put a 0 there
+            $('input.'+fieldName+'').val(0);
+        }
+      $('#update-cart').trigger('click');
+    });
+    // This button will decrement the value till 0
+    $(".qtyminus").click(function(e) {
+        // Stop acting like a button
+        e.preventDefault();
+        // Get the field name
+        fieldName = $(this).attr('field');
+        // Get its current value
+        var currentVal = parseInt( $('input.'+fieldName+'').val());
+        // If it isn't undefined or its greater than 0
+        if (!isNaN(currentVal) && currentVal > 0) {
+            // Decrement one
+            $('input.'+fieldName+'').val(currentVal - 1);
+        } else {
+            // Otherwise put a 0 there
+            $('input.'+fieldName+'').val(0);
+        }
+      $('#update-cart').trigger('click');
+    });
+  $('span.specialnote').click(function(){
+    $(this).toggleClass('checked');
+    $('.cartnote').slideToggle();
+  });
+  $('.bagcontent').click(function(){
+    console.log('hi');
+    $('html, body').animate({
+              scrollTop: $(".m_title").offset().top
+        });    
+  });
+  $('.eps .share').click(function(){
+    $('.social-prd-share').slideToggle();
+  });
+  $('.sizetab').click(function(){
+    $('.sizetab').removeClass('active');
+    $(this).addClass('active');
+    $('.sizecontent ').hide();
+    $('.'+$(this).attr('rel')+'').show();
+  });
+  $('.shipto span').click(function(){
+    $('.shipinfo').slideToggle();
+  });
+  $('.country_select select').on('change', function() {
+     $.cookie("red_contry",$(this).find(":selected").val())
+      $('.ship_country').html($.cookie("red_contry"));
+       if($(this).find(":selected").val() == 'United States'){ }
+      else if($(this).find(":selected").val() == 'Canada'){window.location.href="https://sentaler.ca"; }
+      else{window.location.href="https://ssl-clone.myshopify.com"}
+      countrycode();
+  });
+
+  if($.cookie("red_contry")){
+   $('.ship_country').html($.cookie("red_contry"));
+   $(".country_select select").val($.cookie("red_contry"));
+  }
+  countrycode();
+  function countrycode() {
+  var country_code = {'Afghanistan': 'AF','Albania': 'AL', 'Algeria': 'DZ', 'American Samoa': 'AS', 'Andorra': 'AD', 'Angola': 'AO', 'Anguilla': 'AI','Antarctica': 'AQ','Antigua and Barbuda': 'AG','Argentina': 'AR','Armenia': 'AM','Aruba': 'AW','Australia': 'AU','Austria': 'AT','Azerbaijan': 'AZ','Bahamas': 'BS', 'Bahrain': 'BH','Bangladesh': 'BD','Barbados': 'BB','Belarus': 'BY','Belgium': 'BE', 'Belize': 'BZ', 'Benin': 'BJ', 'Bermuda': 'BM','Bhutan': 'BT','Bolivia, Plurinational State of': 'BO','Bonaire, Sint Eustatius and Saba': 'BQ','Bosnia and Herzegovina': 'BA','Botswana': 'BW','Bouvet Island': 'BV','Brazil': 'BR','British Indian Ocean Territory': 'IO','Brunei Darussalam': 'BN','Bulgaria': 'BG','Burkina Faso': 'BF','Burundi': 'BI','Cambodia': 'KH','Cameroon': 'CM','Canada': 'CA','Cape Verde': 'CV','Cayman Islands': 'KY','Central African Republic': 'CF',
+ 'Chad': 'TD','Chile': 'CL','China': 'CN','Christmas Island': 'CX','Cocos (Keeling) Islands': 'CC','Colombia': 'CO','Comoros': 'KM','Congo': 'CG','Congo, the Democratic Republic of the': 'CD','Cook Islands': 'CK','Costa Rica': 'CR','Country name': 'Code','Croatia': 'HR','Cuba': 'CU','Curaçao': 'CW','Cyprus': 'CY','Czech Republic': 'CZ',"Côte d'Ivoire": 'CI','Denmark': 'DK','Djibouti': 'DJ','Dominica': 'DM','Dominican Republic': 'DO','Ecuador': 'EC','Egypt': 'EG','El Salvador': 'SV','Equatorial Guinea': 'GQ','Eritrea': 'ER','Estonia': 'EE','Ethiopia': 'ET','Falkland Islands (Malvinas)': 'FK', 'Faroe Islands': 'FO', 'Fiji': 'FJ', 'Finland': 'FI', 'France': 'FR', 'French Guiana': 'GF', 'French Polynesia': 'PF', 'French Southern Territories': 'TF',
+ 'Gabon': 'GA','Gambia': 'GM','Georgia': 'GE','Germany': 'DE','Ghana': 'GH','Gibraltar': 'GI','Greece': 'GR','Greenland': 'GL','Grenada': 'GD','Guadeloupe': 'GP','Guam': 'GU',
+ 'Guatemala': 'GT','Guernsey': 'GG','Guinea': 'GN','Guinea-Bissau': 'GW','Guyana': 'GY','Haiti': 'HT','Heard Island and McDonald Islands': 'HM','Holy See (Vatican City State)': 'VA',
+ 'Honduras': 'HN','Hong Kong': 'HK','Hungary': 'HU','ISO 3166-2:GB': '(.uk)','Iceland': 'IS','India': 'IN','Indonesia': 'ID','Iran, Islamic Republic of': 'IR',
+ 'Iraq': 'IQ','Ireland': 'IE','Isle of Man': 'IM','Israel': 'IL','Italy': 'IT','Jamaica': 'JM','Japan': 'JP','Jersey': 'JE','Jordan': 'JO',
+ 'Kazakhstan': 'KZ','Kenya': 'KE','Kiribati': 'KI',"Korea, Democratic People's Republic of": 'KP','Korea, Republic of': 'KR','Kuwait': 'KW',
+ 'Kyrgyzstan': 'KG',"Lao People's Democratic Republic": 'LA','Latvia': 'LV','Lebanon': 'LB','Lesotho': 'LS','Liberia': 'LR','Libya': 'LY',
+ 'Liechtenstein': 'LI','Lithuania': 'LT','Luxembourg': 'LU','Macao': 'MO','Macedonia, the former Yugoslav Republic of': 'MK', 'Madagascar': 'MG',
+ 'Malawi': 'MW','Malaysia': 'MY', 'Maldives': 'MV', 'Mali': 'ML', 'Malta': 'MT', 'Marshall Islands': 'MH', 'Martinique': 'MQ', 'Mauritania': 'MR',
+ 'Mauritius': 'MU','Mayotte': 'YT','Mexico': 'MX','Micronesia, Federated States of': 'FM','Moldova, Republic of': 'MD','Monaco': 'MC',
+ 'Mongolia': 'MN','Montenegro': 'ME','Montserrat': 'MS','Morocco': 'MA','Mozambique': 'MZ','Myanmar': 'MM','Namibia': 'NA','Nauru': 'NR',
+ 'Nepal': 'NP','Netherlands': 'NL','New Caledonia': 'NC','New Zealand': 'NZ','Nicaragua': 'NI','Niger': 'NE','Nigeria': 'NG','Niue': 'NU',
+ 'Norfolk Island': 'NF','Northern Mariana Islands': 'MP','Norway': 'NO','Oman': 'OM','Pakistan': 'PK','Palau': 'PW','Palestine, State of': 'PS',
+ 'Panama': 'PA','Papua New Guinea': 'PG','Paraguay': 'PY','Peru': 'PE','Philippines': 'PH','Pitcairn': 'PN','Poland': 'PL','Portugal': 'PT',
+ 'Puerto Rico': 'PR','Qatar': 'QA','Romania': 'RO','Russian Federation': 'RU','Rwanda': 'RW','Réunion': 'RE','Saint Barthélemy': 'BL',
+ 'Saint Helena, Ascension and Tristan da Cunha': 'SH','Saint Kitts and Nevis': 'KN','Saint Lucia': 'LC','Saint Martin (French part)': 'MF',
+ 'Saint Pierre and Miquelon': 'PM','Saint Vincent and the Grenadines': 'VC','Samoa': 'WS','San Marino': 'SM','Sao Tome and Principe': 'ST',
+ 'Saudi Arabia': 'SA','Senegal': 'SN','Serbia': 'RS','Seychelles': 'SC','Sierra Leone': 'SL','Singapore': 'SG','Sint Maarten (Dutch part)': 'SX',
+ 'Slovakia': 'SK','Slovenia': 'SI','Solomon Islands': 'SB','Somalia': 'SO','South Africa': 'ZA','South Georgia and the South Sandwich Islands': 'GS',
+ 'South Sudan': 'SS','Spain': 'ES','Sri Lanka': 'LK','Sudan': 'SD','Suriname': 'SR','Svalbard and Jan Mayen': 'SJ','Swaziland': 'SZ','Sweden': 'SE',
+ 'Switzerland': 'CH','Syrian Arab Republic': 'SY','Taiwan, Province of China': 'TW','Tajikistan': 'TJ','Tanzania, United Republic of': 'TZ',
+ 'Thailand': 'TH','Timor-Leste': 'TL','Togo': 'TG','Tokelau': 'TK','Tonga': 'TO','Trinidad and Tobago': 'TT','Tunisia': 'TN','Turkey': 'TR',
+ 'Turkmenistan': 'TM','Turks and Caicos Islands': 'TC','Tuvalu': 'TV','Uganda': 'UG','Ukraine': 'UA','United Arab Emirates': 'AE','United Kingdom': 'GB',
+ 'United States': 'US','United States Minor Outlying Islands': 'UM','Uruguay': 'UY','Uzbekistan': 'UZ','Vanuatu': 'VU','Venezuela, Bolivarian Republic of': 'VE',
+ 'Viet Nam': 'VN','Virgin Islands, British': 'VG','Virgin Islands, U.S.': 'VI','Wallis and Futuna': 'WF','Western Sahara': 'EH','Yemen': 'YE',
+ 'Zambia': 'ZM','Zimbabwe': 'ZW','Åland Islands': 'AX'}
+  if ($(window).width() < 1024) {
+   var getcontry =  $.cookie("red_contry");
+   $.each(country_code, function(key, value) {
+     if( key == getcontry)
+     {
+       console.log(value);
+       $('.top-header .ship_country').html(value);
+     }
+     });
+  }
+  }
+ 
+});/* end of document ready */
+ //store the element
+var $cache = $('.purchase-section');
+
+//store the initial position of the element
+var vTop = $cache.offset().top - parseFloat($cache.css('margin-top').replace(/auto/, 0));
+  $(window).scroll(function (event) {
+    if($('.purchase-section').length){
+    // what the y position of the scroll is
+    var y = $(this).scrollTop();
+
+    // whether that's below the form
+    if (y >= vTop) {
+      // if so, ad the fixed class
+      $cache.addClass('stuck');
+    } else {
+      // otherwise remove it
+      $cache.removeClass('stuck');
+    }
+    }
+  }); 
+
+$(window).load(function() {
+ var getc = $('.swatch-element.color').attr('data-value');
+  $('.color-option a').each(function(){
+    var getattr = $(this).find('img').attr('alt');
+    if(getc == getattr)
+    {
+      $(this).addClass('selected');
+    }
+  });
+});
+
+

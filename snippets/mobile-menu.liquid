@@ -1,0 +1,64 @@
+<div class="mobile-menu">
+  <span class="close">X</span>
+  <ul class="mobile-nav">
+    <li class="mainitem"><a href="/cart">My cart <span class="sticon-bag al_r"></span></a></li>
+    <li class="mainitem"><a href="/pages/wish-list">Wishlist<span class="sticon-heart al_r"></span></a></li>
+    
+  
+{% assign megaitem = section.settings.mega_item | downcase  %}
+{% assign megaitem = megaitem | split: ',' | uniq  %}
+<ul class="mobile-navmain">
+
+{% for l in linklists[nav_link].links %}
+  {% assign submenu = l.title | handleize %}
+  {% assign item = l.title| downcase  | handleize  %}
+  <li class="mainitem {% if l.active %}active {% endif %}   {% if megaitem contains item %}has_megadrop{% endif %}">
+    <a href="{{ l.url }}" class="mainmenu" data-toggle="dropdown">
+      <span>{{ l.title }}</span>
+        {% if megaitem contains item %} <span class="sticon-caret-d-small"></span>{% endif %}
+    </a>
+  
+    {% assign showmega = false %}
+    
+     {% if megaitem contains item %}
+    <ul class="mobiledropdown">
+    {% for block in section.blocks %}
+    		
+            {% assign megahandle = block.settings.mega_handle | handleize %}
+     		{% if submenu == megahandle %}
+    			{% assign showmega = true %}
+    		{% endif %}
+    		
+   			{% if showmega %}
+    			
+              {% if block.type == 'mega_menu_items' %}
+      			<li>
+              <a href="{{blok.settings.link}}" class="megainnerlink">
+              	{{block.settings.mega_title}}
+              </a>
+             
+                  </li>
+              {% endif %}
+      		
+    		{% endif %}
+          
+    {% endfor %}
+    </ul>
+
+    {% endif %}
+  </li>
+
+
+
+ 
+{% endfor %}
+     </ul>
+  <ul class="mob_bottm_nav">    
+    <li class="mainitem"><a href="/account"><span class="sticon-user al_lt"></span>Account </a></li>
+    <li class="mainitem"><a href="{{section.settings.loc_link}}"><span class="sticon-location"></span>{{ section.settings.loc_text }} </a></li>
+    <li class="mainitem"><a href="tel:{{section.settings.loc_text | replace: ' ', ''}}"><span class="sticon-phone"></span>{{section.settings.loc_text}} </a></li>
+    </ul>
+  </ul>
+</div>
+
+

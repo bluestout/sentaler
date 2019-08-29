@@ -1,0 +1,260 @@
+<section class="blcontactog-heading">
+  <div class="">
+    <div class="container">
+      <div class="row">
+        <div class="page-heading-inner">
+          <h1 class="page-title"><span>{{ page.title }}</span></h1>
+          <div class="breadcrumb clearfix">
+            <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="{{ shop.url }}" title="{{ shop.name | escape }}" itemprop="url"><span itemprop="title">{{ 'general.breadcrumbs.home' | t }}</span></a></span>
+            <span class="arrow-space">&#62;</span>
+            <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+              <a href="{{ page.title }}" title="{{ page.title }}">{{ page.title }}</a>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact-content">
+  <div class="contact-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="contact-inner">
+          <div id="page">
+              {% if section.settings.contact_map and section.settings.contact_address != '' %}
+              <div class="google-maps-wrapper">
+                <div class="google-maps-inner">
+                  <div id="contact_map" class="map" style="height:500px;"></div>
+                  <script>
+                    $('.map')
+                      .gmap3({
+                        address:"{{ section.settings.contact_address }}",
+                        zoom:{{ section.settings.contact_zoom}}
+                      })
+                      .marker([
+                        {address:"{{ section.settings.contact_address }}"},
+                        {address:"{{ section.settings.contact_address }}"}
+                      ])
+                  </script>
+                </div>
+              </div>
+              {% endif %}
+              <div class="page-with-contact-form">
+                <div class="contact-page-content col-sm-12">
+				  <div class="page-form col-sm-6">
+                    <h4 class="">{{ section.settings.contact_title }}</h4>
+                    {% form 'contact' %}
+                    {% if form.posted_successfully? %}
+                    <div class="successForm feedback">
+                      <p>{{ 'contact.form.post_success' | t }}</p>
+                    </div>
+                    {% endif %}
+
+                    {% if form.errors %}
+                    <div class="errorForm feedback">
+                      <p>{{ 'contact.form.post_error' | t }}</p>
+                      {% for field in form.errors %}
+                        <p>{{ 'contact.form.post_field_error_html' | t: field: field, error: form.errors.messages[field] }}</p>
+                      {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <div id="contactFormWrapper">
+                      <p>
+                        <label>{{ 'contact.form.name' | t }}:</label><br/>
+                        <input type="text" id="contactFormName" name="contact[name]" placeholder="{{ 'contact.placeholder.name' | t }}" />
+                      </p>
+                      <p>
+                        <label>{{ 'contact.form.email' | t }}:</label><br/>
+                        <input type="email" id="contactFormEmail" name="contact[email]" placeholder="{{ 'contact.placeholder.email' | t }}" />
+                      </p>
+                      <p>
+                        <label>{{ 'contact.form.phone' | t }}:</label><br/>
+                        <input type="telephone" id="contactFormTelephone" name="contact[phone]" placeholder="{{ 'contact.placeholder.phone' | t }}" />
+                      </p> 
+                      <p>
+                        <label>{{ 'contact.form.message' | t }}:</label><br/>
+                        <textarea rows="15" cols="75" id="contactFormMessage" name="contact[body]" placeholder="{{ 'contact.placeholder.message' | t }}"></textarea>
+                      </p>
+                      <p>
+                        <input type="submit" id="contactFormSubmit" value="{{ 'contact.form.send' | t }}" class="btn cont_btn" />
+                      </p>
+                    </div>
+                    {% endform %}
+                  </div>
+                  <div class="page-input col-sm-6">
+                    {{ page.content }}
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Contact Setting",
+    "settings": [
+		{
+        "type": "header",
+        "content": "Contact form"
+      },
+      {
+        "type": "text",
+        "id": "contact_title",
+        "label": "Form Title",
+        "default": "Live a Message"
+      },
+      {
+        "type": "header",
+        "content": "Google Map Area"
+      },
+      {
+        "type": "checkbox",
+        "id": "contact_map",
+        "label": "Show contact map",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "contact_type",
+        "label": "Map type",
+        "options": [
+          {
+            "value": "ROADMAP",
+            "label": "Normal map"
+          },
+          {
+            "value": "SATELLITE",
+            "label": "Satellite"
+          },
+          {
+            "value": "HYBRID",
+            "label": "Hybrid"
+          },
+          {
+            "value": "TERRAIN",
+            "label": "Terrain"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "contact_zoom",
+        "label": "Zoom level",
+        "options": [
+          {
+            "value": "0",
+            "label": "0"
+          },
+          {
+            "value": "1",
+            "label": "1"
+          },
+          {
+            "value": "2",
+            "label": "2"
+          },
+          {
+            "value": "3",
+            "label": "3"
+          },
+          {
+            "value": "4",
+            "label": "4"
+          },
+          {
+            "value": "5",
+            "label": "5"
+          },
+          {
+            "value": "6",
+            "label": "6"
+          },
+          {
+            "value": "7",
+            "label": "7"
+          },
+          {
+            "value": "8",
+            "label": "8"
+          },
+          {
+            "value": "9",
+            "label": "9"
+          },
+          {
+            "value": "10",
+            "label": "10"
+          },
+          {
+            "value": "11",
+            "label": "11"
+          },
+          {
+            "value": "12",
+            "label": "12"
+          },
+          {
+            "value": "13",
+            "label": "13"
+          },
+          {
+            "value": "14",
+            "label": "14"
+          },
+          {
+            "value": "15",
+            "label": "15"
+          },
+          {
+            "value": "16",
+            "label": "16"
+          },
+          {
+            "value": "17",
+            "label": "17"
+          },
+          {
+            "value": "18",
+            "label": "18"
+          },
+          {
+            "value": "19",
+            "label": "19"
+          },
+          {
+            "value": "20",
+            "label": "20"
+          },
+          {
+            "value": "21",
+            "label": "21"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "id": "contact_address",
+        "label": "Map address"
+      },
+      {
+        "type": "checkbox",
+        "id": "contact_scroll",
+        "label": "Scroll wheel",
+        "default": true
+      }
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

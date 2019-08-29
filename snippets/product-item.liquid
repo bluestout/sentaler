@@ -1,0 +1,192 @@
+{% unless grid_image_width %}
+  {%- assign grid_image_width = '600x600' -%}
+{% endunless %}
+  <div class="row-container list-unstyled clearfix">
+    <div class="row-inner">
+      <div class="row-left">
+        <a href="{{ product.url | within: collection }}" class="hoverBorder container_item"> 
+             <img src="{{ product.featured_image | product_img_url: grid_image_width , crop: 'bottom' }}" class="{% if settings.product_item_effect != 'rotation' %}not-rotation{% endif %} img-responsive front" alt="{{ product.featured_image.alt | escape }}" />
+         </a> 
+        <div class="product-box__overlay">
+          <div class="product-box__inner">
+        <div class="collec-title">
+         
+             {% for tag in product.tags %}
+               {% if tag contains 'new in' %}     
+                  <span>   New in </span>
+               {% endif %}
+            {% endfor %}
+          
+         
+          <div class="wishlist hidden-xs">
+                    <a title="Add To Wishlist" class="wishlist wishlist-{{ product.handle }}" data-wishlisthandle="{{ product.handle }}"><i class="fa fa-heart-o" aria-hidden="true"></i></a>    
+        </div>
+          <div class="product-title"><a class="title-5" href="{{ product.url | within: collection }}">{{ product.title }}</a></div>
+        </div>
+        
+        <div class="color_option">
+          {% for option in product.options %}
+            {% if option == 'Color' or option == 'Colour' %}
+        
+            {% assign index = forloop.index0 %}
+      
+            {% assign colorlist = '' %}
+            {% assign color = '' %}
+            {% for variant in product.variants %}
+       
+            {% capture color %}
+            {{ variant.options[index] }}
+            {% endcapture %}
+          
+            {% unless colorlist contains color %}
+            <span>{{color}}</span>
+            {% capture tempList %}
+            {{colorlist | append: color | append: ' '}}
+            {% endcapture %}
+            {% assign colorlist = tempList %}
+            {% endunless %}
+            {% endfor %}
+            {% endif %}
+            {% endfor %}
+        </div>
+        <div class="group_price_rating">
+          <div class="product-price">
+            {% if product.available %}
+            {% if product.compare_at_price_max > product.price %}
+
+            {% assign found_one_in_stock = false %}
+            {% for variant in product.variants %}
+            {% if variant.available and variant.compare_at_price and found_one_in_stock == false %}
+            {% assign found_one_in_stock = true %}
+
+            <span class="price_sale">{{ variant.price | money }}</span>
+            <del class="price_compare"> {{ variant.compare_at_price | money }}</del>
+
+            {% endif %}
+            {% endfor %}
+
+            {% if found_one_in_stock == false %}
+            {% for variant in product.variants %}
+            {% if variant.available and found_one_in_stock == false %}
+            {% assign found_one_in_stock = true %}
+            <span class="price">
+              {{ variant.price | money }}
+            </span>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+            {% else %}
+            <span class="price">
+              {% if product.price_varies %} 
+              {{ product.price | money }}
+              {% else %}
+              {{ product.price | money }}
+              {% endif %}
+            </span>
+            {% endif %}  
+            {% else %}
+            <span class="sold_out">Sold Out</span>
+            {% endif %}
+          </div>
+          <div class="rating-star">
+            <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+          </div>
+        </div>
+
+        
+    
+        <div class="list-mode-description {% if template == 'index' %}hide{% endif %}">
+          {{ product.description | strip_html | truncatewords: 150 }}
+        </div>
+        <div class="grid-mode-description {% if template == 'index' %}hide{% endif %}">
+          {{ product.description | strip_html | truncatewords: 20 }}
+        </div>
+        
+      </div>
+        {% comment %}<div class="hover-mask">
+          <div class="group-mask">
+            <div class="inner-mask">            
+              <form action="/cart/add" method="post">
+                {% if product.available %}
+                <div class="hide clearfix"> 
+                  <select name="id" >
+                    {% if product.compare_at_price_max > product.price %}
+
+                    {% assign found_one_in_stock = false %}
+                    {% for variant in product.variants %}
+                    {% if variant.available and variant.compare_at_price and found_one_in_stock == false %}
+                    {% assign found_one_in_stock = true %}
+                    {% assign found_variant_id = variant.id %}
+                    {% break %}
+                    {% endif %}
+                    {% endfor %}
+
+                    {% if found_one_in_stock == false %}
+                    {% for variant in product.variants %}
+                    {% if variant.available and found_one_in_stock == false %}
+                    {% assign found_one_in_stock = true %}
+                    {% assign found_variant_id = variant.id %}
+                    {% break %}
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+
+                    {% for variant in product.variants %}
+                    {% if variant.id == found_variant_id %}
+                    <option selected="selected" value="{{ variant.id }}">{{ variant.title | escape }}</option>
+                    {% else %}
+                    <option value="{{ variant.id }}">{{ variant.title | escape }}</option>
+                    {% endif %}
+                    {% endfor %}
+                    {% else %}
+                    {% assign found_one_in_stock = false %}
+                    {% for variant in product.variants %}
+                    {% if variant.available and found_one_in_stock == false %}
+                    {% assign found_one_in_stock = true %}
+                    <option selected="selected" value="{{ variant.id }}">{{ variant.title | escape }}</option>
+                    {% else %}
+                    <option value="{{ variant.id }}">{{ variant.title | escape }}</option>
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+                  </select>
+                </div>  
+                {% endif %}
+                <div class="effect-ajax-cart">
+                  {% if product.available %}
+                  <input type="hidden" name="quantity" value="1" />
+                  {% if product.variants.size == 1 %}
+                  <button class="btn btn-1 add-to-cart" data-parent=".parent-fly" type="submit" name="add"><i class="fa fa-shopping-cart"></i> {{ 'products.product.add_to_cart' | t }}</button>
+                  {% else %}
+                  <button class="btn btn-1 select-option" type="button" onclick="window.location='{{product.url}}';"><i class="fa fa-bars"></i> {{ 'products.product.select_option' | t }}</button>
+                  {% endif %}
+                  {% else %}
+                  <button class="btn btn-1 disabled" disabled="disabled" type="button" name="add"><i class="fa fa-shopping-cart"></i> {{ 'products.product.add_to_cart' | t }}</button>
+                  {% endif %}
+                </div>
+              </form>
+              <div class="group_qv">
+                <ul class="quickview-wishlist-wrapper">
+                  <li class="quickview hidden-xs">
+                    {% if product.available %}
+                    <div class="product-ajax-cart hidden-xs hidden-sm">
+                      <span class="overlay_mask"></span>
+                      <div data-handle="{{product.handle}}" data-target="#quick-shop-modal" class="quick_shop" data-toggle="modal">
+                        <a class=""><i class="fa fa-eye" title="Quick View"></i></a>
+                        <span class="product-json hide">{{ product | json }}</span>
+                      </div>
+                    </div>
+                    {% endif %}
+                  </li>
+                  
+                </ul>
+              </div>            
+            </div><!--inner-mask-->   
+          </div><!--Group mask-->   	
+        </div>{% endcomment %}
+        </div>
+      </div>
+
+         
+    </div>
+  </div> 

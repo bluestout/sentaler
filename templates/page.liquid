@@ -1,0 +1,31 @@
+<section class="page-heading">
+  <div class="page-heading-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="page-heading-inner">
+          <h1 class="page-title">{{ page.title }}</h1>
+          <div class="breadcrumb clearfix">
+            <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="{{ shop.url }}" title="{{ shop.name | escape }}" itemprop="url"><span itemprop="title">{{ 'general.breadcrumbs.home' | t }}</span></a></span>
+            <span class="arrow-space">&#62;</span>
+            <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+              <a href="/account/login" title="{{ page.title }}">{{ page.title }}</a>
+            </span>              
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="page-content">
+  <div class="page-content-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="page-content-inner">
+          {{ page.content }}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

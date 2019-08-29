@@ -1,0 +1,40 @@
+<div id="ajax-cart-modal" class="popup-pro-wrapper" style="display: none; position: fixed;  top: 0%; left: 0%; width: 100%; height: 100%; ">
+  <div class="ajax-cart-modal-wrapper">
+    <div class="ajax-cart-overlay"></div>
+    <div class="ajax-cart-loading" style="color:#fff"><i class="fa fa-spinner fa-pulse fa-2x"></i></div>
+    <div class="ajax-cart-box" style="display: none;">
+      <div class="ajax-cart-left">
+        <div class="clearfix">
+          <div class="ajax-cart-note">
+            <span class="cirle"><i class="fa fa-check"></i></span>
+            {{"products.ajax_cart.note_text_1"|t}}<a href="/cart" class="your_cart"> {{"products.ajax_cart.note_text_2"|t}}</a>
+          </div>
+          <div class="ajax-cart-product">
+            <div class="col-md-6 ajax-cart-image">
+            </div>
+            <div class="col-md-6 ajax-cart-desc">
+              <div class="ajax-cart-product-title"></div>
+              <div class="ajax-cart-price"></div>
+              <div class="ajax-cart-variant"></div>
+              <div class="ajax-cart-qty"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ajax-cart-right">
+        <div class="ajax-cart-number-product"></div>
+        <div class="ajax-cart-subtotal"></div>
+        <div class="ajax-cart-group-actions">
+          <div class="ajax-cart-continue">
+            <a href="javascript:void(null)" onclick="ajaxCartHide()" class="btn btn-3"><i class="fa fa-caret-left"></i>{{"products.ajax_cart.continue"|t}}</a>
+          </div>
+          <div class="ajax-cart-next">
+            <a class="btn btn-3" href="/cart">{{"products.ajax_cart.precess"|t}}<i class="fa fa-caret-right"></i></a>
+          </div>
+        </div>
+        <div class="countDiv"></div>
+      </div>
+      <div class="ajax-cart-close" onclick="ajaxCartHide()"><i class="fa fa-times"></i></div>
+    </div>      
+  </div>    
+</div>

@@ -1,0 +1,178 @@
+<div class="page-width" data-section-id="{{ section.id }}" data-section-type="cart-template">
+<section class="cart-heading">
+  <div class="cart-heading-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="cart-heading-inner">
+          <a href="/"><span class="sticon-caret-l-small"></span><span class="m_hide">CONTINUE SHOPPING</span><span class="desk_hide">Back</span></a>
+          <h1 class="page-title"><span>YOUR SHOPPING BAG</span></h1>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cart-content">
+  <div class="cart-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="cart-inner">
+          <div id="cart">  
+            {% if cart.item_count == 0 %}
+            <div class="cart-empty">
+              <h2 class="tc">{{ 'cart.general.empty' | t }}</h2>
+            </div>
+            {% else %}
+            <div class="cart-form">
+              <form action="/cart" method="post" id="cartform">
+                <div class="col-sm-8">
+                  <span class="desk_hide m_title">Bag Content</span>
+                    {% for item in cart.items %}
+                    <div class="cart-row">
+                      <div class="image">
+                        <div class="product_image">
+                          <a href="{{ item.url }}">
+                            <img src="{{ item | img_url: '250X' }}"  alt="{{ item.title | escape }}" />
+                          </a>
+                        </div>
+                        </div>
+                      <div class="c_info">
+                        <div class="product_name">
+                          <a href="{{ item.url }}">
+                            <p>{{ item.product.title }}</p>
+                           
+                          </a>
+                       
+                            {% unless item.variant.title contains 'Default' %}
+                            <div class="cart__meta-text">
+                              {% for option in item.product.options %}
+                                {{ option }}: {{ item.variant.options[forloop.index0] }}<br/>
+                              {% endfor %}
+                            </div>
+                          {% endunless %}
+                          <div class="ship_meta">
+                          {% assign property_size = item.properties | size %}
+                          
+                            {% if property_size > 0 %}
+                              {% for p in item.properties %}
+                                {% assign first_character_in_key = p.first | truncate: 1, '' %}
+                                {% unless p.last == blank or first_character_in_key == '_' %}
+                           
+                                  {% if p.last contains '/uploads/' %}
+                                    <a class="lightbox" href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
+                                  {% else %}
+                                    {{ p.last }}
+                                  {% endif %}
+                                  <br>
+                                {% endunless %}
+                              {% endfor %}
+                            {% endif %}  
+                          
+                          
+                          </div>
+                          <a href="/cart/change?line={{ forloop.index }}&quantity=0" class="cart_remove m_hide">Remove</a>
+                        </div>
+                      
+                     
+                      <div class="qty">
+                        <div class="quantity-wrapper">
+                          <div class="wrapper">
+                            <span class='qtyminus sticon-minus' field='quantity_1'></span>
+                            <input type="text" size="4" name="updates[]" id="updates_{{ item.id }}" value="{{ item.quantity }}" class="tc item-quantity quantity_{{forloop.index}}" />
+                            <span class='qtyplus sticon-plus' field='quantity_1'></span>
+                          </div><!--End wrapper-->                  
+                        </div><!--End quantily wrapper-->                
+                      </div>
+                      <div class="price">{{ item.price | money }}</div>
+                      <a href="/cart/change?line={{ forloop.index }}&quantity=0" class="cart_remove desk_hide">Remove</a>
+                      </div>
+                        
+                    </div>
+                    {% endfor %}
+                    
+                
+                </div>
+                <div class="col-sm-4">
+                <div class="group-bottom"> 
+                  <div class="cart-buttons col-sm-12">
+                    <div class="summary">
+                      <div class="srow">
+                      <div class="total_text s_l" colspan="1">Subtotal</div>
+                      <div class="price s_c" colspan="4"><span class="total"><strong>{{ cart.total_price | money }}</strong></span></div>
+                      </div>
+                      <div class="srow">
+                        <span class="s_l">Shipping</span>
+                        <span class="s_c">Free</span>
+                      </div>
+                      <div class="srow">
+                        <span class="s_l">Duties</span>
+                        <span class="s_c">Free</span>
+                      </div>
+                    </div>
+                    <div class="cart_total">
+                     <div class="total_text s_l" colspan="1">Total</div>
+                      <div class="price s_c" colspan="4"><span class="total"><strong>{{ cart.total_price | money }}</strong></span></div>
+                    </div>
+                    <div class="buttons clearfix">                    
+                      <input type="submit" id="update-cart" class="btn" name="update" value="{{ 'cart.general.update' | t }}"  style="display:none;"/>
+                      <input type="submit" id="checkout" class="btn" name="checkout" value="{{ 'cart.general.checkout' | t }}" />                        
+                    </div>
+                    {% if section.settings.cart_notes_enable %}
+                    <span class="specialnote">Add special note</span>
+                    <span class="desk_hide bagcontent"><span class="sticon-caret-d-small"></span>See bag content</span>
+                 	  <div class="cartnote" style="display:none;">
+                    	<textarea id="note" name="note" rows="10" cols="50">{{ cart.note }}</textarea>
+                      </div>
+              		{% endif %}
+                    <div class="cart_bt">
+                      <span><i class="sticon-shipping"></i>Free Duties and Expedited Shipping</span>
+                      <span><i class="sticon-returns"></i>Free Returns and Exchanges</span>
+                      <span><i class="sticon-gift"></i> Complimentary Gift Wrapping</span>
+                    </div>
+                    <div class="cart_desc">
+                      {{section.settings.cart_desc}}
+                    </div>
+                    
+                    {% comment %}
+                    {% if additional_checkout_buttons %} 
+                    <div class="extra-checkout-buttons inner-right">
+                      {{ content_for_additional_checkout_buttons }}
+                    </div>
+                    {% endif %}
+                    {% endcomment %}
+                  </div>
+                  
+                </div>
+                </div>
+              </form>
+            </div>
+            {% endif %}  
+          </div> 
+        </div>
+      </div>
+     
+    </div>
+  </div>
+</section>
+</div>
+               <div data-app="eastsideco_cartOffers"></div>
+
+{% schema %}
+{
+  "name": "Cart page",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "cart_notes_enable",
+      "label": "Enable cart notes",
+      "default": false
+    },
+	{
+	  "type":"textarea",
+	  "id":"cart_desc",
+	  "label":"Cart Description"
+	}
+  ]
+}
+{% endschema %}
