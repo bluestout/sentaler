@@ -392,6 +392,15 @@
       Shopify.Image.switchImage(newImage, mainImageDomEl, switchImage); // Define switchImage (the callback) in your theme's JavaScript file.
     }
     if (variant && variant.available) {
+
+      var elm = $('.swatch-element[data-id="'+variant.id+'"]');
+      $('.item-ship').show();
+      if ($(elm).data('shipmessage')) {
+        $('.shipdateprd').html($(elm).data('shipmessage'));
+      } else {
+        $('.shipdateprd').html("Size "+ $(elm).data('value') +" will ship immediately");
+      }
+
       jQuery('#add-to-cart').removeAttr('disabled').removeClass('disabled'); // remove unavailable class from add-to-cart button, and re-enable button
       if(variant.price < variant.compare_at_price){
         jQuery('#price-preview').html(Shopify.formatMoney(variant.price, money_format_update) + " <del>" + Shopify.formatMoney(variant.compare_at_price, money_format_update) + "</del>");

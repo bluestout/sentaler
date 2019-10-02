@@ -87,7 +87,7 @@ Set the extension of your color files below. Use 'png', 'jpeg', 'jpg' or 'gif'.
   		{% endif %}
        {% endfor %}
   {% endif %}
-  <div  data-quantity="{{variant.inventory_quantity}}" data-value="{{ value | escape }}" class="swatch-element {{downcased_option}} {% if curent_variant.id == variant.id %}active{% endif %} {% if is_color %}color {% endif %}{{ value | handle }} {% if variant.available %}available{% else %}soldout{% endif %}"
+  <div  data-quantity="{{variant.inventory_quantity}}" data-id="{{ variant.id }}" data-value="{{ value | escape }}" class="swatch-element {{downcased_option}} {% if curent_variant.id == variant.id %}active{% endif %} {% if is_color %}color {% endif %}{{ value | handle }} {% if variant.available %}available{% else %}soldout{% endif %}"
    {% if sc == 1 %} data-shipmessage ="Size {{ value | escape }} will ship in {{shipmessage}}"{% endif %}
        >
     {% if is_color %}
