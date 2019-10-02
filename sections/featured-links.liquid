@@ -1,0 +1,81 @@
+<div class="featured-links text-center {% if template contains 'craft' %}section-header{% endif %}">
+  <div class="grid grid--uniform grid--view-items index_prd_slider owl-carousel owl-theme">
+    {% for block in section.blocks %}
+    <div class="grid__item">
+      <a href="#" class="action-btn tab-link normal" data-id="{{ block.id }}">
+      <img src="{{block.settings.image | img_url: "master" }}"/>
+      {% if block.settings.btn_text %}
+      <div class="list-btn">
+        <span class="index_btn white">{{block.settings.btn_text}}</span>
+      </div>
+      {% endif %}
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="row content-wrap">
+    <div class="col-md-12">
+      {% for block in section.blocks %}
+      <div class="tab-content" data-id="{{ block.id }}" {% unless forloop.first %}style="display: none;"{% endunless %}>
+        <h4>{{ block.settings.title }}</h4>
+        {{ block.settings.content }}
+        <a href="{{ block.settings.link }}" class="index_btn">Shop Now</a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Featured Links",
+	  "max_blocks": 3,
+    "settings": [
+    ],
+    "blocks": [
+      {
+        "type": "link",
+        "name": "Link",
+        "settings": [
+          {
+          	"type":"image_picker",
+          	"id":"image",
+          	"label":"Image"
+          },
+          {
+          	"type":"image_picker",
+          	"id":"imagem",
+          	"label":"Mobile Image"
+          },
+          {
+            "type": "text",
+            "id": "btn_text",
+            "label": "Button Text"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "richtext",
+            "id": "content",
+            "label": "Content"
+          },
+          {
+            "type": "url",
+            "id": "link",
+            "label": "link"
+          }
+        ]
+      }
+    ],
+    "presets": [
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

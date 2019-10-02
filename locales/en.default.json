@@ -2,7 +2,8 @@
   "general": {
     "accessibility": {
       "skip_to_content": "Skip to content",
-      "close_modal": "Close (esc)"
+      "close_modal": "Close (esc)",
+      "read_more": "Read more"
     },
     "meta": {
       "tags": "Tagged \"{{ tags }}\"",
@@ -140,7 +141,7 @@
       "savings": "You're saving",
       "shipping_at_checkout": "Shipping & taxes calculated at checkout",
       "update": "Update",
-      "checkout": "Check out",
+      "checkout": "Checkout",
       "empty": "Your cart is currently empty.",
       "edit": "Edit",
       "cancel": "Cancel",

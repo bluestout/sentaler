@@ -1,0 +1,181 @@
+<section class="page-banner">
+ <div class="page-banner-wrapper">
+   <div class="container c_pad0">
+     <div class="row">
+       <div class="page-banner-inner">
+         <div class="page-image-wrapper row no-gutters">
+           <div class="page-image col-sm-12 text-center">
+             <img src="{{ section.settings.banner | img_url : 'master' }}" class="img-responsive" alt="{{ page.title | escape }}" />
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
+ </div>
+</section>
+<section class="page-heading">
+  <div class="page-heading-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="page-heading-inner">
+          <h1 class="page-title block text-center">{{ page.title }}</h1>
+          <p class="text-center">{{ page.content }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="page-content">
+  <div class="page-wrapper">
+    <div class="container c_pad0">
+      <div class="row">
+        <div class="page-inner">
+          <div id="page">
+            <div class="details">
+              {% for block in section.blocks %}
+                {% if block.type == 'image_text' %}
+                <div class="home_banner">
+                  <div class="banner_div b_{{block.id}} main align_{{block.settings.alignment}} set_{{block.settings.width}}" >
+                  </div>
+                    <div class="banner_text align_{{block.settings.alignment}}" >
+                      <div class="banner_inner_wrap">
+                      {% if block.settings.heading %}
+                      <h4>{{block.settings.heading}}</h4>
+                      {% endif %}
+                      {% if block.settings.content %}
+                      <p class="mobile-text-center">{{block.settings.content}}</p>
+                      {% endif %}
+                      {% if block.settings.btn_link %}
+                        <div><a class="index_btn" href="{{block.settings.btn_link}}">{{block.settings.btn_text}}</a></div>
+                      {% endif %}
+                      </div>
+                    </div>
+
+                </div>
+                <style>
+                  .home_banner h4{color:{{block.settings.heading_color}} }
+                  .home_banner p{color:{{block.settings.text_color}} }
+                  .home_banner a{color:{{block.settings.text_color2}};border-color:{{block.settings.text_color2}}}
+                  .b_{{block.id}}{ background-image:url({{block.settings.image | img_url:"master"}})}
+                  @media only screen
+                  and (max-width:767px) {
+                   .b_{{block.id}}{ background-image:url({{block.settings.imagem | img_url:"master"}}) }
+                  }
+                </style>
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+  {
+    "name": "Product Listing",
+    "max_blocks": 10,
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "banner",
+        "label": "Banner Image"
+      }
+    ],
+ 	  "blocks": [
+      {
+        "type": "image_text",
+        "name": "Image with Text",
+        "settings": [
+    		{
+    			"type":"image_picker",
+    			"id":"image",
+    			"label":"Image"
+    		},
+    		{
+    			"type":"image_picker",
+    			"id":"imagem",
+    			"label":"Mobile Image"
+    		},
+    		{
+    			"type":"color",
+    			"id":"heading_color",
+    			"label":"Heading Color",
+    			"default":"#000"
+    		},
+    		{
+    			"type":"color",
+    			"id":"text_color",
+    			"label":"Text Color",
+    			"default":"#000"
+    		},
+    		{
+    			"type":"color",
+    			"id":"text_color2",
+    			"label":"Button Color",
+    			"default":"#000"
+    		},
+    		{
+          "type": "select",
+          "id": "width",
+          "label": "width",
+          "default": "full",
+          "options": [
+            {
+              "value": "half",
+              "label": "50%"
+            },
+            {
+              "value": "full",
+              "label": "100%"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "alignment",
+          "label": "Text Alignement",
+          "default": "left",
+          "options": [
+            {
+              "value": "left",
+              "label": "left"
+            },
+            {
+              "value": "right",
+              "label": "right"
+            }
+          ]
+        },
+    		{
+    			"type":"text",
+    			"id":"heading",
+    			"label":"Heading"
+    		},
+    		{
+    			"type":"textarea",
+    			"id":"content",
+    			"label":"Content"
+    		},
+    		{
+    			"type":"text",
+    			"id":"btn_text",
+    			"label":"Button"
+    		},
+    		{
+    			"type":"url",
+    			"id":"btn_link",
+    			"label":"Link"
+    		}
+    		]
+      }
+    ],
+  "presets": []
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -11,35 +11,78 @@
           <div class="detail-content-inner">
             <div id="product" class="{{ product.handle }} detail-content">
               <div class="col-md-12 clearfix info-detail-pro">
-                <div class="col-md-6" id="product-image">      
-                   
-                  <div id="featuted-image" class="image featured mainprd">
-                   
+                <div class="col-md-6" id="product-image">
+
+                  <div id="featuted-image" class="image featured mainprd owl-carousel owl-theme">
+
                     {% for image in product.images %}
-                    <div class="prd_img_wrap">
-                      <span class="sticon-search prd_magni"></span>
-                    <a data-fancybox="gallery" href="{{ image | product_img_url: 'master' }}"><img src="{{ image | product_img_url: 'master' }}" alt="{{ image.alt | escape }}" /></a>
+                    <div class="prd_img_wrap  ">
+
+
+                     <div class="easyzoom easyzoom--overlay {% if image.alt contains 'vimeo' %}{% else %}clickzoom{% endif %}">
+                       {% if image.alt contains 'vimeo' %}
+                       {% assign video_id = image.alt | remove: "https://vimeo.com/" %}
+				       <div class="product_video_Wrap">
+                         <iframe id="prd_video" src="https://player.vimeo.com/video/{{video_id}}?color=d4d4d4&title=0&byline=0&portrait=0&background=1"  frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                       </div>
+
+
+                       {% else %}
+                         <a  data-fancybox="gallery" href="{{ image | product_img_url: '2400X' }}"><img class="normal" src="{{ image | product_img_url: '2400X' }}" alt="{{ image.alt | escape }}" /></a>
+                       {% endif %}
+                      </div>
                     </div>
                     {% endfor %}
                   </div>
 				 <script>
+                       $.fn.isInViewport = function() {
+                        var elementTop = $(this).offset().top;
+                        var elementBottom = elementTop + $(this).outerHeight();
+
+                        var viewportTop = $(window).scrollTop();
+                        var viewportBottom = viewportTop + $(window).height();
+
+                        return elementBottom > viewportTop && elementTop < viewportBottom;
+                      };
                     if($(".mainprd").length){
-                      $(".mainprd").owlCarousel({
-                        navigation : true,
+                     $(".mainprd").owlCarousel({
+                        nav : true,
                         pagination: false,
                         items: 1,
-                        itemsTablet: [768,1],
+                        singleItem:true,
                         slideSpeed : 200,
-                        navigationText: ['<i class="sticon-caret-l-large" title="Previous" data-toggle="tooltip" data-placement="top"></i>', '<i class="sticon-caret-r-large" title="Next" data-toggle="tooltip" data-placement="top"></i>']
+                        navText: ['<i class="sticon-caret-l-large" title="Previous" data-toggle="tooltip" data-placement="top"></i>', '<i class="sticon-caret-r-large" title="Next" data-toggle="tooltip" data-placement="top"></i>']
                       });
+                      $.fn.isInViewport = function() {
+                          var elementTop = $(this).offset().top;
+                          var elementBottom = elementTop + $(this).outerHeight();
+
+                          var viewportTop = $(window).scrollTop();
+                          var viewportBottom = viewportTop + $(window).height();
+
+                          return elementBottom > viewportTop && elementTop < viewportBottom;
+                        };
+                      $('.owl-next,.owl-prev').click(function(){
+                        if ($('#prd_video').isInViewport()) {
+                                $('#prd_video').vimeo("play");
+                                $('#prd_video').addClass('added');
+                              }
+                        else
+                        {
+                           $('#prd_video').vimeo("pause");
+                          $('#prd_video').addClass('removed');
+                        }
+                      });
+
                     }
+
                   </script>
                 </div>
                 <div class="col-md-6 text-center" id="product-information">
                   <div class="product-innerwrap">
                    {% for tag in product.tags %}
                      {% if tag contains 'IN SUPPORT OF SICKKIDS'  %}
-                       <img src="{{'badge-sickkids-small.png' | asset_url}}"/>
+                       <img class="s_sick_logo" src="{{'image.jpg' | asset_url}}"/>
                      {% endif %}
                   {% endfor %}
                   <div class="product-title">
@@ -47,28 +90,32 @@
                     {% if section.settings.display_wishlist %}
                     <div class="add-to-wishlist">
                       <div class="wishlist hidden-xs">
-                        <a title="Add To Wishlist" class="wishlist wishlist-{{ product.handle }}" data-wishlisthandle="{{ product.handle }}"><i class="sticon-heart" aria-hidden="true"></i> </a>    
+                        <a title="Add To Wishlist" class="wishlist wishlist-{{ product.handle }}" data-wishlisthandle="{{ product.handle }}"><i class="sticon-heart" aria-hidden="true"></i> </a>
                       </div>
                     </div>
                     {% endif %}
                   </div>
+                 	{% assign arrow = false %}
+                    {% for prd_collection in product.collections %}
+        				{% if prd_collection.handle contains 'accessories' %}{% assign arrow = true %}{% endif %}
+                    {% endfor %}
                     <div class="prd_ctext c_pop" rel="fiber">
-                  
+
                    {% for option in product.options %}
                       {% assign option_in = forloop.index0 %}
-                      
-                 
+
+
                       {% if option == 'Material' or  option == 'material' %}
                             {% for variant in product.variants %}
                        {% assign value = variant.options[option_in] %}
                           {% unless values contains value %}
                       {% if forloop.index == 1 %}
-                            {{value}}{% include 'info' %}
+                      <span> {{value}}</span>{% if arrow %}{% else %}{% include 'info' %}{% endif %}
                       {% endif %}
                         {% endunless %}
                           {% endfor %}
                       {% endif %}
-                   
+
                    {% endfor %}
 
                     </div>
@@ -79,16 +126,16 @@
 		          {% if section.settings.enable_quickoverview  %}
                   <div class="description">
                     {% if product.description contains '[split]' %}
-                  {%- assign prd_s1 = prd_des_sh[2] | truncatewords: section.settings.detail_qov_lenght, "" -%}
+                  {%- assign prd_s1 = prd_des_sh[1] | truncatewords: section.settings.detail_qov_lenght, "" -%}
                   <span class="short">{{prd_s1 | replace: "&nbsp;", ''  }}</span>
-                   
+
                     <span class="more">More</span>
-                     <span class="long">{{prd_des_sh[2]  }}</span>
+                     <span class="long">{{prd_des_sh[1]  }}</span>
                     {% else %}
                     <span>{{product.description}}</span>
                     {% endif %}
                   </div>
-                  {% endif %}                                
+                  {% endif %}
 
                   {% if product.variants.size == 1 and product.variants.first.title contains 'Default' %}
                     {% assign hide_default_title = true %}
@@ -99,10 +146,21 @@
                     <div class="color-option">
                      {%-  assign prd_des_cp =  product.description | split: '[split]'   -%}
                       <span class="c_l">color: <span class="current_seleted"></span></span>
-                      {{prd_des_cp[1]}}
+                      {{prd_des_cp[0]}}
                     </div>
                     {% endif %}
                     <div class="product-options {% if hide_default_title %}no-options {% endif %}">
+                      {% assign shipDefaultMessage = '' %}
+                      {%- for tag in product.tags -%}
+                        {% if tag contains 'ship_default' %}
+                        {% assign shipDefaultMessage = tag | strip | remove: 'ship_default_' %}
+                        {% endif %}
+                      {% endfor %}
+                      {%- capture my_variable -%}
+                      {%- for tag in product.tags -%}
+                        {%- if tag contains 'size' -%}{{-tag | append:','-}}{%- else -%}{%- continue -%}{%- endif -%}
+                        {%- endfor -%}{%- endcapture -%}
+                     {%- assign ship_msg = my_variable | strip | remove: 'size_' -%}
                       {% if section.settings.color_swatch %}
                         {% if product.available %}
                           {% for option in product.options %}
@@ -110,7 +168,7 @@
                           {% endfor %}
                         {% endif %}
                       {% endif %}
-                      
+
                       <div class="select clearfix"{% if hide_default_title or section.settings.color_swatch %} style="display:none"{% endif %}>
                         <select id="product-select" name="id">
                           {% for variant in product.variants %}
@@ -119,7 +177,7 @@
                         </select>
                       </div>
 
-                    
+
 
                       {% if section.settings.display_quantity_dropdown %}
                       <div class="quantity-wrapper clearfix">
@@ -136,25 +194,43 @@
                       </div>
                       {% endif %}
 
+                      {% assign preorder = false %}
+                     {% for tag in product.tags %}
+                         {% if tag contains 'pre-order'  %}
+                           {% assign preorder = true %}
+                         {% endif %}
+                      {% endfor %}
+
+
+
                       <div class="purchase-section{% if product.variants.size > 1 %} multiple{% endif %}">
                         <div class="purchase">
-                          {% unless product.available %}
-                          <p>{{ 'products.product.sold_out_html' | t }}</p>
-                          {% else %}
-                          <button id="add-to-cart" class="btn add-to-cart" type="submit" name="add">{{"products.product.add_to_cart"|t}}</button>                        
+                          {% if  product.available  %}
+                         	{% if variant.inventory_quantity >= 1 %}
+                          <button id="add-to-cart" class="btn add-to-cart customcart" type="submit" name="add">{{"products.product.add_to_cart"|t}}</button>
                           <div id="cart-animation" style="display:none">1</div>
-                          {% endunless %}
+                          <button style="display:none" id="add-to-cart" class="btn add-to-cart preordercart" type="submit" name="add">{{'Pre-order' | json | remove: '"'}}</button>
+                          {% else %}
+                         	 <button id="add-to-cart" class="btn add-to-cart customcart" type="submit" name="add" style="display:none">{{"products.product.add_to_cart"|t}}</button>
+                           <button id="add-to-cart" class="btn add-to-cart preordercart" type="submit" name="add">{{'Pre-order' | json | remove: '"'}}</button>
+
+                          {% endif %}
+                          {% else %}
+                          <span class="btn">{{ 'products.product.sold_out_html' | t }}</span>
+                          {% endif %}
+                            <div class="item-ship prdrow" style="display:none">
+                        <input  type="text" name="properties[ship_date]" value="" style="display:none;"/>
+                          <span class="shipdateprd"></span>
+                    	</div>
                         </div>
+
+
+
                       </div>
                     </div>
-                     {% if product.description contains '[split]' %}
-                    <div class="item-ship prdrow">
-                      <input  type="text" name="properties[ship_date]" value="{{product.description  | strip_html | split: '[split]' | first}}" style="display:none;"/>
-                    {{product.description  | strip_html | split: '[split]' | first}}
-                    </div>
-                    {% endif %}
+
                   </form>
-                  
+
 				  <div class="prd_ship prdrow">
                     <span><i class="sticon-shipping"></i>Free Duties and Expedited Shipping</span>
                     <span><i class="sticon-returns"></i>Free Returns and Exchanges</span>
@@ -162,7 +238,7 @@
                   <div class="srf prdrow">
                     <a href="#" class="c_pop" rel="shipping">Shipping</a>
                     <a href="#"  class="c_pop" rel="return">Returns/Exchanges</a>
-                    <a href="#"  class="c_pop" rel="findsixe">Find My Size</a>
+                    <a href="#"  class="c_pop" rel="sizechart">Find My Size</a>
                   </div>
                     <div class="eps">
                       <a href="mailto:"><i class="sticon-email"></i>Email us</a>
@@ -172,39 +248,11 @@
                         {% include 'social-sharing' %}
                       </div>
                     </div>
-                  {% if section.settings.display_tags %}
-                  <div class="relative product-detail-tag">
-                    <ul class="list-unstyled">
-                      {% if product.tags.size > 0 %}
-                      {% if collection == null or collection.handle == 'frontpage' or collection.handle == 'all' %}
-                      {% assign found_a_collection = false %}
-                      {% for c in product.collections %}
-                      {% if found_a_collection == false and c.handle != 'frontpage' and c.handle != 'all' and c.all_products_count > 1 %}
-                      {% assign found_a_collection = true %}
-                      {% assign collection = c %}
-                      {% endif %}
-                      {% endfor %}
-                      {% endif %}
-                      <li class="tags">
-                        <span>{{'products.product.tags'|t}}</span>
-                        {% for tag in product.tags %}
-                        <a href="/collections/{{ collection.handle }}/{{ tag | handle }}">
-                          {% if forloop.index < product.tags.size %}
-                          {{ tag | handle }}<span>,</span>
-                          {% else %}
-                          {{ tag | handle }}
-                          {% endif %}
-                        </a>
-                        {% endfor %}
-                      </li>
-                      {% endif %}
-                    </ul>
-                  </div>
-                  {% endif %}
 
-               
+
+
                   </div>
-                </div>              
+                </div>
               </div>
                {% if product.description contains '[split]' %}
               <div class="product_deatil_metainfo">
@@ -212,61 +260,76 @@
                  <div class="accordion-section desk_hide">
                   <a href="#accordion-4" class="accordion-section-title"><span class="Apple-style-span" style="color: #272727; font-size: medium;">DESIGNER’S NOTES</span></a>
                   <div id="accordion-4" class="accordion-section-content js-focus-hidden" tabindex="-1" >
-                  {{prd_des_sh[2]  }}
+                  {{prd_des_sh[1]  }}
                   </div>
                   <!--end .accordion-section-content-->
-                  </div> 	
+                  </div>
                 {{ product.description |  split: '[split]' | last }}
                 </div>
                 <div class="customhalf img">
-                  <img src="{{ product.images[1] | product_img_url: 'master' }}"/>
+                  <img class="normal" src="{{ product.images[1] | product_img_url: 'master' }}"/>
                 </div>
                 {% assign imagesize = product.images.size | minus: 1 %}
-                <div class="flex_row_prd {% if imagesize == 3 or imagesize == 7 %}last-imgfull{% endif %}" >
+                <div class="flex_row_prd {% if imagesize == 3 or imagesize == 7 %}last-imgfull{% endif %} {% if imagesize == 6 %}last-two{% endif%}" >
                   {% for image in product.images %}
                   {% if forloop.index > 1 %}
-                    <img src="{{ image | product_img_url: 'master' }}" alt="{{ image.alt | escape }}" />
+                  {% if image.alt contains 'vimeo' %}
+                       {% assign video_id = image.alt | remove: "https://vimeo.com/" %}
+				       <div class="product_video_Wrap">
+                         <iframe id="prd_video2" src="https://player.vimeo.com/video/{{video_id}}?color=d4d4d4&title=0&byline=0&portrait=0&background=1"  frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                       </div>
+                       {% else %}
+                         <img src="{{ image | product_img_url: 'master' }}" alt="{{ image.alt | escape }}" />
+                       {% endif %}
+
                   {% endif %}
                   {% endfor %}
-                  
+
                 </div>
               </div>
               {% endif %}
               {% for tag in product.tags %}
                      {% if tag contains 'IN SUPPORT OF SICKKIDS' %}
               <div class="stickkid_deatilsection">
-              	<div class="index_quote ">
+              	<!--<div class="index_quote ">
                     <div class="quote_inner aos-init aos-animate" data-aos="fade-up" data-aos-duration="1000">
                       <i class="sticon-quote" aria-hidden="true"></i>
                       <p>{{section.settings.quote}}</p>
                       <span class="sticon-bojana"></span>
                     </div>
-			   </div>
+			   </div>-->
                <div class="index_custom_section">
                     <div class="flex_wrap">
-					  <div class="customhalf imgdiv left">
-                        {% if section.settings.images1 %}
-						  <img src="{{section.settings.images1 | img_url: "master"}}">
-                        {% endif %}
-					  </div>
+					                 <div class="customhalf imgdiv left">
+                             {% if section.settings.images1 %}
+						                  <img src="{{section.settings.images1 | img_url: "master"}}">
+                              {% endif %}
+					                 </div>
 					  <div class="customhalf left">
                             <div class="text--block text-center">
                               <div class="las_25">
+                                <div class="text-left">
+                                  <div class="img_b">
+                                      <img src="{{ section.settings.signature_1 | img_url: 'master' }}"/>
+                                  </div>
+                                  <div class="quote_a">
+                                  {{section.settings.quote}}
+                                  </div>
+                                </div>
                                  <i class="sticon-quote" aria-hidden="true"></i>
-                                <p>
-                                 
+                                 <div class="quote_b">
                                   {{section.settings.quote2}}
-                                </p>
+                                </div>
                               </div>
-                              <div class="img_b">
-                                  <img src="{{'badge-sickkids-small.png' | asset_url }}"/>
+                              <div class="img_a">
+                                  <img src="{{ section.settings.signature_2 | img_url: 'master' }}"/>
                               </div>
-                              <p class="bt_text">{{section.settings.s_Des}}</p>
+                              <div class="bt_text">{{section.settings.s_Des}}</div>
                            </div>
                        </div>
-					</div>
-			   </div>
-               <div class="index_custom_section">
+					                </div>
+        </div>
+               <!--<div class="index_custom_section">
   				 <div class="flex_wrap">
   				   <div class="customhalf imgdiv">
 						<img src="//cdn.shopify.com/s/files/1/1009/5898/files/superfine-alpaca_1024x1024.png?v=1565420359">
@@ -293,10 +356,10 @@
 				  	<a class="index_btn" href="{{section.settings.sbtn_link}}">{{section.settings.sbtn_text}}</a>
                    {% endif %}
 				 </div>
-                   
+
                 </div>
               </div>
-			</div>
+			</div>-->
 			</div>
               {% endif %}
               {% endfor %}
@@ -318,7 +381,11 @@
 <div data-app="eastsideco_cartOffers" data-position="product"></div>
 
   <script>
+
   var selectCallback = function(variant, selector) {
+    if (variant) {
+      $('#sizechart').find('span.sku').html(variant.sku);
+    }
     if (variant && variant.featured_image) {
       var newImage = variant.featured_image; // New image object.
       var mainImageDomEl = jQuery('.featured img')[0]; // DOM element of main image we need to swap.
@@ -328,27 +395,34 @@
       jQuery('#add-to-cart').removeAttr('disabled').removeClass('disabled'); // remove unavailable class from add-to-cart button, and re-enable button
       if(variant.price < variant.compare_at_price){
         jQuery('#price-preview').html(Shopify.formatMoney(variant.price, money_format_update) + " <del>" + Shopify.formatMoney(variant.compare_at_price, money_format_update) + "</del>");
-      
+
       } else {
         jQuery('#price-preview').html(Shopify.formatMoney(variant.price, money_format_update));
-    
+
       }
-    } else {
+    }
+
+    else {
       jQuery('#add-to-cart').addClass('disabled').attr('disabled', 'disabled'); // set add-to-cart button to unavailable class and disable button
-      var message = variant ? {{ 'products.product.sold_out_html' | t | json }} : {{ 'products.product.unavailable_html' | t | json }};
-      jQuery('#price-preview').html(message);
+
     }
   };
 
   jQuery(document).ready(function($){
     new Shopify.OptionSelectors("product-select", { product: {{ product | json }}, onVariantSelected: selectCallback, enableHistoryState: true });
-	
+
     // Add label if only one product option and it isn't 'Title'.
     {% if product.options.size == 1 and product.options.first != 'Title' %}
       $('.selector-wrapper:eq(0)').prepend('<label>{{ product.options.first | escape }}</label>');
     {% endif %}
 
   });
+    $(window).scroll(function() {
+        if ($('#prd_video').isInViewport()) { $('#prd_video').vimeo("play");}
+        else{ $('#prd_video').vimeo("pause");   }
+      if ($('#prd_video2').isInViewport()) { $('#prd_video2').vimeo("play");}
+       else{ $('#prd_video2').vimeo("pause");   }
+     });
   </script>
 </div>
 {% include 'popup' %}
@@ -360,7 +434,7 @@
         "type": "header",
         "content": "General Setting"
       },
-      
+
       {
         "type": "checkbox",
         "id": "color_swatch",
@@ -466,7 +540,7 @@
         "default": "5000",
         "info": "(seconds)"
       },
-      
+
       {
         "type": "header",
         "content": "Related Products Setting"
@@ -537,12 +611,12 @@
         "id": "share_google",
         "label": "+1 on Google Plus"
       },
-	  {	
+	  {
 		"type":"header",
 		"content":"Stickid's Info"
 	  },
 	  {
-			"type":"textarea",
+			"type":"richtext",
 			"id":"quote",
 			"label":"Quote"
 	  },
@@ -551,8 +625,18 @@
 			"id":"images1",
 			"label":"Image"
 	  },
+    {
+			"type":"image_picker",
+			"id":"signature_1",
+			"label":"Signature 1"
+	  },
+    {
+			"type":"image_picker",
+			"id":"signature_2",
+			"label":"Signature 2"
+	  },
 	  {
-			"type":"textarea",
+			"type":"richtext",
 			"id":"quote2",
 			"label":"Quote"
 	  },
@@ -615,6 +699,11 @@
           "type": "text",
           "id": "text3",
           "label": "Heading3"
+      },
+      {
+          "type": "page",
+          "id": "sizechart_page",
+          "label": "Size Chart"
       }
   ]
 }

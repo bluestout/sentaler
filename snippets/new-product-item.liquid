@@ -1,0 +1,12 @@
+{% unless grid_image_width %}
+  {%- assign grid_image_width = '600x' -%}
+{% endunless %}
+<div class="item">
+  <div class="row-inner">
+    <div class="row-left">
+      <a href="{{ product.url | within: collection }}" class="hoverBorder container_item">
+        <img src="{{ product.featured_image | product_img_url: grid_image_width }}" class="{% if settings.product_item_effect != 'rotation' %}not-rotation{% endif %} img-responsive front" alt="{{ product.featured_image.alt | escape }}" />
+      </a>
+    </div>
+  </div>
+</div>

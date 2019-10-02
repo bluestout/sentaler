@@ -3,10 +3,11 @@ Set the extension of your color files below. Use 'png', 'jpeg', 'jpg' or 'gif'.
 {% endcomment %}
 
 {% assign file_extension = 'png' %}
+{% assign ship_msg = ship_msg | split: ','  %}
 
 {% if swatch == blank %}
 <div class="swatch error">
-  <p>You must include the snippet swatch.liquid with the name of a product option.</p> 
+  <p>You must include the snippet swatch.liquid with the name of a product option.</p>
   <p>Use: <code>{% raw %}{% include 'swatch' with 'name of your product option here' %}{% endraw %}</code></p>
   <p>Example: <code>{% raw %}{% include 'swatch' with 'Color' %}{% endraw %}</code></p>
 </div>
@@ -46,7 +47,9 @@ Set the extension of your color files below. Use 'png', 'jpeg', 'jpg' or 'gif'.
 {% else %}
 <div class="swatch {{downcased_option}} {% if downcased_option contains 'color' or downcased_option contains 'colour' %} color{% endif %} clearfix {% if hide_default_title %}hide{% endif %}" data-option-index="{{ option_index }}">
  {% if is_color %} <div class="header">{{ swatch }} <span class="seleted_color"></span></div>{% endif %}
-   {% if is_size %} <div class="prd_ctext sizeguide c_pop" rel="sizechart">Size guide  <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+  {% if is_size %}
+
+  <div class="prd_ctext sizeguide"><span class="c_pop  "  rel="sizechart" ><span>Size Guide</span>  <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                  viewBox="0 0 52 52" style="enable-background:new 0 0 52 52;" xml:space="preserve">
                             <g>
                                 <path d="M26,0C11.663,0,0,11.663,0,26s11.663,26,26,26s26-11.663,26-26S40.337,0,26,0z M26,50C12.767,50,2,39.233,2,26
@@ -59,7 +62,9 @@ Set the extension of your color files below. Use 'png', 'jpeg', 'jpg' or 'gif'.
                                     C33.939,12.599,30.401,9.061,26.113,9.001z"/>
                             </g>
 
-                            </svg></div>{% endif %}
+  </svg></span></div>
+
+  {% endif %}
   {% assign values = '' %}
   {% if downcased_option contains 'Title' or downcased_option contains 'title' %}
   <div class="sw_title">{{option}}</div>
@@ -68,22 +73,36 @@ Set the extension of your color files below. Use 'png', 'jpeg', 'jpg' or 'gif'.
   {% assign value = variant.options[option_index] %}
   {% unless values contains value %}
   {% assign values = values | join: ',' %}
-  {% assign values = values | append: ',' | append: value %} 
+  {% assign values = values | append: ',' | append: value %}
   {% assign values = values | split: ',' %}
-  
-  <div data-value="{{ value | escape }}" class="swatch-element  {% if curent_variant.id == variant.id %}active{% endif %} {% if is_color %}color {% endif %}{{ value | handle }} {% if variant.available %}available{% else %}soldout{% endif %}">
+  {% if is_size %}
+  	{% assign shipmessage = "" %}
+    	{% assign sc = 0 %}
+        {% assign v_hand =  value | handle %}
+   		{% for t in ship_msg %}
+    	{% assign tag = t | split: '_' %}
+        {% if tag contains v_hand %}
+  			{% assign sc = 1 %}
+  			{% assign shipmessage = tag[1] %}
+  		{% endif %}
+       {% endfor %}
+  {% endif %}
+  <div  data-quantity="{{variant.inventory_quantity}}" data-value="{{ value | escape }}" class="swatch-element {{downcased_option}} {% if curent_variant.id == variant.id %}active{% endif %} {% if is_color %}color {% endif %}{{ value | handle }} {% if variant.available %}available{% else %}soldout{% endif %}"
+   {% if sc == 1 %} data-shipmessage ="Size {{ value | escape }} will ship in {{shipmessage}}"{% endif %}
+       >
     {% if is_color %}
     <div class="tooltip">{{ value }}</div>
     {% endif %}
     <input id="swatch-{{ option_index }}-{{ value | handle }}" type="radio" name="option-{{ option_index }}" value="{{ value | escape }}"{% if forloop.first %} checked{% endif %} {% unless variant.available %}disabled{% endunless %} />
     {% if is_color %}
     <label for="swatch-{{ option_index }}-{{ value | handle }}" style="background-color: {{ value | split: ' ' | last | handle }}; border-color: {{ value | split: ' ' | last | handle }}; background-image: url({{ value | handle | append: '.' | append: file_extension | asset_url }})">
-     
+
     </label>
+
     {% else %}
     <label for="swatch-{{ option_index }}-{{ value | handle }}" >
       {{ value }}
-    
+
     </label>
     {% endif %}
   </div>
@@ -108,8 +127,54 @@ Set the extension of your color files below. Use 'png', 'jpeg', 'jpg' or 'gif'.
             var temp = $(this).parent();
             temp.children('.swatch-element').each(function() {
               $(this).removeClass("active");
-            });            
-            $(this).addClass("active");        
+            });
+            $(this).addClass("active");
+           var invent_quantity =  $(this).data('quantity');
+          if($(this).attr('data-shipmessage'))
+          {
+            $('.customcart').hide();
+            $('.preordercart').show();
+            if($(this).attr('data-shipmessage')) {
+               $('.shipdateprd').html($(this).data('shipmessage'));
+           	$('.item-ship').show();
+            $('input[name="properties[ship_date]"]').attr('value',$(this).data('shipmessage'));
+            }
+            else
+            {
+              var custommsg = "Size "+ $(this).data('value') +" will ship immediately";
+              $('.shipdateprd').html(custommsg);
+           	  $('.item-ship').show();
+              $('input[name="properties[ship_date]"]').attr('value',custommsg);
+            }
+          }
+          else
+          {
+             $('.customcart').show();
+             $('.preordercart').hide();
+             $('.item-ship').hide();
+             $('input[name="properties[ship_date]"]').attr('value','');
+             $('.shipdateprd').html('');
+
+             var custommsg = "Size "+ $(this).data('value') +" will ship immediately";
+             $('.shipdateprd').html(custommsg);
+             $('.item-ship').show();
+             $('input[name="properties[ship_date]"]').attr('value',custommsg);
+          }
+
+        }
+      });
+      $(window).load(function(){
+        if($('.swatch-element.size.active').data('quantity')<=0){
+       $('.item-ship').show();
+       if($('.swatch-element.size.active').attr('data-shipmessage')) {
+           $('.shipdateprd').html($('.swatch-element.size.active').data('shipmessage'));
+           $('input[name="properties[ship_date]"]').attr('value',$('.swatch-element.size.active').data('shipmessage'));
+       }
+       else{
+          var custommsg = "Size "+ $('.swatch-element.size.active').data('value') +" will ship immediately";
+              $('.shipdateprd').html(custommsg);
+           	  $('input[name="properties[ship_date]"]').attr('value',custommsg);
+        }
         }
       });
     });

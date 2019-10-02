@@ -1,0 +1,34 @@
+<div class="index_quote ">
+  <div class="quote_inner"  data-aos="fade-up" data-aos-duration="1000">
+    <i class="sticon-quote" aria-hidden="true"></i>
+    <p>{{section.settings.quote}}</p>
+    <span class="sticon-bojana"></span>
+  </div>
+  
+
+</div>
+{% schema %}
+  {
+    "name": "Quote",
+    "settings": [
+		{
+			"type":"textarea",
+			"id":"quote",
+			"label":"Quote"
+		}
+	],
+ "presets": [
+    {
+      "name": "quote",
+      "category": "Text"
+     
+    }
+  ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

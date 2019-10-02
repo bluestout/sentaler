@@ -64,6 +64,7 @@
             <div id="customer_sidebar" class="col-sm-4">
               <h2>{{ customer.name }}</h2>
               <p class="email note">{{ customer.email }}</p>
+              <a href="/account/logout" style="color:#000">Log out</a>
               <div class="address note">
                 {% if customer.default_address != nil %}
                 <p>{{ customer.default_address.address1 }}</p>

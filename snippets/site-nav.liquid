@@ -1,64 +1,89 @@
  
 {% assign megaitem = section.settings.mega_item | downcase  %}
 {% assign megaitem = megaitem | split: ',' | uniq  %}
-
+{% assign megaitem = megaitem | handleize  %}
 {% for l in linklists[nav_link].links %}
   {% assign submenu = l.title | handleize %}
   {% assign item = l.title | downcase  | handleize  %}
-  <li rel="{{item}} {{megaitem}}" class="mainitem {% if l.active %}active {% endif %}  {% if megaitem contains item %} has_deskmega{% endif %}">
+
+  <li rel="{{item}}" class="mainitem {% if l.active %}active {% endif %}  {% if megaitem contains item %} has_deskmega{% endif %}">
     <a href="{{ l.url }}" class="mainmenu" data-toggle="dropdown">
       <span>{{ l.title }}</span>
        {% if megaitem contains item %} <span class="sticon-caret-d-small"></span>{% endif %}
-    </a>
-
-    {% assign showmega = false %}
-    {% if megaitem contains item %}
-    <div class="megadropdown">
+    </a>  
     {% for block in section.blocks %}
-    		
-            {% assign megahandle = block.settings.mega_handle | handleize %}
-     		{% if submenu == megahandle %}
-    			{% assign showmega = true %}
-    		{% endif %}
-    		{% if forloop.index == 1 %}<ul class="megawrap">{% endif %}
-   			{% if showmega %}
-    			
-              {% if block.type == 'mega_menu_items' %}
-      			<li>
-              <a href="{{block.settings.link}}" class="megainnerlink">
-              	{{block.settings.mega_title}}
-              </a>
-              <div class="merga-imgblock" >
-              	{% for i in (1..4) %}
-                {% assign b_img = 'image' | append: i %}
-                {% assign b_head = 'heading' | append: i %}
-                {% assign b_link = 'link' | append: i %}
-                {% if block.settings[b_img]  %}
-                 <div class="mega_imgcol">
-                   {% if block.settings[b_link] %}<a href="{{block.settings[b_link]}}">{% endif %}
-                      
-                	 
-                     <img src="{{block.settings[b_img] | img_url: "master"}}"/>
-                    
-                     <span>{{block.settings[b_head]}}</span>
-                   {% if block.settings[b_link] %}</a>{% endif %}
-                </div>
-                 {% endif %}
-                {% endfor %}
-              </div>
-                  </li>
-              {% endif %}
-      		
-    		{% endif %}
-           {% if forloop.last %} </ul>{% endif %}
-    {% endfor %}
-     
- 	</div>
-    {% endif %}
+        {% assign megahandle = block.settings.mega_handle | handleize %}
+        {% if megahandle == item %}
+         <div class="{{ item }} megadropdown">  
+            <ul class="megawrap">
+                 {% for j in (1..7) %}
+                     {% assign main_titile = 'title_' | append: j %}
+                     {% assign main_link = 'link_' | append: j %}
+                           {% if block.settings[main_titile] != blank %}
+                             <li>
+                              <a href="{{block.settings[main_link]}}" class="megainnerlink">
+                                {{block.settings[main_titile]}}
+                                
+                                {% assign c = 0 %}
+                                 {% for i in (1..4) %}                                
+                                  {% capture b_img %}image_{{ j }}_{{ i }}{% endcapture %}
+                                    {% if block.settings[b_img]  %}
+                                     {% assign c = 1 %}
+                                    {% endif %}
+                                {% endfor %}                                
+                                {% if c == 1 %} <span class="sticon-caret-r-small"></span>{% endif %}
+                              </a>
+                              <div class="merga-imgblock" >
+                                {% for i in (1..4) %}
+
+                                  {% capture b_img %}image_{{ j }}_{{ i }}{% endcapture %}
+                                  {% capture b_head %}heading_{{ j }}_{{ i }}{% endcapture %}
+                                  {% capture b_link %}link_{{ j }}_{{ i }}{% endcapture %}
+
+                                {% if block.settings[b_img]  %}
+                                 <div class="{{ b_img }} mega_imgcol">
+                                   {% if block.settings[b_link] %}<a href="{{block.settings[b_link]}}">{% endif %}
+
+
+                                     <img src="{{block.settings[b_img] | img_url: "master"}}"/>
+
+                                     <span>{{block.settings[b_head]}}</span>
+                                   {% if block.settings[b_link] %}</a>{% endif %}
+                                </div>
+                                 {% endif %}
+                                {% endfor %}
+                              </div>
+                             </li>
+                          {% endif %}
+                  {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+     {% endfor %}
+
   </li>
-
-
-
- 
+{% comment %}
+    {% assign child_list_handle = l.title | handleize %}
+<!--   <li rel="{{item}}" class="mainitem {% if l.active %}active {% endif %}   {% if linklists[child_list_handle].links != blank %} has_standard{% endif %}">
+    <a href="{{ l.url }}" class="mainmenu" data-toggle="dropdown">
+      <span>{{ l.title }}</span>
+    {% comment %}  
+    {% if linklists[child_list_handle].links != blank %}<span class="sticon-caret-d-small"></span>
+      {% endif %}
+    </a>
+    {% if linklists[child_list_handle].links != blank %}
+      <div class="{{ item }} megastandard">
+        <ul>
+          {% for childlink in linklists[child_list_handle].links %}          
+            <li {% if childlink.active %}class="active"{% endif %}>
+              <a href="{{ childlink.url }}">{{ childlink.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+    {% endcomment %}
+  </li> -->
+ {% endcomment %}
 {% endfor %}
  

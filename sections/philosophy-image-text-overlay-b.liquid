@@ -1,0 +1,146 @@
+<section class="page-heading">
+  <div class="page-heading-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="page-heading-inner">
+          <h1 class="page-title block text-center">{{ section.settings.title }}</h1>
+          <p class="text-center">{{ section.settings.sub_title }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="image-overlay-section">
+  <div class="container c_pad0">
+    <div class="grid grid--uniform grid--view-items press_slider owl-carousel owl-theme">
+      {% for block in section.blocks %}
+      <div class="grid__item">
+        <div class="content-wrap" id="block_{{ block.id }}">
+          <a href="#" class="tab-link hover" data-id="{{ block.settings.section_id }}">
+            <img src="{{ block.settings.image | img_url : 'master' }}" class="img-responsive" alt="{{ block.settings.heading | escape }}" />
+            <div class="banner_text align_{{block.settings.alignment}}" >
+              <div class="banner_inner_wrap">
+              {% if block.settings.heading %}
+              <h4>{{block.settings.heading}}</h4>
+              {% endif %}
+              {% if block.settings.content %}
+              <p>{{block.settings.content}}</p>
+              {% endif %}
+              <div><span class="index_btn">{{block.settings.btn_text}}</span></div>
+              </div>
+            </div>
+          </a>
+        </div>
+        <style>
+          #block_{{ block.id }} h4{color:{{block.settings.heading_color}} }
+          #block_{{ block.id }} p{color:{{block.settings.text_color}} }
+          #block_{{ block.id }} a{color:{{block.settings.text_color2}};border-color:{{block.settings.text_color2}}}
+        </style>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Image with Text Overlay",
+    "class": "section-header",
+    "max_blocks": 4,
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+      },
+      {
+        "type": "textarea",
+        "id": "sub_title",
+        "label": "Sub Title"
+      }
+    ],
+ 	  "blocks": [
+      {
+        "type": "image_text",
+        "name": "Image with Text",
+        "settings": [
+    		{
+    			"type":"image_picker",
+    			"id":"image",
+    			"label":"Image"
+    		},
+    		{
+    			"type":"image_picker",
+    			"id":"imagem",
+    			"label":"Mobile Image"
+    		},
+    		{
+    			"type":"color",
+    			"id":"heading_color",
+    			"label":"Heading Color",
+    			"default":"#000"
+    		},
+    		{
+    			"type":"color",
+    			"id":"text_color",
+    			"label":"Text Color",
+    			"default":"#000"
+    		},
+    		{
+    			"type":"color",
+    			"id":"text_color2",
+    			"label":"Button Color",
+    			"default":"#000"
+    		},
+    		{
+          "type": "select",
+          "id": "alignment",
+          "label": "Text Alignement",
+          "default": "left",
+          "options": [
+            {
+              "value": "left",
+              "label": "left"
+            },
+            {
+              "value": "center",
+              "label": "center"
+            },
+            {
+              "value": "right",
+              "label": "right"
+            }
+          ]
+        },
+    		{
+    			"type":"text",
+    			"id":"heading",
+    			"label":"Heading"
+    		},
+    		{
+    			"type":"html",
+    			"id":"content",
+    			"label":"Content"
+    		},
+    		{
+    			"type":"text",
+    			"id":"btn_text",
+    			"label":"Button"
+    		},
+    		{
+    			"type":"text",
+    			"id":"section_id",
+    			"label":"Section Identify"
+    		}
+    		]
+      }
+    ],
+  "presets": []
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

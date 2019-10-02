@@ -16,7 +16,7 @@
 #scasl-description p {word-break: break-all !important;}
 .bh-sl-container { padding: 0 !important; }
 #bh-sl-map-container { margin-bottom: 27px !important; }
-#scasl-tab-radius { border: 1px solid #ccc; padding: 20px; }
+#scasl-tab-radius { border: 0; padding: 20px; }
 #scasl-tab-radius h3 { text-transform: uppercase; margin-top: 0; padding-bottom: 10px; font-weight: normal; border-bottom: 1px solid #ccc; }
 .scasl-distance, .scasl-distance label { width: 100% !important; }
 .scasl-distance { display: inline-block; margin: 0; }
@@ -30,10 +30,10 @@
 .scasl-tag-list li label { font-weight: normal; }
 .scasl-tag-list li label input { margin-top: 2px; }
 .scasl-search-btn { padding-top: 15px; width: 100%; float: left; margin: 10px 0 0; border-top: 1px solid #ccc; }
-.bh-sl-loc-list, .bh-sl-map { border: 1px solid #ccc; }
+.bh-sl-loc-list, .bh-sl-map { border: 1px solid #F7F7F8; }
 .bh-sl-loc-list ul li { margin: 0 !important; }
-.scasl-location-list { width: 30% !important; }
-.scasl-map { float: right !important; width: 69% !important; }
+.scasl-location-list { width: 50% !important; }
+.scasl-map { float: right !important; width: 50% !important; }
 .scasl-search-btn button, #scapl-geocode-btn { background: #30ABD9; height: 34px; width: 20%; }
 #scapl-geocode-btn { float: right; }
 .scasl-list-image, .scasl-info-image { float: right; }
@@ -50,6 +50,35 @@
 #bh-sl-address { float: left; clear: both; width: 78% !important; }
 .scasl-field { display:none; clear: both; }
 #scasl-store_image { clear: none !important; }
+#scasl-app-container .list-focus {border-color: #f7f7f8 !important;border-width: 1px !important;background: rgb(247, 247, 248)!important;}
+.bh-sl-container .bh-sl-loc-list ul li {background: rgb(255, 255, 255)!important;border-bottom: 1px solid rgb(247, 247, 248);}
+.bh-sl-container .bh-sl-map-container a {color: rgb(114, 126, 136); text-decoration: underline;}
+.list-content.scasl-list-content {position: relative;}
+#scasl-list-container div#scasl-direction {position: absolute;top: 60px;border: 1px solid rgb(114, 126, 136);width: 150px;text-align: center;
+    right: 0;line-height: 41px;text-transform: uppercase;letter-spacing: 2px;}
+.bh-sl-container .bh-sl-loc-list .list-details {float: left;margin-left: 6px;width: 94%;}
+#scasl-list-container div#scasl-direction a {text-decoration: none;}
+.list-content.scasl-list-content {position: relative;width: 100%;}
+.bh-sl-container .bh-sl-loc-list .list-details .list-content {padding: 29px 10px;}
+div#scasl-title {text-transform: uppercase;margin-bottom: 15px;letter-spacing: 2px;}
+.bh-sl-loc-list, .bh-sl-map {border: 0;}
+.ratiler_row {text-align: center;display: flex;flex-wrap: wrap;margin: 113px auto;max-width: 740px;flex-direction: column;}
+.ratiler_row p {font-size: 26px;letter-spacing: 3px;margin-bottom: 55px;}
+.storerow:hover {background: rgb(247, 247, 248);}
+.storerow {line-height: 54px;}
+.storerow a {color: rgb(0, 0, 0);font-size: 18px;letter-spacing: 2px;font-weight: 500;}
+.disclaimer {margin-top: 4em;font-size: 14px;color: rgb(114, 126, 135);}
+div#scasl-tab-radius {width: 50%;display: inline-block;text-align: left;}
+.store_detailinfo * {max-width: 400px;margin: 0 auto;display: block;text-align: left;}
+.store_detailinfo {width: 50%;float: left;padding: 3em 0;text-align: center;}
+.store_detailinfo p {width: 100%;text-align: left;font-size: 23px;text-transform: uppercase;letter-spacing: 2px;margin-bottom: 2em;}
+.store_detailinfo span.address {margin-bottom: 2em;color: rgb(114, 126, 134);}
+.store_detailinfo strong {margin-bottom: 11px;text-transform: uppercase;color: rgb(0, 0, 0);font-weight: 600;}
+span.horsinfo {margin-bottom: 30px;}
+.store_detailinfo a {color: rgb(114, 126, 134);}
+.scasl-search-btn {border-top: 0;}
+.scasl-distance .form-input {margin-bottom: 35px;}
+.bh-sl-container .bh-sl-form-container {text-align: center;}
 
 /* Screens */
 @media screen and (max-width: 600px) {
@@ -61,5 +90,11 @@
   	.scasl-search-btn button, #scapl-geocode-btn { width: auto !important; }
   	#scapl-geocode-btn { float: left; margin-top: 10px !important; }
   	#bh-sl-address { width: 100% !important; }
+   div#scasl-tab-radius,.store_detailinfo {width: 100%;}
+   #scasl-list-container div#scasl-direction {position: static;margin-top: 11px;}
+  .ratiler_row p,.store_detailinfo p {font-size: 22px;letter-spacing: 2px;margin-bottom: 21px;}
+  .ratiler_row {margin: 47px auto;}
+  .store_detailinfo {padding: 0 16px;}
+  
 }
 #scasl-title {font-weight: bold !important;}

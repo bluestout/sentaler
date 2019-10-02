@@ -1,6 +1,6 @@
 {% if settings.tfcode == '' %}
 <div class="emthemesModez-header-topSection">
-  <div class="container" style="background:floralwhite; text-align:center; color: #000; font-size:11px; padding:5px 0; font-weight:400; letter-spacing:0; font-style:italic;box-shadow: 0 2px 5px rgba(0,0,0,0.2);border-bottom: 1px solid #999;text-transform: none;">      
+  <div class="container" style="background:floralwhite; text-align:center; color: #000; font-size:11px; padding:5px 0; font-weight:400; letter-spacing:0; font-style:italic;box-shadow: 0 2px 5px rgba(0,0,0,0.2);border-bottom: 1px solid #999;text-transform: none;">
     Notice: Please enter your <strong>Item Purchase Code</strong> in <strong>Theme Customizer</strong> > <strong>Theme Settings</strong> tab > <strong>Item Purchase Code</strong> to activate your theme license and remove this notice.<img src="https://www.emthemes.com/media/shopify-logo-everything.png" alt="" />
   </div>
 </div>
@@ -13,22 +13,25 @@
         <div class="top-header-inner col-sm-12">
           <div class="col-sm-4">
           <div class="shipto">
-                <span class="ship_l">Ship to:</span>
+                <!--<span class="ship_l">Ship to:</span>
+            <span class="m_drop">
                 <span class="ship_country">Czechia</span>
             	<span class="sticon-caret-d-small"></span>
-              </div>
+            </span>-->
+            <a href="tel:{{section.settings.loc_text | replace: ' ', ''}}"><i class="sticon-phone" aria-hidden="true"></i><span>{{section.settings.loc_text}}</span></a>
+          </div>
           </div>
           <div class="col-sm-4 text-center">
           <div class="left-area">
             {% if section.settings.show_phone %}
             <div class="contact-info">{{ section.settings.phone_text }}</div>
-            {% endif %}            
+            {% endif %}
           </div>
           </div>
           <div class="col-sm-4 text-right">
           <div class="right-area">
           {% if section.settings.show_location %}
-            <a href="tel:{{section.settings.loc_text | replace: ' ', ''}}"><i class="sticon-phone" aria-hidden="true"></i><span>{{section.settings.loc_text}}</span></a>
+            <!--<a href="tel:{{section.settings.loc_text | replace: ' ', ''}}"><i class="sticon-phone" aria-hidden="true"></i><span>{{section.settings.loc_text}}</span></a>-->
             <a href="{{section.settings.link_loc}}"><i class="sticon-location" aria-hidden="true"></i><span>{{section.settings.location}}</span></a>
             {% endif %}
            {% comment %}
@@ -36,19 +39,19 @@
               {% if section.settings.show_location %}
                 <li class="store-location"><a href="{{ section.settings.loc_link}}"><i class="sticon-location" aria-hidden="true"></i> {{ section.settings.loc_text }}</a></li>
               {% endif %}
-              <!-- Customer Links -->            
-              {% if shop.customer_accounts_enabled %}            
+              <!-- Customer Links -->
+              {% if shop.customer_accounts_enabled %}
                 {% if customer  %}
-                <li class="toolbar-customer my-account"><a href="/account"><i class="fa fa-user"></i> {{ 'layout.customer.your_account' | t }}</a></li>                
+                <li class="toolbar-customer my-account"><a href="/account"><i class="fa fa-user"></i> {{ 'layout.customer.your_account' | t }}</a></li>
                 <li class="toolbar-customer log-out"><a href="/account/logout"><i class="fa fa-sign-out"></i> {{ 'layout.customer.logout' | t }}</a></li>
                 {% else %}
-                <li class="toolbar-customer login-account">                    
+                <li class="toolbar-customer login-account">
                   <span id="loginButton" class="dropdown-toggle" data-toggle="dropdown">
                     <i class="sub-dropdown1 visible-sm visible-md visible-lg"></i>
                     <i class="sub-dropdown visible-sm visible-md visible-lg"></i>
-                    <i class="fa fa-unlock-alt"></i>                                        
+                    <i class="fa fa-unlock-alt"></i>
                     {{ 'sections.header.top_header_login' | t | customer_login_link }}
-                  </span>                    
+                  </span>
                   <div id="loginBox" class="dropdown-menu text-left">
                     {% form 'customer_login' %}
                     <div id="bodyBox">
@@ -71,7 +74,7 @@
                         </li>
                         <li class="clearfix">
                           <button class="btn btn-1" type="submit">{{'layout.header.login_dropdown.login'|t}}</button>
-                        </li>                  
+                        </li>
                         <li class="clearfix">
                           <a class="action btn btn-3" href="/account/register">{{'layout.header.login_dropdown.create'|t}}</a>
                         </li>
@@ -80,30 +83,30 @@
                     {% endform %}
                   </div>
                 </li>
-                <li class="toolbar-customer create-account">                          
+                <li class="toolbar-customer create-account">
                   <i class="fa fa-key"></i>
-                  {{ 'sections.header.top_header_register' | t | customer_register_link }}                  
-                </li>                  
-                {% endif %} 
+                  {{ 'sections.header.top_header_register' | t | customer_register_link }}
+                </li>
+                {% endif %}
                 <li class="toolbar-customer my-wishlist navUser-item--wishlist">
                   <a href="/pages/wish-list">
                     <i class="fa fa-heart"></i>
-                    {{ 'layout.customer.wishlist' | t }} 
+                    {{ 'layout.customer.wishlist' | t }}
                     <span class="wishlist-quantity"></span>
                   </a>
                 </li>
-                <!-- Currency -->            
+                <!-- Currency -->
                 {% if settings.show_multiple_currencies %}
                 <li class="currency_group">
                   <div class="currencies-switcher">
                     {% include 'currencies-switcher' with settings.currency_style %}
                   </div>
                 </li>
-                {% endif %}            
-              {% endif %}    
+                {% endif %}
+              {% endif %}
             </ul>
             {% endcomment %}
-            </div> 
+            </div>
           </div>
         </div>
       </div>
@@ -115,8 +118,8 @@
     </p>
     <span class="ship_l">Ship to:</span>
     <div class="country_select">
-       
-        
+
+
             <select id="country" name="country" class="form-control">
                 <option value="Afghanistan">Afghanistan</option>
                 <option value="Åland Islands">Åland Islands</option>
@@ -368,39 +371,39 @@
   </div>
 </section>
 
-<section class="main-header {% if template =='index' %}index{% endif %}">
+<section class="main-header {% if template =='index' %}index{% elsif template contains 'header-v2' %}white fixed{% endif %}">
   <div class="main-header-wrapper">
     <div class="container">
       <div class="row">
         <div class="main-header-inner">
-          <div data-section-id="{{ section.id }}" data-section-type="header-section">  
+          <div data-section-id="{{ section.id }}" data-section-type="header-section">
             <div class="top_header_wrapper">
               <div class="top_header">
-                
+
                 <div class="middle-area col-sm-4">
-                 
+
                   <div class="desk_hide mobile_ham">
                     <span class="sticon-menu"></span> Menu
                   </div>
-                 
+
                   <nav class="site-nav small--hide" id="AccessibleNav" role="navigation">
-                    {% include 'site-nav', nav_alignment: 'site-nav--centered', nav_link: section.settings.main_linklist %}              
-                  </nav>				
+                    {% include 'site-nav', nav_alignment: 'site-nav--centered', nav_link: section.settings.main_linklist %}
+                  </nav>
                 </div>
                 <div class="left-area col-sm-4 text-center">
-                  <div class="{{ logo_classes }}">        
+                  <div class="{{ logo_classes }}">
                     {% if section.settings.logo %}
-                    <a href="/" itemprop="url" class="site-header__logo-image">              
+                    <a href="/" itemprop="url" class="site-header__logo-image">
                       <span class="sticon-sentaler-full"></span>
                       <span class="sticon-sentaler" style="display:none"></span>
                     </a>
-                    
+
                     {% else %}
                     <a class="site-header__logo-link" href="/" itemprop="url">
                       <img src="{{ 'logo_200x.png' | asset_url }}" alt="" itemprop="logo">
                     </a>
                     {% endif %}
-                  </div>                  
+                  </div>
                 </div>
                 <div class="right-area col-sm-4">
                    <span class="sticon-search desk_hide" id="m_search"></span>
@@ -408,17 +411,19 @@
                       {% include 'search-form' %}
                     </div>
                   {% if shop.customer_accounts_enabled %}
+                  {% comment %}
                   <div class="customer_account m_hide">
-      				{% if customer  %}
-                      <a href="/account">
+      				        {% if customer  %}
+                      <a href="/account" title="My Account">
                         <i class="sticon-user" aria-hidden="true"></i>
                       </a>
                     {% else %}
-                      <a href="/account/login">
+                      <a href="/account/login" title="Log in">
                         <i class="sticon-user" aria-hidden="true"></i>
                       </a>
                     {% endif %}
                   </div>
+                  {% endcomment %}
                   {% endif %}
                   {% if shop.customer_accounts_enabled %}
                   <div class="wish-list-area border-it m_hide">
@@ -432,12 +437,15 @@
                   <div id="cart-target" class="toolbar-cart">
                     <a href="/cart" class="cart"  title="Shopping Cart">
                       <i class="sub-dropdown1 visible-sm visible-md visible-lg"></i>
-                      <i class="sub-dropdown visible-sm visible-md visible-lg"></i> 
+                      <i class="sub-dropdown visible-sm visible-md visible-lg"></i>
                       <div class="num-items-in-cart">
-                       {% if  cart.item_count > 0 %}
-<!--                         <div class="number">{{ cart.item_count }}</div> -->
+
+                        <div class="block-cart"><i class="sticon-bag"></i>
+                        {% if  cart.item_count > 0 %}
+                         <div class="cart_count">{{ cart.item_count }}</div>
                         {% endif %}
-                        <div class="block-cart"><i class="sticon-bag"></i></div>                                              
+                        </div>
+
                       </div>
                     </a>
                     <div id="cart-info" class="dropdown-menu">
@@ -447,7 +455,7 @@
                         </div>
                       </div>
                     </div>
-                  </div>  
+                  </div>
                 </div>
               </div>
             </div>
@@ -458,7 +466,7 @@
   </div>
   <div class="overlay_g"></div>
 </section>
- 
+
 {% if section.settings.nav_sticky %}
 <div class="fix-sticky"></div>
 {% endif %}
@@ -467,10 +475,10 @@
   <div class="mobile-nav-header-wrapper">
     <div class="container">
       <div class="row">
-        <div class="mobile-nav-header-inner">                                            
-          <div class="mobile-top-navigation visible-xs">      
+        <div class="mobile-nav-header-inner">
+          <div class="mobile-top-navigation visible-xs">
             <button id="showLeftPush" class="visible-xs"><i class="fa fa-bars fa-2x"></i></button>
-            <ul class="list-inline">        
+            <ul class="list-inline">
               {% if shop.customer_accounts_enabled %}
               <li class="is-mobile-login">
                 <div class="btn-group">
@@ -503,12 +511,12 @@
 
               {% if settings.show_multiple_currencies %}
               <li class="is-mobile-currency currency_group">
-                <div class="currencies-switcher"> 
+                <div class="currencies-switcher">
                   {% include 'currencies-switcher' with settings.currency_style %}
                 </div>
               </li>
               {% endif %}
-              
+
               <li class="is-mobile-cart">
                 <a href="/cart" title="Shopping Cart">
                   <div class="num-items-in-cart">
@@ -522,18 +530,18 @@
               </li>
             </ul>
           </div>
-          
+
           <div class="mobile-search visible-xs">
             <div id="mobile-search-info">
               <form action="/search" method="get" class="search-header search" role="search">
                 <div class="collections-selector">
                   <select class="single-option-selector" data-option="collection-option" id="collection-option" name="collection">
                     <option value="all">{{'sections.header.all_collection'|t}}</option>
-                    {% for collection in collections %}                          
+                    {% for collection in collections %}
                     {% unless collection.all_products_count == 0 or collection.handle == "frontpage" %}
                     <option value="{{collection.handle}}">{{collection.title}}</option>
                     {% endunless %}
-                    {% endfor %}                        
+                    {% endfor %}
                   </select>
                 </div>
                 <input class="search-header__input search__input"
@@ -545,10 +553,10 @@
                   {% include 'icon-search' %}
                   <span class="icon__fallback-text">{{ 'general.search.submit' | t }}</span>
                 </button>
-              </form>     
-            </div> 
-          </div> 
-          
+              </form>
+            </div>
+          </div>
+
           <div class="is-mobile-nav-menu nav-menu visible-xs" id="is-mobile-nav-menu">
             <ul class="nav navbar-nav hoverMenuWrapper">
               {% for l in linklists[section.settings.main_linklist].links %}
@@ -565,19 +573,18 @@
 {% if section.settings.nav_sticky %}
 <script>
   function addaffix(scr){
-    if($(window).innerWidth() >= 992){
-      if(scr > 150){
+    if(scr > 150){
         if(!$('.main-header').hasClass('baffix')){
           $('.main-header').addClass('affix').addClass('animated');
         }
       }
       else{
-        if($('.main-header').hasClass('affix')){          
+        if($('.main-header').hasClass('affix')){
           $('.main-header').removeClass('affix').removeClass('animated');
         }
       }
-    }
-    else $('.main-header').removeClass('affix');
+
+
   }
   $(window).scroll(function() {
     var scrollTop = $(this).scrollTop();
@@ -589,6 +596,7 @@
   });
 </script>
 {% endif %}
+
 
 {% schema %}
 {
@@ -602,7 +610,7 @@
       "type": "image_picker",
       "id": "logo",
       "label": "Logo image"
-    },       
+    },
 	{
         "type": "header",
         "content": "Welcome text"
@@ -619,7 +627,7 @@
     },
 	{
         "type": "header",
-        "content": "Onformation"
+        "content": "Information"
     },
 	{
         "type": "checkbox",
@@ -635,7 +643,7 @@
         "type": "text",
         "id": "location",
         "label": "Store Locator"
-    }, 
+    },
     {
         "type": "url",
         "id": "link_loc",
@@ -654,7 +662,7 @@
         "id": "main_linklist",
         "label": "Select Link list for main Navigation",
         "default": "main-menu"
-      }, 	  
+      },
 	  {
         "type": "checkbox",
         "id": "nav_sticky",
@@ -670,92 +678,535 @@
 		"id":"mega_item",
 		"label":"Mega menu item comma seprated"
 	  }
-      
+
   ],
 "blocks": [
-	{
-      "type": "mega_menu_handle",
-      "name": "Mega menu Handle",
+
+    {
+      "type": "mega_menu_items",
+      "name": "Mega-menu",
       "settings": [
 		{
 			"type":"text",
 			"id":"mega_handle",
 			"label":"Menu Title"
-		}
-      ]
-    },
-    {
-      "type": "mega_menu_items",
-      "name": "Mega inner Items",
-      "settings": [
+		},
+		{
+			"type":"header",
+			"content":"Menu 1"
+		},
 		{
 			"type":"text",
-			"id":"mega_title",
+			"id":"title_1",
 			"label":"Menu Title"
 		},
 		{
           "type": "url",
-          "id": "link",
-          "label": "Link"
+          "id": "link_1",
+          "label": "Menu Link"
         },
         {
           "type": "image_picker",
-          "id": "image1",
+          "id": "image_1_1",
           "label": "Image"
         },
 		{
 			"type":"text",
-			"id":"heading1",
+			"id":"heading_1_1",
 			"label":"Heading"
 		},
         {
           "type": "url",
-          "id": "link1",
+          "id": "link_1_1",
           "label": "Link"
         },
 		{
           "type": "image_picker",
-          "id": "image2",
+          "id": "image_1_2",
           "label": "Image"
         },
 		{
-			"type":"text",
-			"id":"heading2",
-			"label":"Heading"
+		  "type":"text",
+		  "id":"heading_1_2",
+		  "label":"Heading"
 		},
         {
           "type": "url",
-          "id": "link2",
+          "id": "link_1_2",
           "label": "Link"
         },
         {
           "type": "image_picker",
-          "id": "image3",
+          "id": "image_1_3",
           "label": "Image"
         },
 		{
 			"type":"text",
-			"id":"heading3",
+			"id":"heading_1_3",
 			"label":"Heading"
 		},
         {
           "type": "url",
-          "id": "link3",
+          "id": "link_1_3",
           "label": "Link"
         },
 		{
           "type": "image_picker",
-          "id": "image4",
+          "id": "image_1_4",
           "label": "Image"
         },
 		{
 			"type":"text",
-			"id":"heading4",
+			"id":"heading_1_4",
 			"label":"Heading"
 		},
         {
           "type": "url",
-          "id": "link4",
+          "id": "link_1_4",
+          "label": "Link"
+        },
+		{
+			"type":"header",
+			"content":"Menu 2"
+		},
+		{
+			"type":"text",
+			"id":"title_2",
+			"label":"Menu Title"
+		},
+		{
+          "type": "url",
+          "id": "link_2",
+          "label": "Menu Link"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_2_1",
+          "label": "Image"
+        },
+		{
+			"type":"text",
+			"id":"heading_2_1",
+			"label":"Heading"
+		},
+        {
+          "type": "url",
+          "id": "link_2_1",
+          "label": "Link"
+        },
+		{
+          "type": "image_picker",
+          "id": "image_2_2",
+          "label": "Image"
+        },
+		{
+		  "type":"text",
+		  "id":"heading_2_2",
+		  "label":"Heading"
+		},
+        {
+          "type": "url",
+          "id": "link_2_2",
+          "label": "Link"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_2_3",
+          "label": "Image"
+        },
+		{
+			"type":"text",
+			"id":"heading_2_3",
+			"label":"Heading"
+		},
+        {
+          "type": "url",
+          "id": "link_2_3",
+          "label": "Link"
+        },
+		{
+          "type": "image_picker",
+          "id": "image_2_4",
+          "label": "Image"
+        },
+		{
+			"type":"text",
+			"id":"heading_2_4",
+			"label":"Heading"
+		},
+        {
+          "type": "url",
+          "id": "link_2_4",
+          "label": "Link"
+        },
+		{
+			"type":"header",
+			"content":"Menu 3"
+		},
+		{
+			"type":"text",
+			"id":"title_3",
+			"label":"Menu Title"
+		},
+		{
+          "type": "url",
+          "id": "link_3",
+          "label": "Menu Link"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_3_1",
+          "label": "Image"
+        },
+		{
+			"type":"text",
+			"id":"heading_3_1",
+			"label":"Heading"
+		},
+        {
+          "type": "url",
+          "id": "link_3_1",
+          "label": "Link"
+        },
+		{
+          "type": "image_picker",
+          "id": "image_3_2",
+          "label": "Image"
+        },
+		{
+		  "type":"text",
+		  "id":"heading_3_2",
+		  "label":"Heading"
+		},
+        {
+          "type": "url",
+          "id": "link_3_2",
+          "label": "Link"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_3_3",
+          "label": "Image"
+        },
+		{
+			"type":"text",
+			"id":"heading_3_3",
+			"label":"Heading"
+		},
+        {
+          "type": "url",
+          "id": "link_3_3",
+          "label": "Link"
+        },
+		{
+          "type": "image_picker",
+          "id": "image_3_4",
+          "label": "Image"
+        },
+		{
+			"type":"text",
+			"id":"heading_3_4",
+			"label":"Heading"
+		},
+        {
+          "type": "url",
+          "id": "link_3_4",
+          "label": "Link"
+        },
+		{
+			"type":"header",
+			"content":"Menu 4"
+		},
+		{
+			"type":"text",
+			"id":"title_4",
+			"label":"Menu Title"
+		},
+		{
+          "type": "url",
+          "id": "link_4",
+          "label": "Menu Link"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_4_1",
+          "label": "Image"
+        },
+		{
+			"type":"text",
+			"id":"heading_4_1",
+			"label":"Heading"
+		},
+        {
+          "type": "url",
+          "id": "link_4_1",
+          "label": "Link"
+        },
+		{
+          "type": "image_picker",
+          "id": "image_4_2",
+          "label": "Image"
+        },
+		{
+		  "type":"text",
+		  "id":"heading_4_2",
+		  "label":"Heading"
+		},
+        {
+          "type": "url",
+          "id": "link_4_2",
+          "label": "Link"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_4_3",
+          "label": "Image"
+        },
+		{
+			"type":"text",
+			"id":"heading_4_3",
+			"label":"Heading"
+		},
+        {
+          "type": "url",
+          "id": "link_4_3",
+          "label": "Link"
+        },
+		{
+          "type": "image_picker",
+          "id": "image_4_4",
+          "label": "Image"
+        },
+		{
+			"type":"text",
+			"id":"heading_4_4",
+			"label":"Heading"
+		},
+        {
+          "type": "url",
+          "id": "link_4_4",
+          "label": "Link"
+        },
+		{
+			"type":"header",
+			"content":"Menu 5"
+		},
+		{
+			"type":"text",
+			"id":"title_5",
+			"label":"Menu Title"
+		},
+		{
+          "type": "url",
+          "id": "link_5",
+          "label": "Menu Link"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_5_1",
+          "label": "Image"
+        },
+		{
+			"type":"text",
+			"id":"heading_5_1",
+			"label":"Heading"
+		},
+        {
+          "type": "url",
+          "id": "link_5_1",
+          "label": "Link"
+        },
+		{
+          "type": "image_picker",
+          "id": "image_5_2",
+          "label": "Image"
+        },
+		{
+		  "type":"text",
+		  "id":"heading_5_2",
+		  "label":"Heading"
+		},
+        {
+          "type": "url",
+          "id": "link_5_2",
+          "label": "Link"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_5_3",
+          "label": "Image"
+        },
+		{
+			"type":"text",
+			"id":"heading_5_3",
+			"label":"Heading"
+		},
+        {
+          "type": "url",
+          "id": "link_5_3",
+          "label": "Link"
+        },
+		{
+          "type": "image_picker",
+          "id": "image_5_4",
+          "label": "Image"
+        },
+		{
+			"type":"text",
+			"id":"heading_5_4",
+			"label":"Heading"
+		},
+        {
+          "type": "url",
+          "id": "link_5_4",
+          "label": "Link"
+        },
+		{
+			"type":"header",
+			"content":"Menu 6"
+		},
+		{
+			"type":"text",
+			"id":"title_6",
+			"label":"Menu Title"
+		},
+		{
+          "type": "url",
+          "id": "link_6",
+          "label": "Menu Link"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_6_1",
+          "label": "Image"
+        },
+		{
+			"type":"text",
+			"id":"heading_6_1",
+			"label":"Heading"
+		},
+        {
+          "type": "url",
+          "id": "link_6_1",
+          "label": "Link"
+        },
+		{
+          "type": "image_picker",
+          "id": "image_6_2",
+          "label": "Image"
+        },
+		{
+		  "type":"text",
+		  "id":"heading_6_2",
+		  "label":"Heading"
+		},
+        {
+          "type": "url",
+          "id": "link_6_2",
+          "label": "Link"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_6_3",
+          "label": "Image"
+        },
+		{
+			"type":"text",
+			"id":"heading_6_3",
+			"label":"Heading"
+		},
+        {
+          "type": "url",
+          "id": "link_6_3",
+          "label": "Link"
+        },
+		{
+          "type": "image_picker",
+          "id": "image_6_4",
+          "label": "Image"
+        },
+		{
+			"type":"text",
+			"id":"heading_6_4",
+			"label":"Heading"
+		},
+        {
+          "type": "url",
+          "id": "link_6_4",
+          "label": "Link"
+        },
+		{
+			"type":"header",
+			"content":"Menu 7"
+		},
+		{
+			"type":"text",
+			"id":"title_7",
+			"label":"Menu Title"
+		},
+		{
+          "type": "url",
+          "id": "link_7",
+          "label": "Menu Link"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_7_1",
+          "label": "Image"
+        },
+		{
+			"type":"text",
+			"id":"heading_7_1",
+			"label":"Heading"
+		},
+        {
+          "type": "url",
+          "id": "link_7_1",
+          "label": "Link"
+        },
+		{
+          "type": "image_picker",
+          "id": "image_7_2",
+          "label": "Image"
+        },
+		{
+		  "type":"text",
+		  "id":"heading_7_2",
+		  "label":"Heading"
+		},
+        {
+          "type": "url",
+          "id": "link_7_2",
+          "label": "Link"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_7_3",
+          "label": "Image"
+        },
+		{
+			"type":"text",
+			"id":"heading_7_3",
+			"label":"Heading"
+		},
+        {
+          "type": "url",
+          "id": "link_7_3",
+          "label": "Link"
+        },
+		{
+          "type": "image_picker",
+          "id": "image_7_4",
+          "label": "Image"
+        },
+		{
+			"type":"text",
+			"id":"heading_7_4",
+			"label":"Heading"
+		},
+        {
+          "type": "url",
+          "id": "link_7_4",
           "label": "Link"
         }
       ]

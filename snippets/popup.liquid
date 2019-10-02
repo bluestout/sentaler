@@ -24,9 +24,14 @@
     <span class="sku">{{ product.selected_or_first_available_variant.sku }}</span>
   <div class="sizeinfo">
     <div class="tab_row">
-      <span rel="tab1" class="sizetab active">Standard Sizes</span> 
-      <span rel="tab2" class="sizetab">Manual Measures</span></div>
-  {{ product.metafields["global"]["size-guide"] }}
+      <span rel="tab1" class="sizetab active">Standard Sizes</span>
+      <span rel="tab2" class="sizetab">Manual Measurements</span></div>
+      {% assign length = product.metafields["global"]["size-guide"] | size %}
+      {% if length > 10 %}
+      {{ product.metafields["global"]["size-guide"] }}
+      {% else %}
+      {{ pages[section.settings.sizechart_page].content }}
+      {% endif %}
    </div>
   </div>
 </div>

@@ -1,17 +1,10 @@
-
-
 <div data-section-id="{{ section.id }}" data-section-type="collection-template">
- 
-  <section class="collection-banner">
+   <section class="collection-banner">
     <div class="collection-banner-wrapper">
       <div class="container c_pad0">
         <div class="row">
           <div class="collection-banner-inner">
-            {% if collection.handle == 'all' %}
-            <div class="collection-panner">
-              <img src="{{ section.settings.collection_banner_img | img_url: "1170x", crop: 'center' }}" class="img-responsive" alt="" />
-            </div>
-    		{% else %}
+
             {% if section.settings.collection_image or section.settings.collection_desc %}
             <div class="collection-image-wrapper row">
               {% if section.settings.collection_image %}
@@ -19,10 +12,10 @@
                 {% if collection.image %}
                 <img src="{{ collection.image.src | collection_img_url: 'original' }}" alt="{{ collection.title | escape }}" />
                 {% else %}
-                <img src="{{ collection.products.first.featured_image | product_img_url: 'original' }}" alt="{{ collection.title | escape }}" />
+                <img src="{{ section.settings.collection_banner_img | img_url: "1170x", crop: 'center' }}" class="img-responsive" alt="" />
                 {% endif %}
               </div>
-              {% endif %}
+
 
               {% if section.settings.collection_desc %}
               {% if collection.description != empty %}
@@ -40,20 +33,20 @@
         </div>
       </div>
     </div>
-  </section>    
+  </section>
   <section class="collection-heading">
     <div class="collection-heading-wrapper">
       <div class="container c_pad0">
         <div class="row">
           <div class="collection-heading-inner text-center">
             <h1 class="las_25 spac_4"><span>{{ collection.title }}</span></h1>
-           
+
           </div>
         </div>
       </div>
     </div>
   </section>
-  
+
   <section class="collection-content">
     <div class="collection-content-wrapper">
       <div class="container c_pad0">
@@ -62,56 +55,31 @@
             <!-- Tags loading -->
             <div id="tags-load" style="display:none;"><i class="fa fa-spinner fa-pulse fa-2x"></i></div>
             <div id="collection">
-              {% paginate collection.products by 18 %}
-              <div class="collection-toolbar">
+              <div class="custom_overlay" style="display:none;"><img src="{{'spinner.gif' | asset_url}}"/>  </div>
+              {% paginate collection.products by 22 %}
+               {% if collection.products.size > 0 %}<div class="collection-toolbar">
                     {% if section.settings.enable_tagsfilter %}
                     <!-- Tags Filter -->
-                    
+
                     {% endif %}
                     <!-- Showing -->
-                   <div class="showing-number">   
-                        {{collection.products_count}} items
-                    </div>
-                     {% if section.settings.enable_tagsfilter %}
+
+
                    {% include 'collection_tag-filter' %}
-                  {% endif %}
-                    <div class="list-inline text-right">
-                      <!-- View as -->
-                      
-                    <!-- Sort by -->
-                    {% if section.settings.collection_sort and collection.products_count > 1 %}
-                    <div class="sortBy">
-                      <div id="sortButtonWarper" class="dropdown-toggle" data-toggle="dropdown">
-                        <button id="sortButton">
-                          <span class="name">{{'collections.sorting.featured'|t}}</span><i class="sticon-caret-d-small"></i>
-                        </button>
-                        <i class="sub-dropdown1"></i>
-                        <i class="sub-dropdown"></i>
-                      </div>
-                      <div id="sortBox" class="control-container dropdown-menu">
-                        <ul id="sortForm" class="list-unstyled option-set text-left list-styled" data-option-key="sortBy">
-                          <li class="sort manual"><a href="{% if collection.handle == "all" %}/collections/all{% else %}{{ collection.url }}{% endif %}/?sort_by=manual">{{'collections.sorting.featured'|t}}</a></li>
-                          <li class="sort price-ascending"><a href="{% if collection.handle == "all" %}/collections/all{% else %}{{ collection.url }}{% endif %}/?sort_by=price-ascending">{{'collections.sorting.price_ascending'|t}}</a></li>
-                          <li class="sort price-descending"><a href="{% if collection.handle == "all" %}/collections/all{% else %}{{ collection.url }}{% endif %}/?sort_by=price-descending">{{'collections.sorting.price_descending'|t}}</a></li>
-                          <li class="sort title-ascending"><a href="{% if collection.handle == "all" %}/collections/all{% else %}{{ collection.url }}{% endif %}/?sort_by=title-ascending">{{'collections.sorting.az'|t}}</a></li>
-                          <li class="sort title-descending"><a href="{% if collection.handle == "all" %}/collections/all{% else %}{{ collection.url }}{% endif %}/?sort_by=title-descending">{{'collections.sorting.za'|t}}</a></li>
-                          <li class="sort created-ascending"><a href="{% if collection.handle == "all" %}/collections/all{% else %}{{ collection.url }}{% endif %}/?sort_by=created-ascending">{{'collections.sorting.date_ascending'|t}}</a></li>
-                          <li class="sort created-descending"><a href="{% if collection.handle == "all" %}/collections/all{% else %}{{ collection.url }}{% endif %}/?sort_by=created-descending">{{'collections.sorting.date_descending'|t}}</a></li>
-                          <li class="sort best-selling"><a href="{% if collection.handle == "all" %}/collections/all{% else %}{{ collection.url }}{% endif %}/?sort_by=best-selling">{{'collections.sorting.best_selling'|t}}</a></li>
-                        </ul>
-                      </div>
-                    </div>        
-                    {% endif %}                                    
-                    </div>
-                  </div>
-                 
+
+
+                  </div>{% endif %}
+
 
                   {% if collection.products.size == 0 %}
-                    {% include 'helper-default-products' %}
+                   <h4 class="text-center">Sorry No Products Are Avaialable</h4>
+                   <div class="text-center col_Continue">
+                     	<a href="/collections/{{collection.handle}}">Continue Shopping</a>
+                   </div>
                   {% endif %}
 
                   <div class="collection-items clearfix">
-                    <div class="AjaxinateLoop_desktop products m_hide">
+                    <div class="AjaxinateLoop_desktop products">
                       {% case section.settings.grid %}
                         {% when '2' %}
                         {%- assign grid_item_width = '50%' -%}
@@ -128,7 +96,7 @@
                         {% when '6' %}
                         {%- assign grid_item_width = '16.666666%' -%}
                         {%- assign image_size = '170x' -%}
-                        <style> 
+                        <style>
                           @media(max-width: 1024px) {
                             .hoverBorderWrapper img {
                               width: 250px;
@@ -141,98 +109,68 @@
                           }
                         </style>
                         {% endcase %}
-                      
+
                     {% for product in collection.products %}
-                     
+
                      {% if collection.metafields["global"]["col_addv1"] == blank or collection.metafields["global"]["col_addv2"] == blank %}
                     <div class="product-item-wrapper {% cycle 'first', '', '', 'last' %}" style="float:left; width:{{grid_item_width}};">
                         {% include 'collection-item', grid_image_width: image_size %}
                       </div>
                       {% else %}
-                      
+
                       {% if paginate.current_page == 1 %}
-                     	 {% if forloop.index == 5 or forloop.index == 15 %}<div class="custom_prd_item_wrap">{% endif %}
+                     	 {% if forloop.index == 5 or forloop.index == 15 %}<div class="custom_prd_item_wrap {% if collection.products_count == 8 %}tot_8{% endif %}">{% endif %}
                       {% endif %}
                       {% if forloop.index == 9 and paginate.current_page == 1 %}
                       </div>
-                      <div class="cusatomwidt">
-                        {{ collection.metafields["global"]["col_addv1"] }}
+                      <div class="cusatomwidt {% if collection.metafields["global"]["col_addv1"] contains '[video_id]' %}video_col {% endif %}">
+                        {% if collection.metafields["global"]["col_addv1"] contains '[video_id]' %}
+                        {% assign video_id = collection.metafields["global"]["col_addv1"] | split: '[video_id]' | last | strip | strip_html  %}
+                        <div class="col_video_wrap {% if collection.metafields["global"]["col_addi1"] != blank %}visible-xs{% endif %}">
+                          <iframe id="col_v1" src="https://player.vimeo.com/video/{{video_id}}?color=d4d4d4&title=0&byline=0&portrait=0&controls=0&background=1"  frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                        </div>
+                        {% else %}
+                         {{ collection.metafields["global"]["col_addv1"] }}
+                        {% endif %}
+                        <div class="hidden-xs">{{ collection.metafields["global"]["col_addi1"] }}</div>
                       </div>
                       {% elsif forloop.index == 14 and paginate.current_page == 1 %}
-                      <div class="cusatomwidt">
+                     <div class="cusatomwidt {% if collection.metafields["global"]["col_addv2"] contains '[video_id]' %}video_col {% endif %}">
+                        {% if collection.metafields["global"]["col_addv2"] contains '[video_id]' %}
+                        {% assign video_id = collection.metafields["global"]["col_addv2"] | split: '[video_id]' | last | strip | strip_html  %}
+                        <div class="col_video_wrap {% if collection.metafields["global"]["col_addi2"] != blank %}visible-xs{% endif %}">
+                          <iframe id="col_v2" src="https://player.vimeo.com/video/{{video_id}}?color=d4d4d4&title=0&byline=0&portrait=0&controls=0"  frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                        </div>
+                        {% else %}
                          {{ collection.metafields["global"]["col_addv2"] }}
+                        {% endif %}
+                        <div class="hidden-xs">{{ collection.metafields["global"]["col_addi2"] }}</div>
                       </div>
                         {% else %}
                       {% if forloop.index == 19 and paginate.current_page == 1 %}
                     </div>
                     {% endif %}
-                
+
                       <div class="product-item-wrapper {% cycle 'first', '', '', 'last' %}" style="float:left; width:{{grid_item_width}};">
                         {% include 'collection-item', grid_image_width: image_size %}
                       </div>
-                   
+
                        {% endif %}
                      {% endif %}
                     {% endfor %}
                     </div>
-         	
+
                   </div>
-                  <div class="AjaxinateLoop_mobile products desk_hide">
-                      {% case section.settings.grid %}
-                        {% when '2' %}
-                        {%- assign grid_item_width = '50%' -%}
-                        {%- assign image_size = '570x' -%}
-                        {% when '3' %}
-                        {%- assign grid_item_width = '33.33333%' -%}
-                        {%- assign image_size = '370x' -%}
-                        {% when '4' %}
-                        {%- assign grid_item_width = '25%' -%}
-                        {%- assign image_size = '270x' -%}
-                        {% when '5' %}
-                        {%- assign grid_item_width = '20%' -%}
-                        {%- assign image_size = '210x' -%}
-                        {% when '6' %}
-                        {%- assign grid_item_width = '16.666666%' -%}
-                        {%- assign image_size = '170x' -%}
-                        <style> 
-                          @media(max-width: 1024px) {
-                            .hoverBorderWrapper img {
-                              width: 250px;
-                            }
-                          }
-                          @media(max-width: 320px) {
-                            .hoverBorderWrapper img {
-                              width: 290px;
-                            }
-                          }
-                        </style>
-                        {% endcase %}
-                    {% for product in collection.products %}
-                     
-                      
-                    <div class="product-item-wrapper {% cycle 'first', '', '', 'last' %}" style="float:left; width:{{grid_item_width}};">
-                        
-                        {% include 'collection-item', grid_image_width: image_size %}
-                       
-                      </div>
-                    {% endfor %}
-                    </div>
+
                	{% if paginate.next %}
-            	<div class="custombtn m_hide">
-                 	 <div class="AjaxinatePagination  pagi_desktop">
-                		<a href="{{ paginate.next.url }}">View All</a>
-					 </div>
-                   <span class="custpag" >{{paginate.items  | minus:16 }}</span>
+            	<div class="custombtn">
+                 	 <div class="AjaxinatePagination">
+                		<a href="{{ paginate.next.url }}">View <span class="custpag" >{{paginate.items  | minus:16 }}</span> More</a>
+					         </div>
                </div>
+               <div class="num_remain_products" data-count="{{ paginate.items | minus: 16 }}"></div>
             {% endif %}
-            	{% if paginate.next %}
-            	<div class="custombtn desk_hide">
-                 	 <div class="AjaxinatePagination pagi__mobile">
-                		<a href="{{ paginate.next.url }}">View All</a>
-					 </div>
-                   <span class="custpag" >{{paginate.items  | minus:16 }}</span>
-               </div>
-            {% endif %}
+
               {% endpaginate %}
             </div>
           </div>
@@ -243,21 +181,21 @@
 
   <script type="text/javascript">
 
-    $(document).ready(function() {
-      if(location.search.search("sort_by=") == -1){
+//     $(document).ready(function() {
+//       if(location.search.search("sort_by=") == -1){
 
-      }
-      else{
-      if(location.search != ""){
-        var stpo = location.search.search("sort_by=")+8, sortby_url = '.'+location.search.substr(stpo).split('='), sortby_url_a = sortby_url+" a";
-        $(sortby_url).addClass("active");
-        $('#sortButton .name').html($(sortby_url_a).html());
-      }
-      else{
-         $('.manual').addClass("active");
-      }
-      }    
-    });
+//       }
+//       else{
+//       if(location.search != ""){
+//         var stpo = location.search.search("sort_by=")+8, sortby_url = '.'+location.search.substr(stpo).split('='), sortby_url_a = sortby_url+" a";
+//         $(sortby_url).addClass("active");
+//         $('#sortButton .name').html($(sortby_url_a).html());
+//       }
+//       else{
+//          $('.manual').addClass("active");
+//       }
+//       }
+//     });
     $.fn.isInViewport = function() {
   var elementTop = $(this).offset().top;
   var elementBottom = elementTop + $(this).outerHeight();
@@ -276,9 +214,111 @@ $(function(){
       {
         $('.collection-toolbar').addClass('scroll_fixed');
       }
+      if($('.collection-banner-inner').isInViewport()) {
+        $('.collection-toolbar').removeClass('scroll_fixed');
+      }
     });
 });
-  </script>    
+
+$('#sortButtonWarper').click(function(){
+  $('#sortBox').show();
+  $('.tag-group ul').hide();
+  $('.collection-content-inner ').addClass('col_overlay');
+});
+$('#sortForm li.sort a').click(function(e){
+   e.preventDefault();
+   $('#coll-filter-5 li').removeClass('active');
+  $('.allclear').show();
+  $('#sortButton .name').html($(this).html());
+   $('.custom_overlay').show();
+  var getvalue = $(this).attr('href');
+  var search = window.location.search;
+  var url =window.location.href;
+   if(window.location.href.indexOf("pre-order") > -1){ url =window.location.href.replace('pre-order','');  }
+   if(window.location.href.indexOf("sale") > -1){ url =window.location.href.replace('sale','');  }
+   if(window.location.href.indexOf("available-now") > -1){ url =window.location.href.replace('available-now','');  }
+  if (search.length) {
+    console.log(search);
+    getvalue = getvalue.replace('/', '');
+    url = url.substring(0, url.indexOf('?'));
+     console.log(url);
+    url+=getvalue ;
+    }
+  else
+  {
+  url+=getvalue;
+  console.log(url);
+  }
+   $('#sortBox').hide();
+   $('.collection-content-inner ').removeClass('col_overlay');
+   window.location.href = url;
+//    $.ajax({
+//         type: 'GET',
+//         url: url,
+//         data: {},
+//         beforeSend: function( xhr ) {
+//         $('.custom_overlay').css('display','block');
+
+//         },
+//         complete: function (data) {
+//           $('.collection-items').html($(".collection-items", data.responseText).html());
+//           history.pushState({
+//             page: url
+//           }, url, url);
+//            $('.custom_overlay').css('display','none');
+//            var tot_product = $('.collection-items .products').length;
+//             $('.prd_count').html(tot_product);
+//         }
+//       });
+});
+    $('#sortForm li.tag a').click(function(e){
+      e.preventDefault();
+      var getv = $(this).attr('href');
+       $('#coll-filter-5 li').removeClass('active');
+      $('li.'+getv+'').addClass('active');
+       var get_url = window.location.href;
+
+      setTimeout(function(){
+        $('#coll-filter-5 .apply').trigger('click');
+  		}, 1000);
+
+    });
+    $(window).load(function(){
+       if(window.location.href.indexOf("?sort_by=") > -1){
+         $('.allclear').show();
+
+         var getvalue = location.search;
+         getvalue = getvalue.replace('?sort_by=','');
+
+         if( getvalue == 'price-ascending' ){getvalue="Price, low to high";}
+         if( getvalue == 'price-descending' ){getvalue="Price, high to low";}
+         if( getvalue == 'title-ascending' ){getvalue="Alphabetically, A-Z";}
+         if( getvalue == 'title-descending' ){getvalue="Alphabetically, Z-A";}
+         if( getvalue == 'created-ascending' ){getvalue="Date, old to new";}
+         if( getvalue == 'created-descending' ){getvalue="Date, new to old";}
+         if( getvalue == 'best-selling' ){getvalue="Best Selling";}
+         $('#sortButton .name').html(getvalue);
+
+       }
+      if($('.tag-group').hasClass('active')){ $('.allclear').show();}
+          if(window.location.href.indexOf("sale") > -1){
+          $('#sortButton .name').html('By Sale');
+          }
+          if(window.location.href.indexOf("pre-order") > -1){
+          $('#sortButton .name').html('Pre Order');
+          }
+          if(window.location.href.indexOf("available-now") > -1){
+          $('#sortButton .name').html('Available');
+          }
+    });
+
+
+
+ $(window).scroll(function() {
+  if ($('#col_v1').isInViewport()) { $('#col_v1').vimeo("play"); }
+   else{ $('#col_v1').vimeo("pause");   }
+});
+</script>
 
 
 
@@ -291,7 +331,7 @@ $(function(){
           "type": "header",
           "content": "Layout setting"
     },
-   
+
     {
       "type": "select",
       "id": "grid",
@@ -395,7 +435,7 @@ $(function(){
         "id": "collection_sort",
         "label": "Display Sort by filter",
         "default": true
-      },      
+      },
       {
         "type": "header",
         "content": "Tags filter"

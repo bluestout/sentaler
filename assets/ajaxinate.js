@@ -31,11 +31,15 @@ var Ajaxinate = function ajaxinateConstructor(config) {
     method: 'scroll',
     container: '.AjaxinateLoop',
     offset: 0,
-    
-    callback: null
+    loadingText: 'Loading',
+    callback: function() {
+      var itemsleft = $('.num_remain_products').data('count');
+      $('.pagi__desktop .custpag').html(itemsleft);
+      $('.pagi__mobile .custpag').html(itemsleft);
+    }
   };
   // Merge configs
- 
+
   this.settings = Object.assign(defaultSettings, settings);
 
   this.addScrollListeners = this.addScrollListeners.bind(this);
@@ -83,12 +87,18 @@ Ajaxinate.prototype.addClickListener = function addEventListenerForClicking() {
 Ajaxinate.prototype.stopMultipleClicks = function handleClickEvent(event) {
   event.preventDefault();
   if (this.clickActive) {
-  
-//     this.nextPageLinkElement.innerText = this.settings.loadingText;
+
+     this.nextPageLinkElement.innerText = this.settings.loadingText;
     this.nextPageUrl = this.nextPageLinkElement.href;
     this.clickActive = false;
-     var itemsleft= parseInt( $('.custpag').html()) - parseInt(18);
-     $('.custpag').html(itemsleft);
+      var itemsleft= parseInt( $('.custpag').html()) - parseInt(22);
+      if( itemsleft > 0 )
+      {
+        $('.num_remain_products').data('count', itemsleft);
+      }
+
+    if( itemsleft < 0 ) { $('.custombtn').hide(); }
+
     this.loadMore();
   }
 
@@ -101,9 +111,9 @@ Ajaxinate.prototype.checkIfPaginationInView = function handleScrollEvent() {
     this.nextPageLinkElement = this.paginationElement.querySelector('a');
     this.removeScrollListener();
     if (this.nextPageLinkElement) {
-    
-//       this.nextPageLinkElement.innerText = this.settings.loadingText;
-     
+
+       this.nextPageLinkElement.innerText = this.settings.loadingText;
+
       this.nextPageUrl = this.nextPageLinkElement.href;
       this.loadMore();
     }
@@ -116,7 +126,7 @@ Ajaxinate.prototype.loadMore = function getTheHtmlOfTheNextPageWithAnAjaxRequest
     if (this.request.readyState === 4 && this.request.status === 200) {
       var newContainer = this.request.responseXML.querySelectorAll(this.settings.container)[0];
       var newPagination = this.request.responseXML.querySelectorAll(this.settings.pagination)[0];
-      
+
       this.containerElement.insertAdjacentHTML('beforeend', newContainer.innerHTML);
       this.paginationElement.innerHTML = newPagination.innerHTML;
       if (this.settings.callback && typeof this.settings.callback === 'function') {
@@ -128,9 +138,9 @@ Ajaxinate.prototype.loadMore = function getTheHtmlOfTheNextPageWithAnAjaxRequest
   this.request.open('GET', this.nextPageUrl);
   this.request.responseType = 'document';
   this.request.send();
-  
-  
-   console.log(this.paginationElement.innerHTML );
+
+
+
 };
 
 Ajaxinate.prototype.removeClickListener = function removeClickEventListener() {

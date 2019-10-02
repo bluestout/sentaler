@@ -3,7 +3,7 @@
     <h1 class="page-title">{{ page.title }}</h1>
     <div class="rte">{{ page.content }}</div>
   </div>
-  
+
   <div id="page-sidebar" class="desktop-3 tablet-2 mobile-3">
     <h2>{{ settings.page-sidebar-title }}</h2>
     <ul>
@@ -20,10 +20,10 @@
 <div class="row">
 <div class="col-sm-3 shop-page">
   <h1 class="page-title">{{ page.title }}</h1>
-  {{ settings.help-sidebar-links }} 
+  {{ settings.help-sidebar-links }}
 </div>
 <div class="col-sm-9">
- <div class="pageslider"> 
+ <div class="pageslider">
  <section class="homepage-section animate wow fadeIn">
   {% if settings.help-display-wide %}
   {% else %}
@@ -52,50 +52,50 @@
 	          {% assign slide_title = 'help-slide-' | append: i | append: '-title' %}
 	          {% assign slide_caption = 'help-slide-' | append: i | append: '-caption' %}
 	          {% assign slide_button = 'help-slide-' | append: i | append: '-button' %}
-	          {% assign slide_button_text = 'help-slide-' | append: i | append: '-button-text' %}        
+	          {% assign slide_button_text = 'help-slide-' | append: i | append: '-button-text' %}
 
 	          <li>
-	            <a href="{{ settings[slide_link_url] }}"> 
+	            <a href="{{ settings[slide_link_url] }}">
 	              <img src="{{ slide_img_url | asset_url }}" alt="{{ settings[slide_img_alt] }}" />
 	            </a>
 	            <div class="flex-caption {{ index }}">
-	  			{% if settings[slide_title] != blank %}                        
+	  			{% if settings[slide_title] != blank %}
 	              <h2 class="slide-title">{{ settings[slide_title] }}</h2>
 	              {% endif %}
-	  			{% if settings[slide_caption] != blank %}            
+	  			{% if settings[slide_caption] != blank %}
 	              <p class="caption">{{ settings[slide_caption] }}</p>
 	              {% endif %}
 	              {% if settings[slide_button] %}
 	              <div class="cta">
 	                <a href="{{ settings[slide_link_url] }}">{{ settings[slide_button_text] }}</a>
 	              </div>
-	              {% endif %}            
+	              {% endif %}
 	            </div>
 	          </li>
 	          {% endif %}
-	          {% endfor %} 
+	          {% endfor %}
 	        </ul>
-	      </div> 
-      {% endif %} 
+	      </div>
+      {% endif %}
 
       {% if settings.help-display-wide %}
       {% else %}
     </div>
   </div>
-    {% endif %}    
-<div class="clear"></div>  
-</section> 
+    {% endif %}
+<div class="clear"></div>
+</section>
 </div>
-  
+
 {{ page.content }}
-  
+
 <p> </p>
-<h4>CONTACT US</h4>
+<h4 class="text-center">CONTACT US</h4>
 <h5 style="text-align: center;"><strong></strong></h5>
 <h5 style="text-align: center;"><strong>SENTALER HEAD OFFICE</strong></h5>
 <p style="text-align: center;">555 Richmond St. West, Suite 403 <br /> PO Box 1103<br />Toronto, ON  M5V 3B1, Canada<br /><strong><br /></strong>+1 888 259 3374<br /><strong>General:</strong> <a href="mailto:service@sentaler.com">service@sentaler.com</a><br /><strong>Business Inquiries: </strong><a href="mailto:sales@sentaler.com">sales@sentaler.com</a><br /><strong>Media: </strong><a href="mailto:pr@sentaler.com">pr@sentaler.com</a></p>
 <span style="color: #ffffff;"><a style="color: #ffffff;" name="findstore"></a>FIND A STORE</span>
-<h4>STORE LOCATIONS</h4>
+<h4 class="text-center">STORE LOCATIONS</h4>
 <h4 style="text-align: center;"> </h4>
 <meta charset="utf-8" />
 <div style="text-align: center;">
@@ -128,7 +128,7 @@
 <div style="text-align: center;"><span></span></div>
 <div style="text-align: center;"><span style="color: #ff0000;"><strong> </strong></span></div>
 <h3><span style="color: #ffffff;"><a style="color: #ffffff;" name="sizeguide"></a>SIZE GUIDE</span></h3>
-<h4>SIZE GUIDE</h4>
+<h4 class="text-center">SIZE GUIDE</h4>
 <meta charset="utf-8" />
 <table class="tg">
 <tbody>
@@ -179,7 +179,7 @@
 </div>
 </div>
 <p> </p>
-  
+
 </div>
 </div>
 </div>

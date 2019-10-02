@@ -1,0 +1,130 @@
+<div class="product-grid">
+  <div class="container pad_0">
+    <div class="row">
+      <div class="tab-content" data-id="{{ section.settings.section_id_1 }}" id="{{ section.settings.section_id_1 }}">
+        <div class="grid grid--uniform grid--view-items press_detail_slider owl-carousel owl-theme">
+          {% for block in section.blocks %}
+            {% if block.settings.section_id == section.settings.section_id_1 %}
+              <div class="grid__item">
+                {% unless grid_image_width %}
+                  {%- assign grid_image_width = '1024x1024' -%}
+                {% endunless %}
+                  <div class="row-container list-unstyled clearfix">
+                    <div class="row-inner">
+                      <div class="row-left">
+                        <a href="{{ block.settings.link }}" class="hoverBorder container_item">
+                           <img src="{{ block.settings.image | img_url: grid_image_width , crop: 'bottom' }}" class="img-responsive front" alt="{{block.settings.title | escape }}" />
+                        </a>
+                        <div class="product-box__overlay">
+                          <div class="product-box__inner">
+                            <div class="title">
+                              {{ block.settings.title }}
+                            </div>
+                            <div class="sub_title">
+                              {{ block.settings.sub_title }}
+                            </div>
+                            <!--<div class="link">
+                              <a href="{{ block.settings.link }}">{{ 'general.accessibility.read_more' | t }}</a>
+                            </div>-->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+      <div class="tab-content" data-id="{{ section.settings.section_id_2 }}" id="{{ section.settings.section_id_2 }}" style="display: none;">
+        <div class="grid grid--uniform grid--view-items press_detail_slider owl-carousel owl-theme">
+          {% for block in section.blocks %}
+            {% if block.settings.section_id == section.settings.section_id_2 %}
+              <div class="grid__item">
+                {% unless grid_image_width %}
+                  {%- assign grid_image_width = '1024x1024' -%}
+                {% endunless %}
+                  <div class="row-container list-unstyled clearfix">
+                    <div class="row-inner">
+                      <div class="row-left">
+                        <a href="{{ block.settings.link }}" class="hoverBorder container_item">
+                           <img src="{{ block.settings.image | img_url: grid_image_width , crop: 'bottom' }}" class="img-responsive front" alt="{{block.settings.title | escape }}" />
+                        </a>
+                        <div class="product-box__overlay">
+                          <div class="product-box__inner">
+                            <div class="title">
+                              {{ block.settings.title }}
+                            </div>
+                            <div class="sub_title">
+                              {{ block.settings.sub_title }}
+                            </div>
+                            <!--<div class="link">
+                              <a href="{{ block.settings.link }}">{{ 'general.accessibility.read_more' | t }}</a>
+                            </div>-->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Featured Links",
+  "class": "featured-links-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_id_1",
+      "label": "First Section Identify"
+    },
+    {
+      "type": "text",
+      "id": "section_id_2",
+      "label": "Second Section Identify"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "link",
+      "name": "Link",
+      "settings": [
+        {
+          "type": "text",
+          "id": "section_id",
+          "label": "Section Identify"
+        },
+        {
+          "type":"image_picker",
+    			"id":"image",
+    			"label":"Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "sub_title",
+          "label": "Sub Title"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+  ]
+}
+{% endschema %}

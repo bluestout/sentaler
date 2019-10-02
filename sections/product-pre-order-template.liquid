@@ -1,0 +1,608 @@
+<div class="product-template__container page-width" itemscope itemtype="http://schema.org/Product" id="ProductSection-{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="product" data-enable-history-state="true">
+  <meta itemprop="name" content="{{ product.title }}">
+  <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
+  <meta itemprop="image" content="{{ product.featured_image.src | img_url: '800x' }}">
+ {% assign variant = product.selected_or_first_available_variant %}
+ {% assign curent_variant = product.selected_or_first_available_variant %}
+ <section class="product-detail-content">
+    <div class="detail-content-wrapper">
+      <div class="container c_pad0">
+        <div class="row">
+          <div class="detail-content-inner">
+            <div id="product" class="{{ product.handle }} detail-content">
+              <div class="col-md-12 clearfix info-detail-pro">
+                <div class="col-md-6" id="product-image">
+
+                  <div id="featuted-image" class="image featured mainprd owl-carousel owl-theme">
+
+                    {% for image in product.images %}
+                    <div class="prd_img_wrap ">
+                      <span class="sticon-search prd_magni"></span>
+                     <div class="easyzoom easyzoom--overlay">
+                       <a  data-fancybox="gallery" href="{{ image | product_img_url: '2400X' }}"><img class="normal" src="{{ image | product_img_url: '2400X' }}" alt="{{ image.alt | escape }}" /></a>
+                      </div>
+                    </div>
+                    {% endfor %}
+                  </div>
+				 <script>
+                    if($(".mainprd").length){
+                      $(".mainprd").owlCarousel({
+                        nav : true,
+                        pagination: false,
+                        singleItem:true,
+                        slideSpeed : 200,
+                        items: 1,
+                        navText: ['<i class="sticon-caret-l-large" title="Previous" data-toggle="tooltip" data-placement="top"></i>', '<i class="sticon-caret-r-large" title="Next" data-toggle="tooltip" data-placement="top"></i>']
+                      });
+                    }
+                   $('.easyzoom').zoom();
+                  </script>
+                </div>
+                <div class="col-md-6 text-center" id="product-information">
+                  <div class="product-innerwrap">
+                   {% for tag in product.tags %}
+                     {% if tag contains 'IN SUPPORT OF SICKKIDS'  %}
+                       <img src="{{'badge-sickkids-small.png' | asset_url}}"/>
+                     {% endif %}
+                  {% endfor %}
+                  <div class="product-title">
+                    <h1 class="title">{{ product.title | split: ',' | first }}</h1>
+                    {% if section.settings.display_wishlist %}
+                    <div class="add-to-wishlist">
+                      <div class="wishlist hidden-xs">
+                        <a title="Add To Wishlist" class="wishlist wishlist-{{ product.handle }}" data-wishlisthandle="{{ product.handle }}"><i class="sticon-heart" aria-hidden="true"></i> </a>
+                      </div>
+                    </div>
+                    {% endif %}
+                  </div>
+                    <div class="prd_ctext c_pop" rel="fiber">
+
+                   {% for option in product.options %}
+                      {% assign option_in = forloop.index0 %}
+
+
+                      {% if option == 'Material' or  option == 'material' %}
+                            {% for variant in product.variants %}
+                       {% assign value = variant.options[option_in] %}
+                          {% unless values contains value %}
+                      {% if forloop.index == 1 %}
+                            {{value}}{% include 'info' %}
+                      {% endif %}
+                        {% endunless %}
+                          {% endfor %}
+                      {% endif %}
+
+                   {% endfor %}
+
+                    </div>
+                 <div class="purchase">
+                        <p class="price" id="price-preview">{{ variant.price | money }}{% if variant.price < variant.compare_at_price %} <del>{{ variant.compare_at_price | money }}</del>{% endif %}</p>
+                 </div>
+               	  {%-  assign prd_des_sh = product.description | strip_html | remove: "DESIGNER'S NOTES"   | split: '[split]'   -%}
+		          {% if section.settings.enable_quickoverview  %}
+                  <div class="description">
+                    {% if product.description contains '[split]' %}
+                  {%- assign prd_s1 = prd_des_sh[1] | truncatewords: section.settings.detail_qov_lenght, "" -%}
+                  <span class="short">{{prd_s1 | replace: "&nbsp;", ''  }}</span>
+
+                    <span class="more">More</span>
+                     <span class="long">{{prd_des_sh[1]  }}</span>
+                    {% else %}
+                    <span>{{product.description}}</span>
+                    {% endif %}
+                  </div>
+                  {% endif %}
+
+                  {% if product.variants.size == 1 and product.variants.first.title contains 'Default' %}
+                    {% assign hide_default_title = true %}
+                  {% endif %}
+
+                  <form id="add-item-form" action="/cart/add" method="post" class="variants clearfix">
+                    {% if product.description contains '[split]' %}
+                    <div class="color-option">
+                     {%-  assign prd_des_cp =  product.description | split: '[split]'   -%}
+                      <span class="c_l">color: <span class="current_seleted"></span></span>
+                      {{prd_des_cp[0]}}
+                    </div>
+                    {% endif %}
+                    <div class="product-options {% if hide_default_title %}no-options {% endif %}">
+                      {% if section.settings.color_swatch %}
+                        {% if product.available %}
+                          {% for option in product.options %}
+                            {% include 'swatch' with option %}
+                          {% endfor %}
+                        {% endif %}
+                      {% endif %}
+
+                      <div class="select clearfix"{% if hide_default_title or section.settings.color_swatch %} style="display:none"{% endif %}>
+                        <select id="product-select" name="id">
+                          {% for variant in product.variants %}
+                          <option value="{{ variant.id }}"{% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} data-sku="{{ variant.sku }}">{{ variant.title }} - {{ variant.price | money }}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+
+
+
+                      {% if section.settings.display_quantity_dropdown %}
+                      <div class="quantity-wrapper clearfix">
+                        <label class="wrapper-title">Qty</label>
+                        <div class="wrapper">
+                          <span class="qty-down btooltip" data-toggle="tooltip" data-placement="top" title="Decrease" data-src="#quantity">
+                            <i class="fa fa-minus"></i>
+                          </span>
+                          <input id="quantity" type="text" name="quantity" value="1" maxlength="5" size="5" class="item-quantity" />
+                          <span class="qty-up btooltip" data-toggle="tooltip" data-placement="top" title="Increase" data-src="#quantity">
+                            <i class="fa fa-plus"></i>
+                          </span>
+                        </div>
+                      </div>
+                      {% endif %}
+
+                      <div class="purchase-section{% if product.variants.size > 1 %} multiple{% endif %}">
+                        <div class="purchase">
+
+                          <button id="add-to-cart" class="btn add-to-cart" type="submit" name="add">{{ 'Pre-order' | json | remove: '"'}}</button>
+                          <div id="cart-animation" style="display:none">1</div>
+
+                        </div>
+                             {% for tag in product.tags %}
+
+                     {% if tag contains 'ship_'  %}
+
+                     {% assign tag_v = tag   %}
+                     {% assign tag_v = tag_v | split: 'ship_'   %}
+
+                       <div class="item-ship prdrow">
+                      <input  type="text" name="properties[ship_date]" value="This item will ship in {{tag_v}}" style="display:none;"/>
+                    	This item will ship in {{tag_v}}
+                    </div>
+                     {% endif %}
+                  {% endfor %}
+                      </div>
+
+                    </div>
+
+                  </form>
+
+				  <div class="prd_ship prdrow">
+                    <span><i class="sticon-shipping"></i>Free Duties and Expedited Shipping</span>
+                    <span><i class="sticon-returns"></i>Free Returns and Exchanges</span>
+                  </div>
+                  <div class="srf prdrow">
+                    <a href="#" class="c_pop" rel="shipping">Shipping</a>
+                    <a href="#"  class="c_pop" rel="return">Returns/Exchanges</a>
+                    <a href="#"  class="c_pop" rel="findsixe">Find My Size</a>
+                  </div>
+                    <div class="eps">
+                      <a href="mailto:"><i class="sticon-email"></i>Email us</a>
+                      <a href="tel:+18882593374"><i class="sticon-phone"></i>+1 888 259 3374</a>
+                      <span class="share"><i class="sticon-share"></i>Share</span>
+                      <div class="social-prd-share" style="display:none;">
+                        {% include 'social-sharing' %}
+                      </div>
+                    </div>
+
+
+
+                  </div>
+                </div>
+              </div>
+               {% if product.description contains '[split]' %}
+              <div class="product_deatil_metainfo">
+                <div class="customhalf text">
+                 <div class="accordion-section desk_hide">
+                  <a href="#accordion-4" class="accordion-section-title"><span class="Apple-style-span" style="color: #272727; font-size: medium;">DESIGNER’S NOTES</span></a>
+                  <div id="accordion-4" class="accordion-section-content js-focus-hidden" tabindex="-1" >
+                  {{prd_des_sh[1]  }}
+                  </div>
+                  <!--end .accordion-section-content-->
+                  </div>
+                {{ product.description |  split: '[split]' | last }}
+                </div>
+                <div class="customhalf img">
+                  <img src="{{ product.images[1] | product_img_url: 'master' }}"/>
+                </div>
+                {% assign imagesize = product.images.size | minus: 1 %}
+                <div class="flex_row_prd {% if imagesize == 3 or imagesize == 7 %}last-imgfull{% endif %}" >
+                  {% for image in product.images %}
+                  {% if forloop.index > 1 %}
+                    <img src="{{ image | product_img_url: 'master' }}" alt="{{ image.alt | escape }}" />
+                  {% endif %}
+                  {% endfor %}
+
+                </div>
+              </div>
+              {% endif %}
+              {% for tag in product.tags %}
+                     {% if tag contains 'IN SUPPORT OF SICKKIDS' %}
+              <div class="stickkid_deatilsection">
+              	<!--<div class="index_quote ">
+                    <div class="quote_inner aos-init aos-animate" data-aos="fade-up" data-aos-duration="1000">
+                      <i class="sticon-quote" aria-hidden="true"></i>
+                      <p>{{section.settings.quote}}</p>
+                      <span class="sticon-bojana"></span>
+                    </div>
+			   </div>-->
+         <div class="index_custom_section">
+              <div class="flex_wrap">
+                     <div class="customhalf imgdiv left">
+                       {% if section.settings.images1 %}
+                        <img src="{{section.settings.images1 | img_url: "master"}}">
+                        {% endif %}
+                     </div>
+      <div class="customhalf left">
+                      <div class="text--block text-center">
+                        <div class="las_25">
+                          <div class="img_b">
+                              <img src="{{ section.settings.signature_1 | img_url: 'master' }}"/>
+                          </div>
+                          <div class="quote_a">
+                          {{section.settings.quote}}
+                          </div>
+                           <i class="sticon-quote" aria-hidden="true"></i>
+                           <div class="quote_b">
+                            {{section.settings.quote2}}
+                          </div>
+                        </div>
+                        <div class="img_a">
+                            <img src="{{ section.settings.signature_2 | img_url: 'master' }}"/>
+                        </div>
+                        <div class="bt_text">{{section.settings.s_Des}}</div>
+                     </div>
+                 </div>
+                    </div>
+  </div>
+               <!--<div class="index_custom_section">
+  				 <div class="flex_wrap">
+  				   <div class="customhalf imgdiv">
+						<img src="//cdn.shopify.com/s/files/1/1009/5898/files/superfine-alpaca_1024x1024.png?v=1565420359">
+				   </div>
+      			 <div class="customhalf">
+                  <div class="text--block">
+					<h4 class="las_25">{{section.settings.sheading}}</h4>
+					<div class="lass_17"><p>{{section.settings.scontent}}</p></div>
+				 	<div class="image_block">
+							<div class="img_col">
+								<span class="icon {{section.settings.icon1}}"></span>
+								<span>{{section.settings.text1}}</span>
+							</div>
+							<div class="img_col">
+								<span class="icon {{section.settings.icon2}}"></span>
+								<span>{{section.settings.text2}}</span>
+							</div>
+                      	    <div class="img_col">
+								<span class="icon {{section.settings.icon3}}"></span>
+								<span>{{section.settings.text3}}</span>
+							</div>
+                    </div>
+                    {% if section.settings.sbtn_link %}
+				  	<a class="index_btn" href="{{section.settings.sbtn_link}}">{{section.settings.sbtn_text}}</a>
+                   {% endif %}
+				 </div>
+
+                </div>
+              </div>
+			</div>-->
+			</div>
+              {% endif %}
+              {% endfor %}
+              {% if section.settings.show_related_products %}
+                {% include 'related-products' %}
+              {% endif %}
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div style="display:none" id="preloading">
+  {% for image in product.images offset: 1 %}
+  {{ image | product_img_url: '1024x1024' | img_tag }}
+  {% endfor %}
+  </div>
+<div data-app="eastsideco_cartOffers" data-position="product"></div>
+
+  <script>
+  var selectCallback = function(variant, selector) {
+    if (variant && variant.featured_image) {
+      var newImage = variant.featured_image; // New image object.
+      var mainImageDomEl = jQuery('.featured img')[0]; // DOM element of main image we need to swap.
+      Shopify.Image.switchImage(newImage, mainImageDomEl, switchImage); // Define switchImage (the callback) in your theme's JavaScript file.
+    }
+    if (variant && variant.available) {
+      jQuery('#add-to-cart').removeAttr('disabled').removeClass('disabled'); // remove unavailable class from add-to-cart button, and re-enable button
+      if(variant.price < variant.compare_at_price){
+        jQuery('#price-preview').html(Shopify.formatMoney(variant.price, money_format_update) + " <del>" + Shopify.formatMoney(variant.compare_at_price, money_format_update) + "</del>");
+
+      } else {
+        jQuery('#price-preview').html(Shopify.formatMoney(variant.price, money_format_update));
+
+      }
+    } else {
+      jQuery('#add-to-cart').addClass('disabled').attr('disabled', 'disabled'); // set add-to-cart button to unavailable class and disable button
+      var message = variant ? {{ 'products.product.sold_out_html' | t | json }} : {{ 'products.product.unavailable_html' | t | json }};
+
+    }
+  };
+
+  jQuery(document).ready(function($){
+    new Shopify.OptionSelectors("product-select", { product: {{ product | json }}, onVariantSelected: selectCallback, enableHistoryState: true });
+
+    // Add label if only one product option and it isn't 'Title'.
+    {% if product.options.size == 1 and product.options.first != 'Title' %}
+      $('.selector-wrapper:eq(0)').prepend('<label>{{ product.options.first | escape }}</label>');
+    {% endif %}
+
+  });
+  </script>
+</div>
+{% include 'popup' %}
+{% schema %}
+{
+  "name": "Product pages",
+  "settings": [
+  {
+        "type": "header",
+        "content": "General Setting"
+      },
+
+      {
+        "type": "checkbox",
+        "id": "color_swatch",
+        "label": "Enable Color Swatch?",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "product_hover_effect",
+        "label": "Active hover effect to change product image",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "product_coloravailable",
+        "label": "Active Color Available Image",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_quickoverview",
+        "label": "Enable Quick Overview"
+      },
+      {
+        "type": "text",
+        "id": "detail_qov_lenght",
+        "label": "Quick Overview lenght",
+        "default": "30"
+      },
+      {
+        "type": "checkbox",
+        "id": "display_quantity_dropdown",
+        "label": "Show quantity box"
+      },
+      {
+        "type": "checkbox",
+        "id": "display_wishlist",
+        "label": "Show Wish list",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "display_tags",
+        "label": "Show Tags",
+        "default": true
+      },
+    {
+      "type": "select",
+      "id": "image_size",
+      "label": "Image size",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        },
+        {
+          "value": "full",
+          "label": "Full-width"
+        }
+      ],
+      "default": "medium"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_quantity_selector",
+      "label": "Show quantity selector",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_variant_labels",
+      "label": "Show variant labels",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_share_buttons",
+      "label": "Show social sharing buttons",
+      "default": true
+    },
+	{
+        "type": "header",
+        "content": "Ajax Add to cart Modal"
+      },
+      {
+        "type": "checkbox",
+        "id": "ajax_active",
+        "label": "Active Ajax Add to Cart",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "ajax_timeout",
+        "label": "Set time out, auto close",
+        "default": "5000",
+        "info": "(seconds)"
+      },
+
+      {
+        "type": "header",
+        "content": "Related Products Setting"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_related_products",
+        "label": "Show related products",
+        "default": true,
+        "info": "Only visible within a collection"
+      },
+      {
+        "type": "header",
+        "content": "Social media sharing"
+      },
+      {
+        "type": "checkbox",
+        "id": "social_sharing_products",
+        "label": "Enable product sharing"
+      },
+      {
+        "type": "checkbox",
+        "id": "social_sharing_count",
+        "label": "Show shared count",
+        "info": "Only available for Facebook, Twitter, and Pinterest"
+      },
+      {
+        "type": "select",
+        "id": "social_sharing_style",
+        "label": "Button style",
+        "options": [
+          {
+            "value": "",
+            "label": "Normal"
+          },
+          {
+            "value": "is-large",
+            "label": "Large"
+          },
+          {
+            "value": "is-clean",
+            "label": "Clean"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "share_facebook",
+        "label": "Share on Facebook"
+      },
+      {
+        "type": "checkbox",
+        "id": "share_twitter",
+        "label": "Tweet on Twitter"
+      },
+      {
+        "type": "checkbox",
+        "id": "share_pinterest",
+        "label": "Pin on Pinterest"
+      },
+      {
+        "type": "checkbox",
+        "id": "share_fancy",
+        "label": "Add to Fancy"
+      },
+      {
+        "type": "checkbox",
+        "id": "share_google",
+        "label": "+1 on Google Plus"
+      },
+	  {
+		"type":"header",
+		"content":"Stickid's Info"
+	  },
+	  {
+			"type":"textarea",
+			"id":"quote",
+			"label":"Quote"
+	  },
+	  {
+			"type":"image_picker",
+			"id":"images1",
+			"label":"Image"
+	  },
+	  {
+			"type":"textarea",
+			"id":"quote2",
+			"label":"Quote"
+	  },
+	  {
+			"type":"textarea",
+			"id":"s_Des",
+			"label":"description"
+	  },
+	  {
+			"type":"image_picker",
+			"id":"images2",
+			"label":"Image"
+	  },
+	  {
+			"type":"text",
+			"id":"sheading",
+			"label":"Heading"
+	  },
+	  {
+			"type":"textarea",
+			"id":"scontent",
+			"label":"Content"
+	  },
+	  {
+			"type":"text",
+			"id":"sbtn_text",
+			"label":"Button text"
+	  },
+	  {
+			"type":"url",
+			"id":"sbtn_link",
+			"label":"Button link"
+	  },
+	  {
+          "type": "text",
+          "id": "icon1",
+          "label": "Icon1"
+      },
+      {
+          "type": "text",
+          "id": "text1",
+          "label": "Heading1"
+      },
+	  {
+          "type": "text",
+          "id": "icon2",
+          "label": "Icon2"
+      },
+      {
+          "type": "text",
+          "id": "text2",
+          "label": "Heading2"
+      },
+	  {
+          "type": "text",
+          "id": "icon3",
+          "label": "Icon3"
+      },
+      {
+          "type": "text",
+          "id": "text3",
+          "label": "Heading3"
+      }
+  ]
+}
+{% endschema %}

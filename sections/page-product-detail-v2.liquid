@@ -1,0 +1,130 @@
+<section class="page-banner">
+ <div class="page-banner-wrapper">
+   <div class="container c_pad0">
+     <div class="row no-gutters">
+       <div class="page-banner-inner">
+         <div class="page-image-wrapper">
+           <div class="page-image col-sm-12 text-center">
+             <img src="{{ section.settings.banner | img_url : 'master' }}" class="img-responsive" alt="{{ page.title | escape }}" />
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
+ </div>
+</section>
+<section class="page-heading">
+  <div class="page-heading-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="page-heading-inner">
+          <h1 class="page-title block text-center">{{ page.title }}</h1>
+          <p class="text-center">{{ page.content }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="page-content">
+  <div class="page-wrapper">
+    <div class="container c_pad0">
+      <div class="row">
+        <div class="page-inner">
+          <div id="page">
+            <div class="details">
+              {% for block in section.blocks %}
+                {% if block.type == 'image' %}
+                {% if block.settings.line_start %}
+                <div class="row no-margins">
+                {% endif %}
+                <div class="isotope {% if block.settings.pull_right %}pull-right{% endif %} {% if block.settings.width == 'half' %}col-md-6{% elsif block.settings.width == 'quarter' %}col-md-3 col-xs-6{% else %}col-md-12{% endif %}">
+                  <img src="{{ block.settings.image | img_url : 'master' }}" class="img-responsive" alt="" />
+                </div>
+                {% if block.settings.line_end %}
+                </div>
+                {% endif %}
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+  {
+    "name": "Product Detail",
+    "max_blocks": 20,
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "banner",
+        "label": "Banner Image"
+      }
+    ],
+ 	  "blocks": [
+      {
+        "type": "image",
+        "name": "Image",
+        "settings": [
+    		{
+    			"type":"image_picker",
+    			"id":"image",
+    			"label":"Image"
+    		},
+    		{
+    			"type":"image_picker",
+    			"id":"imagem",
+    			"label":"Mobile Image"
+    		},
+        {
+          "type": "checkbox",
+          "id": "line_start",
+          "label": "Start of Line",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "line_end",
+          "label": "End of Line",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "pull_right",
+          "label": "Align Right",
+          "default": false
+        },
+    		{
+          "type": "select",
+          "id": "width",
+          "label": "width",
+          "default": "quarter",
+          "options": [
+            {
+              "value": "half",
+              "label": "50%"
+            },
+            {
+              "value": "quarter",
+              "label": "25%"
+            },
+            {
+              "value": "full",
+              "label": "100%"
+            }
+          ]
+        }
+    		]
+      }
+    ],
+  "presets": []
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

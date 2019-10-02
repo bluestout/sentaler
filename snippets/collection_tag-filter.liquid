@@ -1,10 +1,13 @@
 <!-- filter tags group -->
 <div class="filter-tag-group">
+  <div class="showing-number">
+                     <span class="prd_count"> {{collection.products_count}}</span> items
+                    </div>
 	{% assign array_tag1 = section.settings.group_tag_1 | split: ',' %}
 	{% assign array_tag2 = section.settings.group_tag_2 | split: ',' %}
 	{% assign array_tag3 = section.settings.group_tag_3 | split: ',' %}
     {% assign array_tag4 = section.settings.group_tag_4 | split: ',' %}
-	
+	 {% if section.settings.enable_tagsfilter %}
 	<!-- tags groupd 1 -->
 	{% if array_tag1.size > 0 %}
 	<div class="tag-group  {% if section.settings.group_tag_1_label contains 'Color' or section.settings.group_tag_1_label contains 'color' %}color{% else %}non-color{% endif %}" id="coll-filter-1">
@@ -12,7 +15,7 @@
 		{% if section.settings.group_tag_1_label contains 'Color' or section.settings.group_tag_1_label contains 'color' %}
 			{% assign swatch = true %}
 		{% endif %}
-      <p class="title">{{ section.settings.group_tag_1_label }}<span class="sticon-caret-d-small"></span></p>
+      <p class="title">{{ section.settings.group_tag_1_label }}<span class="slectedfilter"><span class="filtercount"></span><span>Selected</span></span><span class="sticon-caret-d-small"></span></p>
 		<ul>
           <span class="closeit">
             <span class="desk_hide">Filter By {{ section.settings.group_tag_1_label }}</span>
@@ -30,14 +33,14 @@
 					{% assign style = 'background-color: ' | append: tag | downcase | append: '; background-image: url(' | append: color_img | append: ');' %}
 					{% if current_tags contains tag %}
 						<li class="active swatch-tag {% if tag == 'White' or tag == 'white' %} white-color{% endif %}">
-                          <a href="{{tag}}"><span style="{{ style }}" class="btooltip" data-toggle="tooltip" data-placement="top" title="{{tag}}"></span> {{tag}}</a>
+                          <a href="{{tag}}"><span style="{{ style }}" class="btooltip" data-toggle="tooltip" data-placement="top" title="{{tag}}"></span>{% if tag == 'sickkids' %}Sentaler for Sick Kids {% else %}{{tag}}{% endif %}</a>
           				</li>
 					{% else %}
 						<li class="swatch-tag {% if tag == 'White' or tag == 'white' %} white-color{% endif %}">
-                         <a href="{{tag}}"><span style="{{ style }}" class="btooltip" data-toggle="tooltip" data-placement="top" title="{{tag}}"></span> {{tag}}</a>
+                         <a href="{{tag}}"><span style="{{ style }}" class="btooltip" data-toggle="tooltip" data-placement="top" title="{{tag}}"></span>{% if tag == 'sickkids' %}Sentaler for Sick Kids {% else %}{{tag}}{% endif %}</a>
           				</li>
 					{% endif %}
-					
+
 				{% else %}
 					{% if current_tags contains tag %}
 						<li class="active" rel="{{tag}}">{{ '<span class="fe-checkbox"></span> ' | append: tag | link_to_remove_tag: tag }}</li>
@@ -54,7 +57,7 @@
 		</ul>
 	</div>
 	{% endif %}
-	
+
 	<!-- tags groupd 2 -->
 	{% if array_tag2.size > 0 %}
 	<div class="tag-group  {% if section.settings.group_tag_2_label contains 'Color' or section.settings.group_tag_2_label contains 'color' %}color{% else %}non-color{% endif %}" id="coll-filter-2">
@@ -62,7 +65,7 @@
 		{% if section.settings.group_tag_2_label contains 'Color' or section.settings.group_tag_2_label contains 'color' %}
 			{% assign swatch = 'swatch-tag' %}
 		{% endif %}
-		<p class="title">{{ section.settings.group_tag_2_label }}<span class="sticon-caret-d-small"></span></p>
+		<p class="title">{{ section.settings.group_tag_2_label }}<span class="slectedfilter"><span class="filtercount"></span><span>Selected</span></span><span class="sticon-caret-d-small"></span></p>
 		<ul>
           <span class="closeit">
             <span class="desk_hide">Filter By {{ section.settings.group_tag_2_label }}</span>
@@ -80,14 +83,14 @@
 					{% assign style = 'background-color: ' | append: tag | downcase | append: '; background-image: url(' | append: color_img | append: ');' %}
 					{% if current_tags contains tag %}
 						<li rel="{{tag}}" class="active swatch-tag {% if tag == 'White' or tag == 'white' %} white-color{% endif %}">
-                         <a href="{{tag}}"><span style="{{ style }}" class="btooltip" data-toggle="tooltip" data-placement="top" title="{{tag}}"></span> {{tag}}</a>
+                         <a href="{{tag}}"><span style="{{ style }}" class="btooltip" data-toggle="tooltip" data-placement="top" title="{{tag}}"></span>{% if tag == 'sickkids' %}Sentaler for Sick Kids {% else %}{{tag}}{% endif %}</a>
           				</li>
 					{% else %}
 						<li rel="{{tag}}" class="swatch-tag {% if tag == 'White' or tag == 'white' %} white-color{% endif %}">
-                         <a href="{{tag}}"><span style="{{ style }}" class="btooltip" data-toggle="tooltip" data-placement="top" title="{{tag}}"></span> {{tag}}</a>
+                         <a href="{{tag}}"><span style="{{ style }}" class="btooltip" data-toggle="tooltip" data-placement="top" title="{{tag}}"></span> {% if tag == 'sickkids' %}Sentaler for Sick Kids {% else %}{{tag}}{% endif %}</a>
           				</li>
 					{% endif %}
-					
+
 				{% else %}
 					{% if current_tags contains tag %}
 						<li rel="{{tag}}" class="active">{{ '<span class="fe-checkbox"></span> ' | append: tag | link_to_remove_tag: tag }}</li>
@@ -104,7 +107,7 @@
 		</ul>
 	</div>
 	{% endif %}
-	
+
 	<!-- tags groupd 3 -->
 	{% if array_tag3.size > 0 %}
 	<div class="tag-group {% if section.settings.group_tag_3_label contains 'Color' or section.settings.group_tag_3_label contains 'color' %}color{% else %}non-color{% endif %}" id="coll-filter-3">
@@ -112,7 +115,7 @@
 		{% if section.settings.group_tag_3_label contains 'Color' or section.settings.group_tag_3_label contains 'color' %}
 			{% assign swatch = 'swatch-tag' %}
 		{% endif %}
-		<p class="title">{{ section.settings.group_tag_3_label }}<span class="sticon-caret-d-small"></span></p>
+		<p class="title">{{ section.settings.group_tag_3_label }}<span class="slectedfilter"><span class="filtercount"></span> <span>Selected</span></span><span class="sticon-caret-d-small"></span></p>
 		<ul>
           <span class="closeit">
             <span class="desk_hide">Filter By {{ section.settings.group_tag_3_label }}</span>
@@ -130,14 +133,14 @@
 					{% assign style = 'background-color: ' | append: tag | downcase | append: '; background-image: url(' | append: color_img | append: ');' %}
 					{% if current_tags contains tag %}
 						<li rel="{{tag}}" class="active swatch-tag {% if tag == 'White' or tag == 'white' %} white-color{% endif %}">
-                         <a href="{{tag}}"><span style="{{ style }}" class="btooltip" data-toggle="tooltip" data-placement="top" title="{{tag}}"></span> {{tag}}</a>
+                         <a href="{{tag}}"><span style="{{ style }}" class="btooltip" data-toggle="tooltip" data-placement="top" title="{{tag}}"></span> {% if tag == 'sickkids' %}Sentaler for Sick Kids {% else %}{{tag}}{% endif %}</a>
           				</li>
 					{% else %}
 						<li rel="{{tag}}" class="swatch-tag {% if tag == 'White' or tag == 'white' %} white-color{% endif %}">
-                        <a href="{{tag}}"><span style="{{ style }}" class="btooltip" data-toggle="tooltip" data-placement="top" title="{{tag}}"></span> {{tag}}</a>
+                        <a href="{{tag}}"><span style="{{ style }}" class="btooltip" data-toggle="tooltip" data-placement="top" title="{{tag}}"></span> {% if tag == 'sickkids' %}Sentaler for Sick Kids {% else %}{{tag}}{% endif %}</a>
           				</li>
 					{% endif %}
-					
+
 				{% else %}
 					{% if current_tags contains tag %}
 						<li rel="{{tag}}" class="active">{{ '<span class="fe-checkbox"></span> ' | append: tag | link_to_remove_tag: tag }}</li>
@@ -154,7 +157,7 @@
 		</ul>
 	</div>
 	{% endif %}
-  
+
     <!-- tags groupd 4 -->
 	{% if array_tag4.size > 0 %}
 	<div class="tag-group  {% if section.settings.group_tag_4_label contains 'Color' or section.settings.group_tag_4_label contains 'color' %}color{% else %}non-color{% endif %}" id="coll-filter-4">
@@ -162,7 +165,7 @@
 		{% if section.settings.group_tag_4_label contains 'Color' or section.settings.group_tag_4_label contains 'color' %}
 			{% assign swatch = 'swatch-tag' %}
 		{% endif %}
-		<p class="title">{{ section.settings.group_tag_4_label }}<span class="sticon-caret-d-small"></span></p>
+		<p class="title">{{ section.settings.group_tag_4_label }}<span class="slectedfilter"><span class="filtercount"></span> <span>Selected</span></span><span class="sticon-caret-d-small"></span></p>
 		<ul>
          <span class="closeit">
            <span class="desk_hide">Filter By {{ section.settings.group_tag_4_label }}</span>
@@ -180,20 +183,20 @@
 					{% assign style = 'background-color: ' | append: tag | downcase | append: '; background-image: url(' | append: color_img | append: ');' %}
 					{% if current_tags contains tag %}
 						<li rel="{{tag}}" class="active swatch-tag {% if tag == 'White' or tag == 'white' %} white-color{% endif %}">
-                         <a href="{{tag}}"><span style="{{ style }}" class="btooltip" data-toggle="tooltip" data-placement="top" title="{{tag}}"></span> {{tag}}</a>
+                         <a href="{{tag}}"><span style="{{ style }}" class="btooltip" data-toggle="tooltip" data-placement="top" title="{{tag}}"></span>{% if tag == 'sickkids' %}Sentaler for Sick Kids {% else %}{{tag}}{% endif %}</a>
           				</li>
 					{% else %}
 						<li rel="{{tag}}" class="swatch-tag {% if tag == 'White' or tag == 'white' %} white-color{% endif %}">
-                          <a href="{{tag}}"><span style="{{ style }}" class="btooltip" data-toggle="tooltip" data-placement="top" title="{{tag}}"></span> {{tag}}</a>
+                          <a href="{{tag}}"><span style="{{ style }}" class="btooltip" data-toggle="tooltip" data-placement="top" title="{{tag}}"></span> {% if tag == 'sickkids' %}Sentaler for Sick Kids {% else %}{{tag}}{% endif %}</a>
           			    </li>
 					{% endif %}
-					
+
 				{% else %}
 					{% if current_tags contains tag %}
 						<li rel="{{tag}}" class="active">{{ '<span class="fe-checkbox"></span> ' | append: tag | link_to_remove_tag: tag }}</li>
 					{% else %}
 						<li rel="{{tag}}">{{ '<span class="fe-checkbox"></span> ' | append: tag | link_to_add_tag: tag }}</li>
-       
+
 					{% endif %}
 				{% endif %}
 			{% endif %}
@@ -205,6 +208,60 @@
 		</ul>
 	</div>
 	{% endif %}
+    {% endif %}
+<div class="tag-group  non-color" id="coll-filter-5" style="display:none!important">
+		<ul>
+          <li rel="sale" class="sale" ><a href="/collections/{{collection.handle}}/sale"></a></li>
+		  <li rel="pre-order" class="pre-order" ><a href="/collections/{{collection.handle}}/pre-order"></a></li>
+		   <li rel="available-now" class="avialable" ><a href="/collections/{{collection.handle}}/available-now"></a></li>
+
+          <div class="filter_btn">
+                 <span class="apply">Apply filters</span>
+          </div>
+		</ul>
+	</div>
+  <!-- View as -->
+     <a class="allclear" style="display:none" href="/collections/{{collection.handle}}">Clear All</a>
+
+                    <div class="list-inline text-right">
+
+                    <!-- Sort by -->
+
+                    <div class="sortBy">
+                      <div id="sortButtonWarper" class="">
+                        <button id="sortButton">
+                          <span class="name">Sort</span><i class="sticon-caret-d-small"></i>
+                        </button>
+                        <i class="sub-dropdown1"></i>
+                        <i class="sub-dropdown"></i>
+                      </div>
+                      <div id="sortBox" class="control-container dropdown-menu">
+
+                        <ul id="sortForm" class="list-unstyled option-set text-left list-styled" data-option-key="sortBy">
+                          <span class="closeit">
+
+                         <svg width="64" version="1.1" xmlns="http://www.w3.org/2000/svg" height="64" viewBox="0 0 64 64" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 64 64">
+                          <g>
+                            <path fill="#1D1D1B" d="M28.941,31.786L0.613,60.114c-0.787,0.787-0.787,2.062,0,2.849c0.393,0.394,0.909,0.59,1.424,0.59   c0.516,0,1.031-0.196,1.424-0.59l28.541-28.541l28.541,28.541c0.394,0.394,0.909,0.59,1.424,0.59c0.515,0,1.031-0.196,1.424-0.59   c0.787-0.787,0.787-2.062,0-2.849L35.064,31.786L63.41,3.438c0.787-0.787,0.787-2.062,0-2.849c-0.787-0.786-2.062-0.786-2.848,0   L32.003,29.15L3.441,0.59c-0.787-0.786-2.061-0.786-2.848,0c-0.787,0.787-0.787,2.062,0,2.849L28.941,31.786z"></path>
+                          </g>
+                        </svg>
+                        </span>
+                          <!--<li class="sort manual"><a href="/?sort_by=manual"><span class="fe-checkbox"></span>{{'collections.sorting.featured'|t}}</a></li>-->
+                          <li class="sort price-ascending"><a href="/?sort_by=price-ascending"><span class="fe-checkbox"></span>{{'collections.sorting.price_ascending'|t}}</a></li>
+                          <li class="sort price-descending"><a href="/?sort_by=price-descending"><span class="fe-checkbox"></span>{{'collections.sorting.price_descending'|t}}</a></li>
+                          <li class="sort title-ascending"><a href="/?sort_by=title-ascending"><span class="fe-checkbox"></span>{{'collections.sorting.az'|t}}</a></li>
+                          <li class="sort title-descending"><a href="/?sort_by=title-descending"><span class="fe-checkbox"></span>{{'collections.sorting.za'|t}}</a></li>
+                          <!--<li class="sort created-ascending"><a href="/?sort_by=created-ascending"><span class="fe-checkbox"></span>{{'collections.sorting.date_ascending'|t}}</a></li>
+                          <li class="sort created-descending"><a href="/?sort_by=created-descending"><span class="fe-checkbox"></span>{{'collections.sorting.date_descending'|t}}</a></li>-->
+                          <li class="sort best-selling"><a href="/?sort_by=best-selling"><span class="fe-checkbox"></span>{{'collections.sorting.best_selling'|t}}</a></li>
+                          <!--<li class="tag pre-order"><a href="pre-order"><span class="fe-checkbox"></span>Pre Order</a></li>
+                          <li class="tag sale"><a href="sale"><span class="fe-checkbox"></span>By Sale</a></li>
+                          <li class="tag available-now"><a href="avialable"><span class="fe-checkbox"></span>Available</a></li>-->
+                        </ul>
+                      </div>
+                    </div>
+
+                    </div>
 </div>
 <script>
   Shopify.queryParams = {};
@@ -216,12 +273,14 @@
       }
     }
   }
+
   $('.tag-group').each(function() {
     if($(this).find('ul li').hasClass('active')){
       $(this).addClass('active');
+
     }
   });
- 
+
     var getlength = $('#coll-filter-1 ul li').length;
       if(getlength > 5)
       {
@@ -242,26 +301,54 @@
       {
         $('#coll-filter-4').addClass('halfli');
       }
-  
+
   $(function () {
     var tags=[];
     $('.tag-group ul li a').click(function(e){
       e.preventDefault();
       $(this).closest('li').toggleClass('active');
+       $(this).closest('.tag-group').addClass('active');
     });
     $('.apply').click(function(){
-       tags=[];
-     var tagstr = tagsjoin(); 
-    
-    delete Shopify.queryParams.page;
+         var getcount = $(this).closest('ul').find('li.active').length;
+         $(this).closest('.tag-group').find('.filtercount').html(getcount);
+         $(this).closest('.tag-group').find('.slectedfilter').show();
+         $(this).closest('.tag-group').addClass('active');
+         tags=[];
+         var tagstr = tagsjoin();
+//     	delete Shopify.queryParams.page;
+
    {% if collection.handle %}
     var newURL = '/collections/{{ collection.handle }}/';
     newURL += tagstr;
-    var search = jQuery.param(Shopify.queryParams);
+    var search = window.location.search;
     if (search.length) {
-      newURL += '?' + search;
+      newURL += search;
     }
     location.href = newURL;
+      var url = newURL;
+       $('.custom_overlay').show();
+       $('.closeit').trigger('click');
+      console.log(url);
+        window.location.href = url;
+//        $.ajax({
+//         type: 'GET',
+//         url: url,
+//         data: {},
+//         beforeSend: function( xhr ) {
+//         $('.custom_overlay').css('display','block');
+
+//         },
+//         complete: function (data) {
+//           $('.collection-items').html($(".collection-items", data.responseText).html());
+//           history.pushState({
+//             page: url
+//           }, url, url);
+//            $('.custom_overlay').css('display','none');
+//           var tot_product = $('.collection-items').length;
+//            $('.prd_count').html(tot_product);
+//         }
+//       });
     {% else %}
     if (tagstr.length) {
       Shopify.queryParams.constraint = tagstr;
@@ -271,25 +358,70 @@
     }
     location.search = jQuery.param(Shopify.queryParams);
     {% endif %}
+	$('.allclear').show();
 
-     
     });
-    $('.active .clear').click(function(){
+    var tagstr ="";
+   $(document).on('click', '.active .clear', function(){
+
+      tags=[];
       var search = jQuery.param(Shopify.queryParams);
-      var tagstr = tagsjoin();  
+      $(this).closest( ".tag-group").find("ul li.active" ).each(function(){
+           var url = $(this).attr('rel');
+           tags.push($(this).attr('rel'));
+        });
+       if(tags.length > 1){
+         tagstr = tags.join("+");
+      	}
+       else{ tagstr = tags; }
+     console.log(tagstr);
       var get_url = window.location.href;
       if (get_url.indexOf(tagstr) > 0) {
-	    var clean_uri = get_url.substring(0, get_url.indexOf(tagstr));
-	     window.location.href = clean_uri
+        $('.custom_overlay').show();
+        $('.closeit').trigger('click');
+        $(this).closest('.tag-group').find('.slectedfilter').hide();
+	    //var url = get_url.substring(0, get_url.indexOf(tagstr));
+        var url = get_url;
+
+         if(url.indexOf(tagstr+'+') >0 ){ url = get_url.replace(tagstr+'+',""); }
+         else if(url.indexOf('+'+tagstr) >0 ){ url = get_url.replace('+'+tagstr,""); }
+         else { url = get_url.replace(tagstr,""); }
+       window.location.href = url;
+//         $.ajax({
+//               type: 'GET',
+//               url: url,
+//               data: {},
+//               beforeSend: function( xhr ) {
+//               $('.custom_overlay').css('display','block');
+//          },
+//         complete: function (data) {
+//           $('.collection-items').html($(".collection-items", data.responseText).html());
+//           history.pushState({
+//             page: url
+//           }, url, url);
+//            $('.custom_overlay').css('display','none');
+//            var tot_product = $('.collection-items').length;
+//            $('.prd_count').html(tot_product);
+//           if(tot_product < 1){
+//           $('.collection-toolbar').append('<h4 class="text-center">Sorry No Products Are Avaialable</h4>');
+//           }
+//         }
+//       });
+        $(this).closest( ".tag-group").find("ul li.active" ).each(function(){$(this).removeClass('active')});
+        $(this).closest( ".tag-group").removeClass('active');
 	}
+    else
+    {
+       $(this).closest( ".tag-group").find("ul li").removeClass('active');
+    }
     });
   function tagsjoin()
     {
       $( ".tag-group ul li.active" ).each(function() {
         var url = $(this).attr('rel');
-        
+
         tags.push($(this).attr('rel'));
-      
+
       });
       if(tags.length > 1){
         var tagstr = tags.join("+");
@@ -299,8 +431,49 @@
          var tagstr = tags;
         return tagstr;
       }
-      
+
     }
 
   });
+
+  $(window).load(function(){
+     $('.tag-group.active').each(function () {
+       	var getlength = $(this).find('li.active').length;
+        $(this).find('.slectedfilter').show();
+       	$(this).find('.filtercount').html(getlength);
+       console.log(getlength);
+       if(getlength == 0 ){
+
+
+       }
+     });
+  });
 </script>
+
+<!--
+<script>
+  $(function () {
+    $("#coll-filter-1 ul li a, #coll-filter-2 ul li a, #coll-filter-3 ul li a, #coll-filter-4 ul li a").click(function (event) {
+      event.preventDefault();
+      var url = $(this).attr('href');
+      $.ajax({
+        type: 'GET',
+        url: url,
+        data: {},
+        beforeSend: function( xhr ) {
+          $("#tags-load").show();
+        },
+        complete: function (data) {
+          $('#collection').html($("#collection", data.responseText).html());
+          history.pushState({
+            page: url
+          }, url, url);
+          $("#tags-load").hide();
+          handleGridList();
+          toggleTagsFilter();
+        }
+      });
+    });
+  });
+</script>
+-->

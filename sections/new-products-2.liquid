@@ -1,0 +1,151 @@
+<div class="product-grid">
+  <div class="container c_pad0">
+    <div class="row no-margins normal-paddings">
+        {% for block in section.blocks %}
+          {% if block.type == 'product' %}
+          <div class="{{ block.settings.width }} col-xs-6">
+            {% assign product = all_products[block.settings.product] %}
+            {% include 'new-product-item' %}
+          </div>
+          {% elsif block.type == 'image' %}
+          <div class="{{ block.settings.width }} col-xs-6">
+            {% unless grid_image_width %}
+              {%- assign grid_image_width = '600x' -%}
+            {% endunless %}
+            <div class="item">
+              <div class="row-inner">
+                <div class="row-left">
+                  <a href="{{ block.settings.url }}" class="hoverBorder container_item">
+                    <img src="{{ block.settings.image | img_url: grid_image_width }}" class="{% if settings.product_item_effect != 'rotation' %}not-rotation{% endif %} img-responsive front" alt="" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% elsif block.type == 'text' %}
+          <div class="{{ block.settings.width }} col-xs-12 vertical-center-text">
+            <img src="{{ block.settings.hidden_image | img_url : 'master' }}" class="img-responsive" alt="" >
+            {{ block.settings.content }}
+          </div>
+          {% endif %}
+        {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Featured Products",
+  "class": "featured-products-section",
+  "settings": [
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        {
+           "type": "product",
+           "id": "product",
+           "label": "Product"
+        },
+        {
+          "type": "select",
+          "id": "width",
+          "label": "width",
+          "default": "col-md-3",
+          "options": [
+            {
+              "value": "col-md-3",
+              "label": "25%"
+            },
+            {
+              "value": "col-md-6",
+              "label": "50%"
+            },
+            {
+              "value": "col-md-12",
+              "label": "100%"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+           "type": "image_picker",
+           "id": "image",
+           "label": "Image"
+        },
+        {
+           "type": "url",
+           "id": "url",
+           "label": "Link"
+        },
+        {
+          "type": "select",
+          "id": "width",
+          "label": "width",
+          "default": "col-md-3",
+          "options": [
+            {
+              "value": "col-md-3",
+              "label": "25%"
+            },
+            {
+              "value": "col-md-6",
+              "label": "50%"
+            },
+            {
+              "value": "col-md-12",
+              "label": "100%"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content"
+        },
+        {
+          "type": "select",
+          "id": "width",
+          "label": "width",
+          "default": "col-md-3",
+          "options": [
+            {
+              "value": "col-md-3",
+              "label": "25%"
+            },
+            {
+              "value": "col-md-6",
+              "label": "50%"
+            },
+            {
+              "value": "col-md-12",
+              "label": "100%"
+            }
+          ]
+        },
+        {
+          "type":"image_picker",
+    			"id":"hidden_image",
+    			"label":"Hidden Image",
+          "info": "Hidden image for height"
+        }
+      ]
+    }
+  ],
+  "presets": [
+  ]
+}
+{% endschema %}

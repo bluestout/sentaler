@@ -887,6 +887,11 @@
         "info": "PNG format"
       },
       {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon"
+      },
+      {
         "type": "header",
         "content": "Scroll to Top"
       },
@@ -1067,6 +1072,42 @@
         "type": "checkbox",
         "id": "share_google",
         "label": "+1 on Google Plus"
+      }
+    ]
+  },
+  {
+    "name": "Cart",
+    "settings": [
+      {
+        "type": "text",
+        "id": "freeshiptext",
+        "label": "Shipping Text"
+      },
+      {
+        "type": "text",
+        "id": "returntext",
+        "label": "Return Text"
+      },
+      {
+        "type": "text",
+        "id": "gifttext",
+        "label": "Wrapping Text"
+      },
+      {
+        "type": "text",
+        "id": "dutytext",
+        "label": "Duty Text"
+      },
+      {
+        "type": "text",
+        "id": "shippingtext",
+        "label": "Shipping Text"
+      },
+      {
+        "type": "text",
+        "id": "freetext",
+        "label": "Free text",
+        "default": "Free"
       }
     ]
   }
