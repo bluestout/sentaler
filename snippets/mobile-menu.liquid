@@ -15,14 +15,14 @@
 
 {% if megaitem contains item %}
   <li class="mainitem {% if l.active %}active {% endif %}   {% if megaitem contains item %}has_megadrop{% endif %}">
-    <a href="{{ l.url }}" class="mainmenu" data-toggle="dropdown" aria-expanded="false">
+    <a href="{{ l.url }}" class="mainmenu" {% if l.title != 'Men' %}data-toggle="dropdown"{% endif %} aria-expanded="false">
       <span>{{ l.title }}</span>
-        {% if megaitem contains item %} <span class="sticon-caret-d-small"></span>{% endif %}
+        {% if megaitem contains item %} {% if l.title != 'Men' %}<span class="sticon-caret-d-small"></span>{% endif %}{% endif %}
     </a>
     {% for block in section.blocks %}
         {% assign megahandle = block.settings.mega_handle | handleize %}
         {% if megahandle == item %}
-
+        {% if l.title != 'Men' %}
             <ul class="{{ item }} mobiledropdown">
                  {% for j in (1..7) %}
                      {% assign main_titile = 'title_' | append: j %}
@@ -36,7 +36,7 @@
                           {% endif %}
                   {% endfor %}
             </ul>
-
+            {% endif %}
         {% endif %}
      {% endfor %}
 

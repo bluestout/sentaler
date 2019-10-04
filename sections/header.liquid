@@ -371,7 +371,7 @@
   </div>
 </section>
 
-<section class="main-header {% if template =='index' %}index{% elsif template contains 'header-v2' %}white fixed{% endif %}">
+<section class="main-header {% if template == 'index' and section.settings.header_color == false %}white fixed{% endif %} {% if template =='index' %}index{% elsif template contains 'header-v2' %}white fixed{% endif %}">
   <div class="main-header-wrapper">
     <div class="container">
       <div class="row">
@@ -610,6 +610,12 @@
       "type": "image_picker",
       "id": "logo",
       "label": "Logo image"
+    },
+    {
+      "type": "checkbox",
+      "id": "header_color",
+      "label": "Black header color",
+      "default": true
     },
 	{
         "type": "header",

@@ -1,4 +1,4 @@
-<div class="home_banner">
+<div class="home_banner" id="banner_{{section.id}}">
   <div class="banner_div b_{{section.id}} main align_{{section.settings.alignment}} set_{{section.settings.width}}" >
   </div>
     <div class="banner_text align_{{section.settings.alignment}}" >
@@ -17,9 +17,10 @@
 
 </div>
 <style>
-  .home_banner h4{color:{{section.settings.heading_color}} }
-  .home_banner p{color:{{section.settings.text_color}} }
-  .home_banner a{color:{{section.settings.text_color2}};border-color:{{section.settings.text_color2}}}
+  #banner_{{section.id}}.home_banner h4{color:{{section.settings.heading_color}} }
+  #banner_{{section.id}}.home_banner p{color:{{section.settings.text_color}} }
+  #banner_{{section.id}}.home_banner a{color:{{section.settings.text_color2}};border-color:{{section.settings.text_color2}}}
+  #banner_{{section.id}}.home_banner a:hover {color: #fff;}
   .b_{{section.id}}{ background-image:url({{section.settings.image | img_url:"master"}})}
   @media only screen
   and (max-width:767px) {

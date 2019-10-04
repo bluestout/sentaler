@@ -1,4 +1,4 @@
- 
+
 {% assign megaitem = section.settings.mega_item | downcase  %}
 {% assign megaitem = megaitem | split: ',' | uniq  %}
 {% assign megaitem = megaitem | handleize  %}
@@ -7,14 +7,15 @@
   {% assign item = l.title | downcase  | handleize  %}
 
   <li rel="{{item}}" class="mainitem {% if l.active %}active {% endif %}  {% if megaitem contains item %} has_deskmega{% endif %}">
-    <a href="{{ l.url }}" class="mainmenu" data-toggle="dropdown">
+    <a href="{{ l.url }}" class="mainmenu" {% if l.title != 'Men' %}data-toggle="dropdown"{% endif %}>
       <span>{{ l.title }}</span>
-       {% if megaitem contains item %} <span class="sticon-caret-d-small"></span>{% endif %}
-    </a>  
+       {% if megaitem contains item %} {% if l.title != 'Men' %}<span class="sticon-caret-d-small"></span>{% endif %}{% endif %}
+    </a>
     {% for block in section.blocks %}
         {% assign megahandle = block.settings.mega_handle | handleize %}
         {% if megahandle == item %}
-         <div class="{{ item }} megadropdown">  
+        {% if l.title != 'Men' %}
+         <div class="{{ item }} megadropdown">
             <ul class="megawrap">
                  {% for j in (1..7) %}
                      {% assign main_titile = 'title_' | append: j %}
@@ -23,14 +24,14 @@
                              <li>
                               <a href="{{block.settings[main_link]}}" class="megainnerlink">
                                 {{block.settings[main_titile]}}
-                                
+
                                 {% assign c = 0 %}
-                                 {% for i in (1..4) %}                                
+                                 {% for i in (1..4) %}
                                   {% capture b_img %}image_{{ j }}_{{ i }}{% endcapture %}
                                     {% if block.settings[b_img]  %}
                                      {% assign c = 1 %}
                                     {% endif %}
-                                {% endfor %}                                
+                                {% endfor %}
                                 {% if c == 1 %} <span class="sticon-caret-r-small"></span>{% endif %}
                               </a>
                               <div class="merga-imgblock" >
@@ -59,6 +60,7 @@
             </ul>
         </div>
         {% endif %}
+        {% endif %}
      {% endfor %}
 
   </li>
@@ -67,14 +69,14 @@
 <!--   <li rel="{{item}}" class="mainitem {% if l.active %}active {% endif %}   {% if linklists[child_list_handle].links != blank %} has_standard{% endif %}">
     <a href="{{ l.url }}" class="mainmenu" data-toggle="dropdown">
       <span>{{ l.title }}</span>
-    {% comment %}  
+    {% comment %}
     {% if linklists[child_list_handle].links != blank %}<span class="sticon-caret-d-small"></span>
       {% endif %}
     </a>
     {% if linklists[child_list_handle].links != blank %}
       <div class="{{ item }} megastandard">
         <ul>
-          {% for childlink in linklists[child_list_handle].links %}          
+          {% for childlink in linklists[child_list_handle].links %}
             <li {% if childlink.active %}class="active"{% endif %}>
               <a href="{{ childlink.url }}">{{ childlink.title }}</a>
             </li>
@@ -86,4 +88,3 @@
   </li> -->
  {% endcomment %}
 {% endfor %}
- 

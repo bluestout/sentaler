@@ -21,14 +21,14 @@
       {%- assign is_background_video = true -%}
       {% endif %}
       {% endif %}
-		
+
       <div class="slideshow__slide slideshow__slide--{{ block.id }}{% if is_background_video %} slideshow__slide--background-video{% endif %}" {{ block.shopify_attributes }}>
         {% if block.settings.link != blank %}
-        <a href="{{ block.settings.link }}" class="slideshow__link">
+        <a href="{{ block.settings.link }}" class="slideshow__link" id="slideshow__{{block.id}}">
           {% endif %}
 		<style>
-          .slideshow__title{color:{{block.settings.text_color}};}
-          .slide_btn{border-color:{{block.settings.text_color2}};color:{{block.settings.text_color2}}}
+          #slideshow__{{block.id}} .slideshow__title{color:{{block.settings.text_color}};}
+          #slideshow__{{block.id}} .slide_btn{border-color:{{block.settings.text_color2}};color:{{block.settings.text_color2}}}
       	</style>
           {% if block.settings.image != blank %}
           <style>
@@ -81,10 +81,10 @@
                 background-image: url('{{ '1920x750.png' | asset_url }}');
                   }
             }
-           
+
           </style>
           {% endif %}
-	
+
           {% if block.type == 'video' %}
           {% if block.settings.video_id != blank %}
           <div class="video-loader"></div>
