@@ -296,6 +296,14 @@ $(window).ready(function($) {
   $.cookie('modular-fs-cookie', 'active', { expires: 10});
 });
 $(document).ready(function(){
+
+  if(window.location.hash) {
+    var hash = window.location.hash;
+    $('html, body').animate({
+      scrollTop: $(hash).offset().top + 350
+    }, 0, 'linear');
+  }
+
     function changeCallback(event) {
       console.log(event.item);
       console.log($(event.target).find('.tab-link').data('id'));
@@ -505,8 +513,14 @@ $('#featuted-image a[data-fancybox]').fb({
         // Get the field name
         fieldName = $(this).attr('field');
         // Get its current value
-        console.log(fieldName);
         var currentVal = parseInt( $('input.'+fieldName+'').val());
+
+        var ptype = $(this).parents('.qty').data('ptype');
+        if ((ptype == 'coat') || (ptype == 'cape')) {
+          var gift_product_qty = parseInt($(".cart-content #cartform .cart-row[data-product-id='4138927947831']").find('input.item-quantity').val());
+          $(".cart-content #cartform .cart-row[data-product-id='4138927947831']").find('input.item-quantity').val(gift_product_qty+1);
+        }
+
         // If is not undefined
         if (!isNaN(currentVal)) {
             // Increment
@@ -525,6 +539,14 @@ $('#featuted-image a[data-fancybox]').fb({
         fieldName = $(this).attr('field');
         // Get its current value
         var currentVal = parseInt( $('input.'+fieldName+'').val());
+
+        var ptype = $(this).parents('.qty').data('ptype');
+        if ((ptype == 'coat') || (ptype == 'cape')) {
+          if (currentVal == 1) {
+            var gift_product_qty = parseInt($(".cart-content #cartform .cart-row[data-product-id='4138927947831']").find('input.item-quantity').val());
+            $(".cart-content #cartform .cart-row[data-product-id='4138927947831']").find('input.item-quantity').val(gift_product_qty-1);
+          }
+        }
         // If it isn't undefined or its greater than 0
         if (!isNaN(currentVal) && currentVal > 0) {
             // Decrement one
@@ -534,6 +556,15 @@ $('#featuted-image a[data-fancybox]').fb({
             $('input.'+fieldName+'').val(0);
         }
       $('#update-cart').trigger('click');
+    });
+    $('.cart_remove').click(function(e){
+      e.preventDefault();
+      var current_qty = parseInt($(this).parents('.c_info').find('.item-quantity').val());
+      var gift_product_qty = parseInt($(".cart-content #cartform .cart-row[data-product-id='4138927947831']").find('input.item-quantity').val());
+      var new_gift_qty = gift_product_qty - current_qty + 1;
+      $(".cart-content #cartform .cart-row[data-product-id='4138927947831']").find('input.item-quantity').val(new_gift_qty);
+      $(this).parents('.c_info').find('.item-quantity').val(1);
+      $(this).parents('.c_info').find('.qtyminus').trigger('click');
     });
   $('span.specialnote').click(function(){
     $(this).toggleClass('checked');
@@ -633,6 +664,7 @@ $('.shipinfo').click(function(e){
 var $cache = $('.purchase-section');
 
 //store the initial position of the element
+if ($cache.length) {
 var vTop = $cache.offset().top - parseFloat($cache.css('margin-top').replace(/auto/, 0));
   $(window).scroll(function (event) {
     if($('.purchase-section').length){
@@ -649,6 +681,7 @@ var vTop = $cache.offset().top - parseFloat($cache.css('margin-top').replace(/au
     }
     }
   });
+}
 
 $(window).load(function() {
  var getc = $('.swatch-element.color').attr('data-value');

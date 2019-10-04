@@ -29,7 +29,7 @@
                 <div class="col-sm-8">
                   <span class="desk_hide m_title">Bag Content</span>
                     {% for item in cart.items %}
-                    <div class="cart-row">
+                    <div class="cart-row" data-product-id="{{ item.product.id }}">
                       <div class="image">
                         <div class="product_image">
                           <a href="{{ item.url }}">
@@ -71,11 +71,12 @@
 
 
                           </div>
-                          <a href="/cart/change?line={{ forloop.index }}&quantity=0" class="cart_remove m_hide">Remove</a>
+                          <!--<a href="/cart/change?line={{ forloop.index }}&quantity=0" class="cart_remove m_hide">Remove</a>-->
+                          <a href="#" class="cart_remove m_hide">Remove</a>
                         </div>
 
 
-                      <div class="qty">
+                      <div class="qty" data-ptype="{{ item.product.type | downcase }}">
                         <div class="quantity-wrapper">
                           <div class="wrapper">
                             <span class='qtyminus sticon-minus' field='quantity_{{forloop.index}}'></span>
@@ -85,7 +86,8 @@
                         </div><!--End quantily wrapper-->
                       </div>
                       <div class="price">{{ item.price | money }}</div>
-                      <a href="/cart/change?line={{ forloop.index }}&quantity=0" class="cart_remove desk_hide">Remove</a>
+                      <!--<a href="/cart/change?line={{ forloop.index }}&quantity=0" class="cart_remove desk_hide">Remove</a>-->
+                      <a href="#" class="cart_remove desk_hide">Remove</a>
                       </div>
 
                     </div>
