@@ -978,6 +978,48 @@ input {
   }
 }
 
+#gwp_popup {
+  &.custompop {
+    max-width: 100%;
+    bottom: 0;
+    transform: none;
+    left: 0;
+    top: auto;
+    background: #e1e1e1;
+    box-shadow: 0px -10px 15px rgba(0, 0, 0, 0.15);
+    border-top: 1px solid #fff;
+    padding: 20px 0 40px;
+    transition: all 0.8s ease;
+    h3 {
+      margin-top: 10px;
+      font-size: 20px;
+      font-weight: 500;
+    }
+    svg {
+      width: 15px;
+      opacity: 1;
+    }
+    span {
+      &.close {
+        font-size: 15px !important;
+        padding-right: 10px;
+        margin-top: 1px;
+        color: #fff;
+        opacity: 1;
+        font-family: "neue-haas-grotesk-display",sans-serif !important;
+        letter-spacing: 1px;
+        text-shadow: none;
+        font-weight: 200;
+      }
+    }
+    .inner-content {
+      p {
+        max-width: 520px;
+      }
+    }
+  }
+}
+
 /* ---------- mobile responsive ------------*/
 @media only screen and (max-width: 767px) {
   h1 {

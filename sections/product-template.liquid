@@ -141,7 +141,7 @@
                     {% assign hide_default_title = true %}
                   {% endif %}
 
-                  <form id="add-item-form" action="/cart/add" method="post" class="variants clearfix">
+                  <form id="add-item-form" action="/cart/add" method="post" class="variants clearfix" data-ptype="{{ product.type | downcase }}">
                     {% if product.description contains '[split]' %}
                     <div class="color-option">
                      {%-  assign prd_des_cp =  product.description | split: '[split]'   -%}

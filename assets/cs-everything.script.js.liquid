@@ -484,9 +484,19 @@ $('#featuted-image a[data-fancybox]').fb({
     $('.overlay_g').show();
 
   });
-  $('.custompop svg').click(function(){
+  $('.custompop.normal svg').click(function(){
   	$('.custompop,.overlay_g').hide();
-
+  });
+  $('.custompop.gwp svg').click(function(){
+  	$('.custompop').hide();
+    $('#cart-info').show();
+    $('body,html').addClass('quickcart');
+    $('.wishlist-model .close').trigger('click');
+  });
+  $('.custompop.gwp .close').click(function(){
+  	$('.custompop').hide();
+    $('#cart-info').show();
+    $('body,html').addClass('quickcart');
   });
   $('.overlay_g').click(function(){	$('.custompop,.overlay_g,#cart-info').hide();$('body,html').removeClass('quickcart'); });
   $('.qtyplus').click(function(e){
