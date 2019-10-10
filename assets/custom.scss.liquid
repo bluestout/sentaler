@@ -1023,6 +1023,19 @@ input {
   }
 }
 
+@media only screen and (max-width: 1024px) {
+  .product_deatil_metainfo {
+    .flex_row_prd {
+      display: block;
+      justify-content: unset;
+      flex-wrap: unset;
+      img {
+        width: 33.05%;
+      }
+    }
+  }
+}
+
 @media only screen and (max-width: 1023px) {
   .product_deatil_metainfo {
     .flex_row_prd {
@@ -1030,6 +1043,7 @@ input {
       justify-content: unset;
       flex-wrap: unset;
       img {
+        width: 49.3%;
         &:nth-child(2n) {
           float: right;
         }

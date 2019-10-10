@@ -227,13 +227,13 @@ $(document).ready(function(){
                }
               else if(location == 'Canada')
               {
-                 window.top.location.href="https://sentaler.ca";
+                 window.top.location.href="https://sentaler.ca" + window.location.pathname;
               $('.shipto .country_name').html('Canada');
               }
               else
               {
                 $('.shipto .country_name').html('Worldwide');
-                window.top.location.href="https://intl.sentaler.com"
+                window.top.location.href="https://intl.sentaler.com" + window.location.pathname;
               }
           }
 

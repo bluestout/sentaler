@@ -69,7 +69,7 @@ function notifyProduct($info){
 function directAddToCart(e){
   var $this = $(this);
   var form = $(this).parents('form');
-  if ($(form).data('ptype') == 'coat' || $(form).data('ptype') == 'cape') {
+  /*if ($(form).data('ptype') == 'coat' || $(form).data('ptype') == 'cape') {
     $.ajax({
       type: 'POST',
       url: '/cart/add.js',
@@ -81,9 +81,9 @@ function directAddToCart(e){
       },
       cache: false
     });
-  } else {
+  } else {*/
     $this.submit();
-  }
+  //}
 }
 
 /* Ajaxy add-to-cart */
@@ -106,13 +106,13 @@ if (typeof e !== 'undefined') e.preventDefault();
   });
   // Hide Modal
   //$('.modal').modal('hide');
-  // $('div#cart-target a').trigger('click');
-  //$('.wishlist-model .close').trigger('click');
+   $('div#cart-target a').trigger('click');
+  $('.wishlist-model .close').trigger('click');
 }
 
 function addToCartSuccess (jqXHR, textStatus, errorThrown){
 
-  var ptype = $('#add-item-form').data('ptype');
+  /*var ptype = $('#add-item-form').data('ptype');
   if (ptype == 'cape' || ptype == 'coat') {
     $.ajax({
       type: 'POST',
@@ -130,7 +130,7 @@ function addToCartSuccess (jqXHR, textStatus, errorThrown){
       },
       cache: false
     });
-  }
+  }*/
   $.ajax({
     type: 'GET',
     url: '/cart.js',

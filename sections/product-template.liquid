@@ -398,8 +398,12 @@
       $('.item-ship').show();
       if ($(elm).data('shipmessage')) {
         $('.shipdateprd').html($(elm).data('shipmessage'));
+        $('.preordercart').show();
+        $('.customcart').hide();
       } else {
         $('.shipdateprd').html("Size "+ $(elm).data('value') +" will ship immediately");
+        $('.preordercart').hide();
+        $('.customcart').show();
       }
 
       jQuery('#add-to-cart').removeAttr('disabled').removeClass('disabled'); // remove unavailable class from add-to-cart button, and re-enable button
