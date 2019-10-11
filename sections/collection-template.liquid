@@ -113,7 +113,7 @@
                     {% for product in collection.products %}
 
                      {% if collection.metafields["global"]["col_addv1"] == blank or collection.metafields["global"]["col_addv2"] == blank %}
-                    <div class="product-item-wrapper {% cycle 'first', '', '', 'last' %}" style="float:left; width:{{grid_item_width}};">
+                    <div class="product-item-wrapper {% cycle 'first', '', '', 'last' %}" style="display: inline-block; width:{{grid_item_width}};">
                         {% include 'collection-item', grid_image_width: image_size %}
                       </div>
                       {% else %}
@@ -151,7 +151,7 @@
                     </div>
                     {% endif %}
 
-                      <div class="product-item-wrapper {% cycle 'first', '', '', 'last' %}" style="float:left; width:{{grid_item_width}};">
+                      <div class="product-item-wrapper {% cycle 'first', '', '', 'last' %}" style="display: inline-block; width:{{grid_item_width}};">
                         {% include 'collection-item', grid_image_width: image_size %}
                       </div>
 
@@ -162,14 +162,15 @@
 
                   </div>
 
-               	{% if paginate.next %}
+
             	<div class="custombtn">
                  	 <div class="AjaxinatePagination">
-                		<a href="{{ paginate.next.url }}">View <span class="custpag" >{{paginate.items  | minus:16 }}</span> More</a>
+                     {% if paginate.next %}
+                		<a href="{{ paginate.next.url }}">Loading More Products</a>
+                    {% endif %}
 					         </div>
                </div>
                <div class="num_remain_products" data-count="{{ paginate.items | minus: 16 }}"></div>
-            {% endif %}
 
               {% endpaginate %}
             </div>
