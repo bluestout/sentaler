@@ -6,11 +6,11 @@
           <div class="collection-banner-inner">
 
             {% if section.settings.collection_image or section.settings.collection_desc %}
-            <div class="collection-image-wrapper row">
+            <div class="collection-image-wrapper row no-margins">
               {% if section.settings.collection_image %}
               <div class="collection-image col-sm-12 text-center">
                 {% if collection.image %}
-                <img src="{{ collection.image.src | collection_img_url: 'original' }}" alt="{{ collection.title | escape }}" />
+                <img src="{{ collection.image.src | collection_img_url: '2048x' }}" alt="{{ collection.title | escape }}" />
                 {% else %}
                 <img src="{{ section.settings.collection_banner_img | img_url: "1170x", crop: 'center' }}" class="img-responsive" alt="" />
                 {% endif %}
@@ -50,7 +50,7 @@
   <section class="collection-content">
     <div class="collection-content-wrapper">
       <div class="container c_pad0">
-        <div class="row">
+        <div class="row no-margins">
           <div class="collection-content-inner">
             <!-- Tags loading -->
             <div id="tags-load" style="display:none;"><i class="fa fa-spinner fa-pulse fa-2x"></i></div>

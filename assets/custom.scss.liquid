@@ -1112,6 +1112,31 @@ div {
   }
 }
 
+.product-detail-content {
+  .detail-content-wrapper {
+    .detail-content-inner {
+      .detail-content {
+        .info-detail-pro {
+          #product-image {
+            .owl-dots {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+#scasl-app-container {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+.mobileslideshow {
+  display: none !important;
+}
+
 @media only screen and (max-width: 1200px) {
   .top-header-wrapper {
     .container {
@@ -1124,10 +1149,78 @@ div {
   .geolizr-currency-switch-wrapper {
     right: 40px !important;
   }
+  .collection-banner {
+    .collection-banner-wrapper {
+      display: block;
+      .collection-banner-inner {
+        padding: 0;
+      }
+    }
+  }
+  .home_banner {
+    height: 400px;
+    margin: 27px auto 0;
+    .banner_div {
+      position: absolute;
+      height: 100%;
+      background-position: initial;
+    }
+    .banner_inner_wrap {
+      width: 50%;
+    }
+  }
+  .index_quote {
+    margin-top: 2em;
+  }
+  .index_custom_section {
+    margin-bottom: 27px;
+    .flex_wrap {
+      flex-wrap: unset;
+      flex-direction: unset;
+    }
+    .customhalf {
+      width: 50%;
+      height: 100%;
+      &.imgdiv {
+        &.left {
+          order: 2;
+        }
+      }
+    }
+  }
+  .index-list-collection {
+    flex-wrap: unset;
+    .desk-img {
+      display: block !important;
+    }
+    .mob_img {
+      display: none !important;
+    }
+    img {
+      height: auto;
+    }
+    .list-btn {
+      justify-content: center;
+      .index_btn {
+        margin-right: 0;
+      }
+    }
+    .custom_list_col {
+      &.col_3 {
+        width: calc(100% - 67.8%);
+      }
+    }
+  }
 }
 
 /* ---------- mobile responsive ------------*/
 @media only screen and (max-width: 767px) {
+  .desktopslideshow {
+    display: none !important;
+  }
+  .mobileslideshow {
+    display: block !important;
+  }
   h1 {
     &.page-title {
       font-size: 18px;
@@ -1576,5 +1669,59 @@ div {
   }
   .geolizr-currency-switch-wrapper {
     right: 20px !important;
+  }
+  .home_banner {
+    height: auto;
+    margin: 27px auto 31px;
+    .banner_div {
+      background-position: center;
+      position: static;
+      height: 340px;
+    }
+    .banner_inner_wrap {
+      width: 100%;
+    }
+  }
+  .index_quote {
+    margin-top: 0;
+  }
+  .index_custom_section {
+    margin-bottom: 50px;
+    .flex_wrap {
+      flex-wrap: wrap;
+      flex-direction: column;
+    }
+    .customhalf {
+      width: 100%;
+      height: auto;
+      &.imgdiv {
+        &.left {
+          order: unset;
+        }
+      }
+    }
+  }
+  .index-list-collection {
+    flex-wrap: wrap;
+    .desk-img {
+      display: none !important;
+    }
+    .mob_img {
+      display: block !important;
+    }
+    img {
+      height: auto;
+    }
+    .list-btn {
+      justify-content: flex-end;
+      .index_btn {
+        margin-right: 20px;
+      }
+    }
+    .custom_list_col {
+      &.col_3 {
+        width: 100%;
+      }
+    }
   }
 }
