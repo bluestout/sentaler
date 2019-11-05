@@ -66,9 +66,11 @@ Set the extension of your color files below. Use 'png', 'jpeg', 'jpg' or 'gif'.
 
   {% endif %}
   {% assign values = '' %}
+  {% comment %}
   {% if downcased_option contains 'Title' or downcased_option contains 'title' %}
   <div class="sw_title">{{option}}</div>
   {% endif %}
+  {% endcomment %}
   {% for variant in product.variants %}
   {% assign value = variant.options[option_index] %}
   {% unless values contains value %}

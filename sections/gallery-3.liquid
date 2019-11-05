@@ -10,18 +10,49 @@
                 <div class="row {% unless block.settings.padding %}no-gutters{% endunless %}">
                 {% endif %}
 
-                <div class="{{ block.settings.width }} col-xs-12 {% if block.settings.imagem != nil %}hidden-xs{% endif %}">
-                  <img src="{{ block.settings.image | img_url : 'master' }}" class="img-responsive" alt="" >
+                <div id="gallery_{{ block.id }}" class="{{ block.settings.width }} col-xs-12 {% if block.settings.imagem != nil %}hidden-xs{% endif %} {% if block.settings.is_background %}is_background{% endif %} {% if block.settings.is_static_position %}is_absolute {{ block.settings.static_alignment }}{% endif %}">
+                  {% if block.settings.link != blank %}
+                  <a href="{{ block.settings.link }}">
+                  {% endif %}
+                    {% if block.settings.is_background %}
+                    <div class="responsive-image"></div>
+                    {% else %}
+                      <img src="{{ block.settings.image | img_url : 'master' }}" class="img-responsive" alt="" >
+                    {% endif %}
+                  {% if block.settings.link != blank %}
+                  </a>
+                  {% endif %}
+                  {% if block.settings.is_background %}
+                  <style>
+                    #gallery_{{ block.id }} .responsive-image {
+                      width: 100%;
+                      background: url({{block.settings.image | img_url: 'master'}}) no-repeat;
+                      background-size: cover;
+                    }
+                  </style>
+                  {% endif %}
                 </div>
                 {% if block.settings.imagem != nil %}
                 <div class="col-xs-12 d-block visible-xs">
+                  {% if block.settings.link != blank %}
+                  <a href="{{ block.settings.link }}">
+                  {% endif %}
                   <img src="{{ block.settings.imagem | img_url : 'master' }}" class="img-responsive" alt="" >
+                  {% if block.settings.link != blank %}
+                  </a>
+                  {% endif %}
                 </div>
                 {% endif %}
 
                 {% if block.settings.imagem_2 != nil %}
                 <div class="col-xs-12 d-block visible-xs">
+                  {% if block.settings.link != blank %}
+                  <a href="{{ block.settings.link }}">
+                  {% endif %}
                   <img src="{{ block.settings.imagem_2 | img_url : 'master' }}" class="img-responsive" alt="" >
+                  {% if block.settings.link != blank %}
+                  </a>
+                  {% endif %}
                 </div>
                 {% endif %}
 
@@ -67,22 +98,22 @@
           "type": "select",
           "id": "width",
           "label": "width",
-          "default": "col-md-6",
+          "default": "col-md-6 col-sm-6",
           "options": [
             {
-              "value": "col-md-5",
+              "value": "col-md-5 col-sm-5",
               "label": "40%"
             },
             {
-              "value": "col-md-6",
+              "value": "col-md-6 col-sm-6",
               "label": "50%"
             },
             {
-              "value": "col-md-7",
+              "value": "col-md-7 col-sm-7",
               "label": "60%"
             },
             {
-              "value": "col-md-12",
+              "value": "col-md-12 col-sm-12",
               "label": "100%"
             }
           ]
@@ -104,6 +135,34 @@
           "id": "line_end",
           "label": "End of Line",
           "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "is_background",
+          "label": "Image as background",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "is_static_position",
+          "label": "Is static position",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "static_alignment",
+          "label": "Static position alignment",
+          "default": "right",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ]
         },
     		{
     			"type":"url",

@@ -2,7 +2,7 @@
   <div class="grid grid--uniform grid--view-items index_prd_slider owl-carousel owl-theme">
     {% for block in section.blocks %}
     <div class="grid__item">
-      <a href="#" class="action-btn tab-link normal" data-id="{{ block.id }}">
+      <a href="#" class="action-btn tab-link hover" data-id="{{ block.id }}">
       <img src="{{block.settings.image | img_url: "master" }}"/>
       {% if block.settings.btn_text %}
       <div class="list-btn">
@@ -16,7 +16,7 @@
   <div class="row content-wrap">
     <div class="col-md-12">
       {% for block in section.blocks %}
-      <div class="tab-content" data-id="{{ block.id }}" {% unless forloop.first %}style="display: none;"{% endunless %}>
+      <div class="tab-content" id="{{ block.id }}" data-id="{{ block.id }}" {% unless forloop.first %}style="display: none;"{% endunless %}>
         <h4>{{ block.settings.title }}</h4>
         {{ block.settings.content }}
         <a href="{{ block.settings.link }}" class="index_btn">Shop Now</a>

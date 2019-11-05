@@ -21,9 +21,9 @@
       <button type="submit" ><span class="sticon-search"></span></button>
     </form>
   </div>
-  <h1>{{ section.settings.head }}</h1>  
-  <p>Call / Text<a href="tel:{{ section.settings.contact_number | replace: ' ', '' }}">{{ section.settings.contact_number }}</a></p>
-  <p>Email:<a target="_blank" class="c-link" href="mailto:{{ section.settings.mail }}">{{ section.settings.mail }}</a></p>
+  <h1>{{ section.settings.head }}</h1>
+  <p>Call/Text: <a href="tel:{{ section.settings.contact_number | replace: ' ', '' }}">{{ section.settings.contact_number }}</a></p>
+  <p>Email: <a target="_blank" class="c-link" href="mailto:{{ section.settings.mail }}">{{ section.settings.mail }}</a></p>
   <p class="hours">{{section.settings.hours}}</p>
 </div>
 <div class="index-list-collection text-center">
@@ -96,13 +96,13 @@
 			"id":"hours",
 			"label":"Hours"
 		}
-		
+
 	],
 	 "blocks": [
     {
       "type": "collection",
       "name": "collection",
-	 
+
       "settings": [
 		{
 			"type":"image_picker",

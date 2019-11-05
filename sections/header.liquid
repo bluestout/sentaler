@@ -11,7 +11,7 @@
     <div class="container">
       <div class="row">
         <div class="top-header-inner col-sm-12">
-          <div class="col-sm-4">
+          <div class="col-sm-3">
           <div class="shipto">
                 <!--<span class="ship_l">Ship to:</span>
             <span class="m_drop">
@@ -21,14 +21,14 @@
             <a href="tel:{{section.settings.loc_text | replace: ' ', ''}}"><i class="sticon-phone" aria-hidden="true"></i><span>{{section.settings.loc_text}}</span></a>
           </div>
           </div>
-          <div class="col-sm-4 text-center">
+          <div class="col-sm-6 text-center">
           <div class="left-area">
             {% if section.settings.show_phone %}
             <div class="contact-info">{{ section.settings.phone_text }}</div>
             {% endif %}
           </div>
           </div>
-          <div class="col-sm-4 text-right">
+          <div class="col-sm-3 text-right">
           <div class="right-area">
           {% if section.settings.show_location %}
             <!--<a href="tel:{{section.settings.loc_text | replace: ' ', ''}}"><i class="sticon-phone" aria-hidden="true"></i><span>{{section.settings.loc_text}}</span></a>-->
@@ -583,8 +583,15 @@
           $('.main-header').removeClass('affix').removeClass('animated');
         }
       }
-
-
+    if (scr > 650) {
+      if (($('.collection-content').length > 0) && !$('.collection-content').hasClass('affix')) {
+        $('.collection-content').addClass('affix').addClass('animated');
+      }
+    } else {
+      if (($('.collection-content').length > 0) && $('.collection-content').hasClass('affix')) {
+        $('.collection-content').removeClass('affix').removeClass('animated');
+      }
+    }
   }
   $(window).scroll(function() {
     var scrollTop = $(this).scrollTop();

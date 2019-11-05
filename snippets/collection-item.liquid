@@ -30,7 +30,9 @@
 
     <div class="row-right animMix">
       <div class="collec-title">
-
+        {% unless product.available %}
+        <span style="color: #ea0000;">SOLD OUT</span>
+        {% endunless %}
              {% for tag in product.tags %}
                {% if tag contains 'new in' %}
                   <span style="color:#949494">New in</span>
@@ -79,42 +81,34 @@
         </div>
 
         <div class="product-price">
-          {% if product.available %}
-          {% if product.compare_at_price_max > product.price %}
-
-          {% assign found_one_in_stock = false %}
-          {% for variant in product.variants %}
-          {% if variant.available and variant.compare_at_price and found_one_in_stock == false %}
-          {% assign found_one_in_stock = true %}
-
-          <span class="price_sale">{{ variant.price | money }}</span>
-          <del class="price_compare"> {{ variant.compare_at_price | money }}</del>
-
-          {% endif %}
-          {% endfor %}
-
-          {% if found_one_in_stock == false %}
-          {% for variant in product.variants %}
-          {% if variant.available and found_one_in_stock == false %}
-          {% assign found_one_in_stock = true %}
-          <span class="price">
-            {{ variant.price | money }}
-          </span>
-          {% endif %}
-          {% endfor %}
-          {% endif %}
-          {% else %}
-          <span class="price">
-            {% if product.price_varies %}
-            {{ product.price | money }}
+            {% if product.compare_at_price_max > product.price %}
+              {% assign found_one_in_stock = false %}
+              {% for variant in product.variants %}
+                {% if variant.available and variant.compare_at_price and found_one_in_stock == false %}
+                  {% assign found_one_in_stock = true %}
+                  <span class="price_sale">{{ variant.price | money }}</span>
+                  <del class="price_compare"> {{ variant.compare_at_price | money }}</del>
+                {% endif %}
+              {% endfor %}
+              {% if found_one_in_stock == false %}
+                {% for variant in product.variants %}
+                  {% if variant.available and found_one_in_stock == false %}
+                    {% assign found_one_in_stock = true %}
+                    <span class="price">
+                      {{ variant.price | money }}
+                    </span>
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
             {% else %}
-            {{ product.price | money }}
+              <span class="price">
+                {% if product.price_varies %}
+                {{ product.price | money }}
+                {% else %}
+                {{ product.price | money }}
+                {% endif %}
+              </span>
             {% endif %}
-          </span>
-          {% endif %}
-          {% else %}
-          <span class="sold_out">Sold Out</span>
-          {% endif %}
         </div>
       </div>
 

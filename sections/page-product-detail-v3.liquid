@@ -5,7 +5,10 @@
        <div class="page-banner-inner">
          <div class="page-image-wrapper">
            <div class="page-image col-sm-12 text-center">
-             <img src="{{ section.settings.banner | img_url : 'master' }}" class="img-responsive" alt="{{ page.title | escape }}" />
+             <img src="{{ section.settings.banner | img_url : 'master' }}" class="img-responsive {% if section.settings.banner_m != nil %}desktop-only{% endif %}" alt="{{ page.title | escape }}" />
+             {% if section.settings.banner_m != nil %}
+             <img src="{{ section.settings.banner_m | img_url : 'master' }}" class="img-responsive mobile-only" alt="{{ page.title | escape }}" />
+             {% endif %}
            </div>
          </div>
        </div>
@@ -17,7 +20,7 @@
   <div class="page-heading-wrapper">
     <div class="container">
       <div class="row">
-        <div class="page-heading-inner">
+        <div class="page-heading-inner section-header">
           <h1 class="page-title block text-center">{{ page.title }}</h1>
           <p class="text-center">{{ page.content }}</p>
         </div>
@@ -37,8 +40,21 @@
                 {% if block.settings.line_start %}
                 <div class="row no-margins">
                 {% endif %}
-                <div class="isotope {% if block.settings.pull_right %}pull-right{% endif %} {% if block.settings.width == 'half' %}col-md-6{% elsif block.settings.width == 'quarter' %}col-md-3 col-xs-6{% else %}col-md-12{% endif %}">
-                  <img src="{{ block.settings.image | img_url : 'master' }}" class="img-responsive" alt="" />
+                <div class="isotope {% if block.settings.video_url != blank %}has-video{% endif %} {% if block.settings.pull_right %}pull-right{% endif %} {% if block.settings.width == 'half' %}col-md-6{% elsif block.settings.width == 'quarter' %}col-md-3 col-xs-6{% else %}col-md-12{% endif %}">
+                  {% if block.settings.video_url != blank %}
+                  {% assign video_id = block.settings.video_url | remove: "https://vimeo.com/" %}
+                  <div class="video_wrap">
+                    <iframe id="prd_video" src="https://player.vimeo.com/video/{{video_id}}?color=d4d4d4&title=0&byline=0&portrait=0&background=1"  frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                  </div>
+                  {% else %}
+                    {% if block.settings.link != blank %}
+                    <a href="{{ block.settings.link }}">
+                    {% endif %}
+                    <img src="{{ block.settings.image | img_url : '825x1216', crop: 'bottom' }}" class="img-responsive" alt="" />
+                    {% if block.settings.link != blank %}
+                    </a>
+                    {% endif %}
+                  {% endif %}
                 </div>
                 {% if block.settings.line_end %}
                 </div>
@@ -61,6 +77,11 @@
         "type": "image_picker",
         "id": "banner",
         "label": "Banner Image"
+      },
+      {
+        "type": "image_picker",
+        "id": "banner_m",
+        "label": "Banner Mobile Image"
       }
     ],
  	  "blocks": [
@@ -78,6 +99,11 @@
     			"id":"imagem",
     			"label":"Mobile Image"
     		},
+        {
+          "type": "text",
+          "id": "video_url",
+          "label": "Video URL"
+        },
         {
           "type": "checkbox",
           "id": "line_start",
@@ -115,6 +141,11 @@
               "label": "100%"
             }
           ]
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
         }
     		]
       }

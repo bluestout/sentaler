@@ -51,7 +51,6 @@
                         items: 1,
                         singleItem:true,
                         slideSpeed : 200,
-                        video: true,
                         navText: ['<i class="sticon-caret-l-large" title="Previous" data-toggle="tooltip" data-placement="top"></i>', '<i class="sticon-caret-r-large" title="Next" data-toggle="tooltip" data-placement="top"></i>']
                       });
                       $.fn.isInViewport = function() {
@@ -79,7 +78,7 @@
 
                   </script>
                 </div>
-                <div class="col-md-6 text-center" id="product-information">
+                <div class="col-md-6 text-center product-gift" id="product-information">
                   <div class="product-innerwrap">
                    {% for tag in product.tags %}
                      {% if tag contains 'IN SUPPORT OF SICKKIDS'  %}
@@ -120,9 +119,6 @@
                    {% endfor %}
 
                     </div>
-                 <div class="purchase">
-                        <p class="price" id="price-preview">{{ variant.price | money }}{% if variant.price < variant.compare_at_price %} <del>{{ variant.compare_at_price | money }}</del>{% endif %}</p>
-                 </div>
                	  {%-  assign prd_des_sh = product.description | strip_html | remove: "DESIGNER'S NOTES"   | split: '[split]'   -%}
 		          {% if section.settings.enable_quickoverview  %}
                   <div class="description">
@@ -137,19 +133,16 @@
                     {% endif %}
                   </div>
                   {% endif %}
+                  <div class="purchase">
+                    <span class="amount_title">Amount: </span>
+                    <p class="price" id="price-preview">{{ variant.price | money }}{% if variant.price < variant.compare_at_price %} <del>{{ variant.compare_at_price | money }}</del>{% endif %}</p>
+                  </div>
 
                   {% if product.variants.size == 1 and product.variants.first.title contains 'Default' %}
                     {% assign hide_default_title = true %}
                   {% endif %}
 
                   <form id="add-item-form" action="/cart/add" method="post" class="variants clearfix" data-ptype="{{ product.type | downcase }}">
-                    {% if product.description contains '[split]' %}
-                    <div class="color-option">
-                     {%-  assign prd_des_cp =  product.description | split: '[split]'   -%}
-                      <span class="c_l">color: <span class="current_seleted"></span></span>
-                      {{prd_des_cp[0]}}
-                    </div>
-                    {% endif %}
                     <div class="product-options {% if hide_default_title %}no-options {% endif %}">
                       {% assign shipDefaultMessage = '' %}
                       {%- for tag in product.tags -%}
@@ -219,27 +212,14 @@
                           {% else %}
                           <span class="btn">{{ 'products.product.sold_out_html' | t }}</span>
                           {% endif %}
-                            <div class="item-ship prdrow" style="display:none">
-                        <input  type="text" name="properties[ship_date]" value="" style="display:none;"/>
-                          <span class="shipdateprd"></span>
-                    	</div>
                         </div>
-
-
-
                       </div>
                     </div>
 
                   </form>
 
 				  <div class="prd_ship prdrow">
-                    <span><i class="sticon-shipping"></i>Free Duties and Expedited Shipping</span>
-                    <span><i class="sticon-returns"></i>Free Returns and Exchanges</span>
-                  </div>
-                  <div class="srf prdrow">
-                    <a href="#" class="c_pop" rel="shipping">Shipping</a>
-                    <a href="#"  class="c_pop" rel="return">Returns/Exchanges</a>
-                    <a href="#"  class="c_pop" rel="sizechart">Find My Size</a>
+                    <span>Digital Gift Cards are not eligible for return or exchange</span>
                   </div>
                     <div class="eps">
                       <a href="mailto:"><i class="sticon-email"></i>Email us</a>
@@ -249,126 +229,9 @@
                         {% include 'social-sharing' %}
                       </div>
                     </div>
-
-
-
                   </div>
                 </div>
               </div>
-               {% if product.description contains '[split]' %}
-              <div class="product_deatil_metainfo">
-                <div class="customhalf text">
-                 <div class="accordion-section desk_hide">
-                  <a href="#accordion-4" class="accordion-section-title active"><span class="Apple-style-span" style="color: #272727; font-size: medium;">DESIGNER’S NOTES</span></a>
-                  <div id="accordion-4" class="accordion-section-content js-focus-hidden active" tabindex="-1" >
-                  {{prd_des_sh[1]  }}
-                  </div>
-                  <!--end .accordion-section-content-->
-                  </div>
-                {{ product.description |  split: '[split]' | last }}
-                </div>
-                <div class="customhalf img">
-                  <a data-fancybox="gallery" href="{{ product.images[1] | product_img_url: 'master' }}">
-                    <img class="normal" src="{{ product.images[1] | product_img_url: 'master' }}"/>
-                  </a>
-                </div>
-                {% assign imagesize = product.images.size | minus: 1 %}
-                <div class="flex_row_prd {% if imagesize == 3 or imagesize == 7 %}last-imgfull{% endif %} {% if imagesize == 6 %}last-two{% endif%}" >
-                  {% for image in product.images %}
-                  {% if forloop.index > 1 %}
-                  {% if image.alt contains 'vimeo' %}
-                       {% assign video_id = image.alt | remove: "https://vimeo.com/" %}
-				       <div class="product_video_Wrap">
-                         <iframe id="prd_video2" src="https://player.vimeo.com/video/{{video_id}}?color=d4d4d4&title=0&byline=0&portrait=0&background=1"  frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-                       </div>
-                       {% else %}
-                        <a data-fancybox="gallery" href="{{ image | product_img_url: 'master' }}">
-                         <img src="{{ image | product_img_url: 'master' }}" alt="{{ image.alt | escape }}" />
-                        </a>
-                       {% endif %}
-
-                  {% endif %}
-                  {% endfor %}
-
-                </div>
-                <div class="clearfix"></div>
-              </div>
-              {% endif %}
-              {% for tag in product.tags %}
-                     {% if tag contains 'IN SUPPORT OF SICKKIDS' %}
-              <div class="stickkid_deatilsection">
-              	<!--<div class="index_quote ">
-                    <div class="quote_inner aos-init aos-animate" data-aos="fade-up" data-aos-duration="1000">
-                      <i class="sticon-quote" aria-hidden="true"></i>
-                      <p>{{section.settings.quote}}</p>
-                      <span class="sticon-bojana"></span>
-                    </div>
-			   </div>-->
-               <div class="index_custom_section">
-                    <div class="flex_wrap">
-					                 <div class="customhalf imgdiv left">
-                             {% if section.settings.images1 %}
-						                  <img src="{{section.settings.images1 | img_url: "master"}}">
-                              {% endif %}
-					                 </div>
-					  <div class="customhalf left">
-                            <div class="text--block text-center">
-                              <div class="las_25">
-                                <div class="text-left">
-                                  <div class="img_b">
-                                      <img src="{{ section.settings.signature_1 | img_url: 'master' }}"/>
-                                  </div>
-                                  <div class="quote_a">
-                                  {{section.settings.quote}}
-                                  </div>
-                                </div>
-                                 <i class="sticon-quote" aria-hidden="true"></i>
-                                 <div class="quote_b">
-                                  {{section.settings.quote2}}
-                                </div>
-                              </div>
-                              <div class="img_a">
-                                  <img src="{{ section.settings.signature_2 | img_url: 'master' }}"/>
-                              </div>
-                              <div class="bt_text">{{section.settings.s_Des}}</div>
-                           </div>
-                       </div>
-					                </div>
-        </div>
-               <!--<div class="index_custom_section">
-  				 <div class="flex_wrap">
-  				   <div class="customhalf imgdiv">
-						<img src="//cdn.shopify.com/s/files/1/1009/5898/files/superfine-alpaca_1024x1024.png?v=1565420359">
-				   </div>
-      			 <div class="customhalf">
-                  <div class="text--block">
-					<h4 class="las_25">{{section.settings.sheading}}</h4>
-					<div class="lass_17"><p>{{section.settings.scontent}}</p></div>
-				 	<div class="image_block">
-							<div class="img_col">
-								<span class="icon {{section.settings.icon1}}"></span>
-								<span>{{section.settings.text1}}</span>
-							</div>
-							<div class="img_col">
-								<span class="icon {{section.settings.icon2}}"></span>
-								<span>{{section.settings.text2}}</span>
-							</div>
-                      	    <div class="img_col">
-								<span class="icon {{section.settings.icon3}}"></span>
-								<span>{{section.settings.text3}}</span>
-							</div>
-                    </div>
-                    {% if section.settings.sbtn_link %}
-				  	<a class="index_btn" href="{{section.settings.sbtn_link}}">{{section.settings.sbtn_text}}</a>
-                   {% endif %}
-				 </div>
-
-                </div>
-              </div>
-			</div>-->
-			</div>
-              {% endif %}
-              {% endfor %}
               {% if section.settings.show_related_products %}
                 {% include 'related-products' %}
               {% endif %}

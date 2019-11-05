@@ -98,7 +98,7 @@
         <!--<div class="list-mode-description {% if template == 'index' %}hide{% endif %}">
           {{ product.description | strip_html | truncatewords: 150 }}
         </div>-->
-        <div class="grid-mode-description {% if template == 'index' or template == 'page.product-detail' %}hide{% endif %}">
+        <div class="grid-mode-description {% if template == 'index' or template contains 'page.product-detail' %}hide{% endif %}">
           {{ product.description | strip_html | truncatewords: 20 }}
         </div>
 

@@ -2,6 +2,7 @@
 <!--[if IE 9]> <html class="ie9 no-js" lang="{{ shop.locale }}"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js" lang="{{ shop.locale }}"> <!--<![endif]-->
 <head>
+  <meta name="google-site-verification" content="xLQjZaYiSIh0t_WUZ-fjC1vAHs6AbtlBc_AZtXsvzpE" />
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -120,6 +121,10 @@ $(document).ready(function(){
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="{{'ajaxinate.js' | asset_url  }}"></script>
+
+  <!-- Start of Littledata - Fix Google Analytics Script-->
+  {% include 'LittledataLayer' %}
+  <!-- End of Littledata - Fix Google Analytics Script -->
 </head>
 
 <body class="ev41 template-{{ template | split: '.' | first }} {{page.handle}} {% if template contains 'coming' %}coming-soon{% endif %}">

@@ -24,7 +24,7 @@
           </div>
           {% elsif block.type == 'text' %}
           <div class="{{ block.settings.width }} col-xs-12 vertical-center-text">
-            <img src="{{ block.settings.hidden_image | img_url : 'master' }}" class="img-responsive" alt="" >
+            <img src="{{ block.settings.hidden_image | img_url : 'master' }}" class="img-responsive hidden-xs" alt="" >
             {{ block.settings.content }}
           </div>
           {% endif %}

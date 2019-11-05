@@ -235,7 +235,6 @@ Shopify.updateCartInfo = function(cart, cart_summary_id, cart_count_id) {
                 jQuery('<div class="row" data-variant-id="'+item.id+'"><div class="cart-left"><a class="cart-image" href="' + item.url + '"><img src="' + Shopify.resizeImage(item.image, 'compact') + '" alt="" title=""/></a></div><div class="cart-right"><div class="cart-title"><a href="' + item.url + '">' + item.product_title + '</a><span class="variant">'+v1+'<br>'+v2+'<br>'+v3+'</span><span class="ship_date">'+shipdate+'</span></div><div class="cart-price"><span class="money">' + Shopify.formatMoney(item.price, cart_money_format) + '</span></div></div></div>').appendTo(table);
               });
               if (gwp_status) {
-                console.log('abcde!!!!!!!!');
                 jQuery('#cart-info .items .row[data-variant-id="30335994134583"]').find('.cart-price .money').html(Shopify.formatMoney(0, cart_money_format));
               }
 

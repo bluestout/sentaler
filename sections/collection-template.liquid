@@ -56,7 +56,6 @@
             <div id="tags-load" style="display:none;"><i class="fa fa-spinner fa-pulse fa-2x"></i></div>
             <div id="collection">
               <div class="custom_overlay" style="display:none;"><img src="{{'spinner.gif' | asset_url}}"/>  </div>
-              {% paginate collection.products by 22 %}
                {% if collection.products.size > 0 %}<div class="collection-toolbar">
                     {% if section.settings.enable_tagsfilter %}
                     <!-- Tags Filter -->
@@ -112,29 +111,29 @@
 
                     {% for product in collection.products %}
 
-                     {% if collection.metafields["global"]["col_addv1"] == blank or collection.metafields["global"]["col_addv2"] == blank %}
-                    <div class="product-item-wrapper {% cycle 'first', '', '', 'last' %}" style="display: inline-block; width:{{grid_item_width}};">
+                     {% if collection.metafields["global"]["col_addv1"] == blank and collection.metafields["global"]["col_addv2"] == blank %}
+                    <div class="product-item-wrapper {% cycle 'first', 'second', 'third', 'last' %}" style="display: inline-block; vertical-align: top; width:{{grid_item_width}};">
                         {% include 'collection-item', grid_image_width: image_size %}
                       </div>
                       {% else %}
 
-                      {% if paginate.current_page == 1 %}
                      	 {% if forloop.index == 5 or forloop.index == 15 %}<div class="custom_prd_item_wrap {% if collection.products_count == 8 %}tot_8{% endif %}">{% endif %}
-                      {% endif %}
-                      {% if forloop.index == 9 and paginate.current_page == 1 %}
+                      {% if forloop.index == 9 %}
                       </div>
-                      <div class="cusatomwidt {% if collection.metafields["global"]["col_addv1"] contains '[video_id]' %}video_col {% endif %}">
+                      <div class="cusatomwidt video_col">
                         {% if collection.metafields["global"]["col_addv1"] contains '[video_id]' %}
                         {% assign video_id = collection.metafields["global"]["col_addv1"] | split: '[video_id]' | last | strip | strip_html  %}
                         <div class="col_video_wrap {% if collection.metafields["global"]["col_addi1"] != blank %}visible-xs{% endif %}">
                           <iframe id="col_v1" src="https://player.vimeo.com/video/{{video_id}}?color=d4d4d4&title=0&byline=0&portrait=0&controls=0&background=1"  frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
                         </div>
                         {% else %}
+                        <div class="col_video_wrap image">
                          {{ collection.metafields["global"]["col_addv1"] }}
+                       </div>
                         {% endif %}
                         <div class="hidden-xs">{{ collection.metafields["global"]["col_addi1"] }}</div>
                       </div>
-                      {% elsif forloop.index == 14 and paginate.current_page == 1 %}
+                      {% elsif forloop.index == 14 %}
                      <div class="cusatomwidt {% if collection.metafields["global"]["col_addv2"] contains '[video_id]' %}video_col {% endif %}">
                         {% if collection.metafields["global"]["col_addv2"] contains '[video_id]' %}
                         {% assign video_id = collection.metafields["global"]["col_addv2"] | split: '[video_id]' | last | strip | strip_html  %}
@@ -147,11 +146,11 @@
                         <div class="hidden-xs">{{ collection.metafields["global"]["col_addi2"] }}</div>
                       </div>
                         {% else %}
-                      {% if forloop.index == 19 and paginate.current_page == 1 %}
+                      {% if forloop.index == 19 %}
                     </div>
                     {% endif %}
 
-                      <div class="product-item-wrapper {% cycle 'first', '', '', 'last' %}" style="display: inline-block; width:{{grid_item_width}};">
+                      <div class="product-item-wrapper {% cycle 'first', 'second', 'third', 'last' %}" style="display: inline-block; vertical-align: top; width:{{grid_item_width}};">
                         {% include 'collection-item', grid_image_width: image_size %}
                       </div>
 
@@ -162,17 +161,16 @@
 
                   </div>
 
-
-            	<div class="custombtn">
-                 	 <div class="AjaxinatePagination">
-                     {% if paginate.next %}
-                		<a href="{{ paginate.next.url }}">Loading More Products</a>
-                    {% endif %}
-					         </div>
-               </div>
-               <div class="num_remain_products" data-count="{{ paginate.items | minus: 16 }}"></div>
-
-              {% endpaginate %}
+                  {% comment %}
+                	<div class="custombtn">
+                     	 <div class="AjaxinatePagination">
+                         {% if paginate.next %}
+                    		<a href="{{ paginate.next.url }}">Loading More Products</a>
+                        {% endif %}
+    					         </div>
+                   </div>
+                   <div class="num_remain_products" data-count="{{ paginate.items | minus: 16 }}"></div>
+                   {% endcomment %}
             </div>
           </div>
         </div>
@@ -198,14 +196,16 @@
 //       }
 //     });
     $.fn.isInViewport = function() {
-  var elementTop = $(this).offset().top;
-  var elementBottom = elementTop + $(this).outerHeight();
+      if ($(this).length > 0) {
+        var elementTop = $(this).offset().top;
+        var elementBottom = elementTop + $(this).outerHeight();
 
-  var viewportTop = $(window).scrollTop();
-  var viewportBottom = viewportTop + $(window).height();
+        var viewportTop = $(window).scrollTop();
+        var viewportBottom = viewportTop + $(window).height();
 
-  return elementBottom > viewportTop && elementTop < viewportBottom;
-};
+        return elementBottom > viewportTop && elementTop < viewportBottom;
+      }
+    };
 $(function(){
     $(window).scroll(function() {
       if ($('.collection-heading-inner').isInViewport()) {
@@ -239,10 +239,8 @@ $('#sortForm li.sort a').click(function(e){
    if(window.location.href.indexOf("sale") > -1){ url =window.location.href.replace('sale','');  }
    if(window.location.href.indexOf("available-now") > -1){ url =window.location.href.replace('available-now','');  }
   if (search.length) {
-    console.log(search);
     getvalue = getvalue.replace('/', '');
     url = url.substring(0, url.indexOf('?'));
-     console.log(url);
     url+=getvalue ;
     }
   else
@@ -318,6 +316,117 @@ $('#sortForm li.sort a').click(function(e){
  $(window).scroll(function() {
   if ($('#col_v1').isInViewport()) { $('#col_v1').vimeo("play"); }
    else{ $('#col_v1').vimeo("pause");   }
+});
+$(document).ready(function(){
+  setTimeout(function(){
+    var new_html = [];
+    if ($('.collection-content').length > 0) {
+      {% assign pages = collection.products_count | divided_by : 50 %}
+      {% assign pages = pages | plus: 1 %}
+      {% for page in (1..pages) %}
+      {% if page > 1 %}
+      $.get('/collections/{{ collection.handle }}/products.json', {
+            page: {{ page }},
+            limit: 50,
+            }, function (data) {
+        new_html[{{ page }}] = '';
+        var cycle = ['first', 'second', 'third', 'last'];
+        var i = -1;
+        data.products.forEach(function (e) {
+          var variants_available = [];
+
+          e.variants.forEach(function (variant) {
+            variants_available.push(variant.available);
+          });
+
+          available = $.inArray(true, variants_available) != -1;
+          i = i + 1;
+
+          new_html[{{ page }}] += '<div class="product-item-wrapper ' + cycle[i] + '" style="display: inline-block; vertical-align: top; width:25%;">';
+          new_html[{{ page }}] += '<div class="row-container list-unstyled clearfix">';
+          new_html[{{ page }}] += '<div class="row-left">';
+          new_html[{{ page }}] += '<a href="/products/' + e.handle + '" class="hoverBorder container_item">';
+          new_html[{{ page }}] += '<img src="' + e.images[0].src + '" class="img-responsive front" alt="' + e.images[0].alt + '" />';
+          if (e.images.length > 1) {
+            new_html[{{ page }}] += '<img src="' + e.images[1].src + '" class="secondimage" alt="{{ product.images[2].alt | escape }}" />';
+          }
+
+          new_html[{{ page }}] += '</a>';
+          new_html[{{ page }}] += '</div>';
+          new_html[{{ page }}] += '<div class="row-right animMix">';
+          new_html[{{ page }}] += '<div class="collec-title">';
+          for (i in e.tags) {
+            var tag = e.tags[i];
+            if (tag.indexOf('new in') >= 0) {
+              new_html[{{ page }}] += '<span style="color:#949494">New in</span>';
+            } else if (tag.indexOf('IN SUPPORT OF SICKKIDS') >= 0) {
+              new_html[{{ page }}] += '<span style="color:#4870AE">IN SUPPORT OF SICKKIDS</span>';
+            }
+          }
+          new_html[{{ page }}] += '<div class="wishlist hidden-xs">';
+          new_html[{{ page }}] += '<a title="Add To Wishlist" class="wishlist wishlist-'+e.handle+'" data-wishlisthandle="'+e.handle+'"><i class="sticon-heart" aria-hidden="true"></i></a>';
+          new_html[{{ page }}] += '</div>';
+          new_html[{{ page }}] += '<div class="product-title"><a class="title-5" href="' + e.url + '">' + e.title + '</a></div>';
+          new_html[{{ page }}] += '</div>';
+          new_html[{{ page }}] += '<div class="color_option">';
+
+          var index = 1;
+          for (option in e.options) {
+            if (e.options[option]['name'] == 'Color' || e.options[option]['name'] == 'Colour') {
+              var colorlist = '';
+              var color = '';
+              for (variant in e.variants) {
+                color = e.variants[variant]['option'+index];
+
+                if (!colorlist.includes(color)) {
+                  new_html[{{ page }}] += '<span>'+color+'</span>';
+                  var tempList = colorlist + color + ' ';
+                  colorlist = tempList;
+                }
+              }
+            }
+            index = index + 1;
+          }
+          new_html[{{ page }}] += '</div>';
+          new_html[{{ page }}] += '<div class="group_price_rating">';
+          new_html[{{ page }}] += '<div class="rating-star">';
+          new_html[{{ page }}] += '<span class="shopify-product-reviews-badge" data-id="'+e.id+'"></span>';
+          new_html[{{ page }}] += '</div>';
+          new_html[{{ page }}] += '<div class="product-price">';
+
+          var price = parseInt(e.variants[0].price);
+          var compare_at = parseInt(e.variants[0].compare_at_price);
+
+          if (price < compare_at && !isNaN(compare_at)) {
+            new_html[{{ page }}] += '<div class="was"><span class="money">$' + compare_at.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span></div>';
+            new_html[{{ page }}] += '<div class="onsale"> <span class="nowsle">&nbsp;</span><span class="money">$' + price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span></div>';
+          } else {
+            new_html[{{ page }}] += '<div class="prod-price"><span class="money">$' + price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span></div>';
+          }
+
+          new_html[{{ page }}] += '</div>';
+          new_html[{{ page }}] += '</div>';
+          new_html[{{ page }}] += '</div>';
+          new_html[{{ page }}] += '</div>';
+          new_html[{{ page }}] += '</div>';
+        });
+
+        // $('#product-loop').append(html);
+      });
+      {% endif %}
+      {% endfor %}
+
+      var ajax_running = true;
+      $( document ).ajaxStop(function() {
+        if (ajax_running) {
+          ajax_running = false;
+          new_html.forEach(function (e, i) {
+            $('.collection-items .AjaxinateLoop_desktop').append(e);
+          });
+        }
+      });
+    }
+  }, 2000);
 });
 </script>
 
