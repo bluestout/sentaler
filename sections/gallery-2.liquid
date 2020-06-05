@@ -1,72 +1,7 @@
-<section class="page-content">
-  <div class="page-wrapper">
-    <div class="container c_pad0">
-      <div class="page-inner">
-        <div id="page">
-          <div class="details">
-            {% for block in section.blocks %}
-              {% if block.type == 'image' %}
-                {% if block.settings.line_start %}
-                <div class="row {% unless block.settings.padding %}no-gutters{% endunless %}">
-                {% endif %}
+{% include 'gravityadmin' %}
+<div style="display: none !important;  visibility: hidden !important;" class="cmspro-section" id="cmspro-8fb90c1a"></div>
+{% include 'gallery' %}
 
-                <div id="gallery_{{ block.id }}" class="{{ block.settings.width }} col-xs-12 {% if block.settings.imagem != nil %}hidden-xs{% endif %} {% if block.settings.is_background %}is_background{% endif %} {% if block.settings.is_static_position %}is_absolute {{ block.settings.static_alignment }}{% endif %}">
-                  {% if block.settings.link != blank %}
-                  <a href="{{ block.settings.link }}">
-                  {% endif %}
-                    {% if block.settings.is_background %}
-                    <div class="responsive-image"></div>
-                    {% else %}
-                      <img src="{{ block.settings.image | img_url : 'master' }}" class="img-responsive" alt="" >
-                    {% endif %}
-                  {% if block.settings.link != blank %}
-                  </a>
-                  {% endif %}
-                  {% if block.settings.is_background %}
-                  <style>
-                    #gallery_{{ block.id }} .responsive-image {
-                      width: 100%;
-                      background: url({{block.settings.image | img_url: 'master'}}) no-repeat;
-                      background-size: cover;
-                    }
-                  </style>
-                  {% endif %}
-                </div>
-                {% if block.settings.imagem != nil %}
-                <div class="col-xs-12 d-block visible-xs">
-                  {% if block.settings.link != blank %}
-                  <a href="{{ block.settings.link }}">
-                  {% endif %}
-                  <img src="{{ block.settings.imagem | img_url : 'master' }}" class="img-responsive" alt="" >
-                  {% if block.settings.link != blank %}
-                  </a>
-                  {% endif %}
-                </div>
-                {% endif %}
-
-                {% if block.settings.imagem_2 != nil %}
-                <div class="col-xs-12 d-block visible-xs">
-                  {% if block.settings.link != blank %}
-                  <a href="{{ block.settings.link }}">
-                  {% endif %}
-                  <img src="{{ block.settings.imagem_2 | img_url : 'master' }}" class="img-responsive" alt="" >
-                  {% if block.settings.link != blank %}
-                  </a>
-                  {% endif %}
-                </div>
-                {% endif %}
-
-                {% if block.settings.line_end %}
-                </div>
-                {% endif %}
-              {% endif %}
-            {% endfor %}
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 {% schema %}
   {
     "name": "Gallery",

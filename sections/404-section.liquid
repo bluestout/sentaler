@@ -1,3 +1,5 @@
+{% include 'gravityadmin' %}
+<div style="display: none !important;  visibility: hidden !important;" class="cmspro-section" id="cmspro-25200757"></div>
 <div class="top_banner ">
   {% if section.settings.banner == blank %}
   <div class="banner_container">
@@ -29,12 +31,12 @@
 <div class="index-list-collection text-center">
   {% for block in section.blocks %}
   <div class="custom_list_col col_{{section.blocks.size}}">
-    <a href="{{block.settings.link}}">
+    <a href="{{block.settings.link}}" class="error-page-btns">
     <img class="desk-img" src="{{block.settings.image | img_url: "master" }}"/>
     <img class="mob_img" src="{{block.settings.imagem | img_url: "master" }}"/>
     {% if block.settings.btn_text %}
     <div class="list-btn">
-      <span class="index_btn white" href="{{block.settings.link}}">{{block.settings.btn_text}}</span>
+      <span class="index_btn" href="{{block.settings.link}}">{{block.settings.btn_text}}</span>
     </div>
     {% endif %}
     </a>

@@ -1,3 +1,5 @@
+{% include 'gravityadmin' %}
+<div style="display: none !important;  visibility: hidden !important;" class="cmspro-section" id="cmspro-14310743"></div>
 <div data-section-id="{{ section.id }}" data-section-type="slideshow-section">
   {% if section.blocks.size > 0 %}
   <div class="slideshow-wrapper">
@@ -13,7 +15,7 @@
       </span>
     </button>
 
-    <div class="slideshow slideshow--{{ section.settings.slideshow_height }}" id="Slideshow-{{ section.id }}" data-autoplay="{{ section.settings.autoplay }}" data-speed="{{ section.settings.autoplay_speed }}">
+    <div class="slideshow slideshow--{{ section.settings.slideshow_height }} {% if section.settings.is_video %}video{% endif %}" id="Slideshow-{{ section.id }}" data-autoplay="{{ section.settings.autoplay }}" data-speed="{{ section.settings.autoplay_speed }}">
       {% for block in section.blocks %}
       {%- assign is_background_video = false -%}
       {% if block.type == 'video' %}
@@ -28,6 +30,7 @@
           {% endif %}
         <style>
           #slideshow__{{block.id}} .slideshow__title{color:{{block.settings.text_color}};}
+          #slideshow__{{block.id}} .slideshow__description p {color:{{block.settings.text_color}};}
           #slideshow__{{block.id}} .slide_btn{border-color:{{block.settings.text_color2}};color:{{block.settings.text_color2}}}
       	</style>
           {% if block.settings.image != blank %}
@@ -96,10 +99,13 @@
           </button>
           {% endunless %}
           {% if block.settings.video_id != blank %}
-          <div id="SlideshowVideo-{{ block.id }}" class="slideshow__video {% if is_background_video %}slideshow__video--background{% endif %} slideshow__video--{{ block.settings.video_type }}"
-               data-id="{{ block.settings.video_id }}"
-               data-type="{{ block.settings.video_type }}"
-               data-slideshow="Slideshow-{{ section.id }}"></div>
+          <div class="video-container">
+            <div class="video_wrapper">
+              <div class="">
+                <iframe id="col_v1" src="https://player.vimeo.com/video/{{ block.settings.video_id }}?color=d4d4d4&background=1&muted=0" width="100%" height="100%" style="overflow:hidden;overflow-x:hidden;overflow-y:hidden;height:100%;width:100%;position:absolute;top:0px;left:0px;right:0px;bottom:0px" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+              </div>
+            </div>
+          </div>
           {% endif %}
           {% endif %}
 
@@ -119,8 +125,16 @@
                  {{block.settings.image_caption}}
                 </div>
                 {% endunless %}
+                {% unless block.settings.description == blank %}
+                <div class="slideshow__description">
+                  {{ block.settings.description }}
+                </div>
+                {% endunless %}
+                {% unless block.settings.title == blank %}
+                <h4 class="las_25">{{ block.settings.title }}</h4>
+                {% endunless %}
                  {% unless block.settings.btn_text == blank %}
-                <div class="slide_btn">{{block.settings.btn_text}}</div>
+                <div class="index_btn">{{block.settings.btn_text}}</div>
                 {% endunless %}
                 {% if block.type == 'video' %}
                 {% unless block.settings.video_type == 'background' %}
@@ -163,6 +177,12 @@
       "id": "autoplay",
       "label": "Auto-rotate slides",
       "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "is_video",
+      "label": "Video Banner",
+      "default": false
     },
 	{
       "type": "checkbox",
@@ -251,7 +271,12 @@
           "id": "image_caption",
           "label": "Caption"
         },
-		{
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description"
+        },
+		    {
           "type": "text",
           "id": "btn_text",
           "label": "Button"
@@ -270,8 +295,13 @@
         {
           "type": "text",
           "id": "video_id",
-          "label": "YouTube video id",
-          "info": "[Find your YouTube video ID](https://docs.joeworkman.net/rapidweaver/stacks/youtube/video-id)."
+          "label": "Vimeo video id",
+          "info": "Vimeo video id"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
         },
         {
           "type": "select",
@@ -303,6 +333,11 @@
           "id": "title",
           "label": "Heading",
           "default": "Slideshow video"
+        },
+        {
+          "type": "text",
+          "id": "btn_text",
+          "label": "Button"
         },
         {
           "type": "text",

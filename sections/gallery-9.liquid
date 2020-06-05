@@ -1,0 +1,124 @@
+{% include 'gravityadmin' %}
+<div style="display: none !important;  visibility: hidden !important;" class="cmspro-section" id="cmspro-26daaf06"></div>
+{% include 'gallery' %}
+
+{% schema %}
+  {
+    "name": "Gallery",
+    "max_blocks": 20,
+    "class": "gallery-section",
+    "settings": [
+    ],
+ 	  "blocks": [
+      {
+        "type": "image",
+        "name": "Image",
+        "settings": [
+    		{
+    			"type":"image_picker",
+    			"id":"image",
+    			"label":"Image"
+    		},
+    		{
+    			"type":"image_picker",
+    			"id":"imagem",
+    			"label":"Mobile Image"
+    		},
+        {
+    			"type":"image_picker",
+    			"id":"imagem_2",
+    			"label":"Mobile Image 2"
+    		},
+    		{
+          "type": "select",
+          "id": "width",
+          "label": "width",
+          "default": "col-md-6 col-sm-6",
+          "options": [
+            {
+              "value": "col-md-5 col-sm-5",
+              "label": "40%"
+            },
+            {
+              "value": "col-md-6 col-sm-6",
+              "label": "50%"
+            },
+            {
+              "value": "col-md-7 col-sm-7",
+              "label": "60%"
+            },
+            {
+              "value": "col-md-12 col-sm-12",
+              "label": "100%"
+            }
+          ]
+        },
+        {
+          "type": "checkbox",
+          "id": "padding",
+          "label": "Has Padding",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "mobile_v_padding",
+          "label": "Mobile Vertical Padding",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "line_start",
+          "label": "Start of Line",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "line_end",
+          "label": "End of Line",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "is_background",
+          "label": "Image as background",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "is_static_position",
+          "label": "Is static position",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "static_alignment",
+          "label": "Static position alignment",
+          "default": "right",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ]
+        },
+    		{
+    			"type":"url",
+    			"id":"link",
+    			"label":"Link"
+    		}
+    		]
+      }
+    ],
+  "presets": []
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -72,6 +72,9 @@ Set the extension of your color files below. Use 'png', 'jpeg', 'jpg' or 'gif'.
   {% endif %}
   {% endcomment %}
   {% for variant in product.variants %}
+{% unless variant.metafields.secomapp.freegifts %}
+{% unless variant.title contains '(Freegifts)' %}
+
   {% assign value = variant.options[option_index] %}
   {% unless values contains value %}
   {% assign values = values | join: ',' %}
@@ -114,6 +117,9 @@ Set the extension of your color files below. Use 'png', 'jpeg', 'jpg' or 'gif'.
     jQuery('.swatch[data-option-index="{{ option_index }}"] .{{ value | handle }}').removeClass('soldout').addClass('available').find(':radio').removeAttr('disabled');
   </script>
   {% endif %}
+
+{%endunless%}
+{%endunless%}
   {% endfor %}
   <script>
     $(function() {

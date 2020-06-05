@@ -1,7 +1,7 @@
- 
+ {% include 'sca_freegift_price' with product %}
   <div class="row-container list-unstyled clearfix {{ product.handle }}">
     <div class="row-left">
-      <a href="{{ product.url | within: collection }}" class="hoverBorder container_item"> 
+      <a href="{{ product.url | within: collection }}" class="hoverBorder container_item">
         <div class="hoverBorderWrapper product-featured-img">
           {% for image in product.images %}
           {% endfor %}
@@ -9,8 +9,8 @@
           {% assign number_images = number_of_images | plus:0 %}
           <img src="{{ product.featured_image | product_img_url: '390x390' , crop: 'bottom' }}" class="{% if settings.product_item_effect != 'rotation' %}not-rotation{% endif %} img-responsive front" alt="{{ product.featured_image.alt | escape }}" />
           <div class="mask"></div>
-        </div>        
-      </a>      
+        </div>
+      </a>
     </div>
 
     <div class="row-right animMix" style="padding-left: 10px; padding-right: 10px;">
@@ -23,13 +23,16 @@
       <div class="product-title"><a class="title-5" href="{{ product.url | within: collection }}">{{ product.title }}</a></div>
       <div class="rating-star">
         <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
-      </div>      
+      </div>
       <div class="product-price">
         {% if product.available %}
-        {% if product.compare_at_price_max > product.price %}
+        {% if sca_compare_at_price_max > sca_price %}
 
         {% assign found_one_in_stock = false %}
         {% for variant in product.variants %}
+        {% unless variant.metafields.secomapp.freegifts %}
+        {% unless variant.title contains '(Freegifts)' %}
+
         {% if variant.available and variant.compare_at_price and found_one_in_stock == false %}
         {% assign found_one_in_stock = true %}
 
@@ -37,84 +40,117 @@
         <del class="price_compare"> {{ variant.compare_at_price | money }}</del>
 
         {% endif %}
+
+        {%endunless%}
+        {%endunless%}
         {% endfor %}
 
         {% if found_one_in_stock == false %}
         {% for variant in product.variants %}
+        {% unless variant.metafields.secomapp.freegifts %}
+        {% unless variant.title contains '(Freegifts)' %}
+
         {% if variant.available and found_one_in_stock == false %}
         {% assign found_one_in_stock = true %}
         <span class="price">
           {{ variant.price | money }}
         </span>
         {% endif %}
+
+        {%endunless%}
+        {%endunless%}
         {% endfor %}
         {% endif %}
         {% else %}
         <span class="price">
-          {% if product.price_varies %} 
-          {{ product.price | money }}
+          {% if sca_price_varies %}
+          {{ sca_price | money }}
           {% else %}
-          {{ product.price | money }}
+          {{ sca_price | money }}
           {% endif %}
         </span>
-        {% endif %}  
+        {% endif %}
         {% else %}
         <span class="sold_out">Sold Out</span>
         {% endif %}
-      </div>         
+      </div>
       <div class="hover-mask">
         <div class="group-mask">
-          <div class="inner-mask">            
+          <div class="inner-mask">
             <form action="/cart/add" method="post">
               {% if product.available %}
-              <div class="hide clearfix"> 
+              <div class="hide clearfix">
                 <select name="id" >
-                  {% if product.compare_at_price_max > product.price %}
+                  {% if sca_compare_at_price_max > sca_price %}
 
                   {% assign found_one_in_stock = false %}
                   {% for variant in product.variants %}
+                  {% unless variant.metafields.secomapp.freegifts %}
+                  {% unless variant.title contains '(Freegifts)' %}
+
                   {% if variant.available and variant.compare_at_price and found_one_in_stock == false %}
                   {% assign found_one_in_stock = true %}
                   {% assign found_variant_id = variant.id %}
                   {% break %}
                   {% endif %}
+
+                  {%endunless%}
+                  {%endunless%}
                   {% endfor %}
 
                   {% if found_one_in_stock == false %}
                   {% for variant in product.variants %}
+                  {% unless variant.metafields.secomapp.freegifts %}
+                  {% unless variant.title contains '(Freegifts)' %}
+
                   {% if variant.available and found_one_in_stock == false %}
                   {% assign found_one_in_stock = true %}
                   {% assign found_variant_id = variant.id %}
                   {% break %}
                   {% endif %}
+
+                  {%endunless%}
+                  {%endunless%}
                   {% endfor %}
                   {% endif %}
 
                   {% for variant in product.variants %}
+                  {% unless variant.metafields.secomapp.freegifts %}
+                  {% unless variant.title contains '(Freegifts)' %}
+
                   {% if variant.id == found_variant_id %}
                   <option selected="selected" value="{{ variant.id }}">{{ variant.title | escape }}</option>
                   {% else %}
                   <option value="{{ variant.id }}">{{ variant.title | escape }}</option>
                   {% endif %}
+
+                  {%endunless%}
+                  {%endunless%}
                   {% endfor %}
                   {% else %}
                   {% assign found_one_in_stock = false %}
                   {% for variant in product.variants %}
+                  {% unless variant.metafields.secomapp.freegifts %}
+                  {% unless variant.title contains '(Freegifts)' %}
+
                   {% if variant.available and found_one_in_stock == false %}
                   {% assign found_one_in_stock = true %}
                   <option selected="selected" value="{{ variant.id }}">{{ variant.title | escape }}</option>
                   {% else %}
                   <option value="{{ variant.id }}">{{ variant.title | escape }}</option>
                   {% endif %}
+
+                  {%endunless%}
+                  {%endunless%}
                   {% endfor %}
                   {% endif %}
                 </select>
-              </div>  
+              </div>
               {% endif %}
               <div class="effect-ajax-cart">
                 {% if product.available %}
                 <input type="hidden" name="quantity" value="1" />
-                {% if product.variants.size == 1 %}
+                {% if sca_product_variantCount == 1 %}
                 <button class="btn add-to-cart" data-parent=".parent-fly" type="submit" name="add">{{ 'products.product.add_to_cart' | t }}</button>
                 {% else %}
                 <button class="btn select-option" type="button" onclick="window.location='{{product.url}}';">{{ 'products.product.select_option' | t }}</button>
@@ -124,6 +160,8 @@
                 {% endif %}
               </div>
             </form>
+            <span class="sca-fg-cat-list" style="display: none;" id="secomapp-fg-data-{{ product.id }}"> </span>
+
             <ul class="quickview-wishlist-wrapper">
               <li class="quickview">
                 {% if product.available %}
@@ -146,10 +184,10 @@
                 {% endif %}
               </li>
             </ul>
-          </div><!--inner-mask-->   
-        </div><!--Group mask-->   	
+          </div><!--inner-mask-->
+        </div><!--Group mask-->
       </div>
-    </div> 
+    </div>
     {% if product.images.size > 1%}
       <div class="thumbs gallery clearfix">
         <div class="gallery-slider">
@@ -160,7 +198,7 @@
                 <img src="{{ image | product_img_url: '390x390' , crop: 'bottom' }}" alt="{{ image.alt | escape }}" />
               </a>
             </div>
-          {% endfor %}           
+          {% endfor %}
         </div>
       </div>
       <script>
@@ -181,4 +219,4 @@
         });
        </script>
     {% endif %}
-  </div> 
+  </div>

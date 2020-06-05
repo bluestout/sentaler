@@ -1,3 +1,5 @@
+{% include 'gravityadmin' %}
+<div style="display: none !important;  visibility: hidden !important;" class="cmspro-section" id="cmspro-1e98bba1"></div>
 <div data-section-id="{{ section.id }}" data-section-type="collection-template">
    <section class="collection-banner">
     <div class="collection-banner-wrapper">
@@ -6,7 +8,7 @@
           <div class="collection-banner-inner">
 
             {% if section.settings.collection_image or section.settings.collection_desc %}
-            <div class="collection-image-wrapper row no-margins">
+            <div class="collection-image-wrapper row no-margins hidden-xs">
               {% if section.settings.collection_image %}
               <div class="collection-image col-sm-12 text-center">
                 {% if collection.image %}
@@ -71,14 +73,14 @@
 
 
                   {% if collection.products.size == 0 %}
-                   <h4 class="text-center">Sorry No Products Are Avaialable</h4>
+                   <h4 class="text-center">Sorry No Products Are Available</h4>
                    <div class="text-center col_Continue">
                      	<a href="/collections/{{collection.handle}}">Continue Shopping</a>
                    </div>
                   {% endif %}
 
                   <div class="collection-items clearfix">
-                    <div class="AjaxinateLoop_desktop products">
+                    <div id="gf-products" class="AjaxinateLoop_desktop products">
                       {% case section.settings.grid %}
                         {% when '2' %}
                         {%- assign grid_item_width = '50%' -%}
@@ -134,14 +136,16 @@
                         <div class="hidden-xs">{{ collection.metafields["global"]["col_addi1"] }}</div>
                       </div>
                       {% elsif forloop.index == 14 %}
-                     <div class="cusatomwidt {% if collection.metafields["global"]["col_addv2"] contains '[video_id]' %}video_col {% endif %}">
+                     <div class="cusatomwidt video_col">
                         {% if collection.metafields["global"]["col_addv2"] contains '[video_id]' %}
                         {% assign video_id = collection.metafields["global"]["col_addv2"] | split: '[video_id]' | last | strip | strip_html  %}
                         <div class="col_video_wrap {% if collection.metafields["global"]["col_addi2"] != blank %}visible-xs{% endif %}">
-                          <iframe id="col_v2" src="https://player.vimeo.com/video/{{video_id}}?color=d4d4d4&title=0&byline=0&portrait=0&controls=0"  frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                          <iframe id="col_v2" src="https://player.vimeo.com/video/{{video_id}}?color=d4d4d4&title=0&byline=0&portrait=0&controls=0&background=1"  frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
                         </div>
                         {% else %}
+                        <div class="col_video_wrap image">
                          {{ collection.metafields["global"]["col_addv2"] }}
+                       </div>
                         {% endif %}
                         <div class="hidden-xs">{{ collection.metafields["global"]["col_addi2"] }}</div>
                       </div>
@@ -318,115 +322,128 @@ $('#sortForm li.sort a').click(function(e){
    else{ $('#col_v1').vimeo("pause");   }
 });
 $(document).ready(function(){
-  setTimeout(function(){
-    var new_html = [];
-    if ($('.collection-content').length > 0) {
-      {% assign pages = collection.products_count | divided_by : 50 %}
-      {% assign pages = pages | plus: 1 %}
-      {% for page in (1..pages) %}
-      {% if page > 1 %}
-      $.get('/collections/{{ collection.handle }}/products.json', {
-            page: {{ page }},
-            limit: 50,
-            }, function (data) {
-        new_html[{{ page }}] = '';
-        var cycle = ['first', 'second', 'third', 'last'];
-        var i = -1;
-        data.products.forEach(function (e) {
-          var variants_available = [];
+  var new_html = [];
+  if ($('.collection-content').length > 0) {
+    {% assign pages = collection.products_count | divided_by : 50 %}
+    {% assign pages = pages | plus: 1 %}
+    {% for page in (1..pages) %}
+    {% if page > 1 %}
+    $.get('/collections/{{ collection.handle }}/products.json', {
+          page: {{ page }},
+          limit: 50,
+          sort_by: ''
+          }, function (data) {
+      new_html[{{ page }}] = '';
+      var cycle = ['first', 'second', 'third', 'last'];
+      var i = -1;
+      data.products.forEach(function (e) {
+        var variants_available = [];
 
-          e.variants.forEach(function (variant) {
-            variants_available.push(variant.available);
-          });
+        e.variants.forEach(function (variant) {
+          variants_available.push(variant.available);
+        });
 
-          available = $.inArray(true, variants_available) != -1;
-          i = i + 1;
+        available = $.inArray(true, variants_available) != -1;
+        i = i + 1;
 
-          new_html[{{ page }}] += '<div class="product-item-wrapper ' + cycle[i] + '" style="display: inline-block; vertical-align: top; width:25%;">';
-          new_html[{{ page }}] += '<div class="row-container list-unstyled clearfix">';
-          new_html[{{ page }}] += '<div class="row-left">';
-          new_html[{{ page }}] += '<a href="/products/' + e.handle + '" class="hoverBorder container_item">';
-          new_html[{{ page }}] += '<img src="' + e.images[0].src + '" class="img-responsive front" alt="' + e.images[0].alt + '" />';
-          if (e.images.length > 1) {
-            new_html[{{ page }}] += '<img src="' + e.images[1].src + '" class="secondimage" alt="{{ product.images[2].alt | escape }}" />';
+        new_html[{{ page }}] += '<div id="product_' + e.id + '" class="product-item-wrapper ' + cycle[i] + '" style="display: inline-block; vertical-align: top; width:25%;">';
+        new_html[{{ page }}] += '<div class="row-container list-unstyled clearfix">';
+        new_html[{{ page }}] += '<div class="row-left">';
+        new_html[{{ page }}] += '<a href="/products/' + e.handle + '" class="hoverBorder container_item">';
+        new_html[{{ page }}] += '<img src="' + e.images[0].src + '" class="img-responsive front" alt="' + e.images[0].alt + '" />';
+        if (e.images.length > 1) {
+          var image = e.images[1];
+          if (e.images.length > 2) {
+            image = e.images[2];
           }
+          new_html[{{ page }}] += '<img src="' + image.src + '" class="secondimage" alt="{{ image.alt | escape }}" />';
+        }
 
-          new_html[{{ page }}] += '</a>';
-          new_html[{{ page }}] += '</div>';
-          new_html[{{ page }}] += '<div class="row-right animMix">';
-          new_html[{{ page }}] += '<div class="collec-title">';
+        new_html[{{ page }}] += '</a>';
+        new_html[{{ page }}] += '</div>';
+        new_html[{{ page }}] += '<div class="row-right animMix">';
+        new_html[{{ page }}] += '<div class="collec-title">';
+        if ( !available ) {
+          new_html[{{ page }}] += '<span style="color: #ea0000;">SOLD OUT</span>';
+        } else {
           for (i in e.tags) {
             var tag = e.tags[i];
             if (tag.indexOf('new in') >= 0) {
               new_html[{{ page }}] += '<span style="color:#949494">New in</span>';
             } else if (tag.indexOf('IN SUPPORT OF SICKKIDS') >= 0) {
               new_html[{{ page }}] += '<span style="color:#4870AE">IN SUPPORT OF SICKKIDS</span>';
+            } else if (tag.indexOf('GIFT WITH PURCHASE') >= 0) {
+              new_html[{{ page }}] += '<span style="color:#949494">GIFT WITH PURCHASE</span>';
             }
           }
-          new_html[{{ page }}] += '<div class="wishlist hidden-xs">';
-          new_html[{{ page }}] += '<a title="Add To Wishlist" class="wishlist wishlist-'+e.handle+'" data-wishlisthandle="'+e.handle+'"><i class="sticon-heart" aria-hidden="true"></i></a>';
-          new_html[{{ page }}] += '</div>';
-          new_html[{{ page }}] += '<div class="product-title"><a class="title-5" href="' + e.url + '">' + e.title + '</a></div>';
-          new_html[{{ page }}] += '</div>';
-          new_html[{{ page }}] += '<div class="color_option">';
+        }
+        new_html[{{ page }}] += '<div class="wishlist hidden-xs">';
+        new_html[{{ page }}] += '<a title="Add To Wishlist" class="wishlist wishlist-'+e.handle+'" data-wishlisthandle="'+e.handle+'"><i class="sticon-heart" aria-hidden="true"></i></a>';
+        new_html[{{ page }}] += '</div>';
+        new_html[{{ page }}] += '<div class="product-title"><a class="title-5" href="' + e.url + '">' + e.title + '</a></div>';
+        new_html[{{ page }}] += '</div>';
+        new_html[{{ page }}] += '<div class="color_option">';
 
-          var index = 1;
-          for (option in e.options) {
-            if (e.options[option]['name'] == 'Color' || e.options[option]['name'] == 'Colour') {
-              var colorlist = '';
-              var color = '';
-              for (variant in e.variants) {
-                color = e.variants[variant]['option'+index];
+        var index = 1;
+        for (option in e.options) {
+          if (e.options[option]['name'] == 'Color' || e.options[option]['name'] == 'Colour') {
+            var colorlist = '';
+            var color = '';
+            for (variant in e.variants) {
+              color = e.variants[variant]['option'+index];
 
-                if (!colorlist.includes(color)) {
-                  new_html[{{ page }}] += '<span>'+color+'</span>';
-                  var tempList = colorlist + color + ' ';
-                  colorlist = tempList;
-                }
+              if (!colorlist.includes(color)) {
+                new_html[{{ page }}] += '<span>'+color+'</span>';
+                var tempList = colorlist + color + ' ';
+                colorlist = tempList;
               }
             }
-            index = index + 1;
           }
-          new_html[{{ page }}] += '</div>';
-          new_html[{{ page }}] += '<div class="group_price_rating">';
-          new_html[{{ page }}] += '<div class="rating-star">';
-          new_html[{{ page }}] += '<span class="shopify-product-reviews-badge" data-id="'+e.id+'"></span>';
-          new_html[{{ page }}] += '</div>';
-          new_html[{{ page }}] += '<div class="product-price">';
-
-          var price = parseInt(e.variants[0].price);
-          var compare_at = parseInt(e.variants[0].compare_at_price);
-
-          if (price < compare_at && !isNaN(compare_at)) {
-            new_html[{{ page }}] += '<div class="was"><span class="money">$' + compare_at.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span></div>';
-            new_html[{{ page }}] += '<div class="onsale"> <span class="nowsle">&nbsp;</span><span class="money">$' + price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span></div>';
-          } else {
-            new_html[{{ page }}] += '<div class="prod-price"><span class="money">$' + price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span></div>';
-          }
-
-          new_html[{{ page }}] += '</div>';
-          new_html[{{ page }}] += '</div>';
-          new_html[{{ page }}] += '</div>';
-          new_html[{{ page }}] += '</div>';
-          new_html[{{ page }}] += '</div>';
-        });
-
-        // $('#product-loop').append(html);
-      });
-      {% endif %}
-      {% endfor %}
-
-      var ajax_running = true;
-      $( document ).ajaxStop(function() {
-        if (ajax_running) {
-          ajax_running = false;
-          new_html.forEach(function (e, i) {
-            $('.collection-items .AjaxinateLoop_desktop').append(e);
-          });
+          index = index + 1;
         }
+        new_html[{{ page }}] += '</div>';
+        new_html[{{ page }}] += '<div class="group_price_rating">';
+        new_html[{{ page }}] += '<div class="rating-star">';
+        new_html[{{ page }}] += '<span class="shopify-product-reviews-badge" data-id="'+e.id+'"></span>';
+        new_html[{{ page }}] += '</div>';
+        new_html[{{ page }}] += '<div class="product-price">';
+
+        var price = parseInt(e.variants[0].price);
+        var compare_at = parseInt(e.variants[0].compare_at_price);
+
+        if (price < compare_at && !isNaN(compare_at)) {
+          new_html[{{ page }}] += '<div class="was"><span class="money">$' + compare_at.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span></div>';
+          new_html[{{ page }}] += '<div class="onsale"> <span class="nowsle">&nbsp;</span><span class="money">$' + price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span></div>';
+        } else {
+          new_html[{{ page }}] += '<div class="prod-price"><span class="money">$' + price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span></div>';
+        }
+
+        new_html[{{ page }}] += '</div>';
+        new_html[{{ page }}] += '</div>';
+        new_html[{{ page }}] += '</div>';
+        new_html[{{ page }}] += '</div>';
+        new_html[{{ page }}] += '</div>';
       });
-    }
-  }, 2000);
+
+      // $('#product-loop').append(html);
+      // new_html.forEach(function (e, i) {
+      //   $('.collection-items .AjaxinateLoop_desktop').append(e);
+      // });
+    });
+    {% endif %}
+    {% endfor %}
+
+    var ajax_running = true;
+    $( document ).ajaxStop(function() {
+      if (ajax_running) {
+        ajax_running = false;
+        new_html.forEach(function (e, i) {
+          console.log('adding product items of next pages');
+          $('.collection-items .AjaxinateLoop_desktop').append(e);
+        });
+      }
+    });
+  }
 });
 </script>
 

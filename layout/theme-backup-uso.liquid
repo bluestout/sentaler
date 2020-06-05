@@ -1,0 +1,330 @@
+<!doctype html>
+<!--[if IE 9]> <html class="ie9 no-js" lang="{{ shop.locale }}"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js" lang="{{ shop.locale }}"> <!--<![endif]-->
+<head>
+  <meta name="google-site-verification" content="xLQjZaYiSIh0t_WUZ-fjC1vAHs6AbtlBc_AZtXsvzpE" />
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="{{ settings.color_button }}">
+  <link rel="canonical" href="{{ canonical_url }}">
+  <link rel="stylesheet" href="https://use.typekit.net/awd1gqq.css">
+  {% if settings.favicon != nil %}
+    <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
+  {% endif %}
+
+  {% capture seo_title %}
+    {{ page_title }}
+    {% if current_tags %}
+      {%- assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags -}}
+    {% endif %}
+    {% if current_page != 1 %}
+      &ndash; {{ 'general.meta.page' | t: page: current_page }}
+    {% endif %}
+    {% unless page_title contains shop.name %}
+      &ndash; {{ shop.name }}
+    {% endunless %}
+  {% endcapture %}
+  <title>{{ seo_title }}</title>
+
+  {% if page_description %}
+    <meta name="description" content="{{ page_description | escape }}">
+  {% endif %}
+  
+  {{ '//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js' | script_tag }}
+  {% if settings.base_font == 'proxima-nova' %}
+  <script src="https://use.typekit.net/kfd3qdw.js"></script>
+  <script>try{Typekit.load({ async: true });}catch(e){}</script>
+  {% endif %}
+
+  {% include 'social-meta-tags' %}
+
+
+
+  {{ 'animate.min.css' | asset_url | stylesheet_tag }}
+  {{ 'owl.carousel.css' | asset_url | stylesheet_tag }}
+  {{ 'cs-everything.global.scss.css' | asset_url | stylesheet_tag }}
+  {{ 'cs-everything.styles.scss.css' | asset_url | stylesheet_tag }}
+  {{ 'custom.scss.css' | asset_url | stylesheet_tag }}
+  {{ 'cart-translate.css' | asset_url | stylesheet_tag }}
+  {{ 'bootstrap.css' | asset_url | stylesheet_tag }}
+
+<!--   {{ 'theme.scss.css' | asset_url | stylesheet_tag }} -->
+  {% include 'google-fonts' %}
+
+
+  <script>
+    var theme = {
+      strings: {
+        addToCart: {{ 'products.product.add_to_cart' | t | json }},
+        soldOut: {{ 'products.product.sold_out' | t | json }},
+        unavailable: {{ 'products.product.unavailable' | t | json }},
+        showMore: {{ 'general.filters.show_more' | t | json }},
+        showLess: {{ 'general.filters.show_less' | t | json }}
+      },
+      moneyFormat: {{ shop.money_format | json }}
+    }
+  </script>
+
+  <!--[if (lte IE 9) ]>{{ 'match-media.min.js' | asset_url | script_tag }}<![endif]-->
+  {% if template contains 'customers' %}
+    <!--[if (gt IE 9)|!(IE)]><!--><script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer="defer"></script><!--<![endif]-->
+    <!--[if lte IE 9]><script src="{{ 'shopify_common.js' | shopify_asset_url }}"></script><![endif]-->
+  {% endif %}
+  <!--[if (gt IE 9)|!(IE)]><!--><script src="{{ 'vendor.js' | asset_url }}" defer="defer"></script><!--<![endif]-->
+  <!--[if lte IE 9]><script src="{{ 'vendor.js' | asset_url }}"></script><![endif]-->
+
+  <!--[if (gt IE 9)|!(IE)]><!--><script src="{{ 'theme.js' | asset_url }}" defer="defer"></script><!--<![endif]-->
+  <!--[if lte IE 9]><script src="{{ 'theme.js' | asset_url }}"></script><![endif]-->
+
+  {{ content_for_header }}
+
+
+
+   <script src="https://player.vimeo.com/api/player.js"></script>
+  <script src="{{'vimeo.js' | asset_url }}"></script>
+<script>
+$(document).ready(function(){
+ $("#contactFormWrapper .numbersonly").on("keypress",function (event) {
+   console.log(event);
+           $(this).val($(this).val().replace(/[^\d].+/, ""));
+            if ((event.which < 48 || event.which > 57)) {
+                event.preventDefault();
+            }
+ });
+});
+</script>
+  {{ 'option_selection.js' | shopify_asset_url | script_tag }}
+  {{ 'api.jquery.js' | shopify_asset_url | script_tag }}
+
+  {{ 'scripts.js' | asset_url | script_tag }}
+  {{ '//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js' | script_tag }}
+  {{ 'imagesloaded.pkgd.min.js' | asset_url | script_tag }}
+  {{ 'owl.carousel.min.js' | asset_url | script_tag }}
+  {{ 'jquery.zoom.js' | asset_url | script_tag }}
+  {{ 'jquery.fancybox.js' | asset_url | script_tag }}
+  {{ 'jquery-easy.js' | asset_url | script_tag }}
+  {% if template == 'page.contact' %}
+  <script src="https://maps.google.com/maps/api/js"></script>
+  <script src="https://cdn.jsdelivr.net/gmap3/7.1.0/gmap3.min.js"></script>
+  {% endif %}
+  {% if template == 'index' %}
+  {{ 'jquery.vimeo.api.js'  | asset_url | script_tag }}
+  {{ 'instafeed.min.js' | asset_url | script_tag }}
+  {% endif %}
+  {% unless settings.show_multiple_currencies %}{{ "jquery.currencies.min.js" | asset_url | script_tag }}{% endunless %}
+
+  {% if template == 'index' %}
+  {{ 'themepunch.revolution.css' | asset_url | stylesheet_tag }}
+  {{ 'jquery.themepunch.plugins.min.js' | asset_url | script_tag }}
+  {{ 'jquery.themepunch.revolution.min.js' | asset_url | script_tag }}
+
+  {% endif %}
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="{{'ajaxinate.js' | asset_url  }}"></script>
+
+  <!-- Start of Littledata - Fix Google Analytics Script-->
+  {% include 'LittledataLayer' %}
+  <!-- End of Littledata - Fix Google Analytics Script -->
+{% include 'sca.freegifts' %}
+<!-- CMSPROADMINJSSTART -->  
+                                    <script type="text/javascript" defer="defer" src="https://gravity-apps.com/cmspro//wp-content/uploads4124/sectionadmin.js?__rq=6860bed6c646cb8b83e9258a72fd012f"></script>
+                                    <!-- CMSPROADMINJSEND --> 
+                                    <!-- CMSPROEDITSHEADSTART -->
+                                    {% assign currentpath = request.path %} 
+                                    {% assign pathelements = request.path | split: '/products/' %} 
+                                    {% assign pathelementsCnt = pathelements | size %}
+                                    {% if pathelementsCnt > 1 %}
+                                    {% assign currentpath = pathelements | last %}
+                                    {% assign currentpath = currentpath | prepend: '/products/' %}  
+                                    {% endif %}
+                            
+                                    <script type="text/javascript">
+                                                                         gsRequestPath = "{{ currentpath }}";  
+                                    </script>
+                                                                 
+                                    {% section 'cmsproheader' %}
+                                    <!-- CMSPROEDITSHEADEND --></head>
+
+<body class="ev41 template-{{ template | split: '.' | first }} {{page.handle}} {% if template contains 'coming' %}coming-soon{% endif %}">
+
+  {% if settings.general_loadingscreen %}
+  <!-- Preloading -->
+  <div id="loader-div">
+    <div id="loader-wrapper">
+      <div class="loader">
+        <svg class="circular">
+          <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  <a class="in-page-link visually-hidden skip-link" href="#MainContent">{{ 'general.accessibility.skip_to_content' | t }}</a>
+
+  <div id="SearchDrawer" class="search-bar drawer drawer--top">
+    <div class="search-bar__table">
+      <div class="search-bar__table-cell search-bar__form-wrapper">
+        <form class="search search-bar__form" action="/search" method="get" role="search">
+          <button class="search-bar__submit search__submit btn--link" type="submit">
+            {% include 'icon-search' %}
+            <span class="icon__fallback-text">{{ 'general.search.submit' | t }}</span>
+          </button>
+          <input class="search__input search-bar__input" type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}" aria-label="{{ 'general.search.placeholder' | t }}">
+        </form>
+      </div>
+      <div class="search-bar__table-cell text-right">
+        <button type="button" class="btn--link search-bar__close js-drawer-close">
+          {% include 'icon-close' %}
+          <span class="icon__fallback-text">{{ 'general.search.close' | t }}</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  {% section 'header' %}
+
+  <div class="page-container" id="PageContainer">
+
+    <main class="main-content" id="MainContent" role="main">
+      {{ content_for_layout }}
+    </main>
+
+    {% section 'footer' %}
+
+  </div>
+
+  {% if settings.general_gototop %}
+  <div id="scroll-to-top" data-toggle="tooltip" data-placement="top" title="Scroll to Top">
+    <i class="fa fa-angle-up"></i>
+  </div>
+  {% endif %}
+
+  {% if settings.mailing_list_active %}
+    {% include 'newsletter_popup' %}
+  {% endif %}
+
+  <script type="text/javascript">
+  	var index = 0;
+    {% if template == 'index'%}index=1;{% endif %}
+    var cart_money_format={{ shop.money_format | strip_html | json }};
+    var money_format_update="<span class='money'>{{ shop.money_format | strip_html }}</span>";
+    var wishlistpage = 0;
+    var quickShop_money_format="<span class='money'>"+{{ shop.money_format | strip_html | json }}+"</span>";
+    {% if template contains 'wish-list'%}wishlistpage=1;{% endif %}
+  </script>
+  <script src="//cdn.codeblackbelt.com/js/modules/also-bought/main.min.js?shop=sentaler-studio-ltd.myshopify.com"></script>
+  {{ 'modernizr.js' | asset_url | script_tag }}
+  {{ 'classie.js' | asset_url | script_tag }}
+  {{ 'cs-everything.cart.js' | asset_url | script_tag }}
+  {{ 'cs-everything.script.js' | asset_url | script_tag }}
+  {{ 'cs-everything.wishlist.js' | asset_url | script_tag }}
+
+  {% include 'quick-shop' %}
+
+  {% include 'ajax-cart' %}
+  {{ "jquery.currencies.min.js" | asset_url | script_tag }}
+
+  {% include 'wishlist-modal' %}
+
+  {{ 'linkOptionSelectors.js' | asset_url | script_tag }}
+  <script>
+  /*document.addEventListener("DOMContentLoaded", function() {
+    var endlessClick = new Ajaxinate({
+      container: '.AjaxinateLoop_desktop',
+      pagination: '.AjaxinatePagination',
+      method: 'scroll'
+    });
+  });*/
+</script>
+     <script>
+  jQuery.ajax({
+    url: '//www.mlveda.com/MultiCurrency/getUserCountry',
+        type: 'POST',
+        dataType: 'text',
+        success: function(location) {
+            console.log(location);
+          $.cookie("red_contry",location);
+           if(location == 'United States')
+               {
+                 $('.shipto .country_name').html('USA');
+               }
+              else if(location == 'Canada')
+              {
+                 window.top.location.href="https://sentaler.ca" + window.location.pathname;
+              $('.shipto .country_name').html('Canada');
+              }
+              else
+              {
+                $('.shipto .country_name').html('Worldwide');
+                window.top.location.href="https://intl.sentaler.com" + window.location.pathname;
+              }
+          }
+
+  });
+</script>
+<!-- Gorgias Chat Widget Start -->
+<div id="gorgias-chat">
+<script>window.gorgiasChatParameters = {}</script>
+<script src="https://config.gorgias.io/production/DrQqY7X4JX7L4Wjv/chat/0eMnwxKQrA29bDNo.js" defer></script>
+<script>
+  // $(window).click(function() {
+  //   if ($('#sortBox').css('display') != 'none') {
+  //     $('#sortBox').hide();
+  //     $('.collection-content-inner').removeClass('col_overlay');
+  //   }
+  // });
+  //
+  // $('#sortButtonWarper').on('click', function(e) {
+  //   e.stopPropagation();
+  // });
+  // $('#sortForm li').on('click', function(e) {
+  //   e.stopPropagation();
+  // });
+  $('.sortBy').on('mouseover', function(){
+    $(this).find('#sortBox').show();
+    $(this).closest('.collection-content-inner').addClass('col_overlay');
+  });
+  $('.sortBy').on('mouseout', function(){
+    $(this).find('#sortBox').hide();
+    $(this).closest('.collection-content-inner').removeClass('col_overlay');
+  });
+
+  /*$('.filter-tag-group .tag-group').on('mouseover', function(e){
+    $(this).find('ul').show();
+    $(this).closest('.collection-content-inner').addClass('col_overlay');
+  });
+  $('.filter-tag-group .tag-group').on('mouseleave', function(e){
+    $(this).find('ul').hide();
+    $(this).closest('.collection-content-inner').removeClass('col_overlay');
+    $(this).find('.apply').trigger('click');
+  });*/
+
+  $('.tab-link.normal').on('click', function(){
+    var tabID = $(this).data('id');
+    $(this).parents('.featured-links').find('.tab-content').hide();
+    $(this).parents('.featured-links').find('.tab-content[data-id="' + tabID + '"]').show();
+  });
+  $('.tab-link.hover').on('click', function(){
+    var tabID = $(this).data('id');
+    console.log(tabID);
+    $(this).parents('.featured-links').find('.tab-content').hide();
+    $(this).parents('.featured-links').find('.tab-content[data-id="' + tabID + '"]').show();
+    $([document.documentElement, document.body]).animate({
+        scrollTop: $("#" + tabID).offset().top - 60
+    }, 800);
+  });
+  $('.tab-link.hover').on('mouseover', function(){
+    var tabID = $(this).data('id');
+    $(this).parents('.featured-links').find('.tab-content').hide();
+    $(this).parents('.featured-links').find('.tab-content[data-id="' + tabID + '"]').show();
+  });
+
+</script>
+</div>
+<!-- Gorgias Chat Widget End -->
+
+	<!-- CMSPROEDITSFOOTSTART --> {% section 'cmsprofooter' %} <!-- CMSPROEDITSFOOTEND --></body>
+</html>

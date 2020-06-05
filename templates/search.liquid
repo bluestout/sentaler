@@ -45,7 +45,7 @@
       <hr>
       {% endif %}
       <div class="search_pager_wrapper">
-        <div class="page-width list-view-items">
+        <div id="gf-products" class="page-width list-view-items">
           {%- assign image_size = '270x' -%}
           {% for product in search.results %}
           <div class="product-item-wrapper {% cycle 'first', '', 'third', 'last' %} col-sm-3 col-xs-12 ">

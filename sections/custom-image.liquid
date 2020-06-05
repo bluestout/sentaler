@@ -1,3 +1,5 @@
+{% include 'gravityadmin' %}
+<div style="display: none !important;  visibility: hidden !important;" class="cmspro-section" id="cmspro-df87624c"></div>
 <div class="index_custom_section">
   <div class="flex_wrap">
   {% if section.settings.option == 'image' %}
@@ -8,13 +10,13 @@
   </div>
   {% endif %}
   {% if section.settings.option == 'image-text' %}
-    
+
   		<div class="customhalf imgdiv {{section.settings.position}}">
     {% if section.settings.image %}
     <img src="{{section.settings.image | img_url: "original" }}"/>
     {% endif %}
   </div>
-      
+
         <div class="customhalf {{section.settings.position}}">
           <div class="text--block">
 
@@ -46,8 +48,8 @@
         </div>
           </div>
 
-   
-       
+
+
   {% endif %}
 </div>
 </div>
@@ -55,11 +57,12 @@
   .index_custom_section h4{color:{{section.settings.heading_color}} }
   .index_custom_section p{color:{{section.settings.text_color}} }
   .index_custom_section a{color:{{section.settings.text_color2}};border-color:{{section.settings.text_color2}}}
-  
+
 </style>
 {% schema %}
   {
-    "name": "Custom-image-text",
+    "name": "Custom Image Text",
+    "class": "index-section",
 	 "max_blocks": 3,
     "settings": [
 		{
@@ -83,7 +86,7 @@
 			"id":"image",
 			"label":"Image"
 		},
-		
+
 		{
 			"type":"color",
 			"id":"heading_color",
@@ -148,7 +151,7 @@
     {
       "type": "logo_image",
       "name": "Logo",
-	 
+
       "settings": [
 		{
           "type": "text",
@@ -165,9 +168,9 @@
   ],
 "presets": [
     {
-      "name": "Custom-image-text",
+      "name": "Custom Image Text",
       "category": "Image"
-     
+
     }
   ]
   }

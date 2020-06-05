@@ -1,3 +1,4 @@
+{% include 'sca_freegift_price' with product %}
 {% unless grid_image_width %}
   {%- assign grid_image_width = '1024x1536' -%}
 {% endunless %}
@@ -5,6 +6,8 @@
     <div class="row-inner">
       <div class="row-left">
         <a href="{{ product.url | within: collection }}" class="hoverBorder container_item">
+          <span id="secomapp-fg-image-{{ product.id }}" style="display: none;"> {{ "icon-freegift.png" | asset_url | img_tag: "", "sca-fg-img-collect" }} </span>
+          <span class="sca-fg-cat-list prod-show-list" style="display:none;" id="secomapp-fg-data-{{ product.id }}"> </span>
              <img src="{{ product.featured_image | product_img_url: grid_image_width , crop: 'bottom' }}" class="{% if settings.product_item_effect != 'rotation' %}not-rotation{% endif %} img-responsive front" alt="{{ product.featured_image.alt | escape }}" />
          </a>
         <div class="product-box__overlay">
@@ -35,6 +38,9 @@
             {% assign colorlist = '' %}
             {% assign color = '' %}
             {% for variant in product.variants %}
+            {% unless variant.metafields.secomapp.freegifts %}
+            {% unless variant.title contains '(Freegifts)' %}
+
 
             {% capture color %}
             {{ variant.options[index] }}
@@ -47,6 +53,9 @@
             {% endcapture %}
             {% assign colorlist = tempList %}
             {% endunless %}
+
+            {%endunless%}
+            {%endunless%}
             {% endfor %}
             {% endif %}
             {% endfor %}
@@ -54,10 +63,13 @@
         <div class="group_price_rating">
           <div class="product-price">
             {% if product.available %}
-            {% if product.compare_at_price_max > product.price %}
+            {% if sca_compare_at_price_max > sca_price %}
 
             {% assign found_one_in_stock = false %}
             {% for variant in product.variants %}
+            {% unless variant.metafields.secomapp.freegifts %}
+            {% unless variant.title contains '(Freegifts)' %}
+
             {% if variant.available and variant.compare_at_price and found_one_in_stock == false %}
             {% assign found_one_in_stock = true %}
 
@@ -65,24 +77,33 @@
             <del class="price_compare"> {{ variant.compare_at_price | money }}</del>
 
             {% endif %}
+
+            {%endunless%}
+            {%endunless%}
             {% endfor %}
 
             {% if found_one_in_stock == false %}
             {% for variant in product.variants %}
+            {% unless variant.metafields.secomapp.freegifts %}
+            {% unless variant.title contains '(Freegifts)' %}
+
             {% if variant.available and found_one_in_stock == false %}
             {% assign found_one_in_stock = true %}
             <span class="price">
               {{ variant.price | money }}
             </span>
             {% endif %}
+
+            {%endunless%}
+            {%endunless%}
             {% endfor %}
             {% endif %}
             {% else %}
             <span class="price">
-              {% if product.price_varies %}
-              {{ product.price | money }}
+              {% if sca_price_varies %}
+              {{ sca_price | money }}
               {% else %}
-              {{ product.price | money }}
+              {{ sca_price | money }}
               {% endif %}
             </span>
             {% endif %}
@@ -110,7 +131,7 @@
                 {% if product.available %}
                 <div class="hide clearfix">
                   <select name="id" >
-                    {% if product.compare_at_price_max > product.price %}
+                    {% if sca_compare_at_price_max > sca_price %}
 
                     {% assign found_one_in_stock = false %}
                     {% for variant in product.variants %}
@@ -155,7 +176,7 @@
                 <div class="effect-ajax-cart">
                   {% if product.available %}
                   <input type="hidden" name="quantity" value="1" />
-                  {% if product.variants.size == 1 %}
+                  {% if sca_product_variantCount == 1 %}
                   <button class="btn btn-1 add-to-cart" data-parent=".parent-fly" type="submit" name="add"><i class="fa fa-shopping-cart"></i> {{ 'products.product.add_to_cart' | t }}</button>
                   {% else %}
                   <button class="btn btn-1 select-option" type="button" onclick="window.location='{{product.url}}';"><i class="fa fa-bars"></i> {{ 'products.product.select_option' | t }}</button>
@@ -165,6 +186,7 @@
                   {% endif %}
                 </div>
               </form>
+
               <div class="group_qv">
                 <ul class="quickview-wishlist-wrapper">
                   <li class="quickview hidden-xs">

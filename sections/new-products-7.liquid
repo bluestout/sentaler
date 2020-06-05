@@ -1,0 +1,120 @@
+{% include 'gravityadmin' %}
+<div style="display: none !important;  visibility: hidden !important;" class="cmspro-section" id="cmspro-4a480094"></div>
+{% include 'new-products' %}
+
+{% schema %}
+{
+  "name": "Featured Products",
+  "class": "featured-products-section",
+  "settings": [
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        {
+           "type": "product",
+           "id": "product",
+           "label": "Product"
+        },
+        {
+          "type": "select",
+          "id": "width",
+          "label": "width",
+          "default": "col-md-3",
+          "options": [
+            {
+              "value": "col-md-3",
+              "label": "25%"
+            },
+            {
+              "value": "col-md-6",
+              "label": "50%"
+            },
+            {
+              "value": "col-md-12",
+              "label": "100%"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+           "type": "image_picker",
+           "id": "image",
+           "label": "Image"
+        },
+        {
+           "type": "url",
+           "id": "url",
+           "label": "Link"
+        },
+        {
+          "type": "select",
+          "id": "width",
+          "label": "width",
+          "default": "col-md-3",
+          "options": [
+            {
+              "value": "col-md-3",
+              "label": "25%"
+            },
+            {
+              "value": "col-md-6",
+              "label": "50%"
+            },
+            {
+              "value": "col-md-12",
+              "label": "100%"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content"
+        },
+        {
+          "type": "select",
+          "id": "width",
+          "label": "width",
+          "default": "col-md-3",
+          "options": [
+            {
+              "value": "col-md-3",
+              "label": "25%"
+            },
+            {
+              "value": "col-md-6",
+              "label": "50%"
+            },
+            {
+              "value": "col-md-12",
+              "label": "100%"
+            }
+          ]
+        },
+        {
+          "type":"image_picker",
+    			"id":"hidden_image",
+    			"label":"Hidden Image",
+          "info": "Hidden image for height"
+        }
+      ]
+    }
+  ],
+  "presets": [
+  ]
+}
+{% endschema %}

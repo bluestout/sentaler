@@ -1,0 +1,646 @@
+{% include 'gravityadmin' %}
+<div style="display: none !important;  visibility: hidden !important;" class="cmspro-section" id="cmspro-d91cfba2"></div>
+{% comment %}Copy following content and paste to sections/collection-template.liquid file{% endcomment %}
+
+<div data-section-id="{{ section.id }}" data-section-type="collection-template">
+   <section class="collection-banner">
+    <div class="collection-banner-wrapper">
+      <div class="container c_pad0">
+        <div class="row">
+          <div class="collection-banner-inner">
+
+            {% if section.settings.collection_image or section.settings.collection_desc %}
+            <div class="collection-image-wrapper row no-margins">
+              {% if section.settings.collection_image %}
+              <div class="collection-image col-sm-12 text-center">
+                {% if collection.image %}
+                <img src="{{ collection.image.src | collection_img_url: '2048x' }}" alt="{{ collection.title | escape }}" />
+                {% else %}
+                <img src="{{ section.settings.collection_banner_img | img_url: "1170x", crop: 'center' }}" class="img-responsive" alt="" />
+                {% endif %}
+              </div>
+
+
+              {% if section.settings.collection_desc %}
+              {% if collection.description != empty %}
+              <div class="col-sm-12">
+                <div class="collection-description text-left">
+                  <div class="description content">{{ collection.description }}</div>
+                </div>
+              </div>
+              {% endif %}
+              {% endif %}
+            </div>
+            {% endif %}
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="collection-heading">
+    <div class="collection-heading-wrapper">
+      <div class="container c_pad0">
+        <div class="row">
+          <div class="collection-heading-inner text-center">
+            <h1 class="las_25 spac_4"><span>{{ collection.title }}</span></h1>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="collection-content">
+    <div class="collection-content-wrapper">
+      <div class="container c_pad0">
+        <div class="row">
+          <div class="collection-content-inner">
+            <!-- Tags loading -->
+            <div id="tags-load" style="display:none;"><i class="fa fa-spinner fa-pulse fa-2x"></i></div>
+            <div id="collection">
+              <div class="custom_overlay" style="display:none;"><img src="{{'spinner.gif' | asset_url}}"/>  </div>
+               {% if collection.products.size > 0 %}<div class="collection-toolbar">
+                    {% if section.settings.enable_tagsfilter %}
+                    <!-- Tags Filter -->
+
+                    {% endif %}
+                    <!-- Showing -->
+
+
+                   {% include 'collection_tag-filter' %}
+
+
+                  </div>{% endif %}
+
+
+                  {% if collection.products.size == 0 %}
+                   <h4 class="text-center">Sorry No Products Are Available</h4>
+                   <div class="text-center col_Continue">
+                     	<a href="/collections/{{collection.handle}}">Continue Shopping</a>
+                   </div>
+                  {% endif %}
+
+                  <div class="collection-items clearfix">
+                    <div class="AjaxinateLoop_desktop products">
+                      {% case section.settings.grid %}
+                        {% when '2' %}
+                        {%- assign grid_item_width = '50%' -%}
+                        {%- assign image_size = '570x' -%}
+                        {% when '3' %}
+                        {%- assign grid_item_width = '33.33333%' -%}
+                        {%- assign image_size = '370x' -%}
+                        {% when '4' %}
+                        {%- assign grid_item_width = '25%' -%}
+                        {%- assign image_size = '270x' -%}
+                        {% when '5' %}
+                        {%- assign grid_item_width = '20%' -%}
+                        {%- assign image_size = '210x' -%}
+                        {% when '6' %}
+                        {%- assign grid_item_width = '16.666666%' -%}
+                        {%- assign image_size = '170x' -%}
+                        <style>
+                          @media(max-width: 1024px) {
+                            .hoverBorderWrapper img {
+                              width: 250px;
+                            }
+                          }
+                          @media(max-width: 320px) {
+                            .hoverBorderWrapper img {
+                              width: 290px;
+                            }
+                          }
+                        </style>
+                        {% endcase %}
+
+                    {% for product in collection.products %}
+
+                     {% if collection.metafields["global"]["col_addv1"] == blank and collection.metafields["global"]["col_addv2"] == blank %}
+                    <div class="product-item-wrapper {% cycle 'first', 'second', 'third', 'last' %}" style="display: inline-block; vertical-align: top; width:{{grid_item_width}};">
+                        {% include 'collection-item', grid_image_width: image_size %}
+                      </div>
+                      {% else %}
+
+                     	 {% if forloop.index == 5 or forloop.index == 15 %}<div class="custom_prd_item_wrap {% if collection.products_count == 8 %}tot_8{% endif %}">{% endif %}
+                      {% if forloop.index == 9 %}
+                      </div>
+                      <div class="cusatomwidt video_col">
+                        {% if collection.metafields["global"]["col_addv1"] contains '[video_id]' %}
+                        {% assign video_id = collection.metafields["global"]["col_addv1"] | split: '[video_id]' | last | strip | strip_html  %}
+                        <div class="col_video_wrap {% if collection.metafields["global"]["col_addi1"] != blank %}visible-xs{% endif %}">
+                          <iframe id="col_v1" src="https://player.vimeo.com/video/{{video_id}}?color=d4d4d4&title=0&byline=0&portrait=0&controls=0&background=1"  frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                        </div>
+                        {% else %}
+                        <div class="col_video_wrap image">
+                         {{ collection.metafields["global"]["col_addv1"] }}
+                       </div>
+                        {% endif %}
+                        <div class="hidden-xs">{{ collection.metafields["global"]["col_addi1"] }}</div>
+                      </div>
+                      {% elsif forloop.index == 14 %}
+                     <div class="cusatomwidt {% if collection.metafields["global"]["col_addv2"] contains '[video_id]' %}video_col {% endif %}">
+                        {% if collection.metafields["global"]["col_addv2"] contains '[video_id]' %}
+                        {% assign video_id = collection.metafields["global"]["col_addv2"] | split: '[video_id]' | last | strip | strip_html  %}
+                        <div class="col_video_wrap {% if collection.metafields["global"]["col_addi2"] != blank %}visible-xs{% endif %}">
+                          <iframe id="col_v2" src="https://player.vimeo.com/video/{{video_id}}?color=d4d4d4&title=0&byline=0&portrait=0&controls=0&background=1"  frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                        </div>
+                        {% else %}
+                         {{ collection.metafields["global"]["col_addv2"] }}
+                        {% endif %}
+                        <div class="hidden-xs">{{ collection.metafields["global"]["col_addi2"] }}</div>
+                      </div>
+                        {% else %}
+                      {% if forloop.index == 19 %}
+                    </div>
+                    {% endif %}
+
+                      <div class="product-item-wrapper {% cycle 'first', 'second', 'third', 'last' %}" style="display: inline-block; vertical-align: top; width:{{grid_item_width}};">
+                        {% include 'collection-item', grid_image_width: image_size %}
+                      </div>
+
+                       {% endif %}
+                     {% endif %}
+                    {% endfor %}
+                    </div>
+
+                  </div>
+
+                  {% comment %}
+                	<div class="custombtn">
+                     	 <div class="AjaxinatePagination">
+                         {% if paginate.next %}
+                    		<a href="{{ paginate.next.url }}">Loading More Products</a>
+                        {% endif %}
+    					         </div>
+                   </div>
+                   <div class="num_remain_products" data-count="{{ paginate.items | minus: 16 }}"></div>
+                   {% endcomment %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script type="text/javascript">
+
+//     $(document).ready(function() {
+//       if(location.search.search("sort_by=") == -1){
+
+//       }
+//       else{
+//       if(location.search != ""){
+//         var stpo = location.search.search("sort_by=")+8, sortby_url = '.'+location.search.substr(stpo).split('='), sortby_url_a = sortby_url+" a";
+//         $(sortby_url).addClass("active");
+//         $('#sortButton .name').html($(sortby_url_a).html());
+//       }
+//       else{
+//          $('.manual').addClass("active");
+//       }
+//       }
+//     });
+    $.fn.isInViewport = function() {
+      if ($(this).length > 0) {
+        var elementTop = $(this).offset().top;
+        var elementBottom = elementTop + $(this).outerHeight();
+
+        var viewportTop = $(window).scrollTop();
+        var viewportBottom = viewportTop + $(window).height();
+
+        return elementBottom > viewportTop && elementTop < viewportBottom;
+      }
+    };
+$(function(){
+    $(window).scroll(function() {
+      if ($('.collection-heading-inner').isInViewport()) {
+        $('.collection-toolbar').removeClass('scroll_fixed');
+      }
+      else
+      {
+        $('.collection-toolbar').addClass('scroll_fixed');
+      }
+      if($('.collection-banner-inner').isInViewport()) {
+        $('.collection-toolbar').removeClass('scroll_fixed');
+      }
+    });
+});
+
+$('#sortButtonWarper').click(function(){
+  $('#sortBox').show();
+  $('.tag-group ul').hide();
+  $('.collection-content-inner ').addClass('col_overlay');
+});
+$('#sortForm li.sort a').click(function(e){
+   e.preventDefault();
+   $('#coll-filter-5 li').removeClass('active');
+  $('.allclear').show();
+  $('#sortButton .name').html($(this).html());
+   $('.custom_overlay').show();
+  var getvalue = $(this).attr('href');
+  var search = window.location.search;
+  var url =window.location.href;
+   if(window.location.href.indexOf("pre-order") > -1){ url =window.location.href.replace('pre-order','');  }
+   if(window.location.href.indexOf("sale") > -1){ url =window.location.href.replace('sale','');  }
+   if(window.location.href.indexOf("available-now") > -1){ url =window.location.href.replace('available-now','');  }
+  if (search.length) {
+    getvalue = getvalue.replace('/', '');
+    url = url.substring(0, url.indexOf('?'));
+    url+=getvalue ;
+    }
+  else
+  {
+  url+=getvalue;
+  console.log(url);
+  }
+   $('#sortBox').hide();
+   $('.collection-content-inner ').removeClass('col_overlay');
+   window.location.href = url;
+//    $.ajax({
+//         type: 'GET',
+//         url: url,
+//         data: {},
+//         beforeSend: function( xhr ) {
+//         $('.custom_overlay').css('display','block');
+
+//         },
+//         complete: function (data) {
+//           $('.collection-items').html($(".collection-items", data.responseText).html());
+//           history.pushState({
+//             page: url
+//           }, url, url);
+//            $('.custom_overlay').css('display','none');
+//            var tot_product = $('.collection-items .products').length;
+//             $('.prd_count').html(tot_product);
+//         }
+//       });
+});
+    $('#sortForm li.tag a').click(function(e){
+      e.preventDefault();
+      var getv = $(this).attr('href');
+       $('#coll-filter-5 li').removeClass('active');
+      $('li.'+getv+'').addClass('active');
+       var get_url = window.location.href;
+
+      setTimeout(function(){
+        $('#coll-filter-5 .apply').trigger('click');
+  		}, 1000);
+
+    });
+    $(window).load(function(){
+       if(window.location.href.indexOf("?sort_by=") > -1){
+         $('.allclear').show();
+
+         var getvalue = location.search;
+         getvalue = getvalue.replace('?sort_by=','');
+
+         if( getvalue == 'price-ascending' ){getvalue="Price, low to high";}
+         if( getvalue == 'price-descending' ){getvalue="Price, high to low";}
+         if( getvalue == 'title-ascending' ){getvalue="Alphabetically, A-Z";}
+         if( getvalue == 'title-descending' ){getvalue="Alphabetically, Z-A";}
+         if( getvalue == 'created-ascending' ){getvalue="Date, old to new";}
+         if( getvalue == 'created-descending' ){getvalue="Date, new to old";}
+         if( getvalue == 'best-selling' ){getvalue="Best Selling";}
+         $('#sortButton .name').html(getvalue);
+
+       }
+      if($('.tag-group').hasClass('active')){ $('.allclear').show();}
+          if(window.location.href.indexOf("sale") > -1){
+          $('#sortButton .name').html('By Sale');
+          }
+          if(window.location.href.indexOf("pre-order") > -1){
+          $('#sortButton .name').html('Pre Order');
+          }
+          if(window.location.href.indexOf("available-now") > -1){
+          $('#sortButton .name').html('Available');
+          }
+    });
+
+
+
+ $(window).scroll(function() {
+  if ($('#col_v1').isInViewport()) { $('#col_v1').vimeo("play"); }
+   else{ $('#col_v1').vimeo("pause");   }
+});
+$(document).ready(function(){
+  var new_html = [];
+  if ($('.collection-content').length > 0) {
+    {% assign pages = collection.products_count | divided_by : 50 %}
+    {% assign pages = pages | plus: 1 %}
+    {% for page in (1..pages) %}
+    {% if page > 1 %}
+    $.get('/collections/{{ collection.handle }}/products.json', {
+          page: {{ page }},
+          limit: 50,
+          sort_by: ''
+          }, function (data) {
+      new_html[{{ page }}] = '';
+      var cycle = ['first', 'second', 'third', 'last'];
+      var i = -1;
+      data.products.forEach(function (e) {
+        var variants_available = [];
+
+        e.variants.forEach(function (variant) {
+          variants_available.push(variant.available);
+        });
+
+        available = $.inArray(true, variants_available) != -1;
+        i = i + 1;
+
+        new_html[{{ page }}] += '<div id="product_' + e.id + '" class="product-item-wrapper ' + cycle[i] + '" style="display: inline-block; vertical-align: top; width:25%;">';
+        new_html[{{ page }}] += '<div class="row-container list-unstyled clearfix">';
+        new_html[{{ page }}] += '<div class="row-left">';
+        new_html[{{ page }}] += '<a href="/products/' + e.handle + '" class="hoverBorder container_item">';
+        new_html[{{ page }}] += '<img src="' + e.images[0].src + '" class="img-responsive front" alt="' + e.images[0].alt + '" />';
+        if (e.images.length > 1) {
+          var image = e.images[1];
+          if (e.images.length > 2) {
+            image = e.images[2];
+          }
+          new_html[{{ page }}] += '<img src="' + image.src + '" class="secondimage" alt="{{ image.alt | escape }}" />';
+        }
+
+        new_html[{{ page }}] += '</a>';
+        new_html[{{ page }}] += '</div>';
+        new_html[{{ page }}] += '<div class="row-right animMix">';
+        new_html[{{ page }}] += '<div class="collec-title">';
+        for (i in e.tags) {
+          var tag = e.tags[i];
+          if (tag.indexOf('new in') >= 0) {
+            new_html[{{ page }}] += '<span style="color:#949494">New in</span>';
+          } else if (tag.indexOf('IN SUPPORT OF SICKKIDS') >= 0) {
+            new_html[{{ page }}] += '<span style="color:#4870AE">IN SUPPORT OF SICKKIDS</span>';
+          }
+        }
+        new_html[{{ page }}] += '<div class="wishlist hidden-xs">';
+        new_html[{{ page }}] += '<a title="Add To Wishlist" class="wishlist wishlist-'+e.handle+'" data-wishlisthandle="'+e.handle+'"><i class="sticon-heart" aria-hidden="true"></i></a>';
+        new_html[{{ page }}] += '</div>';
+        new_html[{{ page }}] += '<div class="product-title"><a class="title-5" href="' + e.url + '">' + e.title + '</a></div>';
+        new_html[{{ page }}] += '</div>';
+        new_html[{{ page }}] += '<div class="color_option">';
+
+        var index = 1;
+        for (option in e.options) {
+          if (e.options[option]['name'] == 'Color' || e.options[option]['name'] == 'Colour') {
+            var colorlist = '';
+            var color = '';
+            for (variant in e.variants) {
+              color = e.variants[variant]['option'+index];
+
+              if (!colorlist.includes(color)) {
+                new_html[{{ page }}] += '<span>'+color+'</span>';
+                var tempList = colorlist + color + ' ';
+                colorlist = tempList;
+              }
+            }
+          }
+          index = index + 1;
+        }
+        new_html[{{ page }}] += '</div>';
+        new_html[{{ page }}] += '<div class="group_price_rating">';
+        new_html[{{ page }}] += '<div class="rating-star">';
+        new_html[{{ page }}] += '<span class="shopify-product-reviews-badge" data-id="'+e.id+'"></span>';
+        new_html[{{ page }}] += '</div>';
+        new_html[{{ page }}] += '<div class="product-price">';
+
+        var price = parseInt(e.variants[0].price);
+        var compare_at = parseInt(e.variants[0].compare_at_price);
+
+        if (price < compare_at && !isNaN(compare_at)) {
+          new_html[{{ page }}] += '<div class="was"><span class="money">$' + compare_at.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span></div>';
+          new_html[{{ page }}] += '<div class="onsale"> <span class="nowsle">&nbsp;</span><span class="money">$' + price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span></div>';
+        } else {
+          new_html[{{ page }}] += '<div class="prod-price"><span class="money">$' + price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span></div>';
+        }
+
+        new_html[{{ page }}] += '</div>';
+        new_html[{{ page }}] += '</div>';
+        new_html[{{ page }}] += '</div>';
+        new_html[{{ page }}] += '</div>';
+        new_html[{{ page }}] += '</div>';
+      });
+
+      // $('#product-loop').append(html);
+      // new_html.forEach(function (e, i) {
+      //   $('.collection-items .AjaxinateLoop_desktop').append(e);
+      // });
+    });
+    {% endif %}
+    {% endfor %}
+
+    var ajax_running = true;
+    $( document ).ajaxStop(function() {
+      if (ajax_running) {
+        ajax_running = false;
+        new_html.forEach(function (e, i) {
+          console.log('adding product items of next pages');
+          $('.collection-items .AjaxinateLoop_desktop').append(e);
+        });
+      }
+    });
+  }
+});
+</script>
+
+
+
+
+{% schema %}
+{
+  "name": "Collection pages",
+  "settings": [
+	{
+          "type": "header",
+          "content": "Layout setting"
+    },
+
+    {
+      "type": "select",
+      "id": "grid",
+      "label": "Products per row (grid only)",
+      "default": "4",
+      "options": [
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        },
+        {
+          "value": "5",
+          "label": "5"
+        },
+        {
+          "value": "6",
+          "label": "6"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "rows",
+      "label": "Rows per page (grid only)",
+      "default": "6",
+      "options": [
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        },
+        {
+          "value": "5",
+          "label": "5"
+        },
+        {
+          "value": "6",
+          "label": "6"
+        },
+        {
+          "value": "7",
+          "label": "7"
+        },
+        {
+          "value": "8",
+          "label": "8"
+        }
+      ]
+    },
+	{
+          "type": "header",
+          "content": "General Settings"
+    },
+
+      {
+        "type": "image_picker",
+        "id": "collection_banner_img",
+		"label":"Upload image"
+      },
+    {
+        "type": "checkbox",
+        "id": "collection_image",
+        "label": "Display Collection Featured image",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "collection_desc",
+        "label": "Display Collection Description",
+        "default": true
+      },
+    {
+        "type": "header",
+        "content": "Collection Filters Toolbar"
+      },
+      {
+        "type": "checkbox",
+        "id": "collection_showing",
+        "label": "Display \"Showing\" number",
+        "default": true
+      },
+	  {
+        "type": "checkbox",
+        "id": "collection_grid_list",
+        "label": "Display View as List\/Grid",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "collection_sort",
+        "label": "Display Sort by filter",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Tags filter"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_tagsfilter",
+        "label": "Enable Tag Filter",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_openfilter",
+        "label": "Filter in Open status",
+        "default": true
+      },
+      {
+        "type": "paragraph",
+        "content": "Group tag filter 1"
+      },
+      {
+        "type": "text",
+        "id": "group_tag_1_label",
+        "label": "Label:",
+        "default": "Size"
+      },
+      {
+        "type": "text",
+        "id": "group_tag_1",
+        "label": "Keys:",
+        "default": "S,M,L,XL",
+        "info": "Separate tags with comma"
+      },
+      {
+        "type": "paragraph",
+        "content": "Group tab filter 2"
+      },
+      {
+        "type": "text",
+        "id": "group_tag_2_label",
+        "label": "Label:",
+        "default": "Color"
+      },
+      {
+        "type": "text",
+        "id": "group_tag_2",
+        "label": "Keys:",
+        "default": "Green, Black, Blue, Red, Yellow, White, Brown, Silver, Gray, Pink, Orange",
+        "info": "Separate tags with comma"
+      },
+      {
+        "type": "paragraph",
+        "content": "Group tab filter 3"
+      },
+      {
+        "type": "text",
+        "id": "group_tag_3_label",
+        "label": "Label:",
+        "default": "Brand"
+      },
+      {
+        "type": "text",
+        "id": "group_tag_3",
+        "label": "Keys:",
+        "default": "Chanel, Dior, Gap, Lucci, Louis, Hermes",
+        "info": "Separate tags with comma"
+      },
+      {
+        "type": "paragraph",
+        "content": "Group tab filter 4"
+      },
+      {
+        "type": "text",
+        "id": "group_tag_4_label",
+        "label": "Label:",
+        "default": "Price"
+      },
+      {
+        "type": "text",
+        "id": "group_tag_4",
+        "label": "Keys:",
+        "default": "Under $100, $100 - $200, Above $200",
+        "info": "Separate tags with comma"
+      }
+  ]
+}
+{% endschema %}

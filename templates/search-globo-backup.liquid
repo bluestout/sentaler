@@ -1,0 +1,67 @@
+{% comment %}Copy following content and paste to templates/search.liquid file{% endcomment %}
+
+{% paginate search.results by 12 %}
+
+<div class="search-page">
+  <div class="container">
+    <div class="row">
+      {% if search.results_count == 0 or search.performed == false %}
+      <div class="empty-page-content text-center">
+        <div class="section-header">
+          <h2 class="h2">{{ 'general.search.title' | t }}</h2>
+        </div>
+        {% else %}
+        <div class="section-header text-center col-xs-12">
+          <h2 class="h2">{{ 'general.search.results_with_count' | t: terms: search.terms, count: search.results_count }}</h2>
+        </div>
+        {% endif %}
+        <div class="grid col-xs-12">
+          <div class="grid__item medium-up--two-fifths medium-up--push-three-tenths">
+            <form action="/search" method="get" role="search" class="search">
+              <div class="input-group">
+                <input type="search"
+                       id="SearchInput"
+                       class="input-group__field search__input"
+                       name="q"
+                       value="{{ search.terms | escape }}"
+                       placeholder="{{ 'general.search.placeholder' | t }}"
+                       aria-label="{{ 'general.search.placeholder' | t }}"
+                       autofocus>
+                <span class="input-group__btn">
+                  <input type="hidden" name="type" value="product">
+                  <button class="btn search__submit" type="submit">{{ 'general.search.submit' | t }}</button>
+                </span>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        {% if search.performed and search.results_count == 0 %}
+        <hr class="hr--small hr--invisible">
+        <p>{{ 'general.search.no_results_html' | t: terms: search.terms }}</p>
+        {% endif %}
+      </div>
+
+      {% if search.performed %}
+      {% if search.results_count > 0 %}
+      <hr>
+      {% endif %}
+      <div class="search_pager_wrapper">
+        <div class="page-width list-view-items">
+          {%- assign image_size = '270x' -%}
+          {% for product in search.results %}
+          <div class="product-item-wrapper {% cycle 'first', '', 'third', 'last' %} col-sm-3 col-xs-12 ">
+            {% include 'collection-item', grid_image_width: image_size %}
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      {% if paginate.pages > 1 %}
+      {% include 'pagination' %}
+      {% endif %}
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endpaginate %}

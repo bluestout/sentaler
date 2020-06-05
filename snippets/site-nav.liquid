@@ -7,7 +7,7 @@
   {% assign item = l.title | downcase  | handleize  %}
 
   <li rel="{{item}}" class="mainitem {% if l.active %}active {% endif %}  {% if megaitem contains item %} has_deskmega{% endif %}">
-    <a href="{{ l.url }}" class="mainmenu" {% if l.title != 'Men' %}data-toggle="dropdown"{% endif %}>
+    <a href="{{ l.url }}" class="mainmenu" {% if l.title != 'Men' %}{% comment %}data-toggle="dropdown"{% endcomment %}{% endif %}>
       <span>{{ l.title }}</span>
        {% if megaitem contains item %} {% if l.title != 'Men' %}<span class="sticon-caret-d-small"></span>{% endif %}{% endif %}
     </a>

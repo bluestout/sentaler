@@ -1,3 +1,6 @@
+{% include 'gravityadmin' %}
+<div style="display: none !important;  visibility: hidden !important;" class="cmspro-section" id="cmspro-b6fc720c"></div>
+{% include 'sca_freegift_price' with product %}
 <div class="product-template__container page-width" itemscope itemtype="http://schema.org/Product" id="ProductSection-{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="product" data-enable-history-state="true">
   <meta itemprop="name" content="{{ product.title }}">
   <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
@@ -46,7 +49,7 @@
                      {% endif %}
                   {% endfor %}
                   <div class="product-title">
-                    <h1 class="title">{{ product.title | split: ',' | first }}</h1>
+                    <div style="position:relative;"><h1 class="title"> {{ product.title | split: ',' | first }} </h1><span id="secomapp-fg-image-{{ product.id }}" style="display: none;"> {{ "icon-freegift.png" | asset_url | img_tag: "Free Gift", "sca-fg-img-label" }} </span> </div>
                     {% if section.settings.display_wishlist %}
                     <div class="add-to-wishlist">
                       <div class="wishlist hidden-xs">
@@ -62,14 +65,20 @@
 
 
                       {% if option == 'Material' or  option == 'material' %}
-                            {% for variant in product.variants %}
+                        {% for variant in product.variants %}
+                        {% unless variant.metafields.secomapp.freegifts %}
+                        {% unless variant.title contains '(Freegifts)' %}
+
                        {% assign value = variant.options[option_in] %}
                           {% unless values contains value %}
                       {% if forloop.index == 1 %}
                             {{value}}{% include 'info' %}
                       {% endif %}
                         {% endunless %}
-                          {% endfor %}
+
+                        {%endunless%}
+                        {%endunless%}
+                        {% endfor %}
                       {% endif %}
 
                    {% endfor %}
@@ -93,7 +102,7 @@
                   </div>
                   {% endif %}
 
-                  {% if product.variants.size == 1 and product.variants.first.title contains 'Default' %}
+                  {% if sca_product_variantCount == 1 and product.variants.first.title contains 'Default' %}
                     {% assign hide_default_title = true %}
                   {% endif %}
 
@@ -117,7 +126,11 @@
                       <div class="select clearfix"{% if hide_default_title or section.settings.color_swatch %} style="display:none"{% endif %}>
                         <select id="product-select" name="id">
                           {% for variant in product.variants %}
+                          {% unless variant.metafields.secomapp.freegifts %}
+                          {% unless variant.title contains '(Freegifts)' %}
                           <option value="{{ variant.id }}"{% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} data-sku="{{ variant.sku }}">{{ variant.title }} - {{ variant.price | money }}</option>
+                          {%endunless%}
+                          {%endunless%}
                           {% endfor %}
                         </select>
                       </div>
@@ -139,7 +152,7 @@
                       </div>
                       {% endif %}
 
-                      <div class="purchase-section{% if product.variants.size > 1 %} multiple{% endif %}">
+                      <div class="purchase-section{% if sca_product_variantCount > 1 %} multiple{% endif %}">
                         <div class="purchase">
 
                           <button id="add-to-cart" class="btn add-to-cart" type="submit" name="add">{{ 'Pre-order' | json | remove: '"'}}</button>
@@ -164,6 +177,8 @@
                     </div>
 
                   </form>
+                  <span class="sca-fg-cat-list" style="display: none;" id="secomapp-fg-data-{{ product.id }}"> </span>
+
 
 				  <div class="prd_ship prdrow">
                     <span><i class="sticon-shipping"></i>Free Duties and Expedited Shipping</span>
@@ -328,7 +343,9 @@
   };
 
   jQuery(document).ready(function($){
-    new Shopify.OptionSelectors("product-select", { product: {{ product | json }}, onVariantSelected: selectCallback, enableHistoryState: true });
+    "undefined"==typeof freegifts_product_json&&(window.freegifts_product_json=function(e){if(e){for(var i=0;i<e.options.length;i++)if(option=e.options[i],option.values)for(var r=0;r<option.values.length;r++)(option.values[r].endsWith("(Freegifts)")||option.values[r].endsWith("% off)"))&&(option.values.splice(r,1),r--);for(var a=function(e){for(var i in e)if(e.hasOwnProperty(i))return!1;return!0},p=e.price,t=e.price_max,o=e.price_min,n=e.compare_at_price,_=e.compare_at_price_max,c=e.compare_at_price_min,i=0;i<e.variants.length;i++){var r=e.variants[i],s=r.option3?r.option3:r.option2?r.option2:r.option1;"undefined"!=typeof SECOMAPP&&"undefined"!=typeof SECOMAPP.gifts_list_avai&&!a(SECOMAPP.gifts_list_avai)&&"undefined"!=typeof SECOMAPP.gifts_list_avai[r.id]||s.endsWith("(Freegifts)")||s.endsWith("% off)")?(e.variants.splice(i,1),i-=1):(t>=r.price&&(t=r.price,p=r.price),o<=r.price&&(o=r.price),r.compare_at_price&&(_>=r.compare_at_price&&(_=r.compare_at_price,n=r.compare_at_price),c<=r.compare_at_price&&(c=r.compare_at_price)),1==r.available&&(e.available=!0))}e.price=p,e.price_max=o,e.price_min=t,e.compare_at_price=n,e.compare_at_price_max=c,e.compare_at_price_min=_,e.price_varies=o>t?!0:!1,e.compare_at_price_varies=c>_?!0:!1}return e});
+    var sca_product_info = freegifts_product_json ( {{ product | json }} );
+    new Shopify.OptionSelectors("product-select", { product: sca_product_info, onVariantSelected: selectCallback, enableHistoryState: true });
 
     // Add label if only one product option and it isn't 'Title'.
     {% if product.options.size == 1 and product.options.first != 'Title' %}

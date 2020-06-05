@@ -30,7 +30,28 @@
   <!--[if lte IE 9]><script src="{{ 'vendor.js' | asset_url }}"></script><![endif]-->
 
   {{ content_for_header }}
-</head>
+
+<!-- Start of Littledata - Fix Google Analytics Script-->
+{% include 'LittledataLayer' %}
+<!-- End of Littledata - Fix Google Analytics Script -->
+<!-- CMSPROADMINJSSTART -->  
+                                    <script type="text/javascript" defer="defer" src="https://gravity-apps.com/cmspro//wp-content/uploads4124/sectionadmin.js?__rq=2999b7b1776f910d30130d83cb848d1b"></script>
+                                    <!-- CMSPROADMINJSEND --> 
+                                    <!-- CMSPROEDITSHEADSTART -->
+                                    {% assign currentpath = request.path %} 
+                                    {% assign pathelements = request.path | split: '/products/' %} 
+                                    {% assign pathelementsCnt = pathelements | size %}
+                                    {% if pathelementsCnt > 1 %}
+                                    {% assign currentpath = pathelements | last %}
+                                    {% assign currentpath = currentpath | prepend: '/products/' %}  
+                                    {% endif %}
+                            
+                                    <script type="text/javascript">
+                                                                         gsRequestPath = "{{ currentpath }}";  
+                                    </script>
+                                                                 
+                                    {% section 'cmsproheader' %}
+                                    <!-- CMSPROEDITSHEADEND --></head>
 
 <body class="template-giftcard">
   {{ content_for_layout }}
@@ -76,5 +97,5 @@
       }
     })();
   </script>
-</body>
+<!-- CMSPROEDITSFOOTSTART --> {% section 'cmsprofooter' %} <!-- CMSPROEDITSFOOTEND --></body>
 </html>

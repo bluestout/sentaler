@@ -1,3 +1,5 @@
+{% include 'gravityadmin' %}
+<div style="display: none !important;  visibility: hidden !important;" class="cmspro-section" id="cmspro-9f57100b"></div>
 <div class="page-width" data-section-id="{{ section.id }}" data-section-type="cart-template">
 <section class="cart-heading">
   <div class="cart-heading-wrapper">
@@ -32,15 +34,18 @@
                     <div class="cart-row" data-product-id="{{ item.product.id }}">
                       <div class="image">
                         <div class="product_image">
-                          <a href="{{ item.url }}">
-                            <img src="{{ item | img_url: '250X' }}"  alt="{{ item.title | escape }}" />
+                          <a href="{%if item.variant.metafields.secomapp.freegifts%}{{ item.product.url }}{%else%}{{ item.url }}{%endif%}">
+                            <img src="{{ item | img_url: '250X' }}"  alt="{{ item.title | remove: '/ Default Title'| remove: 'Default Title' | remove: '/ Default' | remove: 'Default' | replace: '(Freegifts)', ''  | escape }}" />
                           </a>
                         </div>
                         </div>
                       <div class="c_info">
                         <div class="product_name">
-                          <a href="{{ item.url }}">
-                            <p>{{ item.product.title }}</p>
+                          <a href="{%if item.variant.metafields.secomapp.freegifts%}{{ item.product.url }}{%else%}{{ item.url }}{%endif%}">
+                            <p>{{ item.product.title }}
+<span class="saso-cart-item-discount-notes" data-key="{{item.key}}"></span>
+<span class="saso-cart-item-upsell-notes" data-key="{{item.key}}"></span>
+                                </p>
 
                           </a>
 
@@ -79,13 +84,19 @@
                       <div class="qty" data-ptype="{{ item.product.type | downcase }}">
                         <div class="quantity-wrapper">
                           <div class="wrapper">
+                            {% unless item.variant.metafields.secomapp.freegifts %}
                             <span class='qtyminus sticon-minus' field='quantity_{{forloop.index}}'></span>
-                            <input type="text" size="4" name="updates[]" id="updates_{{ item.id }}" value="{{ item.quantity }}" class="tc item-quantity quantity_{{forloop.index}}" />
+                            {% endunless %}
+                            <input {%if item.variant.metafields.secomapp.freegifts%}readonly{%endif%} type="text" size="4" name="updates[]" id="updates_{{ item.id }}" value="{{ item.quantity }}" class="tc item-quantity quantity_{{forloop.index}}" />
+                            {% unless item.variant.metafields.secomapp.freegifts %}
                             <span class='qtyplus sticon-plus' field='quantity_{{forloop.index}}'></span>
+                            {% endunless %}
                           </div><!--End wrapper-->
                         </div><!--End quantily wrapper-->
                       </div>
-                      <div class="price">{{ item.price | money }}</div>
+                      <div class="price">
+<span class="saso-cart-item-price" data-key="{{item.key}}">{{ item.price | money }}</span>
+</div>
                       <!--<a href="/cart/change?line={{ forloop.index }}&quantity=0" class="cart_remove desk_hide">Remove</a>-->
                       <a href="#" class="cart_remove desk_hide">Remove</a>
                       </div>
@@ -99,7 +110,10 @@
                     <div class="summary">
                       <div class="srow">
                       <div class="total_text s_l" colspan="1">Subtotal</div>
-                      <div class="price s_c" colspan="4"><span class="total"><strong>{{ cart.total_price | money }}</strong></span></div>
+                      <div class="price s_c" colspan="4"><span class="total">
+<span class="saso-cart-original-total"><strong>{{ cart.total_price | money }}</strong></span>
+<span class="saso-cart-total"></span>
+</span></div>
                       </div>
 
                       <div class="srow">
@@ -114,7 +128,10 @@
                     </div>
                     <div class="cart_total">
                      <div class="total_text s_l" colspan="1">Total</div>
-                      <div class="price s_c" colspan="4"><span class="total"><strong>{{ cart.total_price | money }}</strong></span></div>
+                      <div class="price s_c" colspan="4"><span class="total">
+<span class="saso-cart-original-total"><strong>{{ cart.total_price | money }}</strong></span>
+<span class="saso-cart-total"></span>
+</span></div>
                     </div>
                     <div class="buttons clearfix">
                       <input type="submit" id="update-cart" class="btn" name="update" value="{{ 'cart.general.update' | t }}"  style="display:none;"/>

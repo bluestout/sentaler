@@ -1,3 +1,5 @@
+{% include 'gravityadmin' %}
+<div style="display: none !important;  visibility: hidden !important;" class="cmspro-section" id="cmspro-e5f6d2af"></div>
 <section class="page-content">
   <div class="page-wrapper">
     <div class="container c_pad0">
@@ -14,7 +16,7 @@
                   <img src="{{ block.settings.image | img_url : 'master' }}" class="img-responsive" alt="" >
                 </div>
                 {% if block.settings.imagem != nil %}
-                <div class="col-xs-12 d-block visible-xs">
+                <div class="col-xs-12 d-block visible-xs {% unless block.settings.padding_bottom_m %}m_pad_bottom_none{% endunless %}">
                   <img src="{{ block.settings.imagem | img_url : 'master' }}" class="img-responsive" alt="" >
                 </div>
                 {% endif %}
@@ -81,6 +83,12 @@
           "id": "padding",
           "label": "Has Padding",
           "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "padding_bottom_m",
+          "label": "Has Bottom padding on Mobile",
+          "default": true
         },
         {
           "type": "checkbox",

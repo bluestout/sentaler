@@ -1,3 +1,5 @@
+{% include 'gravityadmin' %}
+<div style="display: none !important;  visibility: hidden !important;" class="cmspro-section" id="cmspro-7d10c83d"></div>
 <section class="sentaler-x-section">
   <div class="home_banner">
     <div class="banner_div b_{{section.id}} main align_{{section.settings.alignment}} set_{{section.settings.width}}" >
@@ -21,7 +23,7 @@
   </div>
   <div class="video_wrapper">
     <div class="">
-      <iframe id="col_v1" src="https://player.vimeo.com/video/{{ section.settings.video_id }}?color=d4d4d4&background=1&muted=0" width="100%" height="100%" style="overflow:hidden;overflow-x:hidden;overflow-y:hidden;height:100%;width:100%;position:absolute;top:0px;left:0px;right:0px;bottom:0px" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+      <iframe id="col_v1" src="https://player.vimeo.com/video/{{ section.settings.video_id }}?color=d4d4d4&background=1&autoplay=1" width="100%" height="100%" style="overflow:hidden;overflow-x:hidden;overflow-y:hidden;height:100%;width:100%;position:absolute;top:0px;left:0px;right:0px;bottom:0px" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
     </div>
   </div>
   <style>
@@ -129,10 +131,7 @@
 			"label":"Link"
 		}
 		],
-  "presets": [{
-    "name": "Image with text",
-    "category": "Image"
-  }]
+  "presets": []
   }
 {% endschema %}
 

@@ -1,39 +1,11 @@
-<div class="home_banner" id="banner_{{section.id}}">
-  <div class="banner_div b_{{section.id}} main align_{{section.settings.alignment}} set_{{section.settings.width}}" >
-  </div>
-    <div class="banner_text align_{{section.settings.alignment}}" >
-      <div class="banner_inner_wrap">
-      {% if section.settings.heading %}
-      <h4>{{section.settings.heading}}</h4>
-      {% endif %}
-      {% if section.settings.content %}
-      <p>{{section.settings.content}}</p>
-      {% endif %}
-      {% if section.settings.btn_link %}
-        <div><a class="index_btn" href="{{section.settings.btn_link}}">{{section.settings.btn_text}}</a></div>
-      {% endif %}
-      </div>
-    </div>
+{% include 'gravityadmin' %}
+<div style="display: none !important;  visibility: hidden !important;" class="cmspro-section" id="cmspro-453fd3c9"></div>
+{% include 'image-with-text' %}
 
-</div>
-<style>
-  #banner_{{section.id}}.home_banner h4{color:{{section.settings.heading_color}} }
-  #banner_{{section.id}}.home_banner p{color:{{section.settings.text_color}} }
-  #banner_{{section.id}}.home_banner a{color:{{section.settings.text_color2}};border-color:{{section.settings.text_color2}}}
-  #banner_{{section.id}}.home_banner a:hover {color: #fff;}
-  .b_{{section.id}}{ background-image:url({{section.settings.image | img_url:"master"}})}
-  @media only screen
-  and (max-width:767px) {
-    #banner_{{section.id}}.home_banner h4{color:#000; }
-    #banner_{{section.id}}.home_banner p{color:#000; }
-    #banner_{{section.id}}.home_banner a{color:#000;border-color:#000;}
-    #banner_{{section.id}}.home_banner a:hover {color: #fff;background-color: #000;}
-   .b_{{section.id}}{ background-image:url({{section.settings.imagem | img_url:"master"}}) }
-  }
-</style>
 {% schema %}
   {
     "name": "Image with text",
+    "class": "index-section",
     "settings": [
 		{
 			"type":"image_picker",
@@ -45,6 +17,11 @@
 			"id":"imagem",
 			"label":"Mobile Image"
 		},
+    {
+      "type": "text",
+      "id": "video_id",
+      "label": "Vimeo Video ID"
+    },
 		{
 			"type":"color",
 			"id":"heading_color",

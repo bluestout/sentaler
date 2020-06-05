@@ -1,57 +1,10 @@
-{%- assign collection = collections[section.settings.collection] -%}
-<div class="product-grid">
-  <div class="container pad_0">
-    <div class="row">
-      {% if section.settings.title != blank %}
-        <div class="section-header text-center">
-          <h2>{{ section.settings.title | escape }}</h2>
-          <span>{{section.settings.title2}}</span>
-          {% if section.settings.show_view_all %}
-        <div class="text-center">
-          <a href="{{ collection.url }}" >
-            {{ 'collections.general.view_all' | t }}
-          </a>
-        </div>
-      {% endif %}
-        </div>
-      {% endif %}
-
-      <div class="grid grid--uniform grid--view-items index_prd_slider owl-carousel owl-theme">
-        {% for product in collection.products  %}
-          <div class="grid__item ">
-            {% include 'product-item' %}
-          </div>
-        {% else %}
-          {% for i in (1..product_limit)%}
-            <div class="grid__item col-sm-4">
-              <div class="row-container list-unstyled clearfix">
-                <div class="row-left">
-                  <div class="grid-view-item__image">
-                    {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
-                    {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
-                  </div>
-                </div>
-                <div class="row-right animMix">
-                  <div class="product-title"><a href="#">{{ 'homepage.onboarding.product_title' | t }}</a></div>
-                  <div class="product-price">
-                    {% include 'product-price' %}
-                  </div>
-                </div>
-              </div>
-            </div>
-          {% endfor %}
-        {% endfor %}
-      </div>
-
-
-    </div>
-  </div>
-</div>
+{% include 'gravityadmin' %}
+<div style="display: none !important;  visibility: hidden !important;" class="cmspro-section" id="cmspro-ef47b583"></div>
+{% include 'collection-products' %}
 
 {% schema %}
 {
   "name": "Featured collection",
-  "class": "index-section",
   "settings": [
     {
       "type": "text",
@@ -77,10 +30,6 @@
     }
   ],
   "presets": [
-    {
-      "name": "Featured collection",
-      "category": "Collection"
-    }
   ]
 }
 {% endschema %}

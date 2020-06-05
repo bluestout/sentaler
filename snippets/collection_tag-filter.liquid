@@ -17,43 +17,40 @@
 		{% endif %}
       <p class="title">{{ section.settings.group_tag_1_label }}<span class="slectedfilter"><span class="filtercount"></span><span>Selected</span></span><span class="sticon-caret-d-small"></span></p>
 		<ul>
-          <span class="closeit">
-            <span class="desk_hide">Filter By {{ section.settings.group_tag_1_label }}</span>
-          <svg width="64" version="1.1" xmlns="http://www.w3.org/2000/svg" height="64" viewBox="0 0 64 64" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 64 64">
-            <g>
-              <path fill="#1D1D1B" d="M28.941,31.786L0.613,60.114c-0.787,0.787-0.787,2.062,0,2.849c0.393,0.394,0.909,0.59,1.424,0.59   c0.516,0,1.031-0.196,1.424-0.59l28.541-28.541l28.541,28.541c0.394,0.394,0.909,0.59,1.424,0.59c0.515,0,1.031-0.196,1.424-0.59   c0.787-0.787,0.787-2.062,0-2.849L35.064,31.786L63.41,3.438c0.787-0.787,0.787-2.062,0-2.849c-0.787-0.786-2.062-0.786-2.848,0   L32.003,29.15L3.441,0.59c-0.787-0.786-2.061-0.786-2.848,0c-0.787,0.787-0.787,2.062,0,2.849L28.941,31.786z"/>
-            </g>
-          </svg>
-          </span>
+      <span class="closeit">
+        <span class="desk_hide">Filter By {{ section.settings.group_tag_1_label }}</span>
+        <svg width="64" version="1.1" xmlns="http://www.w3.org/2000/svg" height="64" viewBox="0 0 64 64" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 64 64">
+          <g><path fill="#1D1D1B" d="M28.941,31.786L0.613,60.114c-0.787,0.787-0.787,2.062,0,2.849c0.393,0.394,0.909,0.59,1.424,0.59   c0.516,0,1.031-0.196,1.424-0.59l28.541-28.541l28.541,28.541c0.394,0.394,0.909,0.59,1.424,0.59c0.515,0,1.031-0.196,1.424-0.59   c0.787-0.787,0.787-2.062,0-2.849L35.064,31.786L63.41,3.438c0.787-0.787,0.787-2.062,0-2.849c-0.787-0.786-2.062-0.786-2.848,0   L32.003,29.15L3.441,0.59c-0.787-0.786-2.061-0.786-2.848,0c-0.787,0.787-0.787,2.062,0,2.849L28.941,31.786z"/></g>
+        </svg>
+      </span>
 		{% for t in array_tag1 %}
 			{% assign tag = t | strip %}
-			{% if collection.tags contains tag %}
+      {% assign down_tag = tag | downcase %}
+      {% assign down_collection_tags = collection.tags | downcase %}
+			{% if down_collection_tags contains down_tag %}
 				{% if swatch %}
 					{% assign color_img = tag | downcase | append: '.png' | asset_url %}
 					{% assign style = 'background-color: ' | append: tag | downcase | append: '; background-image: url(' | append: color_img | append: ');' %}
-					{% if current_tags contains tag %}
-						<li class="active swatch-tag {% if tag == 'White' or tag == 'white' %} white-color{% endif %}">
-                          <a href="{{tag}}"><span style="{{ style }}" class="btooltip" data-toggle="tooltip" data-placement="top" title="{{tag}}"></span>{% if tag == 'sickkids' %}Sentaler for Sick Kids {% else %}{{tag}}{% endif %}</a>
-          				</li>
-					{% else %}
-						<li class="swatch-tag {% if tag == 'White' or tag == 'white' %} white-color{% endif %}">
-                         <a href="{{tag}}"><span style="{{ style }}" class="btooltip" data-toggle="tooltip" data-placement="top" title="{{tag}}"></span>{% if tag == 'sickkids' %}Sentaler for Sick Kids {% else %}{{tag}}{% endif %}</a>
-          				</li>
-					{% endif %}
-
+					<li class="{% if current_tags contains tag %}active{% endif %} swatch-tag {% if tag == 'White' or tag == 'white' %} white-color{% endif %}">
+            <a href="{{tag}}"><span style="{{ style }}" class="btooltip" data-toggle="tooltip" data-placement="top" title="{{tag}}"></span>{% if tag == 'sickkids' %}Sentaler for Sick Kids {% else %}{{tag}}{% endif %}</a>
+  				</li>
 				{% else %}
+          {% assign tag = tag | downcase %}
+          {% assign current_tags = current_tags | downcase %}
 					{% if current_tags contains tag %}
-						<li class="active" rel="{{tag}}">{{ '<span class="fe-checkbox"></span> ' | append: tag | link_to_remove_tag: tag }}</li>
+						<li class="active" rel="{{ tag | handleize }}">{{ '<span class="fe-checkbox"></span> ' | append: tag | link_to_remove_tag: tag }}</li>
 					{% else %}
-						<li rel="{{tag}}">{{ '<span class="fe-checkbox"></span> ' | append: tag | link_to_add_tag: tag }}</li>
+						<li rel="{{ tag | handleize }}">{{ '<span class="fe-checkbox"></span> ' | append: tag | link_to_add_tag: tag }}</li>
 					{% endif %}
 				{% endif %}
+      {% else %}
+        <li rel="{{ down_tag | handleize }}">{{ '<span class="fe-checkbox"></span> ' | append: down_tag | link_to_add_tag: down_tag }}</li>
 			{% endif %}
 		{% endfor %}
-          <div class="filter_btn">
-          <span class="clear">Clear</span>
-          <span class="apply">Apply filters</span>
-          </div>
+      <div class="filter_btn">
+        <span class="clear">Clear</span>
+        <span class="apply">Apply filters</span>
+      </div>
 		</ul>
 	</div>
 	{% endif %}
@@ -67,43 +64,47 @@
 		{% endif %}
 		<p class="title">{{ section.settings.group_tag_2_label }}<span class="slectedfilter"><span class="filtercount"></span><span>Selected</span></span><span class="sticon-caret-d-small"></span></p>
 		<ul>
-          <span class="closeit">
-            <span class="desk_hide">Filter By {{ section.settings.group_tag_2_label }}</span>
-            <svg width="64" version="1.1" xmlns="http://www.w3.org/2000/svg" height="64" viewBox="0 0 64 64" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 64 64">
-            <g>
-              <path fill="#1D1D1B" d="M28.941,31.786L0.613,60.114c-0.787,0.787-0.787,2.062,0,2.849c0.393,0.394,0.909,0.59,1.424,0.59   c0.516,0,1.031-0.196,1.424-0.59l28.541-28.541l28.541,28.541c0.394,0.394,0.909,0.59,1.424,0.59c0.515,0,1.031-0.196,1.424-0.59   c0.787-0.787,0.787-2.062,0-2.849L35.064,31.786L63.41,3.438c0.787-0.787,0.787-2.062,0-2.849c-0.787-0.786-2.062-0.786-2.848,0   L32.003,29.15L3.441,0.59c-0.787-0.786-2.061-0.786-2.848,0c-0.787,0.787-0.787,2.062,0,2.849L28.941,31.786z"/>
-            </g>
-          </svg>
-          </span>
+      <span class="closeit">
+        <span class="desk_hide">Filter By {{ section.settings.group_tag_2_label }}</span>
+        <svg width="64" version="1.1" xmlns="http://www.w3.org/2000/svg" height="64" viewBox="0 0 64 64" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 64 64">
+          <g><path fill="#1D1D1B" d="M28.941,31.786L0.613,60.114c-0.787,0.787-0.787,2.062,0,2.849c0.393,0.394,0.909,0.59,1.424,0.59   c0.516,0,1.031-0.196,1.424-0.59l28.541-28.541l28.541,28.541c0.394,0.394,0.909,0.59,1.424,0.59c0.515,0,1.031-0.196,1.424-0.59   c0.787-0.787,0.787-2.062,0-2.849L35.064,31.786L63.41,3.438c0.787-0.787,0.787-2.062,0-2.849c-0.787-0.786-2.062-0.786-2.848,0   L32.003,29.15L3.441,0.59c-0.787-0.786-2.061-0.786-2.848,0c-0.787,0.787-0.787,2.062,0,2.849L28.941,31.786z"/></g>
+        </svg>
+      </span>
 		{% for t in array_tag2 %}
 			{% assign tag = t | strip %}
-			{% if collection.tags contains tag %}
+      {% assign down_tag = tag | downcase %}
+      {% assign down_collection_tags = collection.tags | downcase %}
+			{% if down_collection_tags contains down_tag %}
+        {% assign current_tags = current_tags | downcase %}
+        {% assign tag = tag | downcase %}
+        {% if current_tags contains tag %}
 				{% if swatch %}
 					{% assign color_img = tag | downcase | append: '.png' | asset_url %}
 					{% assign style = 'background-color: ' | append: tag | downcase | append: '; background-image: url(' | append: color_img | append: ');' %}
-					{% if current_tags contains tag %}
-						<li rel="{{tag}}" class="active swatch-tag {% if tag == 'White' or tag == 'white' %} white-color{% endif %}">
-                         <a href="{{tag}}"><span style="{{ style }}" class="btooltip" data-toggle="tooltip" data-placement="top" title="{{tag}}"></span>{% if tag == 'sickkids' %}Sentaler for Sick Kids {% else %}{{tag}}{% endif %}</a>
-          				</li>
+						<li rel="{{ tag | handleize }}" class="active swatch-tag {% if tag == 'White' or tag == 'white' %} white-color{% endif %}">
+              <a href="{{tag}}"><span style="{{ style }}" class="btooltip" data-toggle="tooltip" data-placement="top" title="{{tag}}"></span>{% if tag == 'sickkids' %}Sentaler for Sick Kids {% else %}{{tag}}{% endif %}</a>
+            </li>
 					{% else %}
-						<li rel="{{tag}}" class="swatch-tag {% if tag == 'White' or tag == 'white' %} white-color{% endif %}">
-                         <a href="{{tag}}"><span style="{{ style }}" class="btooltip" data-toggle="tooltip" data-placement="top" title="{{tag}}"></span> {% if tag == 'sickkids' %}Sentaler for Sick Kids {% else %}{{tag}}{% endif %}</a>
-          				</li>
+            <li rel="{{ tag | handleize }}" class="swatch-tag {% if tag == 'White' or tag == 'white' %} white-color{% endif %}">
+              <a href="{{tag}}"><span style="{{ style }}" class="btooltip" data-toggle="tooltip" data-placement="top" title="{{tag}}"></span> {% if tag == 'sickkids' %}Sentaler for Sick Kids {% else %}{{tag}}{% endif %}</a>
+            </li>
 					{% endif %}
 
 				{% else %}
 					{% if current_tags contains tag %}
-						<li rel="{{tag}}" class="active">{{ '<span class="fe-checkbox"></span> ' | append: tag | link_to_remove_tag: tag }}</li>
+						<li rel="{{ tag | handleize }}" class="active">{{ '<span class="fe-checkbox"></span> ' | append: tag | link_to_remove_tag: tag }}</li>
 					{% else %}
-						<li rel="{{tag}}" >{{ '<span class="fe-checkbox"></span> ' | append: tag | link_to_add_tag: tag }}</li>
+						<li rel="{{ tag | handleize }}" >{{ '<span class="fe-checkbox"></span> ' | append: tag | link_to_add_tag: tag }}</li>
 					{% endif %}
 				{% endif %}
+      {% else %}
+        <li rel="{{ down_tag | handleize }}">{{ '<span class="fe-checkbox"></span> ' | append: down_tag | link_to_add_tag: down_tag }}</li>
 			{% endif %}
 		{% endfor %}
-          <div class="filter_btn">
-          <span class="clear">Clear</span>
-          <span class="apply">Apply filters</span>
-          </div>
+      <div class="filter_btn">
+        <span class="clear">Clear</span>
+        <span class="apply">Apply filters</span>
+      </div>
 		</ul>
 	</div>
 	{% endif %}
@@ -117,43 +118,46 @@
 		{% endif %}
 		<p class="title">{{ section.settings.group_tag_3_label }}<span class="slectedfilter"><span class="filtercount"></span> <span>Selected</span></span><span class="sticon-caret-d-small"></span></p>
 		<ul>
-          <span class="closeit">
-            <span class="desk_hide">Filter By {{ section.settings.group_tag_3_label }}</span>
-            <svg width="64" version="1.1" xmlns="http://www.w3.org/2000/svg" height="64" viewBox="0 0 64 64" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 64 64">
-            <g>
-              <path fill="#1D1D1B" d="M28.941,31.786L0.613,60.114c-0.787,0.787-0.787,2.062,0,2.849c0.393,0.394,0.909,0.59,1.424,0.59   c0.516,0,1.031-0.196,1.424-0.59l28.541-28.541l28.541,28.541c0.394,0.394,0.909,0.59,1.424,0.59c0.515,0,1.031-0.196,1.424-0.59   c0.787-0.787,0.787-2.062,0-2.849L35.064,31.786L63.41,3.438c0.787-0.787,0.787-2.062,0-2.849c-0.787-0.786-2.062-0.786-2.848,0   L32.003,29.15L3.441,0.59c-0.787-0.786-2.061-0.786-2.848,0c-0.787,0.787-0.787,2.062,0,2.849L28.941,31.786z"/>
-            </g>
-          </svg>
-          </span>
+      <span class="closeit">
+        <span class="desk_hide">Filter By {{ section.settings.group_tag_3_label }}</span>
+        <svg width="64" version="1.1" xmlns="http://www.w3.org/2000/svg" height="64" viewBox="0 0 64 64" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 64 64">
+          <g><path fill="#1D1D1B" d="M28.941,31.786L0.613,60.114c-0.787,0.787-0.787,2.062,0,2.849c0.393,0.394,0.909,0.59,1.424,0.59   c0.516,0,1.031-0.196,1.424-0.59l28.541-28.541l28.541,28.541c0.394,0.394,0.909,0.59,1.424,0.59c0.515,0,1.031-0.196,1.424-0.59   c0.787-0.787,0.787-2.062,0-2.849L35.064,31.786L63.41,3.438c0.787-0.787,0.787-2.062,0-2.849c-0.787-0.786-2.062-0.786-2.848,0   L32.003,29.15L3.441,0.59c-0.787-0.786-2.061-0.786-2.848,0c-0.787,0.787-0.787,2.062,0,2.849L28.941,31.786z"/></g>
+        </svg>
+      </span>
 		{% for t in array_tag3 %}
 			{% assign tag = t | strip %}
-			{% if collection.tags contains tag %}
+      {% assign down_tag = tag | downcase %}
+      {% assign down_collection_tags = collection.tags | downcase %}
+			{% if down_collection_tags contains down_tag %}
+        {% assign current_tags = current_tags | downcase %}
+        {% assign tag = tag | downcase %}
 				{% if swatch %}
 					{% assign color_img = tag | downcase | append: '.png' | asset_url %}
 					{% assign style = 'background-color: ' | append: tag | downcase | append: '; background-image: url(' | append: color_img | append: ');' %}
 					{% if current_tags contains tag %}
-						<li rel="{{tag}}" class="active swatch-tag {% if tag == 'White' or tag == 'white' %} white-color{% endif %}">
-                         <a href="{{tag}}"><span style="{{ style }}" class="btooltip" data-toggle="tooltip" data-placement="top" title="{{tag}}"></span> {% if tag == 'sickkids' %}Sentaler for Sick Kids {% else %}{{tag}}{% endif %}</a>
-          				</li>
+          <li rel="{{ tag | handleize }}" class="active swatch-tag {% if tag == 'White' or tag == 'white' %} white-color{% endif %}">
+            <a href="{{tag}}"><span style="{{ style }}" class="btooltip" data-toggle="tooltip" data-placement="top" title="{{tag}}"></span> {% if tag == 'sickkids' %}Sentaler for Sick Kids {% else %}{{tag}}{% endif %}</a>
+          </li>
 					{% else %}
-						<li rel="{{tag}}" class="swatch-tag {% if tag == 'White' or tag == 'white' %} white-color{% endif %}">
-                        <a href="{{tag}}"><span style="{{ style }}" class="btooltip" data-toggle="tooltip" data-placement="top" title="{{tag}}"></span> {% if tag == 'sickkids' %}Sentaler for Sick Kids {% else %}{{tag}}{% endif %}</a>
-          				</li>
+          <li rel="{{ tag | handleize }}" class="swatch-tag {% if tag == 'White' or tag == 'white' %} white-color{% endif %}">
+            <a href="{{tag}}"><span style="{{ style }}" class="btooltip" data-toggle="tooltip" data-placement="top" title="{{tag}}"></span> {% if tag == 'sickkids' %}Sentaler for Sick Kids {% else %}{{tag}}{% endif %}</a>
+          </li>
 					{% endif %}
-
 				{% else %}
 					{% if current_tags contains tag %}
-						<li rel="{{tag}}" class="active">{{ '<span class="fe-checkbox"></span> ' | append: tag | link_to_remove_tag: tag }}</li>
+						<li rel="{{ tag | handleize }}" class="active">{{ '<span class="fe-checkbox"></span> ' | append: tag | link_to_remove_tag: tag }}</li>
 					{% else %}
-						<li rel="{{tag}}">{{ '<span class="fe-checkbox"></span> ' | append: tag | link_to_add_tag: tag }}</li>
+						<li rel="{{ tag | handleize }}">{{ '<span class="fe-checkbox"></span> ' | append: tag | link_to_add_tag: tag }}</li>
 					{% endif %}
 				{% endif %}
+      {% else %}
+        <li rel="{{ down_tag | handleize }}">{{ '<span class="fe-checkbox"></span> ' | append: down_tag | link_to_add_tag: down_tag }}</li>
 			{% endif %}
 		{% endfor %}
-          <div class="filter_btn">
-          <span class="clear">Clear</span>
-          <span class="apply">Apply filters</span>
-          </div>
+      <div class="filter_btn">
+        <span class="clear">Clear</span>
+        <span class="apply">Apply filters</span>
+      </div>
 		</ul>
 	</div>
 	{% endif %}
@@ -167,44 +171,47 @@
 		{% endif %}
 		<p class="title">{{ section.settings.group_tag_4_label }}<span class="slectedfilter"><span class="filtercount"></span> <span>Selected</span></span><span class="sticon-caret-d-small"></span></p>
 		<ul>
-         <span class="closeit">
-           <span class="desk_hide">Filter By {{ section.settings.group_tag_4_label }}</span>
-           <svg width="64" version="1.1" xmlns="http://www.w3.org/2000/svg" height="64" viewBox="0 0 64 64" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 64 64">
-            <g>
-              <path fill="#1D1D1B" d="M28.941,31.786L0.613,60.114c-0.787,0.787-0.787,2.062,0,2.849c0.393,0.394,0.909,0.59,1.424,0.59   c0.516,0,1.031-0.196,1.424-0.59l28.541-28.541l28.541,28.541c0.394,0.394,0.909,0.59,1.424,0.59c0.515,0,1.031-0.196,1.424-0.59   c0.787-0.787,0.787-2.062,0-2.849L35.064,31.786L63.41,3.438c0.787-0.787,0.787-2.062,0-2.849c-0.787-0.786-2.062-0.786-2.848,0   L32.003,29.15L3.441,0.59c-0.787-0.786-2.061-0.786-2.848,0c-0.787,0.787-0.787,2.062,0,2.849L28.941,31.786z"/>
-            </g>
-          </svg>
-          </span>
+      <span class="closeit">
+        <span class="desk_hide">Filter By {{ section.settings.group_tag_4_label }}</span>
+        <svg width="64" version="1.1" xmlns="http://www.w3.org/2000/svg" height="64" viewBox="0 0 64 64" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 64 64">
+          <g><path fill="#1D1D1B" d="M28.941,31.786L0.613,60.114c-0.787,0.787-0.787,2.062,0,2.849c0.393,0.394,0.909,0.59,1.424,0.59   c0.516,0,1.031-0.196,1.424-0.59l28.541-28.541l28.541,28.541c0.394,0.394,0.909,0.59,1.424,0.59c0.515,0,1.031-0.196,1.424-0.59   c0.787-0.787,0.787-2.062,0-2.849L35.064,31.786L63.41,3.438c0.787-0.787,0.787-2.062,0-2.849c-0.787-0.786-2.062-0.786-2.848,0   L32.003,29.15L3.441,0.59c-0.787-0.786-2.061-0.786-2.848,0c-0.787,0.787-0.787,2.062,0,2.849L28.941,31.786z"/></g>
+        </svg>
+      </span>
 		{% for t in array_tag4 %}
 			{% assign tag = t | strip %}
-			{% if collection.tags contains tag %}
+      {% assign down_tag = tag | downcase %}
+      {% assign down_collection_tags = collection.tags | downcase %}
+			{% if down_collection_tags contains down_tag %}
+        {% assign current_tags = current_tags | downcase %}
+        {% assign tag = tag | downcase %}
 				{% if swatch %}
 					{% assign color_img = tag | downcase | append: '.png' | asset_url %}
 					{% assign style = 'background-color: ' | append: tag | downcase | append: '; background-image: url(' | append: color_img | append: ');' %}
 					{% if current_tags contains tag %}
-						<li rel="{{tag}}" class="active swatch-tag {% if tag == 'White' or tag == 'white' %} white-color{% endif %}">
-                         <a href="{{tag}}"><span style="{{ style }}" class="btooltip" data-toggle="tooltip" data-placement="top" title="{{tag}}"></span>{% if tag == 'sickkids' %}Sentaler for Sick Kids {% else %}{{tag}}{% endif %}</a>
-          				</li>
+          <li rel="{{ tag | handleize }}" class="active swatch-tag {% if tag == 'White' or tag == 'white' %} white-color{% endif %}">
+            <a href="{{tag}}"><span style="{{ style }}" class="btooltip" data-toggle="tooltip" data-placement="top" title="{{tag}}"></span>{% if tag == 'sickkids' %}Sentaler for Sick Kids {% else %}{{tag}}{% endif %}</a>
+          </li>
 					{% else %}
-						<li rel="{{tag}}" class="swatch-tag {% if tag == 'White' or tag == 'white' %} white-color{% endif %}">
-                          <a href="{{tag}}"><span style="{{ style }}" class="btooltip" data-toggle="tooltip" data-placement="top" title="{{tag}}"></span> {% if tag == 'sickkids' %}Sentaler for Sick Kids {% else %}{{tag}}{% endif %}</a>
-          			    </li>
+          <li rel="{{ tag | handleize }}" class="swatch-tag {% if tag == 'White' or tag == 'white' %} white-color{% endif %}">
+            <a href="{{tag}}"><span style="{{ style }}" class="btooltip" data-toggle="tooltip" data-placement="top" title="{{tag}}"></span> {% if tag == 'sickkids' %}Sentaler for Sick Kids {% else %}{{tag}}{% endif %}</a>
+          </li>
 					{% endif %}
-
 				{% else %}
 					{% if current_tags contains tag %}
-						<li rel="{{tag}}" class="active">{{ '<span class="fe-checkbox"></span> ' | append: tag | link_to_remove_tag: tag }}</li>
+						<li rel="{{ tag | handleize }}" class="active">{{ '<span class="fe-checkbox"></span> ' | append: tag | link_to_remove_tag: tag }}</li>
 					{% else %}
-						<li rel="{{tag}}">{{ '<span class="fe-checkbox"></span> ' | append: tag | link_to_add_tag: tag }}</li>
+						<li rel="{{ tag | handleize }}">{{ '<span class="fe-checkbox"></span> ' | append: tag | link_to_add_tag: tag }}</li>
 
 					{% endif %}
 				{% endif %}
+      {% else %}
+        <li rel="{{ down_tag | handleize }}">{{ '<span class="fe-checkbox"></span> ' | append: down_tag | link_to_add_tag: down_tag }}</li>
 			{% endif %}
 		{% endfor %}
-          <div class="filter_btn">
-          <span class="clear">Clear</span>
-          <span class="apply">Apply filters</span>
-          </div>
+      <div class="filter_btn">
+        <span class="clear">Clear</span>
+        <span class="apply">Apply filters</span>
+      </div>
 		</ul>
 	</div>
 	{% endif %}
@@ -403,7 +410,7 @@
 //            var tot_product = $('.collection-items').length;
 //            $('.prd_count').html(tot_product);
 //           if(tot_product < 1){
-//           $('.collection-toolbar').append('<h4 class="text-center">Sorry No Products Are Avaialable</h4>');
+//           $('.collection-toolbar').append('<h4 class="text-center">Sorry No Products Are Available</h4>');
 //           }
 //         }
 //       });

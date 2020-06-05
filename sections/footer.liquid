@@ -1,3 +1,5 @@
+{% include 'gravityadmin' %}
+<div style="display: none !important;  visibility: hidden !important;" class="cmspro-section" id="cmspro-cb3e1139"></div>
 {%- assign social_icons = false -%}
 
 {% if
@@ -370,16 +372,16 @@
                   <div class="footer-title">{{ section.settings.follow_text }}</div>
                   <div class="footer-content">
                     <div class="followus-content">
-                      {% if section.settings.facebook_link != blank %}<a href="{{ section.settings.facebook_link }}" title="Facebook" class="icon-social facebook" data-toggle="tooltip" data-placement="top"><span class="sticon-fb"></span></a>{% endif %}
-                      {% if section.settings.twitter_link != blank %}<a href="{{ section.settings.twitter_link }}" title="Twitter" class="icon-social twitter" data-toggle="tooltip" data-placement="top"><span class="sticon-tw"></span></a>{% endif %}
-                      {% if section.settings.instagram_link != blank %}<a href="{{ section.settings.instagram_link }}" title="Instagram" class="icon-social instagram" data-toggle="tooltip" data-placement="top"><span class="sticon-in"></span></a>{% endif %}
-                      {% if section.settings.google_link != blank %}<a href="{{ section.settings.google_link }}" title="Google+" class="icon-social google" data-toggle="tooltip" data-placement="top"><span class="sticon-email"></span></a>{% endif %}
-                      {% if section.settings.pinterest_link != blank %}<a href="{{ section.settings.pinterest_link }}" title="Pinterest" class="icon-social pinterest" data-toggle="tooltip" data-placement="top"><span class="fa-stack fa-lg"><i class="fa fa-pinterest-p fa-stack-1x fa-inverse"></i></span></a>{% endif %}
-                      {% if section.settings.youtube_link != blank %}<a href="{{ section.settings.youtube_link }}" title="Youtube" class="icon-social youtube" data-toggle="tooltip" data-placement="top"><span class="sticon-yo"></span></a>{% endif %}
+                      {% if section.settings.facebook_link != blank %}<a href="{{ section.settings.facebook_link }}" target="_blank" title="Facebook" class="icon-social facebook" data-toggle="tooltip" data-placement="top"><span class="sticon-fb"></span></a>{% endif %}
+                      {% if section.settings.twitter_link != blank %}<a href="{{ section.settings.twitter_link }}" target="_blank" title="Twitter" class="icon-social twitter" data-toggle="tooltip" data-placement="top"><span class="sticon-tw"></span></a>{% endif %}
+                      {% if section.settings.instagram_link != blank %}<a href="{{ section.settings.instagram_link }}" target="_blank" title="Instagram" class="icon-social instagram" data-toggle="tooltip" data-placement="top"><span class="sticon-in"></span></a>{% endif %}
+                      {% if section.settings.google_link != blank %}<a href="{{ section.settings.google_link }}" target="_blank" title="Google+" class="icon-social google" data-toggle="tooltip" data-placement="top"><span class="sticon-email"></span></a>{% endif %}
+                      {% if section.settings.pinterest_link != blank %}<a href="{{ section.settings.pinterest_link }}" target="_blank" title="Pinterest" class="icon-social pinterest" data-toggle="tooltip" data-placement="top"><span class="fa-stack fa-lg"><i class="fa fa-pinterest-p fa-stack-1x fa-inverse"></i></span></a>{% endif %}
+                      {% if section.settings.youtube_link != blank %}<a href="{{ section.settings.youtube_link }}" target="_blank" title="Youtube" class="icon-social youtube" data-toggle="tooltip" data-placement="top"><span class="sticon-yo"></span></a>{% endif %}
 
-                      {% if section.settings.atom_link != blank %}<a href="{{ section.settings.atom_link }}" title="{{ 'layout.footer.news' | t: shop: shop.name }}" class="icon-social atom" data-toggle="tooltip" data-placement="top"><span class="fa-stack fa-lg"><i class="fa fa-share-alt fa-stack-1x fa-inverse"></i></span></a>{% endif %}
-                      {% if section.settings.vimeo_link != blank %}<a href="{{ section.settings.vimeo_link }}" title="Vimeo" class="icon-social vimeo" data-toggle="tooltip" data-placement="top"><span class="fa-stack fa-lg"><i class="fa fa-vimeo-square fa-stack-1x fa-inverse"></i></span></a>{% endif %}
-                      {% if section.settings.tumblr_link != blank %}<a href="{{ section.settings.tumblr_link }}" title="Tumblr" class="icon-social tumblr" data-toggle="tooltip" data-placement="top"><span class="fa-stack fa-lg"><i class="fa fa-tumblr fa-stack-1x fa-inverse"></i></span></a>{% endif %}
+                      {% if section.settings.atom_link != blank %}<a href="{{ section.settings.atom_link }}" target="_blank" title="{{ 'layout.footer.news' | t: shop: shop.name }}" class="icon-social atom" data-toggle="tooltip" data-placement="top"><span class="fa-stack fa-lg"><i class="fa fa-share-alt fa-stack-1x fa-inverse"></i></span></a>{% endif %}
+                      {% if section.settings.vimeo_link != blank %}<a href="{{ section.settings.vimeo_link }}" target="_blank" title="Vimeo" class="icon-social vimeo" data-toggle="tooltip" data-placement="top"><span class="fa-stack fa-lg"><i class="fa fa-vimeo-square fa-stack-1x fa-inverse"></i></span></a>{% endif %}
+                      {% if section.settings.tumblr_link != blank %}<a href="{{ section.settings.tumblr_link }}" target="_blank" title="Tumblr" class="icon-social tumblr" data-toggle="tooltip" data-placement="top"><span class="fa-stack fa-lg"><i class="fa fa-tumblr fa-stack-1x fa-inverse"></i></span></a>{% endif %}
                     </div>
                   </div>
                 </div>
@@ -395,16 +397,16 @@
                   <div class="footer-title">{{ section.settings.follow_text }}</div>
                   <div class="footer-content">
                     <div class="followus-content">
-                      {% if section.settings.facebook_link != blank %}<a href="{{ section.settings.facebook_link }}" title="Facebook" class="icon-social facebook" data-toggle="tooltip" data-placement="top"><span class="sticon-fb"></span></a>{% endif %}
-                      {% if section.settings.twitter_link != blank %}<a href="{{ section.settings.twitter_link }}" title="Twitter" class="icon-social twitter" data-toggle="tooltip" data-placement="top"><span class="sticon-tw"></span></a>{% endif %}
-                      {% if section.settings.instagram_link != blank %}<a href="{{ section.settings.instagram_link }}" title="Instagram" class="icon-social instagram" data-toggle="tooltip" data-placement="top"><span class="sticon-in"></span></a>{% endif %}
-                      {% if section.settings.google_link != blank %}<a href="{{ section.settings.google_link }}" title="Google+" class="icon-social google" data-toggle="tooltip" data-placement="top"><span class="sticon-email"></span></a>{% endif %}
-                      {% if section.settings.pinterest_link != blank %}<a href="{{ section.settings.pinterest_link }}" title="Pinterest" class="icon-social pinterest" data-toggle="tooltip" data-placement="top"><span class="fa-stack fa-lg"><i class="fa fa-pinterest-p fa-stack-1x fa-inverse"></i></span></a>{% endif %}
-                      {% if section.settings.youtube_link != blank %}<a href="{{ section.settings.youtube_link }}" title="Youtube" class="icon-social youtube" data-toggle="tooltip" data-placement="top"><span class="sticon-yo"></span></a>{% endif %}
+                      {% if section.settings.facebook_link != blank %}<a href="{{ section.settings.facebook_link }}" target="_blank" title="Facebook" class="icon-social facebook" data-toggle="tooltip" data-placement="top"><span class="sticon-fb"></span></a>{% endif %}
+                      {% if section.settings.twitter_link != blank %}<a href="{{ section.settings.twitter_link }}" target="_blank" title="Twitter" class="icon-social twitter" data-toggle="tooltip" data-placement="top"><span class="sticon-tw"></span></a>{% endif %}
+                      {% if section.settings.instagram_link != blank %}<a href="{{ section.settings.instagram_link }}" target="_blank" title="Instagram" class="icon-social instagram" data-toggle="tooltip" data-placement="top"><span class="sticon-in"></span></a>{% endif %}
+                      {% if section.settings.google_link != blank %}<a href="{{ section.settings.google_link }}" target="_blank" title="Google+" class="icon-social google" data-toggle="tooltip" data-placement="top"><span class="sticon-email"></span></a>{% endif %}
+                      {% if section.settings.pinterest_link != blank %}<a href="{{ section.settings.pinterest_link }}" target="_blank" title="Pinterest" class="icon-social pinterest" data-toggle="tooltip" data-placement="top"><span class="fa-stack fa-lg"><i class="fa fa-pinterest-p fa-stack-1x fa-inverse"></i></span></a>{% endif %}
+                      {% if section.settings.youtube_link != blank %}<a href="{{ section.settings.youtube_link }}" target="_blank" title="Youtube" class="icon-social youtube" data-toggle="tooltip" data-placement="top"><span class="sticon-yo"></span></a>{% endif %}
 
-                      {% if section.settings.atom_link != blank %}<a href="{{ section.settings.atom_link }}" title="{{ 'layout.footer.news' | t: shop: shop.name }}" class="icon-social atom" data-toggle="tooltip" data-placement="top"><span class="fa-stack fa-lg"><i class="fa fa-share-alt fa-stack-1x fa-inverse"></i></span></a>{% endif %}
-                      {% if section.settings.vimeo_link != blank %}<a href="{{ section.settings.vimeo_link }}" title="Vimeo" class="icon-social vimeo" data-toggle="tooltip" data-placement="top"><span class="fa-stack fa-lg"><i class="fa fa-vimeo-square fa-stack-1x fa-inverse"></i></span></a>{% endif %}
-                      {% if section.settings.tumblr_link != blank %}<a href="{{ section.settings.tumblr_link }}" title="Tumblr" class="icon-social tumblr" data-toggle="tooltip" data-placement="top"><span class="fa-stack fa-lg"><i class="fa fa-tumblr fa-stack-1x fa-inverse"></i></span></a>{% endif %}
+                      {% if section.settings.atom_link != blank %}<a href="{{ section.settings.atom_link }}" target="_blank" title="{{ 'layout.footer.news' | t: shop: shop.name }}" class="icon-social atom" data-toggle="tooltip" data-placement="top"><span class="fa-stack fa-lg"><i class="fa fa-share-alt fa-stack-1x fa-inverse"></i></span></a>{% endif %}
+                      {% if section.settings.vimeo_link != blank %}<a href="{{ section.settings.vimeo_link }}" target="_blank" title="Vimeo" class="icon-social vimeo" data-toggle="tooltip" data-placement="top"><span class="fa-stack fa-lg"><i class="fa fa-vimeo-square fa-stack-1x fa-inverse"></i></span></a>{% endif %}
+                      {% if section.settings.tumblr_link != blank %}<a href="{{ section.settings.tumblr_link }}" target="_blank" title="Tumblr" class="icon-social tumblr" data-toggle="tooltip" data-placement="top"><span class="fa-stack fa-lg"><i class="fa fa-tumblr fa-stack-1x fa-inverse"></i></span></a>{% endif %}
                     </div>
                   </div>
                 </div>

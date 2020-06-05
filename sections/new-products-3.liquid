@@ -1,37 +1,6 @@
-<div class="product-grid">
-  <div class="container c_pad0">
-    <div class="row no-margins normal-paddings">
-        {% for block in section.blocks %}
-          {% if block.type == 'product' %}
-          <div class="{{ block.settings.width }} col-xs-6">
-            {% assign product = all_products[block.settings.product] %}
-            {% include 'new-product-item' %}
-          </div>
-          {% elsif block.type == 'image' %}
-          <div class="{{ block.settings.width }} col-xs-6">
-            {% unless grid_image_width %}
-              {%- assign grid_image_width = '600x' -%}
-            {% endunless %}
-            <div class="item">
-              <div class="row-inner">
-                <div class="row-left">
-                  <a href="{{ block.settings.url }}" class="hoverBorder container_item">
-                    <img src="{{ block.settings.image | img_url: grid_image_width }}" class="{% if settings.product_item_effect != 'rotation' %}not-rotation{% endif %} img-responsive front" alt="" />
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          {% elsif block.type == 'text' %}
-          <div class="{{ block.settings.width }} col-xs-12 vertical-center-text">
-            <img src="{{ block.settings.hidden_image | img_url : 'master' }}" class="img-responsive hidden-xs" alt="" >
-            {{ block.settings.content }}
-          </div>
-          {% endif %}
-        {% endfor %}
-    </div>
-  </div>
-</div>
+{% include 'gravityadmin' %}
+<div style="display: none !important;  visibility: hidden !important;" class="cmspro-section" id="cmspro-6f8bd8f6"></div>
+{% include 'new-products' %}
 
 {% schema %}
 {

@@ -1,9 +1,12 @@
+{% include 'sca_freegift_price' with product %}
 {% unless grid_image_width %}
   {%- assign grid_image_width = '600x600' -%}
 {% endunless %}
   <div class="row-container list-unstyled clearfix">
     <div class="row-left">
       <a href="{{ product.url | within: collection }}" class="hoverBorder container_item">
+        <span id="secomapp-fg-image-{{ product.id }}" style="display: none;"> {{ "icon-freegift.png" | asset_url | img_tag: "", "sca-fg-img-collect" }} </span>
+        <span class="sca-fg-cat-list prod-show-list" style="display:none;" id="secomapp-fg-data-{{ product.id }}"> </span>
          <img src="{{ product.featured_image | product_img_url: '1000X1000' }}" class="img-responsive front" alt="{{ product.featured_image.alt | escape }}" />
         {% if product.images[2]%}
 
@@ -30,18 +33,33 @@
 
     <div class="row-right animMix">
       <div class="collec-title">
-        {% unless product.available %}
-        <span style="color: #ea0000;">SOLD OUT</span>
-        {% endunless %}
-             {% for tag in product.tags %}
-               {% if tag contains 'new in' %}
-                  <span style="color:#949494">New in</span>
-        	   {% elsif tag contains 'IN SUPPORT OF SICKKIDS' %}
-        		  <span style="color:#4870AE">IN SUPPORT OF SICKKIDS</span>
-               {% endif %}
+        {% if product.available %}
+          {% assign in_stock = false %}
+          {% for v in product.variants %}
+            {% if v.available %}
+              {% assign in_stock = true %}
+            {% endif %}
+          {% endfor %}
+          {% if in_stock == false %}
+            <span style="color: #ea0000;">SOLD OUT</span>
+          {% else %}
+            {% for tag in product.tags %}
+              {% if tag contains 'new in' %}
+                <span style="color:#949494">New in</span>
+              {% elsif tag contains 'IN SUPPORT OF SICKKIDS' %}
+                <span style="color:#4870AE">IN SUPPORT OF SICKKIDS</span>
+              {% elsif tag contains 'GIFT WITH PURCHASE' %}
+                <span style="color:#949494">GIFT WITH PURCHASE</span>
+        	  {% elsif tag contains 'FW20 PREORDER' %}
+                <span style="color:#949494">FW20 PREORDER</span>
+          	{% elsif tag contains 'sale' %}
+                <span style="color:red">SALE</span>
+              {% endif %}
             {% endfor %}
-
-
+          {% endif %}
+        {% else %}
+        <span style="color: #ea0000;">SOLD OUT</span>
+        {% endif %}
           <div class="wishlist hidden-xs">
                     <a title="Add To Wishlist" class="wishlist wishlist-{{ product.handle }}" data-wishlisthandle="{{ product.handle }}"><i class="sticon-heart" aria-hidden="true"></i></a>
          </div>
@@ -57,6 +75,9 @@
             {% assign colorlist = '' %}
             {% assign color = '' %}
             {% for variant in product.variants %}
+            {% unless variant.metafields.secomapp.freegifts %}
+            {% unless variant.title contains '(Freegifts)' %}
+
 
             {% capture color %}
             {{ variant.options[index] }}
@@ -70,6 +91,9 @@
             {% endcapture %}
             {% assign colorlist = tempList %}
             {% endunless %}
+
+            {%endunless%}
+            {%endunless%}
             {% endfor %}
             {% endif %}
 
@@ -81,31 +105,43 @@
         </div>
 
         <div class="product-price">
-            {% if product.compare_at_price_max > product.price %}
+            {% if sca_compare_at_price_max > sca_price %}
               {% assign found_one_in_stock = false %}
               {% for variant in product.variants %}
+              {% unless variant.metafields.secomapp.freegifts %}
+              {% unless variant.title contains '(Freegifts)' %}
+
                 {% if variant.available and variant.compare_at_price and found_one_in_stock == false %}
                   {% assign found_one_in_stock = true %}
                   <span class="price_sale">{{ variant.price | money }}</span>
                   <del class="price_compare"> {{ variant.compare_at_price | money }}</del>
                 {% endif %}
+
+              {%endunless%}
+              {%endunless%}
               {% endfor %}
               {% if found_one_in_stock == false %}
                 {% for variant in product.variants %}
+                {% unless variant.metafields.secomapp.freegifts %}
+                {% unless variant.title contains '(Freegifts)' %}
+
                   {% if variant.available and found_one_in_stock == false %}
                     {% assign found_one_in_stock = true %}
                     <span class="price">
                       {{ variant.price | money }}
                     </span>
                   {% endif %}
+
+                {%endunless%}
+                {%endunless%}
                 {% endfor %}
               {% endif %}
             {% else %}
               <span class="price">
-                {% if product.price_varies %}
-                {{ product.price | money }}
+                {% if sca_price_varies %}
+                {{ sca_price | money }}
                 {% else %}
-                {{ product.price | money }}
+                {{ sca_price | money }}
                 {% endif %}
               </span>
             {% endif %}

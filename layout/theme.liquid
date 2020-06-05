@@ -16,7 +16,15 @@
   {% capture seo_title %}
     {{ page_title }}
     {% if current_tags %}
-      {%- assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags -}}
+      {% for tag in current_tags %}
+        {% assign tag_words = tag | split: ' ' %}
+        {% capture wordcase %}{% for word in tag_words %}{{ word | capitalize }} {% endfor %}{% endcapture %}
+        {% assign meta_tags = meta_tags | append: wordcase %}
+        {% unless forloop.last %}
+          {% assign meta_tags = meta_tags | append: ', ' %}
+        {% endunless %}
+      {% endfor %}
+       &ndash; {{ 'general.meta.tags' | t: tags: meta_tags -}}
     {% endif %}
     {% if current_page != 1 %}
       &ndash; {{ 'general.meta.page' | t: page: current_page }}
@@ -30,6 +38,7 @@
   {% if page_description %}
     <meta name="description" content="{{ page_description | escape }}">
   {% endif %}
+
   {{ '//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js' | script_tag }}
   {% if settings.base_font == 'proxima-nova' %}
   <script src="https://use.typekit.net/kfd3qdw.js"></script>
@@ -79,6 +88,7 @@
   {{ content_for_header }}
 
 
+
    <script src="https://player.vimeo.com/api/player.js"></script>
   <script src="{{'vimeo.js' | asset_url }}"></script>
 <script>
@@ -125,7 +135,27 @@ $(document).ready(function(){
   <!-- Start of Littledata - Fix Google Analytics Script-->
   {% include 'LittledataLayer' %}
   <!-- End of Littledata - Fix Google Analytics Script -->
-</head>
+{% include 'sca.freegifts' %}
+<!-- CMSPROADMINJSSTART -->  
+                                    <script type="text/javascript" defer="defer" src="https://gravity-apps.com/cmspro//wp-content/uploads4124/sectionadmin.js?__rq=3f200006cda9d752397d9aec7b648f06"></script>
+                                    <!-- CMSPROADMINJSEND --> 
+                                    <!-- CMSPROEDITSHEADSTART -->
+                                    {% assign currentpath = request.path %} 
+                                    {% assign pathelements = request.path | split: '/products/' %} 
+                                    {% assign pathelementsCnt = pathelements | size %}
+                                    {% if pathelementsCnt > 1 %}
+                                    {% assign currentpath = pathelements | last %}
+                                    {% assign currentpath = currentpath | prepend: '/products/' %}  
+                                    {% endif %}
+                            
+                                    <script type="text/javascript">
+                                                                         gsRequestPath = "{{ currentpath }}";  
+                                    </script>
+                                                                 
+                                    {% section 'cmsproheader' %}
+                                    <!-- CMSPROEDITSHEADEND --> 
+{% render 'pagefly-header' %}
+ </head> 
 
 <body class="ev41 template-{{ template | split: '.' | first }} {{page.handle}} {% if template contains 'coming' %}coming-soon{% endif %}">
 
@@ -134,9 +164,10 @@ $(document).ready(function(){
   <div id="loader-div">
     <div id="loader-wrapper">
       <div class="loader">
-        <svg class="circular">
+        <span></span>
+        <!--<svg class="circular">
           <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
-        </svg>
+        </svg>-->
       </div>
     </div>
   </div>
@@ -195,6 +226,7 @@ $(document).ready(function(){
     var quickShop_money_format="<span class='money'>"+{{ shop.money_format | strip_html | json }}+"</span>";
     {% if template contains 'wish-list'%}wishlistpage=1;{% endif %}
   </script>
+  <script src="//cdn.codeblackbelt.com/js/modules/also-bought/main.min.js?shop=sentaler-studio-ltd.myshopify.com"></script>
   {{ 'modernizr.js' | asset_url | script_tag }}
   {{ 'classie.js' | asset_url | script_tag }}
   {{ 'cs-everything.cart.js' | asset_url | script_tag }}
@@ -210,13 +242,13 @@ $(document).ready(function(){
 
   {{ 'linkOptionSelectors.js' | asset_url | script_tag }}
   <script>
-  document.addEventListener("DOMContentLoaded", function() {
+  /*document.addEventListener("DOMContentLoaded", function() {
     var endlessClick = new Ajaxinate({
       container: '.AjaxinateLoop_desktop',
       pagination: '.AjaxinatePagination',
       method: 'scroll'
     });
-      });
+  });*/
 </script>
      <script>
   jQuery.ajax({
@@ -235,6 +267,9 @@ $(document).ready(function(){
                  window.top.location.href="https://sentaler.ca" + window.location.pathname;
               $('.shipto .country_name').html('Canada');
               }
+              else if (location == 'Peru') {
+                $('body').html('');
+              }
               else
               {
                 $('.shipto .country_name').html('Worldwide');
@@ -244,65 +279,10 @@ $(document).ready(function(){
 
   });
 </script>
-<!-- Gorgias Chat Widget Start -->
-<div id="gorgias-chat">
-<script>window.gorgiasChatParameters = {}</script>
-<script src="https://config.gorgias.io/production/DrQqY7X4JX7L4Wjv/chat/0eMnwxKQrA29bDNo.js" defer></script>
-<script>
-  // $(window).click(function() {
-  //   if ($('#sortBox').css('display') != 'none') {
-  //     $('#sortBox').hide();
-  //     $('.collection-content-inner').removeClass('col_overlay');
-  //   }
-  // });
-  //
-  // $('#sortButtonWarper').on('click', function(e) {
-  //   e.stopPropagation();
-  // });
-  // $('#sortForm li').on('click', function(e) {
-  //   e.stopPropagation();
-  // });
-  $('.sortBy').on('mouseover', function(){
-    $(this).find('#sortBox').show();
-    $(this).closest('.collection-content-inner').addClass('col_overlay');
-  });
-  $('.sortBy').on('mouseout', function(){
-    $(this).find('#sortBox').hide();
-    $(this).closest('.collection-content-inner').removeClass('col_overlay');
-  });
 
-  /*$('.filter-tag-group .tag-group').on('mouseover', function(e){
-    $(this).find('ul').show();
-    $(this).closest('.collection-content-inner').addClass('col_overlay');
-  });
-  $('.filter-tag-group .tag-group').on('mouseleave', function(e){
-    $(this).find('ul').hide();
-    $(this).closest('.collection-content-inner').removeClass('col_overlay');
-    $(this).find('.apply').trigger('click');
-  });*/
 
-  $('.tab-link.normal').on('click', function(){
-    var tabID = $(this).data('id');
-    $(this).parents('.featured-links').find('.tab-content').hide();
-    $(this).parents('.featured-links').find('.tab-content[data-id="' + tabID + '"]').show();
-  });
-  $('.tab-link.hover').on('click', function(){
-    var tabID = $(this).data('id');
-    console.log(tabID);
-    $(this).parents('.featured-links').find('.tab-content').hide();
-    $(this).parents('.featured-links').find('.tab-content[data-id="' + tabID + '"]').show();
-    $([document.documentElement, document.body]).animate({
-        scrollTop: $("#" + tabID).offset().top - 60
-    }, 800);
-  });
-  $('.tab-link.hover').on('mouseover', function(){
-    var tabID = $(this).data('id');
-    $(this).parents('.featured-links').find('.tab-content').hide();
-    $(this).parents('.featured-links').find('.tab-content[data-id="' + tabID + '"]').show();
-  });
 
-</script>
-</div>
-<!-- Gorgias Chat Widget End -->
-</body>
+{% include 'special-offers' %}
+
+<!-- CMSPROEDITSFOOTSTART --> {% section 'cmsprofooter' %} <!-- CMSPROEDITSFOOTEND --></body>
 </html>
