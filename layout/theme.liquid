@@ -136,26 +136,26 @@ $(document).ready(function(){
   {% include 'LittledataLayer' %}
   <!-- End of Littledata - Fix Google Analytics Script -->
 {% include 'sca.freegifts' %}
-<!-- CMSPROADMINJSSTART -->  
+<!-- CMSPROADMINJSSTART -->
                                     <script type="text/javascript" defer="defer" src="https://gravity-apps.com/cmspro//wp-content/uploads4124/sectionadmin.js?__rq=3f200006cda9d752397d9aec7b648f06"></script>
-                                    <!-- CMSPROADMINJSEND --> 
+                                    <!-- CMSPROADMINJSEND -->
                                     <!-- CMSPROEDITSHEADSTART -->
-                                    {% assign currentpath = request.path %} 
-                                    {% assign pathelements = request.path | split: '/products/' %} 
+                                    {% assign currentpath = request.path %}
+                                    {% assign pathelements = request.path | split: '/products/' %}
                                     {% assign pathelementsCnt = pathelements | size %}
                                     {% if pathelementsCnt > 1 %}
                                     {% assign currentpath = pathelements | last %}
-                                    {% assign currentpath = currentpath | prepend: '/products/' %}  
+                                    {% assign currentpath = currentpath | prepend: '/products/' %}
                                     {% endif %}
-                            
+
                                     <script type="text/javascript">
-                                                                         gsRequestPath = "{{ currentpath }}";  
+                                                                         gsRequestPath = "{{ currentpath }}";
                                     </script>
-                                                                 
+
                                     {% section 'cmsproheader' %}
-                                    <!-- CMSPROEDITSHEADEND --> 
+                                    <!-- CMSPROEDITSHEADEND -->
 {% render 'pagefly-header' %}
- </head> 
+ </head>
 
 <body class="ev41 template-{{ template | split: '.' | first }} {{page.handle}} {% if template contains 'coming' %}coming-soon{% endif %}">
 
@@ -260,7 +260,7 @@ $(document).ready(function(){
           $.cookie("red_contry",location);
            if(location == 'United States')
                {
-                 $('.shipto .country_name').html('USA');
+                 $('.shipto .country_name').html('Worldwide');
                }
               else if(location == 'Canada')
               {

@@ -294,6 +294,26 @@ $(window).ready(function($) {
   {% endif %}
   ModalNewsletter();
   $.cookie('modular-fs-cookie', 'active', { expires: 10});
+
+  /* story & craftsmanship */
+  $('.tab-link.normal').on('click', function(){
+    var tabID = $(this).data('id');
+    $(this).parents('.featured-links').find('.tab-content').hide();
+    $(this).parents('.featured-links').find('.tab-content[data-id="' + tabID + '"]').show();
+  });
+  $('.tab-link.hover').on('click', function(){
+    var tabID = $(this).data('id');
+    $(this).parents('.featured-links').find('.tab-content').hide();
+    $(this).parents('.featured-links').find('.tab-content[data-id="' + tabID + '"]').show();
+    $([document.documentElement, document.body]).animate({
+      scrollTop: $("#" + tabID).offset().top - 60
+    }, 800);
+  });
+  $('.tab-link.hover').on('mouseover', function(){
+    var tabID = $(this).data('id');
+    $(this).parents('.featured-links').find('.tab-content').hide();
+    $(this).parents('.featured-links').find('.tab-content[data-id="' + tabID + '"]').show();
+  });
 });
 $(document).ready(function(){
 
