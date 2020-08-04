@@ -1,0 +1,84 @@
+<section class="login-content">
+    <div class="login-content-wrapper wrapper">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="login-content-inner">
+              <div id="customer-login" class="content">
+                <h3 class="las-17">{{ 'customer.login.title' | t }}</h3>
+                <div class="tab_links">
+                  <a class="active" href="#">{{ 'customer.login.sign_in' | t }}</a>
+                  <a class="" href="/account/register">{{ 'customer.login.sign_up' | t }}</a>
+                </div>
+                <div id="login" class="">
+                  <p class="note">{{ 'customer.login.login_msg' | t }}</p>
+                  {% form 'customer_login' %}
+                    {{ form.errors | default_errors }}
+  
+                    <input type="email" value="" name="customer[email]" placeholder="{{ 'customer.login.email' | t }}" id="customer_email" class="text" />				
+                    {% if form.password_needed %}
+                      <input type="password" value="" name="customer[password]" placeholder="{{ 'customer.login.password' | t }}" id="customer_password" class="text" size="16" />
+                    {% endif %}
+  
+                    <div class="action_bottom">
+                      <span class="checkbox">{{ 'customer.login.keep' | t }}<input type="checkbox" class="hide"></span>
+                      <input class="btn" type="submit" value="{{ 'customer.login.sign_in' | t }}" />
+                      <a href="#" onclick="showRecoverPasswordForm();return false;">{{ 'customer.login.forgot_password' | t }}</a>
+                      <a href="/account/register">{{ 'customer.login.signup_link' | t }}</a>
+                    </div>
+                  {% endform %}
+                </div>
+  
+                <div id="recover-password" style="display:none;" class="">
+                  <h3 class="title">{{ 'customer.recover_password.title' | t }}</h3>
+                  <p class="note">{{ 'customer.login.reset_password_subtext' | t }}</p>
+                  {% form 'recover_customer_password' %}
+                  
+                  {{ form.errors | default_errors }}
+  
+                  <input type="email" value="" size="30" placeholder="{{ 'customer.login.email' | t }}" name="email" id="recover-email" class="text" />
+                  <div class="action_bottom">
+                    <input class="btn" type="submit" value="{{ 'customer.login.submit_recover' | t }}" /> 
+                    <a href="#" onclick="hideRecoverPasswordForm();return false;">{{ 'customer.recover_password.cancel' | t }}</a>
+                  </div>
+                  {% endform %}
+                </div>
+  
+                {% if shop.checkout.guest_login %}
+                <div id="guest" class="span5">
+                  <h2>{{ 'customer.login.guest_title' | t }}</h2>
+                  {% form 'guest_login' %}
+                  <input class="btn" type="submit" value="{{ 'customer.login.guest_continue' | t }}" />
+                  {% endform %}
+                </div>
+                {% endif %} 
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 side_content">
+            <div class="content">
+              <h3 class="las-17">{{ 'customer.login.new_user' | t }}</h3>
+              <div class="info">
+                {{ section.settings.info }}
+  
+                <a class="btn" href="/account/register" >{{ 'customer.login.sign_up_now' | t }}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {% schema %}
+  {
+      "name": "login section",
+      "settings": [
+          {
+              "type": "richtext",
+              "id": "info",
+              "label": "Page info"
+          }
+      ]
+  }
+  {% endschema %}

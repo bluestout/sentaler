@@ -1,0 +1,49 @@
+<div class="side-section container customer-profile">
+    <div class="row">
+      <div class="col-sm-2">
+        <div class="content">
+          <h1 class="title">{{ 'customer.account.title' | t }}</h1>
+          <ul class="nav nav-pills nav-stacked">
+            <li><a href="/account">{{ 'customer.orders.title' | t }}</a></li>
+            <li><a href="/account/addresses">{{ 'customer.account.view_addresses' | t }}</a></li>
+            <li><a href="/pages/wishlist">{{ 'customer.account.wishlist' | t }}</a></li>
+            <li class="active"><a href="/pages/customer">{{ 'customer.account.customer' | t }}</a></li>
+            <li><a href="/account/logout">{{ 'customer.account.logout' | t }}</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="tab-content col-sm-8">
+        <div class="content table-responsive">
+          <div id="customer_{{ customer.id }}" class="form-vertical">
+            {% form 'customer' %}
+              <div class="grid__item medium-up--one-half">
+                <label for="customer_first_name_{{ customer.id }}">{{ 'customer.profile.first_name' | t }}</label>
+                <input type="text" class="form-control" id="customer_first_name_{{ customer.id }}" name="customer[first_name]" value="{{ customer.first_name }}">
+              </div>
+  
+              <div class="grid__item medium-up--one-half">
+                <label for="customer_last_name_{{ customer.id }}">{{ 'customer.profile.last_name' | t }}</label>
+                <input type="text" class="form-control" id="customer_last_name_{{ customer.id }}" name="customer[last_name]" value="{{ customer.last_name }}">
+              </div>
+  
+              <div class="grid__item">
+                <label for="customer_email_{{ customer.id }}">{{ 'customer.profile.email' | t }}</label>
+                <input type="tel" class="form-control" id="customer_email_{{ customer.id }}" name="customer[email]" value="{{ customer.email }}">
+              </div>
+  
+              <div class="grid__item">
+                <label for="customer_phone_{{ customer.id }}">{{ 'customer.profile.phone' | t }}</label>
+                <input type="tel" class="form-control" id="customer_phone_{{ customer.id }}" name="customer[phone]" value="{{ customer.phone }}">
+              </div>
+  
+              <div class="text-left customer_address">
+                <div><input type="submit" class="btn" value="{{ 'customer.addresses.update' | t }}"></div>
+              </div>
+  
+            {% endform %}
+            <hr>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

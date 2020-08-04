@@ -1,86 +1,81 @@
-<section class="account-heading">
-  <div class="account-heading-wrapper">
-    <div class="container">
-      <div class="row">
-        <div class="account-heading-inner">
-          <h1 class="page-title">{{ 'customer.account.title' | t }}</h1>
-          <div class="breadcrumb clearfix">
-            <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="{{ shop.url }}" title="{{ shop.name | escape }}" itemprop="url"><span itemprop="title">{{ 'general.breadcrumbs.home' | t }}</span></a></span>
-            <span class="arrow-space">&#62;</span>
-            <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-              {{ 'customer.account.logout' | t | customer_logout_link }}
-            </span>              
-          </div>
-        </div>
+<div class="side-section container">
+  <div class="row">
+    <div class="col-sm-12 col-md-3 col-lg-2">
+      <div class="content">
+        <h1 class="title">{{ 'customer.account.title' | t }}</h1>
+        <ul class="nav nav-pills nav-stacked">
+          <li class="active"><a href="/account">{{ 'customer.orders.title' | t }}</a></li>
+          <li><a href="/account/addresses">{{ 'customer.account.view_addresses' | t }}</a></li>
+          <li><a href="/pages/wish-list">{{ 'customer.account.wishlist' | t }}</a></li>
+          <li><a href="/account/logout">{{ 'customer.account.logout' | t }}</a></li>
+        </ul>
+        <select class="page-links">
+          <option value="/account" selected>{{ 'customer.orders.title' | t }}</option>
+          <option value="/account/addresses">{{ 'customer.account.view_addresses' | t }}</option>
+          <option value="/pages/wish-list">{{ 'customer.account.wishlist' | t }}</option>
+          <option value="/account/logout">{{ 'customer.account.logout' | t }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="tab-content col-sm-12 col-md-9 col-lg-8">
+      <div class="content table-responsive">
+        {% paginate customer.orders by 20 %}
+          {% if customer.orders.size != 0 %}
+            <table class="order-table table">
+              <thead>
+                <tr>
+                  <th class="order_number">{{ 'customer.orders.order_number' | t }}</th>
+                  <th class="date">{{ 'customer.orders.date' | t }}</th>
+                  <th class="fulfillment_status">{{ 'customer.orders.fulfillment_status' | t }}</th>
+                  <th class="total">{{ 'customer.orders.total' | t }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for order in customer.orders %}
+                <tr class="{% cycle 'odd', 'even' %} {% if order.cancelled %}cancelled_order{% endif %} order-tr">
+                  <td width="15%" class="order" target="#order-block-{{order.order_number }}" >{{ order.name | link_to: order.customer_url }}</td>
+                  <td width="15%"><span class="note">{{ order.created_at | date: format: 'short' }}</span></td>
+                  <td width="50%"><span class="status_{{ order.fulfillment_status }}">{{ order.fulfillment_status_label }}</span></td>
+                  <td width="20%"><span class="total_price">{{ order.total_price | money }}</span></td>
+                </tr>
+                {% for item in order.line_items %}
+                  <tr id="order-block-{{order.order_number }}" class="order-detail">
+                    <td colspan="4">
+                      <div class="featured-image">
+                        <img src="{{ item.image | img_url: '768x' }}">
+                      </div>
+                      <div class="info">
+                        <p class="title">{{ item.product.title }} <span class="price">{{ item.original_price | money }}</span></p>
+                        {% for option in item.options_with_values %}
+                          <p class="option">{{ option.name }}: {{ option.value }}</p>
+                        {% endfor %}
+                      </div>
+                    </td>
+                  </tr>
+                {% endfor %}
+                <tr id="order-block-{{order.order_number }}" class="price_info">
+                  <td colspan="4">
+                      <ul>
+                        <li><span class="discount_title">{{ 'customer.orders.discount' | t }}</span><span class="price">{{ order.total_discounts | money }}</span></li>
+                        <li><span class="shipping-title">{{ 'customer.orders.shipping_price' | t }}</span><span class="price">{{ order.shipping_price | money }}</span></li>
+                        <li class="total"><span class="total-title">{{ 'customer.orders.total_detail' | t }}</span><span class="price">{{ order.total_price | money }}</span></li>
+                      </ul>
+                      <div class="pannel">
+                        <a class="btn return right typeform-share button" href="https://form.typeform.com/to/nHu7FL" data-mode="popup" target="_blank">{{ 'customer.orders.return' | t }} </a>
+                        <script> (function() { var qs,js,q,s,d=document, gi=d.getElementById, ce=d.createElement, gt=d.getElementsByTagName, id="typef_orm_share", b="https://embed.typeform.com/"; if(!gi.call(d,id)){ js=ce.call(d,"script"); js.id=id; js.src=b+"embed.js"; q=gt.call(d,"script")[0]; q.parentNode.insertBefore(js,q) } })() </script>
+                        <a href="{{ order.customer_url }}" class="btn track-order right">{{ 'customer.orders.track-order' | t }}</a>
+                      </div>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          {% else %}
+            <p>{{ 'customer.orders.none' | t }}</p>
+          {% endif %}
+          {% include 'pagination' %}
+        {% endpaginate %}
       </div>
     </div>
   </div>
-</section>
-<section class="account-content">
-  <div class="account-content-wrapper">
-    <div class="container">
-      <div class="row">
-        <div class="account-content-inner">
-		  <div id="customer-account">
-            <div id="customer_orders" class="col-sm-8">
-              {% paginate customer.orders by 20 %}
-                {% if customer.orders.size != 0 %}
-                  <table>
-                    <thead>
-                      <tr>
-                        <th class="order_number">{{ 'customer.orders.order_number' | t }}</th>
-                        <th class="date">{{ 'customer.orders.date' | t }}</th>
-                        <th class="payment_status">{{ 'customer.orders.payment_status' | t }}</th>
-                        <th class="fulfillment_status">{{ 'customer.orders.fulfillment_status' | t }}</th>
-                        <th class="total">{{ 'customer.orders.total' | t }}</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {% for order in customer.orders %}
-                      <tr class="{% cycle 'odd', 'even' %} {% if order.cancelled %}cancelled_order{% endif %}">
-                        <td>{{ order.name | link_to: order.customer_url }}</td>
-                        <td><span class="note">{{ order.created_at | date: format: 'short' }}</span></td>
-                        <td><span class="status_{{ order.financial_status }}">{{ order.financial_status_label }}</span></td>
-                        <td><span class="status_{{ order.fulfillment_status }}">{{ order.fulfillment_status_label }}</span></td>
-                        <td><span class="total money">{{ order.total_price | money }}</span></td>
-                      </tr>
-                      {% endfor %}
-                    </tbody>
-                  </table>
-                {% else %}
-                  <p>{{ 'customer.orders.none' | t }}</p>
-                {% endif %}
-                {% include 'pagination' %}
-              {% endpaginate %}
-              {% if settings.tfcode == '' %}
-              <div style="display:none;">
-                <div class="license_code_{{ settings.tfcode}}">
-                  <img src="https://www.emthemes.com/media/shopify-logo-everything.png" alt="" />
-                </div>
-              </div>
-              {% endif %}
-            </div>
-
-            <div id="customer_sidebar" class="col-sm-4">
-              <h2>{{ customer.name }}</h2>
-              <p class="email note">{{ customer.email }}</p>
-              <a href="/account/logout" style="color:#000">Log out</a>
-              <div class="address note">
-                {% if customer.default_address != nil %}
-                <p>{{ customer.default_address.address1 }}</p>
-                {% if customer.default_address.address2 != "" %}
-                <p>{{ customer.default_address.address2 }}</p>
-                {% endif %}
-                <p>{{ customer.default_address.city}}, {% if address.province_code %}{{customer.default_address.province_code}}, {% endif %}{{customer.default_address.country}}</p>
-                <p>{{ customer.default_address.zip}}</p>
-                <p>{{ customer.default_address.phone }}</p>
-                {% endif %}
-                <a id="view_address" href="/account/addresses">{{ 'customer.account.view_addresses' | t }}</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+</div>

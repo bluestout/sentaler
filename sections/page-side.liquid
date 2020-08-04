@@ -1,0 +1,61 @@
+
+
+<div class="side-section container">
+  <div class="row">
+    <div class="col-sm-12 col-md-3 col-lg-2 side-bar">
+      <div class="content">
+        <h1 class="title">{{ 'general.page.title' | t }}</h1>
+        <ul class="nav nav-pills nav-stacked">
+          {% for block in section.blocks %}
+            {% assign page_item = pages[block.settings.page] %}
+            <li class="{% if page.handle == block.settings.page %}active{% endif %}"><a href="{{ page_item.url }}">{{ block.settings.title }}</a></li>
+          {% endfor %}
+        </ul>
+        <select class="page-links">
+          {% for block in section.blocks %}
+            {% assign page_item = pages[block.settings.page] %}
+            <option value="page_item.url" {% if page.handle == block.settings.page %}selected{% endif %}>{{ block.settings.title }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+    
+    <div class="tab-content col-sm-12 col-md-9 col-lg-8">
+      <div class="content">
+        {% unless page.handle == "faq" %}
+          <h3 class="title">{{ page.title }}</h3>
+          <p class="publish_date">{{ 'general.page.updated' | t }} {{page.published_at | time_tag: format: 'short'}}</p>
+        {% endunless %}
+        
+        {{ page.content }}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "side section",
+  "settings": [
+    
+  ],
+  "blocks": [
+    {
+      "type": "page_link",
+      "name": "Page link",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "page",
+          "id": "page",
+          "label": "Page"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

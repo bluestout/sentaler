@@ -1,0 +1,82 @@
+{% assign wishlistIsEmpty = true %}
+<div class="side-section container wishlist-page shop_area">
+  <div class="row">
+    <div class="col-sm-12 col-md-3 col-lg-2">
+      <div class="content">
+        <h1 class="title">{{ 'customer.account.title' | t }}</h1>
+        <ul class="nav nav-pills nav-stacked">
+          <li><a href="/account">{{ 'customer.orders.title' | t }}</a></li>
+          <li><a href="/account/addresses">{{ 'customer.account.view_addresses' | t }}</a></li>
+          <li class="active"><a href="/pages/wish-list">{{ 'customer.account.wishlist' | t }}</a></li>
+          <li><a href="/account/logout">{{ 'customer.account.logout' | t }}</a></li>
+        </ul>
+        <select class="page-links">
+          <option value="/account">{{ 'customer.orders.title' | t }}</option>
+          <option value="/account/addresses">{{ 'customer.account.view_addresses' | t }}</option>
+          <option value="/pages/wish-list" selected>{{ 'customer.account.wishlist' | t }}</option>
+          <option value="/account/logout">{{ 'customer.account.logout' | t }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="tab-content col-sm-12 col-md-9 col-lg-10">
+      <div class="content">
+        <div id="wishlistcontent" class="row">
+          <span class="none" style="display: none;">
+            <p class="text-center">{{ 'wishlist.empty' | t }}</p>
+            <a href="/collections/all-items" class="index_btn">{{ 'wishlist.back_to_shop' | t }}</a>
+          </span>
+          <ul>
+    
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% if section.settings.status %}
+    <div class="row">
+      <div class="related-products">
+        <h3 class="title text-center">{{ section.settings.title }}</h3>
+        <div class="carousel">
+          {% for block in section.blocks %}
+            {% assign product = all_products[block.settings.product] %}
+            <div class="col-xs-6 col-sm-6 col-md-4 item carousel-cell">
+              {% include 'product-item' %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Wishlist section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "status",
+      "label": "Related product status"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "You may also like"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "related",
+      "name": "Related product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        }   
+      ]
+    }
+  ]
+}
+{% endschema %}

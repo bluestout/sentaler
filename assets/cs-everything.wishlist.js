@@ -3,8 +3,10 @@ function wishlist_init(){
   if(localStorage.getItem('cs-wishlist') == null || localStorage.getItem('cs-wishlist') == '[]' ){
     $('.navUser-item--wishlist .wishlist-quantity').html('');
     $('#wishlistcontent .none').css( 'display', 'block' );
+    $('#wishlistheader .none').css( 'display', 'block' );
     $('#wishlistcontent .wishlist-count').css( 'display', 'none' );
     $('#wishlistcontent ul').css( 'display', 'none' );
+    $('#wishlistheader ul').css( 'display', 'none' );
   }
   else{
     var activeID = [];
@@ -105,6 +107,7 @@ function wishlist_check(){
 
 function wishlist_show(){
   var cont = '#wishlistcontent ul',
+      contHeader = '#wishlistheader ul',
       productjson = '/products.js',
       getID= [];
   if(localStorage.getItem('cs-wishlist') != null ){
@@ -115,21 +118,13 @@ function wishlist_show(){
 
       jQuery.getJSON(url, function(product) {
         var wcn = ".wishlist-"+product.handle;
-        $(cont).append('<li class="wlr wishlist-'+product.handle+'"><div class="wishlist-image-'+product.id+'"></div><div class="wishlist-name"></div><div class="wishlist-price-'+product.id+'"></div><div class="wishlist-addCart"></div><div class="wishlist-remove" data-wishlisthandle="'+product.handle+'">x</div></li>');
+        $(contHeader).append('<li class="wlr wishlist-'+product.handle+'"><div class="wishlist-image-'+product.id+'"></div><div class="wishlist-info"><div class="wishlist-name"></div><div class="wishlist-price-'+product.id+' wishlist-price"></div></div></li>');
+        $(cont).append('<li class="wlr wishlist-'+product.handle+'"><div class="wishlist-image-'+product.id+'"></div><div class="wishlist-info"><div class="wishlist-name"></div><div class="wishlist-price-'+product.id+' wishlist-price"></div><div class="wishlist-addCart"></div><div class="wishlist-remove" data-wishlisthandle="'+product.handle+'"></div></div></li>');
         $(wcn).find('.wishlist-image-'+product.id).append('<img src="'+product.featured_image+'" alt="" />');
         $(wcn).find('.wishlist-name').append('<a href="'+product.url+'">'+product.title+'</a>');
-	
-        /*var tags = product.tags;
-        for (var i in tags) {
-          var tag = tags[i]
-          if (tag.indexOf('ship_') >= 0) {
-            var tag_v = tag.replace('ship_', '');
-            $(wcn).find('.wishlist-name').append('<div class="wishlist-ship-date">This item will ship in ' + tag_v + '</div>');
-          }
-        }
-		*/
-         $(wcn).find('.wishlist-name').append('<div class="wishlist-ship-date ship_'+product.id+'">' + localStorage.getItem('shipping_msg') + '</div>');
-         $(wcn).find('.wishlist-addCart').append('<form action="/cart/add" method="post" class="variants" id="wishlist-form-cart-'+product.id+'" enctype="multipart/form-data"><input type="text" name="properties[ship_date]" value="'+localStorage.getItem('shipping_msg')+'" style="display:none;"><div id="wishlist-variants-container-'+product.id+'" class="variants-wrapper"></div> <div class="quantity-content"><label>QTY</label><input type="text" size="5" class="item-quantity item-quantity-qs" name="quantity" value="1" /></div><div class="others-bottom"><a id="wishlist-addToCart-'+product.id+'" class="btn btn-quick-shop add-to-cart">Add to cart</a><div class="wishlist-remove" data-wishlisthandle="'+product.handle+'"><span class="lnr lnr-trash"></span></div></div></form>');
+
+        $(wcn).find('.wishlist-name').append('<div class="wishlist-ship-date ship_'+product.id+'">' + localStorage.getItem('shipping_msg') + '</div>');
+        $(wcn).find('.wishlist-addCart').append('<form action="/cart/add" method="post" class="variants" id="wishlist-form-cart-'+product.id+'" enctype="multipart/form-data"><input type="text" name="properties[ship_date]" value="'+localStorage.getItem('shipping_msg')+'" style="display:none;"><div id="wishlist-variants-container-'+product.id+'" class="variants-wrapper"></div> <div class="quantity-content"><label>QTY</label><input type="text" size="5" class="item-quantity item-quantity-qs" name="quantity" value="1" /></div><div class="others-bottom"><a id="wishlist-addToCart-'+product.id+'" class="btn btn-quick-shop add-to-cart">Add to cart</a><div class="wishlist-remove" data-wishlisthandle="'+product.handle+'"><span class="lnr lnr-trash"></span></div></div></form>');
 
         addToVariantsWishlist(product);
 
@@ -147,8 +142,10 @@ function wishlist_show(){
           if(storeID2.length == 0){
             $('.navUser-item--wishlist .wishlist-quantity').html('');
             $('#wishlistcontent .none').css( 'display', 'block' );
+            $('#wishlistheader .none').css( 'display', 'block' );
             $('#wishlistcontent .wishlist-count').css( 'display', 'none' );
             $('#wishlistcontent ul').css( 'display', 'none' );
+            $('#wishlistheader ul').css( 'display', 'none' );
           } else{
             $('.navUser-item--wishlist .wishlist-quantity').html('('+storeID2.length+')');
           }
@@ -163,6 +160,7 @@ function wishlist_show(){
   else{
     $('.wishlist-0').hide();
     $('#wishlistcontent .none').show();
+    $('#wishlistheader .none').show();
   }
 
 }

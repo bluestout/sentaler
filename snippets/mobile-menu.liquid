@@ -64,10 +64,46 @@
     {% endif %}
   </li>
 {% endif %}
-
 {% endfor %}
      </ul>
+     <ul class="customer">
+      {% if customer %}
+      <li class="mainitem my-account">
+        <a href="/account">{{ 'layout.customer.your_account' | t }}</a>
+      </li>
+      <li class="mainitem customer-care has_megadrop">
+        <a class="mainmenu" data-toggle="dropdown" aria-expanded="false">{{ 'layout.customer.customer-care' | t }}</a>
+        <ul class="care-links mobiledropdown">
+          {% for block in section.blocks %}
+            {% if block.type == 'customer_menu' %}
+              {% for link in linklists[block.settings.menu].links %}
+              <li><a class="mainmenu" href="{{ link.url }}">{{ link.title }}</a></li>
+              {% endfor %}
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </li>
+      {% else %}
+      <li class="mainitem logout">
+        <a href="/account/login">{{'layout.header.login_dropdown.login'|t}}</a>
+      </li>
+      <li class="mainitem customer-care has_megadrop">
+        <a data-toggle="dropdown" aria-expanded="false">{{'layout.customer.customer-care' | t }}</a>
+        <ul class="care-links mobiledropdown">
+          {% for block in section.blocks %}
+            {% if block.type == 'customer_menu' %}
+              {% for link in linklists[block.settings.menu].links %}
+              <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+              {% endfor %}
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </li>
+
+      {% endif %}
+    </ul>
   </ul>
+  
   <ul class="mob_bottm_nav">
     <!--<li class="mainitem"><a href="/account"><span class="sticon-user al_lt"></span>Account </a></li>-->
     <li class="mainitem"><a href="{{section.settings.link_loc}}"><span class="sticon-location"></span>{{ section.settings.location }}</a></li>

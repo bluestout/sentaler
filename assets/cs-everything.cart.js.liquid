@@ -27,12 +27,7 @@ var GLOBAL = {
   common : {
     init: function(){
       $('html').removeClass('no-js').addClass('js');
-      if($(window).innerWidth() > 767 ){
-
-          $('.add-to-cart').bind( 'click', addToCart );
-
-      }
-      else { $('.add-to-cart').bind( 'click', directAddToCart ); }
+      
     }
   },
   templateIndex : { init: function(){ }  },
@@ -60,6 +55,18 @@ var UTIL = {
   }
 
 };
+$(window).load(function () {
+  $('.add-to-cart').click(function (e) {
+    var $button = $(this);
+    
+    if ($(window).innerWidth() > 767  ) {
+      addToCart($button);
+    } else {
+      directAddToCart($button);
+    }
+    
+  })
+ })
 $(document).ready(UTIL.loadEvents);
 
 /* Fly image to Cart */
@@ -87,9 +94,9 @@ function notifyProduct($info){
     });
 }
 
-function directAddToCart(e){
-  var $this = $(this);
-  var form = $(this).parents('form');
+function directAddToCart(button){
+  var $this = button;
+  var form = button.parents('form');
   /*if ($(form).data('ptype') == 'coat' || $(form).data('ptype') == 'cape') {
     $.ajax({
       type: 'POST',
@@ -108,13 +115,11 @@ function directAddToCart(e){
 }
 
 /* Ajaxy add-to-cart */
-function addToCart(e){
+function addToCart(button){
 //   $('#ajax-cart-modal').show();
-  console.log(e);
 if (typeof e !== 'undefined') e.preventDefault();
-   var $this = $(this);
+   var $this = button;
    var form = $this.parents('form');
-
   $.ajax({
     type: 'POST',
     url: '/cart/add.js',

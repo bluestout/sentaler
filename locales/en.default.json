@@ -70,6 +70,17 @@
     "filters": {
       "show_more": "Show More",
       "show_less": "Show Less"
+    },
+    "page": {
+      "title": "Customer care",
+      "contact_us": "Contact us",
+      "faq": "Frequentily asked questions",
+      "size_guid": "Size Guide",
+      "shipping": "Shipping",
+      "exchange": "Exchage\/Return a product",
+      "privacy": "Privacy policy",
+      "updated": "Last updaeted : ",
+      "payment": "Payment methods"
     }
   },
   "sections": {
@@ -99,6 +110,7 @@
     }
   },
   "blogs": {
+    "tab_all": "All",
     "article": {
       "title": "Article Detail",
       "view_all": "View all",
@@ -108,8 +120,11 @@
       "read_more": "Read more",
       "back_to_blog": "Back to {{ title }}",
       "action": "Read more",
+      "featured_product_title": "Featured Products",
+      "product_detail_title": "Product worn",
       "sidebar_author": "by {{ author }}",
-      "comment_meta_html": "<strong>{{ author }}<\/strong> on {{ date }}"
+      "comment_meta_html": "<strong>{{ author }}<\/strong> on {{ date }}",
+      "read_more_article": "Read the full article"
     },
     "comments": {
       "title": "Leave a comment",
@@ -217,12 +232,22 @@
     "general": {
       "or": "or"
     },
+    "profile": {
+      "first_name": "First Name",
+      "last_name": "Last Name",
+      "email": "Email",
+      "phone": "Phone Number"
+    },
     "account": {
       "title": "My Account",
       "details": "Account Details",
-      "view_addresses": "View Addresses",
+      "order": "My orders",
+      "view_addresses": "My Addresses",
       "return": "Return to Account Details",
-      "logout": "Logout"
+      "logout": "Logout",
+      "my_wishlist": "My wishlist",
+      "wishlist": "wishlist",
+      "customer": "customer profile"
     },
     "activate_account": {
       "title": "Activate Account",
@@ -234,19 +259,21 @@
     },
     "addresses": {
       "title": "Your Addresses",
-      "default": "Default",
+      "default": "Default Address",
       "add_new": "Add a New Address",
       "edit_address": "Edit address",
       "first_name": "First Name",
       "last_name": "Last Name",
       "company": "Company",
-      "address1": "Address1",
+      "address": "Address",
       "address2": "Address2",
       "city": "City",
       "country": "Country",
-      "province": "Province",
+      "province": "state",
       "zip": "Postal\/Zip Code",
       "phone": "Phone",
+      "chat": "Live Chat",
+      "chat_btn": "START CHAT",
       "set_default": "Set as default address",
       "add": "Add Address",
       "update": "Update Address",
@@ -256,31 +283,42 @@
       "delete_confirm": "Are you sure you wish to delete this address?"
     },
     "login": {
-      "title": "Login",
-      "email": "Email",
+      "title": "Welcome to sentailer",
+      "email": "Email Address",
       "password": "Password",
       "forgot_password": "Forgot your password?",
       "sign_in": "Sign In",
+      "sign_up": "Sign Up",
+      "sign_up_now": "Sign Up Now",
+      "new_user": "New User",
+      "login_msg": "If you are already registered, please log in.",
       "guest_title": "Continue as a guest",
       "guest_continue": "Continue",
       "reset_password": "Reset Password",
-      "reset_password_subtext": "We will send you an email to reset your password.",
+      "reset_password_subtext": "Enter your email and we’ll send you link to reset password.",
       "cancel": "Cancel",
-      "submit_recover": "Submit"
+      "submit_recover": "Submit",
+      "signup_link": "Dont' have an account? Sign Up",
+      "keep": "Keep me  signed in"
     },
     "orders": {
       "title": "Order History",
-      "order_number": "Order",
-      "date": "Date",
+      "order_number": "Order number",
+      "date": "order date",
       "payment_status": "Payment Status",
-      "fulfillment_status": "Fulfillment Status",
-      "total": "Total",
-      "none": "You haven't placed any orders yet."
+      "fulfillment_status": "order Status",
+      "total": "Order Amount",
+      "none": "You haven't placed any orders yet.",
+      "shipping_price": "Expedited shipping",
+      "total_detail": "total",
+      "discount": "Discount",
+      "return": "return",
+      "track-order": "track order"
     },
     "order": {
       "title": "Order {{ name }}",
       "date": "Placed on {{ date }}",
-      "cancelled": "Order Cancelled on {{ date }}",
+      "cancelled": "Order Cancelled on ",
       "cancelled_reason": "Reason: {{ reason }}",
       "billing_address": "Billing Address",
       "payment_status": "Payment Status",
@@ -298,10 +336,10 @@
       "subtotal": "Subtotal"
     },
     "recover_password": {
-      "title": "Reset your password",
+      "title": "Reset password",
       "email": "Email",
       "submit": "Submit",
-      "cancel": "Cancel",
+      "cancel": "Back to Sign In",
       "subtext": "We will send you an email to reset your password.",
       "success": "We've sent you an email with a link to update your password."
     },
@@ -313,13 +351,19 @@
       "submit": "Reset Password"
     },
     "register": {
-      "title": "Create Account",
+      "title": "Welcome to sentailer",
       "first_name": "First Name",
       "last_name": "Last Name",
+      "sign_in": "Sign In",
+      "sign_up": "Sign Up",
+      "new_user": "New User",
+      "sign_in_now": "Sign In",
+      "login_msg": "Please enter your information to create an account.",
       "email": "Email",
       "password": "Password",
-      "submit": "Create",
-      "cancel": "Return to Store"
+      "submit": "Create Account",
+      "cancel": "Return to Store",
+      "news": "I want to keep in loop with the latest Sentaler news"
     }
   },
   "homepage": {
@@ -337,6 +381,7 @@
     "title": "Wishlist",
     "view_wishlist": "View Wishlist",
     "qty": "QTY",
+    "back_to_shop": "Back to shopping",
     "none": "Your Wishlist is empty!",
     "successful": "Product added to",
     "empty": "Your wish list is empty",
@@ -349,6 +394,7 @@
   },
   "layout": {
     "header": {
+      "wishilist": "See wishlist",
       "login_dropdown": {
         "customer_email": "Email Address",
         "customer_password": "Password",
@@ -386,7 +432,8 @@
       "create_account": "Create account",
       "your_account": "Your Account",
       "wishlist": "Wishlist",
-      "logout": "Logout"
+      "logout": "Logout",
+      "customer-care": "customer care"
     },
     "footer": {
       "social_platform": "{{ name }} on {{ platform }}"
@@ -404,6 +451,7 @@
     "product": {
       "regular_price": "Regular price",
       "sold_out_html": "Sold Out",
+      "shop_button": "SHOP NOW",
       "sale": "Sale",
       "unavailable_html": "Unavailable",
       "unavailable": "Unavailable",

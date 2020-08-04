@@ -1,0 +1,92 @@
+<div class="total_blog_section container">
+    <h4 class="text-center las_25">{{ section.settings.title }}</h4>
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#blog_all">{{ 'blogs.tab_all' | t }}</a></li>
+        {% for block in section.blocks %}
+            {% assign blog = blogs[block.settings.blog] %}
+            {% if blog.articles_count > 0 %}
+                <li><a data-toggle="tab" href="#blog_{{block.id}}">{{ blog.title }}</a></li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+
+    <div class="tab-content">
+        <div id="blog_all" class="tab-pane fade in active">
+            <div class="row">
+                {% for block in section.blocks %}
+                    {% assign blog = blogs[block.settings.blog] %}
+                    {% for article in blog.articles %}
+                        {% assign modulo = forloop.index | modulo: 6 %}
+                        {% if modulo == 5 or modulo == 6  %}
+                            {% assign cls = "col-xs-12 col-sm-12 col-md-6" %}
+                        {% else %} 
+                            {% assign cls = "col-xs-6 col-sm-6 col-md-3" %}
+                        {% endif %}
+                        <div class="article {{cls}}">
+                            <div class="feature_image">
+                                <img src="{{ article.image | img_url: 'original' }}">
+                            </div>
+                            <div class="info">
+                                <p class="title lass_17 uppercase">{{ article.title }}</p>
+                                {{ article.metafields["global"]["sub_title"] }}
+                                <a href="{{ article.url }}">{{ 'general.accessibility.read_more' | t }}</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+        {% for block in section.blocks %}
+            {% assign blog = blogs[block.settings.blog] %}
+            <div id="blog_{{block.id}}" class="tab-pane fade in">
+                <div class="row">
+                    {% for article in blog.articles %}
+                        {% assign modulo = forloop.index | modulo: 6 %}
+                        {% if modulo == 5 or modulo == 6  %}
+                            {% assign cls = "col-xs-12 col-sm-12 col-md-6" %}
+                        {% else %} 
+                            {% assign cls = "col-xs-6 col-sm-6 col-md-3" %}
+                        {% endif %}
+                        <div class="article {{cls}}">
+                            <div class="feature_image">
+                                <img src="{{ article.image | img_url: 'original' }}">
+                            </div>
+                            <div class="info">
+                                <p class="title lass_17 uppercase">{{ article.title }}</p>
+                                {{ article.metafields["global"]["sub_title"] }}
+                                <a href="{{ article.url }}">{{ 'general.accessibility.read_more' | t }}</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+        
+    </div>
+</div>
+{% schema %}
+{
+    "name": "Total blog section",
+    "settings": [
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Heading title",
+            "default": "stories"
+        }
+    ],
+    "blocks": [
+        {
+            "name": "Blogs",
+            "type": "blog",
+            "settings": [
+                {
+                    "type": "blog",
+                    "id": "blog",
+                    "label": "Blog"
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}

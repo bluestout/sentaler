@@ -947,6 +947,21 @@
     ]
   },
   {
+    "name": "New Collection Page",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Header"
+      },
+      {
+        "type": "checkbox",
+        "id": "new_collection_header_color_black",
+        "label": "Black header color",
+        "default": false
+      }
+    ]
+  },
+  {
     "name": "Password Front-end Page",
     "settings": [
       {
