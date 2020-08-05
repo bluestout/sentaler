@@ -216,16 +216,17 @@
       "email": "Your Email",
       "phone": "Phone Number",
       "message": "Message",
-      "send": "Submit",
+      "send": "Send message",
       "post_success": "Thanks for contacting us. We'll get back to you as soon as possible.",
       "post_error": "Oops, sorry. We were unable to submit your inquiry. Please correct the following and submit again:",
-      "post_field_error_html": "The <strong>{{ field }}<\/strong> {{ error }}"
+      "post_field_error_html": "The <strong>{{ field }}<\/strong> {{ error }}",
+      "privacy_policy": "I have read the Privacy Policy"
     },
     "placeholder": {
-      "name": "John Doe",
-      "email": "john@example.com",
-      "phone": "555-555-1234",
-      "message": "Your message"
+      "name": "Name*",
+      "surame": "Surame*",
+      "email": "Email*",
+      "message": "Write your message here"
     }
   },
   "customer": {

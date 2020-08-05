@@ -861,7 +861,8 @@ theme.Slideshow = (function() {
       draggable: true,
       touchThreshold: 20,
       autoplay: this.$slideshow.data('autoplay'),
-      autoplaySpeed: this.$slideshow.data('speed')
+      autoplaySpeed: this.$slideshow.data('speed'),
+      pauseOnHover: false
     };
 
     this.$slideshow.on('beforeChange', beforeChange.bind(this));

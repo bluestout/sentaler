@@ -53,7 +53,7 @@
 
                 <li>
                   <h3>{{ 'customer.addresses.phone' | t }}</h3>
-                  <p><span class="sticon-phone"></span>{{ section.settings.phone }}</p>
+                  <p class="phone"><span class="sticon-phone"></span>{{ section.settings.phone }}</p>
                 </li>
 
                 <li>
@@ -86,10 +86,10 @@
                       <input class="form-control" type="text" id="contactFormName" name="contact[name]" placeholder="{{ 'contact.placeholder.name' | t }}"  required/>
                     </div>
                     <div class="col-sm-6">
-                      <input class="form-control" type="email" id="contactFormEmail" name="contact[email]" placeholder="{{ 'contact.placeholder.email' | t }}" required/>
+                      <input class="form-control" type="text" id="contactFormEmail" name="contact[surame]" placeholder="{{ 'contact.placeholder.surame' | t }}" required/>
                     </div>
                     <div class="col-sm-6">
-                      <input type="tel" class="form-control numbersonly" pattern="[0-9\-]*" id="contactFormTelephone" name="contact[phone]" placeholder="{{ 'contact.placeholder.phone' | t }}" required/>
+                      <input type="email" class="form-control numbersonly" id="contactFormTelephone" name="contact[email]" placeholder="{{ 'contact.placeholder.email' | t }}" required/>
                     </div> 
                     <div class="col-sm-6">
                       <select class="form-control">
@@ -102,7 +102,9 @@
                     <div class="col-sm-12">
                       <textarea rows="5" cols="75" class="form-control textarea" id="contactFormMessage" name="contact[body]" placeholder="{{ 'contact.placeholder.message' | t }}" required></textarea>
                     </div>
-                    <div class="col-sm-6"></div>
+                    <div class="col-sm-6">
+                      <span class="checkbox">{{ 'contact.form.privacy_policy' | t }}<input type="checkbox" name="contact[privacy]" class="hide"></span>
+                    </div>
                     <div class="col-sm-6">
                       <input type="submit" id="contactFormSubmit" value="{{ 'contact.form.send' | t }}" class="btn cont_btn" />
                     </div>
