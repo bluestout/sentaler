@@ -245,7 +245,23 @@ $(document).ready(function () {
       $(order_price).slideDown();
     }
     
-  })
+  });
+
+  $('.article-content .article-inner p').each(function () {
+    const $iframe = $(this).find('iframe');
+    const iframeHtml = `<div class="video">${$iframe.parent().html()}</div>`;
+    $iframe.parent().html(iframeHtml);
+    const $img = $(this).find("img");
+    const title = $img.attr('alt');
+    const titleHtml = `<span class="title">${title}</span>`;
+    $img.after(titleHtml);
+  });
+  $('.article-content .article-inner .content > img').each(function () {
+    const $img = $(this);
+    const title = $img.attr('alt');
+    const titleHtml = `<span class="title" >${title}</span>`;
+    $img.after(titleHtml);
+  });
 })
 
 
