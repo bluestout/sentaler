@@ -32,7 +32,7 @@
 
 {% capture feature_collection %}
   <div class="content-featured-products row">
-    
+
     {% assign products = collections[collection_str].products %}
     {% if products != blank %}
       <h3 class="text-center">{{ title }}</h3>
@@ -44,7 +44,7 @@
         {% endfor %}
       </div>
     {% endif %}
-    
+
   </div>
 {% endcapture %}
 
@@ -111,8 +111,8 @@
     {% if product_block != blank %}
       <div class="col-md-12">
         {% include 'product-item', product:product_block , title: title,  type: 'article_product_detail', quick_shop: true %}
-      </div> 
-    {% endif %}       
+      </div>
+    {% endif %}
   </div>
 {% endcapture %}
 
@@ -132,7 +132,7 @@
                 <p class="lass_17">{{ article.metafields["global"]["sub_title"] }}</p>
                 <span>{{ article.author }} | {{ article.updated_at }}</span>
               </div>
-              
+
               <div class="content">
                 {% if article.content contains "feature_gallery" %}
                   {% assign feature_gallery = true %}
@@ -150,8 +150,8 @@
                 {% endif %}
               </div>
               <!-- End comments -->
-            </div>            
-          {% endpaginate %}          
+            </div>
+          {% endpaginate %}
           </div>
         </div>
       </div>
@@ -162,16 +162,23 @@
     <div class="container">
       <h3 class="sidebar-title text-center">{{ section.settings.blog_recent_title }}</h3>
       <div class="row related-article">
-          {% for r_article in blog.articles limit:section.settings.blog_recent_number %}
-            {% if r_article.title != article.title%}
+        {% assign article_num = section.settings.blog_recent_number | plus: 0 %}
+        {% assign count = 0 %}
+          {% for r_article in blog.articles %}
+            {% if count < article_num %}
+              {% if r_article.title != article.title %}
+                {% assign count = count | plus: 1 %}
                 <div class="col-xs-6 col-sm-6 col-md-4 article">
                   <img src="{{ r_article.image | img_url: 'original' }}" class="feature_image">
                   <div class="info">
-                    <p class="title lass_17 uppercase">{{ article.title }}</p>
-                    {{ article.metafields["global"]["sub_title"] | truncate: 150, "" }}
-                    <a href="{{ article.url }}">{{ 'general.accessibility.read_more' | t }}</a>
+                    <p class="title lass_17 uppercase">{{ r_article.title }}</p>
+                    {{ r_article.metafields["global"]["sub_title"] | truncate: 150, "" }}
+                    <a href="{{ r_article.url }}">{{ 'general.accessibility.read_more' | t }}</a>
                   </div>
                 </div>
+              {% endif %}
+            {% else %}
+              {% break %}
             {% endif %}
           {% endfor %}
       </div>
