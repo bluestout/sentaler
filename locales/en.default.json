@@ -224,7 +224,7 @@
     },
     "placeholder": {
       "name": "Name*",
-      "surame": "Surame*",
+      "surame": "Surename*",
       "email": "Email*",
       "message": "Write your message here"
     }

@@ -96,22 +96,8 @@ function notifyProduct($info){
 
 function directAddToCart(button){
   var $this = button;
-  var form = button.parents('form');
-  /*if ($(form).data('ptype') == 'coat' || $(form).data('ptype') == 'cape') {
-    $.ajax({
-      type: 'POST',
-      url: '/cart/add.js',
-      async: false,
-      data: {id: 30335994134583, quantity: 1},
-      dataType: 'json',
-      success: function(){
-        $this.submit();
-      },
-      cache: false
-    });
-  } else {*/
-    $this.submit();
-  //}
+  var form = button.closest('form');
+  form.submit();
 }
 
 /* Ajaxy add-to-cart */
@@ -119,7 +105,7 @@ function addToCart(button){
 //   $('#ajax-cart-modal').show();
 if (typeof e !== 'undefined') e.preventDefault();
    var $this = button;
-   var form = $this.parents('form');
+   var form = $this.closest('form');
   $.ajax({
     type: 'POST',
     url: '/cart/add.js',
