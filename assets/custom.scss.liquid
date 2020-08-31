@@ -3502,9 +3502,14 @@ table {border-collapse: inherit !important;}
         padding: 0;
       }
       .featured-gallery{
+        clear: both;
         margin: 50px -200px;
         @include respond-to('medium-down'){
           margin: 50px 0;
+        }
+        img{
+          margin: 0;
+          width: 100%;
         }
         .carousel-cell {
           width: 100%;
@@ -3552,6 +3557,7 @@ table {border-collapse: inherit !important;}
       .featured-image{
         margin-bottom: 50px;
       }
+
       h1{
         font-size: 100px;
         line-height: 46px;
@@ -3564,6 +3570,7 @@ table {border-collapse: inherit !important;}
           line-height: 5px;
         }
       }
+
       & > img{
         margin: 0 -200px;
         margin-top: 50px;
@@ -3575,6 +3582,7 @@ table {border-collapse: inherit !important;}
           margin-top: 20px;
         }
       }
+
       span.title{
         float: left;
         margin-top: 20px;
@@ -3582,6 +3590,7 @@ table {border-collapse: inherit !important;}
         display: table;
       }
       p{
+        clear: both;
         position: relative;
         display: content;
         width: 100%;
@@ -3643,6 +3652,7 @@ table {border-collapse: inherit !important;}
         }
 
       }
+
       h5{
         width: 100%;
         display: table;
@@ -3651,6 +3661,7 @@ table {border-collapse: inherit !important;}
         letter-spacing: 1px;
         font-weight: normal;
       }
+
       & > h3{
         margin: 50px;
         font-weight: normal;
@@ -3680,6 +3691,24 @@ table {border-collapse: inherit !important;}
           @include respond-to('medium-down'){
             padding-bottom: 15px;
           }
+        }
+      }
+
+      blockquote {
+        border: none;
+        padding: 0;
+        margin: 0 -200px;
+        margin-top: 50px;
+        width: calc(100% + 400px);
+        max-width: initial;
+        @include respond-to("medium-down"){
+          margin: 0 -15px;
+          width: calc(100% + 30px);
+          margin-top: 20px;
+        }
+        img{
+          width: 50%;
+          float: left;
         }
       }
       a.read_more{
@@ -3716,10 +3745,14 @@ table {border-collapse: inherit !important;}
       }
     }
     .content{
+      max-height: 625px;
+      overflow-y: scroll;
+      display: block;
       padding: 0;
-      display: table;
       @include respond-to('medium-down'){
         display: block;
+        max-width: initial;
+        overflow: initial;
       }
       .carousel-cell{
         @include respond-to('medium-down'){

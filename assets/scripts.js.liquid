@@ -131,18 +131,6 @@ jQuery(window).load(function(){
 });
 
 $(window).load(function() {
-  var images = [];
-  var carousel_html = "";
-  $('.article-content .content .article img').each(function() {
-    images.push($(this).attr('src'));
-  });
-  for (let i = 0; i < images.length; i++) {
-    const image = images[i];
-    carousel_html += '<div class="carousel-cell"><img src="'+ image +'" /></div>';
-  }
-  $('.featured-gallery .carousel-nav').html(carousel_html);
-  $('.featured-gallery .carousel-main').html(carousel_html);
-
   $('.carousel-nav').flickity({
     asNavFor: '.carousel-main',
     contain: true,
@@ -257,6 +245,13 @@ $(document).ready(function () {
     $img.after(titleHtml);
   });
   $('.article-content .article-inner .content > img').each(function () {
+    const $img = $(this);
+    const title = $img.attr('alt');
+    const titleHtml = `<span class="title" >${title}</span>`;
+    $img.after(titleHtml);
+  });
+
+  $('.article-content .article-inner .content > div > img').each(function () {
     const $img = $(this);
     const title = $img.attr('alt');
     const titleHtml = `<span class="title" >${title}</span>`;

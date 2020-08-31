@@ -37,7 +37,7 @@
     {% if products != blank %}
       <h3 class="text-center">{{ title }}</h3>
       <div class="carousel">
-        {% for product_item in products limit: 3 %}
+        {% for product_item in products %}
           <div class="col-xs-6 col-sm-6 col-md-4 carousel-cell">
             {% include 'product-item', product:product_item  %}
           </div>
@@ -116,6 +116,25 @@
   </div>
 {% endcapture %}
 
+{% capture featured_gallery %}
+  <div class="featured-gallery">
+    <div class="carousel-main carousel">
+      {% for block in section.blocks %}
+        {% if block.settings.article_name == article.title %}
+          <div class="carousel-cell"><img src="{{ block.settings.image | img_url: '2048x' }}" /></div>
+        {% endif %}
+      {% endfor %}
+    </div>
+    <div class="carousel-nav carousel">
+      {% for block in section.blocks %}
+        {% if block.settings.article_name == article.title %}
+          <div class="carousel-cell"><img src="{{ block.settings.image | img_url: 'origin' }}" /></div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+{% endcapture %}
+
 <!-- //////////////////////////////////  End  /////////////////////////////////////////// -->
 
 <section class="article-content">
@@ -134,20 +153,9 @@
               </div>
 
               <div class="content">
-                {% if article.content contains "feature_gallery" %}
-                  {% assign feature_gallery = true %}
-                  <div class="hide article">{{ article.content }}</div>
-                  <div class="featured-gallery">
-                    <div class="carousel-main carousel">
-                    </div>
-                    <div class="carousel-nav carousel">
-                    </div>
-                  </div>
-                {% else %}
                   {% assign content_1 = article.content | remove: remove_collection_str | remove: remove_product_str | remove: remove_products_str %}
-                  {% assign content = content_1 | replace: "featured_collection", feature_collection | replace: 'featured_item', featured_product | replace: 'featured_products', featured_products %}
+                  {% assign content = content_1 | replace: "feature_gallery", featured_gallery | replace: "featured_collection", feature_collection | replace: 'featured_item', featured_product | replace: 'featured_products', featured_products %}
                   {{ content }}
-                {% endif %}
               </div>
               <!-- End comments -->
             </div>
@@ -157,7 +165,7 @@
       </div>
     </div>
 </section>
-{% if section.settings.blog_recent_show and blog.articles_count > 1 %}
+{% if article.metafields["global"]["featured-blocks"] == 'recent:true' %}
   <section class="related-articles">
     <div class="container">
       <h3 class="sidebar-title text-center">{{ section.settings.blog_recent_title }}</h3>
@@ -258,50 +266,21 @@
   ],
   "blocks": [
     {
-      "type": "products",
-      "name": "Featured products",
+      "type": "image_gallery",
+      "name": "Image gallery",
       "settings": [
         {
-          "type": "product",
-          "id": "product",
-          "label": "Product"
-        }
-      ]
-    },
-    {
-      "type": "product",
-      "name": "Featured prouduct",
-      "settings": [
-        {
-          "type": "text",
-          "id": "title",
-          "label": "Title",
-          "default": "product worn"
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
         },
         {
-          "type": "product",
-          "id": "product",
-          "label": "Product"
-        }
-      ]
-    },
-    {
-      "type": "collection",
-      "name": "Featured collection",
-      "settings": [
-        {
           "type": "text",
-          "id": "title",
-          "label": "Title",
-          "default": "Explore sentailer wrap coats"
-        },
-        {
-          "type": "collection",
-          "id": "collection",
-          "label": "Collection"
+          "id": "article_name",
+          "label": "Article name"
         }
       ]
     }
-  ]
+  ] 
 }
 {% endschema %}
