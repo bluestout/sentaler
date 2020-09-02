@@ -18,26 +18,32 @@
 
                   <div id="featuted-image" class="image featured mainprd owl-carousel owl-theme">
 
-                    {% for image in product.images %}
-                    <div class="prd_img_wrap  ">
-
-
-                     <div class="easyzoom easyzoom--overlay {% if image.alt contains 'vimeo' %}{% else %}clickzoom{% endif %}">
-                       {% if image.alt contains 'vimeo' %}
-                       {% assign video_id = image.alt | remove: "https://vimeo.com/" %}
-				       <div class="product_video_Wrap">
-                         <iframe id="prd_video" src="https://player.vimeo.com/video/{{video_id}}?color=d4d4d4&title=0&byline=0&portrait=0&background=1"  frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-                       </div>
-
-
-                       {% else %}
-                         <a  data-fancybox="gallery" href="{{ image | product_img_url: '2400X' }}"><img class="normal" src="{{ image | product_img_url: '2400X' }}" alt="{{ image.alt | escape }}" /></a>
-                       {% endif %}
-                      </div>
-                    </div>
+                    {% for media in product.media %}
+                      
+                      {% case media.media_type %}
+                        {% when 'image' %}
+                          <div class="prd_img_wrap  ">
+                            <div class="easyzoom easyzoom--overlay clickzoom">
+                              <a  data-fancybox="gallery" href="{{ media | product_img_url: '2400X' }}"><img class="normal" src="{{ media | product_img_url: '2400X' }}" alt="{{ media.alt | escape }}" /></a>
+                            </div>
+                          </div>
+                        {% when 'external_video' %}
+                          <div class="product-single__media">
+                            {{ media | external_video_tag : class: "youtube_video" }}
+                          </div>
+                        {% when 'video' %}
+                          <div class="product-single__video">
+                            {{ media | video_tag: autoplay: true,  loop: true }}
+                          </div>
+                        {% else %}
+                          <div class="product-single__media">
+                            {{ media | media_tag }}
+                          </div>
+                      {% endcase %}
+                    
                     {% endfor %}
                   </div>
-				 <script>
+				            <script>
                        $.fn.isInViewport = function() {
                         var elementTop = $(this).offset().top;
                         var elementBottom = elementTop + $(this).outerHeight();

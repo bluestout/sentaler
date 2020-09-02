@@ -5745,6 +5745,25 @@ $bg_filter: #323232;
                     width: 100%;cursor: crosshair;
               }
             }
+            .product-single__video{
+              video{
+                width: 100%;
+              }
+            }
+            .product-single__media{
+              position: relative;
+              &::after{
+                content:" ";
+                display: table;
+                width:100%;
+                padding-top: 150%;
+              }
+              iframe{
+                width: 100%;
+                height: 100%;
+                position: absolute;
+              }
+            }
             .thumbs {
               margin-left: -$row_padding;
               margin-right: -$row_padding;
