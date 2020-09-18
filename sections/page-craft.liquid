@@ -36,7 +36,7 @@
             <div class="details">
               {% for block in section.blocks %}
                 {% if block.type == 'image_text' %}
-                <div class="home_banner">
+                <div class="home_banner" {% if block.settings.block_id != blank %}id="{{ block.settings.block_id }}"{% endif %}>
                   <div class="banner_div b_{{block.id}} main align_{{block.settings.alignment}} set_{{block.settings.width}}" >
                   </div>
                     <div class="banner_text align_{{block.settings.alignment}}" >
@@ -90,6 +90,11 @@
         "type": "image_text",
         "name": "Image with Text",
         "settings": [
+        {
+          "type": "text",
+          "id": "block_id",
+          "label": "Block ID"
+        },
     		{
     			"type":"image_picker",
     			"id":"image",

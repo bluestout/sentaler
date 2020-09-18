@@ -580,7 +580,31 @@ span.foot_head {margin-bottom: 12px;display: inline-block;width:100%;text-align:
 .copy-right-wrapper .container {padding: 0;text-align: left;}
 .fi-follow {text-align: center;}
 .fi-follow .footer-title {font-size: 14px;margin-bottom: 35px;}
-.followus-content a {display: inline-block;margin: 0 27px;font-size: 28px;color: #7A868F;}
+.followus-content {
+  a {
+    display: inline-block;
+    margin: 0 27px;
+    font-size: 28px;
+    color: #7A868F;
+    span {
+      &.pint-icon {
+        display: inline-block;
+        width: 28px;
+        height: 28px;
+        background: url({{ 'pint-icon.png' | asset_url }}) no-repeat;
+        background-size: 100%;
+        opacity: 0.8;
+      }
+    }
+    &:hover {
+      span {
+        &.pint-icon {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
 .copy-right-group .col-sm-4 span {color: #727E87;font-size: 15px;}
 .copy-right-group .col-sm-3.pad_0, .copy-right-group .col-sm-12.foot_bot.pad_0 {padding: 0;}
 .foot-info img {max-width: 307px;display: flex;width: 100%;}

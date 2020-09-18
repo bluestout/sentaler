@@ -14,19 +14,19 @@
         <select class="page-links">
           {% for block in section.blocks %}
             {% assign page_item = pages[block.settings.page] %}
-            <option value="page_item.url" {% if page.handle == block.settings.page %}selected{% endif %}>{{ block.settings.title }}</option>
+            <option value="{{ page_item.url }}" {% if page.handle == block.settings.page %}selected{% endif %}>{{ block.settings.title }}</option>
           {% endfor %}
         </select>
       </div>
     </div>
-    
+
     <div class="tab-content col-sm-12 col-md-9 col-lg-8">
       <div class="content">
         {% unless page.handle == "faq" %}
           <h3 class="title">{{ page.title }}</h3>
           <p class="publish_date">{{ 'general.page.updated' | t }} {{page.published_at | time_tag: format: 'short'}}</p>
         {% endunless %}
-        
+
         {{ page.content }}
       </div>
     </div>
@@ -37,7 +37,7 @@
 {
   "name": "side section",
   "settings": [
-    
+
   ],
   "blocks": [
     {
