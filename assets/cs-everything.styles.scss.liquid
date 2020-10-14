@@ -3902,6 +3902,7 @@ $bg_next_pre: #f1f1f1;
         img {
           margin: 0 auto;
         }
+        
         .back {
           left: 0;
           opacity: 0;
@@ -3921,6 +3922,23 @@ $bg_next_pre: #f1f1f1;
         left: 1px;
         margin-top: 10px;
       }
+      .product-single__video{
+        width: 100%;
+        position: relative;
+        &::after{
+          content: " ";
+          padding-bottom: 150%;
+          display: table;
+        }
+        video{
+          width: 100%;
+          height: auto;
+          position: absolute;
+          top: 0;
+          left: 0;
+        }
+      }
+      
     }
     .row-right {
       text-align: left;
@@ -10370,6 +10388,182 @@ and (max-width:1366px) {
 and (min-width:1620px) {
 .product-item-wrapper img {height: 55vh;}
 .cusatomwidt.video_col {margin-bottom: 30px;}
+.product-item-wrapper .product-single__video{
+  height: 55vh;
+  &::after{
+    content: none;
+  }
+}
 
+}
 
+.snize-ac-results{
+  .snize-ac-results-content{
+    .snize-ac-results-columns{
+      .snize-ac-results-column{
+        .snize-no-products-found{
+          .snize-no-products-found-link{
+            border-radius: 0;
+          }
+        }
+        .snize-product{
+          .snize-thumbnail{
+            height: auto;
+            .snize-item-image{
+              max-height: inherit;
+              width: 100%!important;
+            }
+          }
+          .snize-title{
+            font-size: 15px;
+            font-weight: normal;  
+            text-align: left;
+          }
+          .snize-price-list{
+            font-size: 15px;
+            font-weight: normal;
+            text-align: left;
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+  &.snize-ac-results-mobile{
+    .snize-thumbnail{
+      max-height: initial!important;
+    }
+  }
+}
+.search-page{
+  form.search{
+    .input-group{
+      width: 100%;
+      margin: auto;
+      max-width: 600px;
+      position: relative;
+      margin-bottom: 20px;
+      &::after{
+        font-family: 'sticon' !important;
+        speak: none;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        line-height: 1;
+        -webkit-font-smoothing: antialiased;
+        position: absolute;
+        content: "\e91b";
+        font-size: 20px;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        opacity: 0.4;
+      }
+      #SearchInput{
+        height: 44px;
+        width: 100%;
+        padding: 10px 50px 10px 20px;
+        
+      }
+    }
+  }
+  #snize-modal-mobile-filters-dialog{
+    top: 0;
+    height: 100%;
+    border-radius: 0;
+  }
+  
+  div.snize-search-results#snize_results{
+    padding: 20px;
+    &.snize-mobile-design{
+      .snize-main-panel{
+        .snize-main-panel-controls{
+          border-radius: 0;
+        }
+      }
+    }
+    .snize-main-panel{
+      .snize-main-panel-controls{
+        border-radius: 0;
+        & > ul{
+          border-radius: 0;
+          a{
+            border-radius: 0;
+          }
+        }
+        .snize-main-panel-controls-products{
+          &.active{
+            border-radius: 0;
+          }
+        }
+      }
+      .snize-main-panel-view-mode {
+        a{
+          border-radius: 0;
+        }
+      }
+      .snize-main-panel-mobile-filters{
+        a{
+          border-radius: 0;
+        }
+      }
+      .snize-main-panel-dropdown{
+        .snize-main-panel-dropdown-button{
+          border-radius: 0;
+        }
+      }
+    }
+    .snize-search-results-main-content{
+      .snize-title{
+        font-size: 15px;
+        font-weight: normal;  
+        text-align: left;
+      }
+      .snize-price-list{
+        font-size: 15px;
+        font-weight: normal;
+        text-align: left;
+      }
+      .snize-thumbnail{
+        img{
+          max-height: initial!important;
+        }
+      }
+      .snize-search-results-content{
+        .snize-product{
+          .snize-thumbnail{
+            height: auto!important;
+            padding: 0!important;
+            border: none;
+            img{
+              width: 100%;
+              max-height: inherit ;
+              &:first-child{
+                position: initial;
+                max-height: inherit;
+                width: 100%;
+              }
+            }
+          }
+          .snize-button{
+            border-radius: 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+.site-footer {
+  .content {
+    &.copy_link {
+      a {
+        font-size: 13px;
+        &:hover {
+          color: #000;
+        }
+      }
+    }
+  }
 }

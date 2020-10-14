@@ -7,13 +7,33 @@
       <a href="{{ product.url | within: collection }}" class="hoverBorder container_item">
         <span id="secomapp-fg-image-{{ product.id }}" style="display: none;"> {{ "icon-freegift.png" | asset_url | img_tag: "", "sca-fg-img-collect" }} </span>
         <span class="sca-fg-cat-list prod-show-list" style="display:none;" id="secomapp-fg-data-{{ product.id }}"> </span>
-         <img src="{{ product.featured_image | product_img_url: '1000X1000' }}" class="img-responsive front" alt="{{ product.featured_image.alt | escape }}" />
+        <div class="front">
+          <script>console.log({{product.media | json }})</script>
+          {% for media in product.media %}
+            {% if forloop.index == 1 %}
+              {% case media.media_type %}
+                {% when 'image' %}
+                  <img class="normal" src="{{ media | product_img_url: '1000X' }}" alt="{{ media.alt | escape }}" />
+                {% when 'external_video' %}
+                  <div class="product-single__media">
+                    {{ media | external_video_tag : class: "youtube_video" }}
+                  </div>
+                {% when 'video' %}
+                  <div class="product-single__video">
+                    {{ media | video_tag: autoplay: true,  loop: true }}
+                  </div>
+                {% else %}
+                  <div class="product-single__media">
+                    {{ media | media_tag }}
+                  </div>
+              {% endcase %}
+            {% endif %}        
+          {% endfor %}
+        </div>
+         
         {% if product.images[2]%}
-
             <img src="{{ product.images[2]| product_img_url: '1000X1000' }}" class="secondimage" alt="{{ product.images[2].alt | escape }}" />
-
-
-          {% endif %}
+        {% endif %}
        {% comment %} <div class="hoverBorderWrapper">
           {% for image in product.images %}
           {% endfor %}

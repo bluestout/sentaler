@@ -3347,77 +3347,38 @@ table {border-collapse: inherit !important;}
       @include respond-to('medium-down'){
         margin: 0 -3px
       }
-      .article{
-        @include respond-to('medium-down'){
-          padding: 0 3px;
-        }
-        .info{
-          padding: 10px;
-          padding-left: 0;
-          position: relative;
-          color: #727E89;
-          height: 220px;
-          letter-spacing: 0.5px;
-          font-size: 16px;
-          margin-bottom: 40px;
+      .row{
+        display: flex;
+        flex-wrap: wrap;
+        .article{
           @include respond-to('medium-down'){
-            font-size: 12px;
-            line-height: 15px;
-            height: 200px;
-            padding-left: 10px;
+            padding: 0 3px;
           }
-          h1{
-            float: left;
-            line-height: 17px;
-            font-size: 14px;
-            margin: 0;
-            margin-top: 2px;
-            font-weight: normal;
-            margin-right: 1px;
-            color: #727E89;
-
-          }
-          p{
-            color: #727E89;
-            font-family: larsseit;
-            font-weight: normal;
-            &.title{
-              color: black;
-              opacity: 1;
-              text-transform: uppercase;
-              letter-spacing: 1px;
-              line-height: 18px;
-              padding-bottom: 20px;
-              @include respond-to('medium-down'){
-                font-size: 14px;
-              }
-            }
-          }
-          a{
-            color: black;
-            text-transform: uppercase;
-            line-height: 60px;
-            opacity: 1;
-            display: table;
-            width: 100%;
-            letter-spacing: 2px;
-            font-family: larsseit;
-            font-weight: 700;
-          }
-        }
-        &.col-md-6{
           .info{
-            color: #727E89;
             padding: 10px;
             padding-left: 0;
-            padding-top: 20px;
+            position: relative;
+            color: #727E89;
+            letter-spacing: 0.5px;
             font-size: 16px;
-            margin-bottom: 40px;
+            margin-bottom: 10px;
+            padding-top: 25px;
             @include respond-to('medium-down'){
               font-size: 12px;
               line-height: 15px;
-              height: 170px;
               padding-left: 10px;
+              margin-bottom: 0!important;
+            }
+            h1{
+              float: left;
+              line-height: 17px;
+              font-size: 14px;
+              margin: 0;
+              margin-top: 2px;
+              font-weight: normal;
+              margin-right: 1px;
+              color: #727E89;
+  
             }
             p{
               color: #727E89;
@@ -3427,8 +3388,9 @@ table {border-collapse: inherit !important;}
                 color: black;
                 opacity: 1;
                 text-transform: uppercase;
-                font-size: 25px;
-                line-height: 26px;
+                letter-spacing: 1px;
+                line-height: 20px;
+                padding-bottom: 10px;
                 @include respond-to('medium-down'){
                   font-size: 14px;
                 }
@@ -3441,8 +3403,50 @@ table {border-collapse: inherit !important;}
               opacity: 1;
               display: table;
               width: 100%;
+              letter-spacing: 2px;
               font-family: larsseit;
               font-weight: 700;
+            }
+          }
+          &.col-md-6{
+            .info{
+              color: #727E89;
+              padding: 10px;
+              padding-left: 0;
+              padding-top: 20px;
+              font-size: 16px;
+              margin-bottom: 40px;
+              @include respond-to('medium-down'){
+                font-size: 12px;
+                line-height: 15px;
+                height: 170px;
+                padding-left: 10px;
+              }
+              p{
+                color: #727E89;
+                font-family: larsseit;
+                font-weight: normal;
+                &.title{
+                  color: black;
+                  opacity: 1;
+                  text-transform: uppercase;
+                  font-size: 25px;
+                  line-height: 26px;
+                  @include respond-to('medium-down'){
+                    font-size: 14px;
+                  }
+                }
+              }
+              a{
+                color: black;
+                text-transform: uppercase;
+                line-height: 60px;
+                opacity: 1;
+                display: table;
+                width: 100%;
+                font-family: larsseit;
+                font-weight: 700;
+              }
             }
           }
         }
