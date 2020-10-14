@@ -144,44 +144,41 @@ $(window).load(function() {
     adaptiveHeight: true
   });
 
-  if ($(window).innerWidth() < 769) {
-    if ($('.featured-products .carousel-cell').size() > 2) {
-      $('.featured-products .carousel').flickity({
-        wrapAround: true,
-        pageDots: false,
-        cellAlign: "left"
-      });
-    }
-    if ($('.related-articles .carousel-cell').size() > 2) {
-      $('.related-articles .related-article').flickity({
-        wrapAround: true,
-        pageDots: false,
-        cellAlign: "left"
-      });
-    }
-  } 
-  
-});
 
-$(window).load(function() {
-  if ($(window).innerWidth() < 769) {
-    if ($('.content-featured-products .carousel-cell').size() > 2) {
-      $('.content-featured-products .carousel').flickity({
-        wrapAround: true,
-        pageDots: false,
-        cellAlign: "left"
-      });
-    } 
-
-    if ($('.related-products .carousel-cell').size() > 2) {
-      $('.related-products .carousel').flickity({
-        wrapAround: true,
-        pageDots: false,
-        cellAlign: "left"
-      });
-    } 
+  if ($('.featured-products .carousel-cell').size() > 3) {
+    $('.featured-products .carousel').flickity({
+      wrapAround: true,
+      pageDots: false,
+      cellAlign: "left"
+    });
   }
+  if ($('.related-articles .carousel-cell').size() > 3) {
+    $('.related-articles .related-article').flickity({
+      wrapAround: true,
+      pageDots: false,
+      cellAlign: "left"
+    });
+  }
+
+  if ($('.content-featured-products .carousel-cell').size() > 3) {
+    $('.content-featured-products .carousel').flickity({
+      wrapAround: true,
+      pageDots: false,
+      cellAlign: "left"
+    });
+  } 
+
+  if ($('.related-products .carousel-cell').size() > 3) {
+    $('.related-products .carousel').flickity({
+      wrapAround: true,
+      pageDots: false,
+      cellAlign: "left"
+    });
+  } 
+
 });
+
+
 
 $(document).ready(function () {
   $('.accordion-section .accordion-section-title').click(function(e) {
@@ -235,33 +232,20 @@ $(document).ready(function () {
     
   });
 
-  $('.article-content .article-inner p').each(function () {
+  $('.article-content .article-inner').each(function () {
     const $iframe = $(this).find('iframe');
     const iframeHtml = `<div class="video">${$iframe.parent().html()}</div>`;
     $iframe.parent().html(iframeHtml);
-    const $img = $(this).find("img");
-    const title = $img.attr('alt');
-    const titleHtml = `<span class="title">${title}</span>`;
-    $img.after(titleHtml);
-  });
-  $('.article-content .article-inner .content > img').each(function () {
-    const $img = $(this);
-    const title = $img.attr('alt');
-    const titleHtml = `<span class="title" >${title}</span>`;
-    $img.after(titleHtml);
   });
 
-  $('.article-content .article-inner .content > div > img').each(function () {
+  $('.article-content .article-inner .content img').each(function () {
     const $img = $(this);
     const title = $img.attr('alt');
-    const titleHtml = `<span class="title" >${title}</span>`;
-    $img.after(titleHtml);
+    if (title != '' && title != undefined) {
+      const titleHtml = `<span class="title" >${title}</span>`;
+      $img.after(titleHtml);
+    }
   });
-
-  // $('.contact-action .chat-btn').click(function (e) {
-  //   e.preventDefault(); 
-  //   $('#messenger-button').trigger('click'); 
-  // })
 })
 
 
