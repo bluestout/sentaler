@@ -137,7 +137,14 @@
 
                     </div>
                  <div class="purchase">
-                        <p class="price" id="price-preview">{{ variant.price | money }}{% if variant.price < variant.compare_at_price %} <del>{{ variant.compare_at_price | money }}</del>{% endif %}</p>
+                        <p class="price" id="price-preview" data-product-id="{{ product.id }}" data-variant-id="{{ product.selected_or_first_available_variant.id }}">
+                          {{ variant.price | money }}
+                          {% if variant.price < variant.compare_at_price %} 
+                            <span data-product-id="{{ product.id }}" data-variant-id="{{ product.selected_or_first_available_variant.id }}:compare">
+                              <del>{{ variant.compare_at_price | money }}</del>
+                            </span>
+                          {% endif %}
+                        </p>
                  </div>
                	  {%-  assign prd_des_sh = product.description | strip_html | remove: "DESIGNER'S NOTES"   | split: '[split]'   -%}
 		          {% if section.settings.enable_quickoverview  %}

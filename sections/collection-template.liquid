@@ -412,10 +412,10 @@ $(document).ready(function(){
         var compare_at = parseInt(e.variants[0].compare_at_price);
 
         if (price < compare_at && !isNaN(compare_at)) {
-          new_html[{{ page }}] += '<div class="was"><span class="money">$' + compare_at.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span></div>';
-          new_html[{{ page }}] += '<div class="onsale"> <span class="nowsle">&nbsp;</span><span class="money">$' + price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span></div>';
+          new_html[{{ page }}] += '<div class="was" data-product-id="'+e.id+'" data-variant-id="'+ e.variants[0].id +':compare"><span class="money">$' + compare_at.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span></div>';
+          new_html[{{ page }}] += '<div class="onsale" data-product-id="'+e.id+'" data-variant-id="'+ e.variants[0].id +'"> <span class="nowsle">&nbsp;</span><span class="money">$' + price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span></div>';
         } else {
-          new_html[{{ page }}] += '<div class="prod-price"><span class="money">$' + price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span></div>';
+          new_html[{{ page }}] += '<div class="prod-price" data-product-id="'+e.id+'" data-variant-id="'+ e.variants[0].id +'"><span class="money">$' + price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span></div>';
         }
 
         new_html[{{ page }}] += '</div>';

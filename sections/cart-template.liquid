@@ -27,11 +27,22 @@
             </div>
             {% else %}
             <div class="cart-form">
-              <form action="/cart" method="post" id="cartform">
+              <form action="/cart" method="post" id="cartform" class="gip-cart">
                 <div class="col-sm-8">
                   <span class="desk_hide m_title">Bag Content</span>
                     {% for item in cart.items %}
-                    <div class="cart-row" data-product-id="{{ item.product.id }}">
+                    <div class="gip-cart-line-item cart-row" data-product-id="{{ item.product.id }}">
+                    <span class="gip-cart-line-item-price"
+                        style="display:none;"
+                        data-product-id="{{ item.product_id }}"
+                        data-variant-id="{{ item.variant_id }}">
+                        {{ item.original_price | money }}
+                    </span>
+                    <span class="gip-cart-line-item-meta"
+                        style="display:none;"
+                        data-original-price-cents="{{ item.original_price }}"
+                        data-discounted-price-cents="{{ item.discounted_price }}">
+                    </span>
                       <div class="image">
                         <div class="product_image">
                           <a href="{%if item.variant.metafields.secomapp.freegifts%}{{ item.product.url }}{%else%}{{ item.url }}{%endif%}">
@@ -87,7 +98,7 @@
                             {% unless item.variant.metafields.secomapp.freegifts %}
                             <span class='qtyminus sticon-minus' field='quantity_{{forloop.index}}'></span>
                             {% endunless %}
-                            <input {%if item.variant.metafields.secomapp.freegifts%}readonly{%endif%} type="text" size="4" name="updates[]" id="updates_{{ item.id }}" value="{{ item.quantity }}" class="tc item-quantity quantity_{{forloop.index}}" />
+                            <input {%if item.variant.metafields.secomapp.freegifts%}readonly{%endif%} type="text" size="4" name="updates[]" id="updates_{{ item.id }}" value="{{ item.quantity }}" class="gip-cart-line-item-qty tc item-quantity quantity_{{forloop.index}}" />
                             {% unless item.variant.metafields.secomapp.freegifts %}
                             <span class='qtyplus sticon-plus' field='quantity_{{forloop.index}}'></span>
                             {% endunless %}
@@ -95,8 +106,10 @@
                         </div><!--End quantily wrapper-->
                       </div>
                       <div class="price">
-<span class="saso-cart-item-price" data-key="{{item.key}}">{{ item.price | money }}</span>
-</div>
+                        <span class="saso-cart-item-price" data-key="{{item.key}}">
+                          <span class="gip-cart-line-item-price-display">{{ item.price | money }}</span>
+                        </span>
+                      </div>
                       <!--<a href="/cart/change?line={{ forloop.index }}&quantity=0" class="cart_remove desk_hide">Remove</a>-->
                       <a href="#" class="cart_remove desk_hide">Remove</a>
                       </div>
@@ -110,10 +123,13 @@
                     <div class="summary">
                       <div class="srow">
                       <div class="total_text s_l" colspan="1">Subtotal</div>
-                      <div class="price s_c" colspan="4"><span class="total">
-<span class="saso-cart-original-total"><strong>{{ cart.total_price | money }}</strong></span>
-<span class="saso-cart-total"></span>
-</span></div>
+                        <div class="price s_c" colspan="4"><span class="total">
+                          <span class="saso-cart-original-total">
+                            <span class="gip-cart-subtotal"><strong>{{ cart.total_price | money }}</strong></span>
+                          </span>
+                          <span class="saso-cart-total"></span>
+                          </span>
+                        </div>
                       </div>
 
                       <div class="srow">
@@ -129,9 +145,12 @@
                     <div class="cart_total">
                      <div class="total_text s_l" colspan="1">Total</div>
                       <div class="price s_c" colspan="4"><span class="total">
-<span class="saso-cart-original-total"><strong>{{ cart.total_price | money }}</strong></span>
-<span class="saso-cart-total"></span>
-</span></div>
+                        <span class="saso-cart-original-total">
+                          <span class="gip-cart-total"><strong>{{ cart.total_price | money }}</strong></span>
+                        </span>
+                        <span class="saso-cart-total"></span>
+                        </span>
+                      </div>
                     </div>
                     <div class="buttons clearfix">
                       <input type="submit" id="update-cart" class="btn" name="update" value="{{ 'cart.general.update' | t }}"  style="display:none;"/>

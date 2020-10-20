@@ -133,8 +133,8 @@
 
                 {% if variant.available and variant.compare_at_price and found_one_in_stock == false %}
                   {% assign found_one_in_stock = true %}
-                  <span class="price_sale">{{ variant.price | money }}</span>
-                  <del class="price_compare"> {{ variant.compare_at_price | money }}</del>
+                  <span class="price_sale" data-product-id="{{ product.id }}" data-variant-id="{{ product.selected_or_first_available_variant.id }}">{{ variant.price | money }}</span>
+                  <del class="price_compare" data-product-id="{{ product.id }}" data-variant-id="{{ product.selected_or_first_available_variant.id }}:compare"> {{ variant.compare_at_price | money }}</del>
                 {% endif %}
 
               {%endunless%}
@@ -157,7 +157,7 @@
                 {% endfor %}
               {% endif %}
             {% else %}
-              <span class="price">
+              <span class="price" data-product-id="{{ product.id }}" data-variant-id="{{ product.selected_or_first_available_variant.id }}">
                 {% if sca_price_varies %}
                 {{ sca_price | money }}
                 {% else %}
