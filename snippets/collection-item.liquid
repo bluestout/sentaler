@@ -8,7 +8,6 @@
         <span id="secomapp-fg-image-{{ product.id }}" style="display: none;"> {{ "icon-freegift.png" | asset_url | img_tag: "", "sca-fg-img-collect" }} </span>
         <span class="sca-fg-cat-list prod-show-list" style="display:none;" id="secomapp-fg-data-{{ product.id }}"> </span>
         <div class="front">
-          <script>console.log({{product.media | json }})</script>
           {% for media in product.media %}
             {% if forloop.index == 1 %}
               {% case media.media_type %}

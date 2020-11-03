@@ -113,11 +113,16 @@
 
                     {% for product in collection.products %}
 
-                     {% if collection.metafields["global"]["col_addv1"] == blank and collection.metafields["global"]["col_addv2"] == blank %}
-                    <div class="product-item-wrapper {% cycle 'first', 'second', 'third', 'last' %}" style="display: inline-block; vertical-align: top; width:{{grid_item_width}};">
+                      {% if collection.metafields["global"]["col_addv1"] == blank and collection.metafields["global"]["col_addv2"] == blank %}
+                      <div class="product-item-wrapper {% cycle 'first', 'second', 'third', 'last' %}" style="display: inline-block; vertical-align: top; width:{{grid_item_width}};">
                         {% include 'collection-item', grid_image_width: image_size %}
                       </div>
                       {% else %}
+                        {% if current_tags != blank %}
+                        <div class="product-item-wrapper {% cycle 'first', 'second', 'third', 'last' %}" style="display: inline-block; vertical-align: top; width:{{grid_item_width}};">
+                          {% include 'collection-item', grid_image_width: image_size %}
+                        </div>
+                        {% else %}
 
                      	 {% if forloop.index == 5 or forloop.index == 15 %}<div class="custom_prd_item_wrap {% if collection.products_count == 8 %}tot_8{% endif %}">{% endif %}
                       {% if forloop.index == 9 %}
@@ -131,7 +136,7 @@
                         {% else %}
                         <div class="col_video_wrap image">
                          {{ collection.metafields["global"]["col_addv1"] }}
-                       </div>
+                        </div>
                         {% endif %}
                         <div class="hidden-xs">{{ collection.metafields["global"]["col_addi1"] }}</div>
                       </div>
@@ -157,8 +162,10 @@
                       <div class="product-item-wrapper {% cycle 'first', 'second', 'third', 'last' %}" style="display: inline-block; vertical-align: top; width:{{grid_item_width}};">
                         {% include 'collection-item', grid_image_width: image_size %}
                       </div>
+                       {% endif %}
 
                        {% endif %}
+
                      {% endif %}
                     {% endfor %}
                     </div>
