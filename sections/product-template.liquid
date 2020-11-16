@@ -247,7 +247,7 @@
                           <span class="btn">{{ 'products.product.sold_out_html' | t }}</span>
                           {% endif %}
                             <div class="item-ship prdrow" style="display:none">
-                        <input  type="text" name="properties[ship_date]" value="" style="display:none;"/>
+                        <input  type="text" id="ship_date_property" name="properties[ship_date]" value="" style="display:none;"/>
                           <span class="shipdateprd"></span>
                     	</div>
                         </div>
@@ -432,10 +432,12 @@
       $('.item-ship').show();
       if ($(elm).data('shipmessage')) {
         $('.shipdateprd').html($(elm).data('shipmessage'));
+        $('#ship_date_property').val($(elm).data('shipmessage'));
         $('.preordercart').show();
         $('.customcart').hide();
       } else {
         $('.shipdateprd').html("Size "+ $(elm).data('value') +" will ship immediately");
+        $('#ship_date_property').val("Size "+ $(elm).data('value') +" will ship immediately");
         $('.preordercart').hide();
         $('.customcart').show();
       }
