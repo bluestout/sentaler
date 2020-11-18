@@ -186,11 +186,9 @@
                         {%- endfor -%}{%- endcapture -%}
                      {%- assign ship_msg = my_variable | strip | remove: 'size_' -%}
                       {% if section.settings.color_swatch %}
-                        {% if product.available %}
                           {% for option in product.options %}
                             {% include 'swatch' with option %}
                           {% endfor %}
-                        {% endif %}
                       {% endif %}
 
                       <div class="select clearfix"{% if hide_default_title or section.settings.color_swatch %} style="display:none"{% endif %}>

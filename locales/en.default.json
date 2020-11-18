@@ -296,7 +296,7 @@
       "guest_title": "Continue as a guest",
       "guest_continue": "Continue",
       "reset_password": "Reset Password",
-      "reset_password_subtext": "Enter your email and we’ll send you link to reset password.",
+      "reset_password_subtext": "Enter your email and we will send you a link to reset your password.",
       "cancel": "Cancel",
       "submit_recover": "Submit",
       "signup_link": "Dont' have an account? Sign Up",

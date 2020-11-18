@@ -4726,7 +4726,6 @@ table {border-collapse: inherit !important;}
         margin: 0;
         padding: 0;
         padding-bottom: 10px;
-        border-bottom: 1px solid #ebeef0;
       }
       h3{
         font-weight: normal;
@@ -4744,6 +4743,9 @@ table {border-collapse: inherit !important;}
           text-transform: capitalize;
           letter-spacing: 1px;
           word-spacing: 5px;
+        }
+        .note {
+          margin-top: 0;
         }
       }
       .note{
@@ -4774,7 +4776,7 @@ table {border-collapse: inherit !important;}
         float: left;
         width: 100%;
         @include respond-to('medium-down'){
-          margin: 10px -8px;
+          margin: 20px -8px 10px;
         }
         a{
           font-weight: bold;
