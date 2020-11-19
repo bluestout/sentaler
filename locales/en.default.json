@@ -284,7 +284,7 @@
       "delete_confirm": "Are you sure you wish to delete this address?"
     },
     "login": {
-      "title": "Welcome to sentailer",
+      "title": "Welcome to sentaler",
       "email": "Email Address",
       "password": "Password",
       "forgot_password": "Forgot your password?",
@@ -299,7 +299,7 @@
       "reset_password_subtext": "Enter your email and we will send you a link to reset your password.",
       "cancel": "Cancel",
       "submit_recover": "Submit",
-      "signup_link": "Dont' have an account? Sign Up",
+      "signup_link": "Don't have an account? Sign up",
       "keep": "Keep me  signed in"
     },
     "orders": {
@@ -352,7 +352,7 @@
       "submit": "Reset Password"
     },
     "register": {
-      "title": "Welcome to sentailer",
+      "title": "Welcome to sentaler",
       "first_name": "First Name",
       "last_name": "Last Name",
       "sign_in": "Sign In",
@@ -364,7 +364,7 @@
       "password": "Password",
       "submit": "Create Account",
       "cancel": "Return to Store",
-      "news": "I want to keep in loop with the latest Sentaler news"
+      "news": "I want to receive further information, news and special offers."
     }
   },
   "homepage": {

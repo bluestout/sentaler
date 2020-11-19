@@ -132,10 +132,16 @@
                         {% assign video_id = collection.metafields["global"]["col_addv1"] | split: '[video_id]' | last | strip | strip_html  %}
                         <div class="col_video_wrap {% if collection.metafields["global"]["col_addi1"] != blank %}visible-xs{% endif %}">
                           <iframe id="col_v1" src="https://player.vimeo.com/video/{{video_id}}?color=d4d4d4&title=0&byline=0&portrait=0&controls=0&background=1"  frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                          {% if collection.metafields["global"]["col_link_v1"] != blank %}
+                          <a href="{{ collection.metafields["global"]["col_link_v1"] }}" class="overlay_link">&nbsp;</a>
+                          {% endif %}
                         </div>
                         {% else %}
                         <div class="col_video_wrap image">
                          {{ collection.metafields["global"]["col_addv1"] }}
+                         {% if collection.metafields["global"]["col_link_v1"] != blank %}
+                          <a href="{{ collection.metafields["global"]["col_link_v1"] }}" class="overlay_link">&nbsp;</a>
+                          {% endif %}
                         </div>
                         {% endif %}
                         <div class="hidden-xs">{{ collection.metafields["global"]["col_addi1"] }}</div>
@@ -146,10 +152,16 @@
                         {% assign video_id = collection.metafields["global"]["col_addv2"] | split: '[video_id]' | last | strip | strip_html  %}
                         <div class="col_video_wrap {% if collection.metafields["global"]["col_addi2"] != blank %}visible-xs{% endif %}">
                           <iframe id="col_v2" src="https://player.vimeo.com/video/{{video_id}}?color=d4d4d4&title=0&byline=0&portrait=0&controls=0&background=1"  frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                          {% if collection.metafields["global"]["col_link_v2"] != blank %}
+                          <a href="{{ collection.metafields["global"]["col_link_v2"] }}" class="overlay_link">&nbsp;</a>
+                          {% endif %}
                         </div>
                         {% else %}
                         <div class="col_video_wrap image">
                          {{ collection.metafields["global"]["col_addv2"] }}
+                         {% if collection.metafields["global"]["col_link_v2"] != blank %}
+                          <a href="{{ collection.metafields["global"]["col_link_v2"] }}" class="overlay_link">&nbsp;</a>
+                          {% endif %}
                        </div>
                         {% endif %}
                         <div class="hidden-xs">{{ collection.metafields["global"]["col_addi2"] }}</div>
