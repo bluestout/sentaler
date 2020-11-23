@@ -475,9 +475,13 @@ input {
                     & > a {
                       color: #fff;
                     }
-                    &:hover {
-                      a {
-                        color: #000;
+                  }
+                  .megawrap {
+                    li {
+                      &:hover {
+                        a {
+                          color: #000;
+                        }
                       }
                     }
                   }
@@ -625,6 +629,17 @@ input {
               li {
                 a {
                   font-size: 16px;
+                }
+                .mega_imgcol {
+                  line-height: 1.4;
+                  a {
+                    span {
+                      position: relative;
+                      top: 5px;
+                      display: block;
+                      min-height: 30px;
+                    }
+                  }
                 }
               }
             }
