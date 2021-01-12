@@ -428,13 +428,12 @@ $font-size_header: 14px;
       padding-left: 0;
       padding-right: 0;
       >div{
-
-
         a{
           color: $color_text_header;
           font-weight: $font_weight_thin;
           font-size: $font-size_header;
           font-family: $font_heading;
+          text-decoration: none;
           i.fa{
             color: $color_text_banner;
           }
@@ -997,6 +996,7 @@ $border_right_header: #fff;
                 color: $color_text_menu;
                 font-weight: normal;
                 padding: 0 $row_padding;
+                text-decoration: none;
                 @include transition(ease, all, 0.5s);
                 @media (max-width: 1199px) {
                   padding: 0 10px;
@@ -1372,6 +1372,7 @@ $border_right_header: #fff;
                     color: $color_text_general;
                     font-family: $font_heading;
                     font-weight:normal;
+                    text-decoration: none;
                     &:hover {
                       color: $color_hover_general;
                     }
@@ -3412,6 +3413,7 @@ $height_button_product: 40px;
       position: relative;
       a{
         color: #afafaf;
+        text-decoration: none;
       }
     }
     .product-title{
@@ -3426,7 +3428,8 @@ $height_button_product: 40px;
         font-size: 15px;
         white-space: normal;
         text-transform: capitalize;
-            font-weight: normal;
+        font-weight: normal;
+        text-decoration: none;
       }
       &:hover {
         color: $color_hover_general;
@@ -6314,7 +6317,7 @@ $bg_filter: #323232;
 .cart-heading-inner {
      position: relative;
 	 h1 {width: 100%;text-align: center;font-weight: normal;letter-spacing: 4px;font-size: 25px;}
-	 a {position: absolute;top: 47px;left: 0;color: #949494;}
+	 a {position: absolute;top: 47px;left: 0;color: #949494; text-decoration: none;}
      a span {margin-right: 15px;}
 
 }
@@ -6322,7 +6325,13 @@ $bg_filter: #323232;
   display: flex;width: 100%;margin-bottom: 20px;flex-wrap: wrap;justify-content: center;align-items: center;
   .product_name {
     display: inline-block;width: 53%;padding-left: 30px;
-    a p {font-size: 19px;margin: 0;}
+    a {
+      text-decoration: none;
+      p {
+        font-size: 19px;
+        margin: 0;
+      }
+    }
   }
   .qty {width: 33%;display: inline-block;}
   .price {width: 14%;display: inline-block;}
@@ -10149,7 +10158,7 @@ $_width_full : 100%;
 .mega_imgcol img {height: 320px;width: 100%;object-fit: cover;}
 .mega_imgcol {padding: 0 15px;flex:1;}
 .megawrap li {line-height: 47px;}
-.megawrap li a {color: #727E86;}
+.megawrap li a {color: #727E86;text-decoration: none;}
 .main-header-wrapper.whitebg { background: #fff;}
 .megawrap li:hover a {color: #000;}
 .mainitem span.sticon-caret-d-small {font-size: 8px; margin-left: 5px;}
@@ -10190,7 +10199,7 @@ span.specialnote.checked:before {background: url(https://cdn.shopify.com/s/files
 .c_info {display: flex;width: 74%;}
 #login a { color: #949494;}
 .site-footer .content * { color: #727E86;}
-div#cart-info em a { display: flex;justify-content: center;max-width: 300px;margin: 0 auto;}
+div#cart-info em a { display: flex;justify-content: center;max-width: 300px;margin: 0 auto;text-decoration: none;}
 .cart-empty h2 { text-align: center;font-size: 25px;font-weight: normal;letter-spacing: 3px;margin-bottom: 2em;}
 span.ship_date {font-size: 12px;color: rgb(148, 148, 148);margin-top: 10px;display: inline-block;}
 .cusatomwidt iframe {width: 100%;height:100%;position:absolute;top:0;left:0;}
@@ -10246,7 +10255,7 @@ and (max-width:767px) {
 .template-page.fw19-collection .page-content-wrapper .row a{width:100%;}
 .search-page .section-header h2 {font-size: 20px;}
 .ship-du:nth-last-child(4) {margin-top: 12px;}
-.main-header .main-header-inner #cart-target #cart-info #cart-content .items .row .cart-right .cart-title,,.main-header .main-header-inner #cart-target #cart-info #cart-content .items .row .cart-right .cart-title a,
+.main-header .main-header-inner #cart-target #cart-info #cart-content .items .row .cart-right .cart-title,.main-header .main-header-inner #cart-target #cart-info #cart-content .items .row .cart-right .cart-title a,
 .main-header .main-header-inner #cart-target #cart-info #cart-content .items .row .cart-right .cart-price span{font-size: 12px;}
 .top_banner .banner_container {height: 162px;}
 .banner_text_container {margin-top: 0.5em;}
@@ -10279,7 +10288,12 @@ and (max-width:1023px) {
     .image {width: 135px;}
     .product_name{
       width: 100%;padding-left: 10px;
-      a p {font-size: 14px;}
+      a {
+        text-decoration: none;
+        p {
+          font-size: 14px;
+        }
+      }
     }
     .qty {width: 100%;}
     .price {width: 100%;padding-left: 10px;}

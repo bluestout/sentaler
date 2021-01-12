@@ -1,4 +1,4 @@
-<div class="side-section container">
+<div class="side-section container customer">
   <div class="row">
     <div class="col-sm-12 col-md-3 col-lg-2">
       <div class="content">
@@ -34,9 +34,9 @@
                 {% for order in customer.orders %}
                 <tr class="{% cycle 'odd', 'even' %} {% if order.cancelled %}cancelled_order{% endif %} order-tr">
                   <td width="15%" class="order" target="#order-block-{{order.order_number }}" >{{ order.name | link_to: order.customer_url }}</td>
-                  <td width="15%"><span class="note">{{ order.created_at | date: format: 'short' }}</span></td>
-                  <td width="50%"><span class="status_{{ order.fulfillment_status }}">{{ order.fulfillment_status_label }}</span></td>
-                  <td width="20%"><span class="total_price">{{ order.total_price | money }}</span></td>
+                  <td width="15%"><span class="note">{{ order.created_at | date: "%d %b %Y" }}</span></td>
+                  <td width="50%"><span class="status_{{ order.financial_status }}">{{ order.financial_status_label }}</span></td>
+                  <td width="20%" class="text-right"><span class="total_price">{{ order.total_price | money }}</span></td>
                 </tr>
                 {% for item in order.line_items %}
                   <tr id="order-block-{{order.order_number }}" class="order-detail">
@@ -49,6 +49,12 @@
                         {% for option in item.options_with_values %}
                           <p class="option">{{ option.name }}: {{ option.value }}</p>
                         {% endfor %}
+
+                        {% unless item.properties == empty %}
+                          {% for property in item.properties %}
+                          <p class="option">{{ property.first }}: {{ property.last }}</p>
+                          {% endfor %}
+                        {% endunless %}
                       </div>
                     </td>
                   </tr>
@@ -57,6 +63,11 @@
                   <td colspan="4">
                       <ul>
                         <li><span class="discount_title">{{ 'customer.orders.discount' | t }}</span><span class="price">{{ order.total_discounts | money }}</span></li>
+                        {% for tax_line in order.tax_lines %}
+                        <li>
+                          <span>{{ 'customer.orders.tax' | t }} ({{ tax_line.title }} {{ tax_line.rate | times: 100 }}%)</span><span class="price">{{ tax_line.price | money }}</span>
+                        </li>
+                        {% endfor %}
                         <li><span class="shipping-title">{{ 'customer.orders.shipping_price' | t }}</span><span class="price">{{ order.shipping_price | money }}</span></li>
                         <li class="total"><span class="total-title">{{ 'customer.orders.total_detail' | t }}</span><span class="price">{{ order.total_price | money }}</span></li>
                       </ul>
@@ -73,7 +84,9 @@
           {% else %}
             <p>{{ 'customer.orders.none' | t }}</p>
           {% endif %}
+          {% if customer.orders.size > 20 %}
           {% include 'pagination' %}
+          {% endif %}
         {% endpaginate %}
       </div>
     </div>

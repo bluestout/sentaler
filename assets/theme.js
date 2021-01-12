@@ -1573,6 +1573,11 @@ theme.customerTemplates = (function() {
     // Toggle new/edit address forms
     $('.address-new-toggle').on('click', function() {
       $newAddressForm.toggleClass('hide');
+      if ($newAddressForm.hasClass('hide')) {
+        $('.current-address-list').removeClass('hide');
+      } else {
+        $('.current-address-list').addClass('hide');
+      }
     });
 
     $('.address-edit-toggle').on('click', function() {

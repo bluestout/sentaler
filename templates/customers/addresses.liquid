@@ -1,4 +1,4 @@
-<div class="side-section container customer-addresses">
+<div class="side-section container customer-addresses customer">
   <div class="row">
     <div class="col-sm-12 col-md-3 col-lg-2">
       <div class="content">
@@ -20,7 +20,7 @@
     <div class="tab-content col-sm-12 col-md-9 col-lg-8">
       <div class="content table-responsive">
         <button type="button" class="btn address-new-toggle">{{ 'customer.addresses.add_new' | t }}</button>
-        <table class="table">
+        <table class="table current-address-list">
           {% for address in customer.addresses %}
             <tr>
               <td class="name">
@@ -165,9 +165,28 @@
             </div>
   
             <div class="grid row">
+              <div class="grid__item col-sm-6">
+                <label for="AddressFirstNameNew">{{ 'customer.addresses.first_name' | t }}</label>
+                <input type="text" class="form-control" id="AddressFirstNameNew" name="address[first_name]" value="{{ form.first_name }}">
+              </div>
+              <div class="grid__item col-sm-6">
+                <label for="AddressLastNameNew">{{ 'customer.addresses.last_name' | t }}</label>
+                <input type="text" class="form-control" id="AddressLastNameNew" name="address[last_name]" value="{{ form.last_name }}">
+              </div>
+            </div>
+
+            <div class="grid row">
+              <div class="grid__item col-sm-12">
+                <label for="AddressCompanyNew">{{ 'customer.addresses.company' | t }}</label>
+                <input type="text" class="form-control" id="AddressCompanyNew" name="address[company]" value="{{ form.company }}">
+              </div>
+            </div>
+
+            <div class="grid row">
               <div class="grid__item col-sm-12">
                 <label for="AddressAddress1New">{{ 'customer.addresses.address' | t }}</label>
                 <input type="text" class="form-control" id="AddressAddress1New" name="address[address1]" value="{{ form.address1 }}">
+                <label for="AddressAddress2New">{{ 'customer.addresses.address2' | t }}</label>
                 <input type="text" class="form-control" id="AddressAddress2New" name="address[address2]" value="{{ form.address2 }}">
               </div>
             </div>
@@ -200,12 +219,11 @@
               <div class="col-sm-12">
                 
                 <span class="checkbox" for="address_default_address_new">{{ 'customer.addresses.set_default' | t }}{{ form.set_as_default_checkbox }}</span>
-                <input type="submit" class="btn" value="{{ 'customer.addresses.add' | t }}"> or 
+                <input type="submit" class="btn" value="{{ 'customer.addresses.add' | t }}"> 
                 <a class="text-link address-new-toggle">{{ 'customer.addresses.cancel' | t }}</a>
               </div>
             </div>
           {% endform %}
-          <hr>
         </div>
       </div>
     </div>

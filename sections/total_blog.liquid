@@ -24,15 +24,15 @@
                         {% endif %}
                         <div class="article {{cls}}">
                             <div class="feature_image">
-                                <img src="{{ article.image | img_url: 'original' }}">
+                                <a href="{{ article.url }}"><img src="{{ article.image | img_url: 'original' }}"></a>
                             </div>
                             <div class="info">
                                 {% if article.title != blank %}
-                                    <p class="title lass_17 uppercase">{{ article.title }}</p>
+                                <p class="title lass_17 uppercase"><a href="{{ article.url }}">{{ article.title }}</a></p>
                                 {% endif %}
                                 
-                                {{ article.metafields["global"]["sub_title"] }}
-                                <a href="{{ article.url }}">{{ 'general.accessibility.read_more' | t }}</a>
+                                <a href="{{ article.url }}" class="sub_title">{{ article.metafields["global"]["sub_title"] }}</a>
+                                <a href="{{ article.url }}" class="link">{{ 'general.accessibility.read_more' | t }}</a>
                             </div>
                         </div>
                     {% endfor %}

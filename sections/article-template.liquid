@@ -118,25 +118,40 @@
 {% endcapture %}
 
 {% capture featured_gallery %}
-  <div class="featured-gallery">
-    <div class="carousel-main carousel">
-      {% for block in section.blocks %}
-        {% assign article_handle = block.settings.article_name | handleize %}
-        {% assign article_title = article.title | handleize %}
+  {% assign tags_str = '' %}
+  {% for block in section.blocks %}
+    {% if block.settings.tag != blank %}
+      {% unless tags_str contains block.settings.tag %}
+        {% assign tags_str = tags_str | append: ',' | append: block.settings.tag %}
+      {% endunless %}
+    {% endif %}
+  {% endfor %}
+  {% assign tags_str = tags_str | remove_first: ',' %}
+  {% assign tags = tags_str | split: ',' %}
+  {% for tag in tags %}
+    <div class="featured-gallery tag-{{tag}}" data-tag="{{tag}}">
+      <div class="carousel-main carousel">
+        {% for block in section.blocks %}
+          {% if block.settings.tag == tag %}
+            {% assign article_handle = block.settings.article_name | handleize %}
+            {% assign article_title = article.title | handleize %}
 
-        {% if article_handle == article_title %}
-          <div class="carousel-cell"><img src="{{ block.settings.image | img_url: '2048x' }}" /></div>
-        {% endif %}
-      {% endfor %}
+            {% if article_handle == article_title %}
+              <div class="carousel-cell"><img src="{{ block.settings.image | img_url: '2048x' }}" /></div>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </div>
+      <div class="carousel-nav carousel">
+        {% for block in section.blocks %}
+          {% if article_handle == article_title and block.settings.tag == tag %}
+            <div class="carousel-cell"><img src="{{ block.settings.image | img_url: 'origin' }}" /></div>
+          {% endif %}
+        {% endfor %}
+      </div>
     </div>
-    <div class="carousel-nav carousel">
-      {% for block in section.blocks %}
-        {% if article_handle == article_title %}
-          <div class="carousel-cell"><img src="{{ block.settings.image | img_url: 'origin' }}" /></div>
-        {% endif %}
-      {% endfor %}
-    </div>
-  </div>
+  {% endfor %}
+  
 {% endcapture %}
 
 <!-- //////////////////////////////////  End  /////////////////////////////////////////// -->
@@ -158,8 +173,9 @@
 
               <div class="content">
                   {% assign content_1 = article.content | remove: remove_collection_str | remove: remove_product_str | remove: remove_products_str %}
-                  {% assign content = content_1 | replace: "feature_gallery", featured_gallery | replace: "featured_collection", feature_collection | replace: 'featured_item', featured_product | replace: 'featured_products', featured_products %}
+                  {% assign content = content_1 | replace: '<iframe', '<div class="video"><iframe' | replace: '</iframe>', '</iframe></div>' | replace: "feature_gallery", featured_gallery | replace: "featured_collection", feature_collection | replace: 'featured_item', featured_product | replace: 'featured_products', featured_products %}
                   {{ content }}
+                  
               </div>
               <!-- End comments -->
             </div>
@@ -282,6 +298,12 @@
           "type": "text",
           "id": "article_name",
           "label": "Article name"
+        },
+        {
+          "type": "text",
+          "id": "tag",
+          "label": "Gallery tag",
+          "default": "1"
         }
       ]
     }

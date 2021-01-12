@@ -48,17 +48,18 @@
               <ul class="contact-action">
                 <li>
                   <h3>{{ 'pagefly.comments.email' | t }}</h3>
-                  <p><span class="sticon-email"></span>{{ section.settings.email }}</p>
+                  <p><span class="sticon-email"></span><span class="ct">Send your request to <a href="mailto:service@sentaler.com">service@sentaler.com</a><br>You will receive an automated response confirming receipt of your email and an expected response time. A member of our team will get back to you as soon as possible.</span></p>
                 </li>
 
                 <li>
                   <h3>{{ 'customer.addresses.phone' | t }}</h3>
-                  <p class="phone"><span class="sticon-phone"></span>{{ section.settings.phone }}</p>
+                  <p class="phone"><span class="sticon-phone"></span><span class="ct">We are available Monday-Saturday, 9AM – 5PM EST.<br>Call/Text <a href="tel:+18884768790">+1 888 476 8790</a></span></p>
                 </li>
 
                 <li>
                   <h3>{{ 'customer.addresses.chat' | t }}</h3>
-                  <a onclick="Smooch.open();" class="btn chat-btn black chat-btn">{{ 'customer.addresses.chat_btn' | t }}</a>  
+                  <p class="chat"><span class="sticon-phone"></span><span class="ct">We are available Monday-Saturday, 9AM – 5PM EST.<br>Start a chat anytime and we will get back to you as soon as possible.<br>
+                  <a onclick="Smooch.open();" class="btn chat-btn black chat-btn">{{ 'customer.addresses.chat_btn' | t }}</a></span></p>
                 </li>
                 </ul>
             </div>
@@ -83,27 +84,27 @@
   
                   <div id="contactFormWrapper" class="row">
                     <div class="col-sm-6">
-                      <input class="form-control" type="text" id="contactFormName" name="contact[name]" placeholder="{{ 'contact.placeholder.name' | t }}"  required/>
+                      <input class="form-control" type="text" id="contactFormFirstName" name="contact[first_name]" placeholder="{{ 'contact.placeholder.first_name' | t }}"  required/>
                     </div>
                     <div class="col-sm-6">
-                      <input class="form-control" type="text" id="contactFormEmail" name="contact[surame]" placeholder="{{ 'contact.placeholder.surame' | t }}" required/>
+                      <input class="form-control" type="text" id="contactFormLastName" name="contact[last_name]" placeholder="{{ 'contact.placeholder.last_name' | t }}" required/>
                     </div>
                     <div class="col-sm-6">
-                      <input type="email" class="form-control numbersonly" id="contactFormTelephone" name="contact[email]" placeholder="{{ 'contact.placeholder.email' | t }}" required/>
+                      <input type="email" class="form-control" id="contactFormEmail" name="contact[email]" placeholder="{{ 'contact.placeholder.email' | t }}" required/>
                     </div> 
                     <div class="col-sm-6">
                       <select class="form-control">
-                        <option>Select a topic</option>
-                        <option>Select a topic</option>
-                        <option>Select a topic</option>
-                        <option>Select a topic</option>
+                        {% assign option_values = section.settings.contact_options | split: ',' %}
+                        {% for option in option_values %}
+                        <option value="{{ option }}">{{ option }}</option>
+                        {% endfor %}
                       </select>
                     </div>
                     <div class="col-sm-12">
                       <textarea rows="5" cols="75" class="form-control textarea" id="contactFormMessage" name="contact[body]" placeholder="{{ 'contact.placeholder.message' | t }}" required></textarea>
                     </div>
                     <div class="col-sm-6">
-                      <span class="checkbox">{{ 'contact.form.privacy_policy' | t }}<input type="checkbox" name="contact[privacy]" class="hide"></span>
+                      <span class="checkbox">I have read the <a href='/pages/privacy-policy'>Privacy Policy</a><input type="checkbox" name="contact[privacy]" class="hide"></span>
                     </div>
                     <div class="col-sm-6">
                       <input type="submit" id="contactFormSubmit" value="{{ 'contact.form.send' | t }}" class="btn cont_btn" />
@@ -132,6 +133,13 @@
         "id": "contact_title",
         "label": "Form Title",
         "default": "Live a Message"
+      },
+      {
+        "type": "textarea",
+        "id": "contact_options",
+        "label": "Options",
+        "default": "Orders and Deliveries,Payments and Promotions,Collaborations,Comments and Suggestions,Product Information and Availibility,Stores,Returns and Exchanges,Technical Assistance,Other",
+        "info": "Separate by comma(,)"
       },
       {
         "type": "header",

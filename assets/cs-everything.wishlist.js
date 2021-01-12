@@ -81,7 +81,55 @@ function wishlist_add(){
         $("#modalwishlist1").find('.variants-form input[name="properties[ship_date]"]').val(localStorage.getItem('shipping_msg'));
         $("#modalwishlist1").find('.wishlist-image').attr('class','wishlist-image wishlist-image-'+product.id);
         $("#modalwishlist1").find('.wishlist-image').html('<img src="'+product.featured_image+'" alt="'+product.title+'" />');
-        $("#modalwishlist1").find('.wishlist-name').html('<a href="'+product.url+'">'+product.title+'</a>');
+
+        $("#modalwishlist1").find('.wishlist-name').html('');
+        if (product.available) {
+          var in_stock = false;
+          for (v of product.variants) {
+            if (v.available) {
+              in_stock = true;
+            }
+          }
+          if (in_stock == false) {
+            $("#modalwishlist1").find('.wishlist-name').append('<span style="color: #ea0000;">SOLD OUT</span>');
+          } else {
+            for (tag of product.tags) {
+              if (tag.indexOf('new in') > -1) {
+                $("#modalwishlist1").find('.wishlist-name').append('<span style="color:#949494">New in</span>');
+              } else if (tag.indexOf('IN SUPPORT OF SICKKIDS') > -1) {
+                $("#modalwishlist1").find('.wishlist-name').append('<span style="color:#4870AE">IN SUPPORT OF SICKKIDS</span>');
+              } else if (tag.indexOf('GIFT WITH PURCHASE') > -1) {
+                $("#modalwishlist1").find('.wishlist-name').append('<span style="color:#949494">GIFT WITH PURCHASE</span>');
+              } else if (tag.indexOf('FW20 PREORDER') > -1) {
+                $("#modalwishlist1").find('.wishlist-name').append('<span style="color:#949494">FW20 PREORDER</span>');
+              } else if (tag.indexOf('sale') > -1) {
+                $("#modalwishlist1").find('.wishlist-name').append('<span style="color:red">SALE</span>');
+              }
+            }
+          }
+        } else {
+          $("#modalwishlist1").find('.wishlist-name').append('<span style="color: #ea0000;">SOLD OUT</span>');
+        }
+
+        $("#modalwishlist1").find('.wishlist-name').append('<a href="'+product.url+'">'+product.title+'</a>');
+
+        $("#modalwishlist1").find('.wishlist-name').append('<div class="color_option">');
+
+        var index = -1;
+        var color = '';
+        for (option of product.options) {
+          index ++;
+          if (option.name == 'Color' || option.name == 'Colour') {
+            color = '';
+            for (variant of product.variants) {
+              color = variant.options[index];
+              $("#modalwishlist1").find('.wishlist-name span.color').remove();
+              $("#modalwishlist1").find('.wishlist-name').append('<span class="color">' + color + '</span>');
+            }
+          }
+        }
+        $("#modalwishlist1").find('.wishlist-name').append('</div>');
+
         $("#modalwishlist1").find('.wishlist-price').attr('class','wishlist-price wishlist-price-'+product.id);
         $("#modalwishlist1").find('.variants-form').attr('id','wishlist-form-cart-'+product.id);
         $("#modalwishlist1").find('.add-to-cart').attr('id','wishlist-addToCart-'+product.id);
@@ -121,7 +169,53 @@ function wishlist_show(){
         $(contHeader).append('<li class="wlr wishlist-'+product.handle+'"><div class="wishlist-image-'+product.id+'"></div><div class="wishlist-info"><div class="wishlist-name"></div><div class="wishlist-price-'+product.id+' wishlist-price"></div></div></li>');
         $(cont).append('<li class="wlr wishlist-'+product.handle+'"><div class="wishlist-image-'+product.id+'"></div><div class="wishlist-info"><div class="wishlist-name"></div><div class="wishlist-price-'+product.id+' wishlist-price"></div><div class="wishlist-addCart"></div><div class="wishlist-remove" data-wishlisthandle="'+product.handle+'"></div></div></li>');
         $(wcn).find('.wishlist-image-'+product.id).append('<img src="'+product.featured_image+'" alt="" />');
+
+        if (product.available) {
+          var in_stock = false;
+          for (v of product.variants) {
+            if (v.available) {
+              in_stock = true;
+            }
+          }
+          if (in_stock == false) {
+            $(wcn).find('.wishlist-name').append('<span style="color: #ea0000;">SOLD OUT</span>');
+          } else {
+            for (tag of product.tags) {
+              if (tag.indexOf('new in') > -1) {
+                $(wcn).find('.wishlist-name').append('<span style="color:#949494">New in</span>');
+              } else if (tag.indexOf('IN SUPPORT OF SICKKIDS') > -1) {
+                $(wcn).find('.wishlist-name').append('<span style="color:#4870AE">IN SUPPORT OF SICKKIDS</span>');
+              } else if (tag.indexOf('GIFT WITH PURCHASE') > -1) {
+                $(wcn).find('.wishlist-name').append('<span style="color:#949494">GIFT WITH PURCHASE</span>');
+              } else if (tag.indexOf('FW20 PREORDER') > -1) {
+                $(wcn).find('.wishlist-name').append('<span style="color:#949494">FW20 PREORDER</span>');
+              } else if (tag.indexOf('sale') > -1) {
+                $(wcn).find('.wishlist-name').append('<span style="color:red">SALE</span>');
+              }
+            }
+          }
+        } else {
+          $(wcn).find('.wishlist-name').append('<span style="color: #ea0000;">SOLD OUT</span>');
+        }
         $(wcn).find('.wishlist-name').append('<a href="'+product.url+'">'+product.title+'</a>');
+
+        $(wcn).find('.wishlist-name').append('<div class="color_option">');
+
+        var index = -1;
+        var color = '';
+        for (option of product.options) {
+          index ++;
+          if (option.name == 'Color' || option.name == 'Colour') {
+            color = '';
+            for (variant of product.variants) {
+              color = variant.options[index];
+              $(wcn).find('.wishlist-name span.color').remove();
+              $(wcn).find('.wishlist-name').append('<span class="color">' + color + '</span>');
+            }
+          }
+        }
+
+        $(wcn).find('.wishlist-name').append('</div>');
 
         $(wcn).find('.wishlist-name').append('<div class="wishlist-ship-date ship_'+product.id+'">' + localStorage.getItem('shipping_msg') + '</div>');
         $(wcn).find('.wishlist-addCart').append('<form action="/cart/add" method="post" class="variants" id="wishlist-form-cart-'+product.id+'" enctype="multipart/form-data"><input type="text" name="properties[ship_date]" value="'+localStorage.getItem('shipping_msg')+'" style="display:none;"><div id="wishlist-variants-container-'+product.id+'" class="variants-wrapper"></div> <div class="quantity-content"><label>QTY</label><input type="text" size="5" class="item-quantity item-quantity-qs" name="quantity" value="1" /></div><div class="others-bottom"><a id="wishlist-addToCart-'+product.id+'" class="btn btn-quick-shop add-to-cart">Add to cart</a><div class="wishlist-remove" data-wishlisthandle="'+product.handle+'"><span class="lnr lnr-trash"></span></div></div></form>');
@@ -227,9 +321,14 @@ function addToVariantsWishlist(product){
           }
         }
         else {
-		  quickShopAddToCartButton.attr('disabled', 'disabled').fadeTo(200,0.5);
+		      quickShopAddToCartButton.attr('disabled', 'disabled').fadeTo(200,0.5);
           var message = selectedProduct ? "Sold Out" : "Unavailable";
-          quickShopPriceContainer.html('<span class="unavailable">' + message + '</span>');
+          //quickShopPriceContainer.html('<span class="unavailable">' + message + '</span>');
+          if ( productVariants[0].compare_at_price > 0 && productVariants[0].compare_at_price > productVariants[0].price ) {
+            quickShopPriceContainer.html('<span class="price">'+ Shopify.formatMoney(productVariants[0].price, quickShop_money_format) +'</span>'+'<del class="price_compare">'+ Shopify.formatMoney(productVariants[0].compare_at_price, quickShop_money_format) + '</del>' );
+          } else {
+            quickShopPriceContainer.html('<span class="price">'+ Shopify.formatMoney(productVariants[0].price, quickShop_money_format) + '</span>' );
+          }
         }
       } // END of (productVariantsCount > 1)
 

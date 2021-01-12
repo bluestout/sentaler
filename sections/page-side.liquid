@@ -20,12 +20,19 @@
       </div>
     </div>
 
+    {% assign show_date = true %}
+    {% for block in section.blocks %}
+      {% if page.handle == block.settings.page %}
+        {% assign show_date = block.settings.show_date %}
+      {% endif %}
+    {% endfor %}
+
     <div class="tab-content col-sm-12 col-md-9 col-lg-8">
       <div class="content">
-        {% unless page.handle == "faq" %}
           <h3 class="title">{{ page.title }}</h3>
-          <p class="publish_date">{{ 'general.page.updated' | t }} {{page.published_at | time_tag: format: 'short'}}</p>
-        {% endunless %}
+          {% if show_date %}
+          <p class="publish_date">{{ 'general.page.updated' | t }} {{page.published_at | time_tag: '%d %b %Y'}}</p>
+          {% endif %}
 
         {{ page.content }}
       </div>
@@ -53,6 +60,12 @@
           "type": "page",
           "id": "page",
           "label": "Page"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_date",
+          "label": "Show Date?",
+          "default": true
         }
       ]
     }

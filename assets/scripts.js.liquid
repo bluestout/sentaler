@@ -131,20 +131,42 @@ jQuery(window).load(function(){
 });
 
 $(window).load(function() {
-  $('.carousel-nav').flickity({
-    asNavFor: '.carousel-main',
-    contain: true,
-    pageDots: false,
-    prevNextButtons: false
-  });
+  $('.featured-gallery').each(function () {
+    var tag = $(this).data('tag');
+    var main_id = `.tag-${tag} .carousel-main`;
+    var nav_id = `.tag-${tag} .carousel-nav`;
+    var $mainGallery = $(main_id).flickity({
+      wrapAround: true,
+      pageDots: false,
+      adaptiveHeight: true,
+      arrowShape: { 
+        x0: 10,
+        x1: 60, y1: 50,
+        x2: 65, y2: 50,
+        x3: 15
+      }
+    }).on( 'change.flickity', function( event, index ) {
+      $navGallery.flickity( 'select', index );
+    });
   
-  $('.carousel-main').flickity({
-    wrapAround: true,
-    pageDots: false,
-    adaptiveHeight: true
-  });
-
-
+    var $navGallery = $(nav_id).flickity({
+      contain: true,
+      pageDots: false,
+      prevNextButtons: true,
+      arrowShape: { 
+        x0: 10,
+        x1: 60, y1: 50,
+        x2: 65, y2: 50,
+        x3: 15
+      }
+    }).on( 'select.flickity', function( event, index ) {
+      $mainGallery.flickity( 'select', index );
+    }).on( 'staticClick.flickity', function( event, pointer, cellElement, cellIndex ) {
+      // dismiss if cell was not clicked
+      $mainGallery.flickity( 'select', cellIndex );
+    });
+  })
+  
   if ($('.featured-products .carousel-cell').size() > 3) {
     $('.featured-products .carousel').flickity({
       wrapAround: true,
@@ -232,11 +254,11 @@ $(document).ready(function () {
     
   });
 
-  $('.article-content .article-inner').each(function () {
-    const $iframe = $(this).find('iframe');
-    const iframeHtml = `<div class="video">${$iframe.parent().html()}</div>`;
-    $iframe.parent().html(iframeHtml);
-  });
+  // $('.article-content .article-inner').each(function () {
+  //   const $iframe = $(this).find('iframe');
+  //   const iframeHtml = `<div class="video">${$iframe.parent().html()}</div>`;
+  //   $iframe.parent().html(iframeHtml);
+  // });
 
   $('.article-content .article-inner .content img').each(function () {
     const $img = $(this);
