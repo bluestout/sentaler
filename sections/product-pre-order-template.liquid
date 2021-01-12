@@ -58,32 +58,35 @@
                     </div>
                     {% endif %}
                   </div>
+                  {% if product.metafields["global"]["product-info"] == 'show-info:true' %}
                     <div class="prd_ctext c_pop" rel="fiber">
 
-                   {% for option in product.options %}
-                      {% assign option_in = forloop.index0 %}
+                      {% for option in product.options %}
+                          {% assign option_in = forloop.index0 %}
 
 
-                      {% if option == 'Material' or  option == 'material' %}
-                        {% for variant in product.variants %}
-                        {% unless variant.metafields.secomapp.freegifts %}
-                        {% unless variant.title contains '(Freegifts)' %}
+                          {% if option == 'Material' or  option == 'material' %}
+                            {% for variant in product.variants %}
+                            {% unless variant.metafields.secomapp.freegifts %}
+                            {% unless variant.title contains '(Freegifts)' %}
 
-                       {% assign value = variant.options[option_in] %}
-                          {% unless values contains value %}
-                      {% if forloop.index == 1 %}
-                            {{value}}{% include 'info' %}
-                      {% endif %}
-                        {% endunless %}
+                          {% assign value = variant.options[option_in] %}
+                              {% unless values contains value %}
+                          {% if forloop.index == 1 %}
+                                {{value}}{% include 'info' %}
+                          {% endif %}
+                            {% endunless %}
 
-                        {%endunless%}
-                        {%endunless%}
-                        {% endfor %}
-                      {% endif %}
+                            {%endunless%}
+                            {%endunless%}
+                            {% endfor %}
+                          {% endif %}
 
-                   {% endfor %}
+                      {% endfor %}
 
                     </div>
+                  {% endif %}
+                    
                  <div class="purchase">
                         <p class="price" id="price-preview">{{ variant.price | money }}{% if variant.price < variant.compare_at_price %} <del>{{ variant.compare_at_price | money }}</del>{% endif %}</p>
                  </div>

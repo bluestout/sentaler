@@ -471,6 +471,31 @@ input {
 }
 
 .main-header {
+  z-index: 999;
+  position: relative;
+  width: 100%;
+  &.affix{
+    position: fixed;
+    .main-header-wrapper{
+      .main-header-inner{
+        .top_header{
+          .right-area{
+            .toolbar-customer{
+              .pannel{
+                padding-top: 20px;
+              }
+            }
+            #cart-target{
+              #cart-info{
+                padding-top: 14px;
+                margin-top: 0;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
   &.fixed {
     position: absolute;
     z-index: 10000;
@@ -661,6 +686,19 @@ input {
                   }
                 }
               }
+            }
+          }
+        }
+        .right-area{
+          .toolbar-customer{
+            .pannel{
+              padding-top: 50px;
+            }
+          }
+          #cart-target{
+            #cart-info{
+              padding-top: 45px;
+              margin-top: 0;
             }
           }
         }
@@ -3663,20 +3701,23 @@ table {border-collapse: inherit !important;}
         .carousel-cell {
           width: 100%;
           margin-right: 10px;
-          border-radius: 5px;
+          border-radius: 0;
         }
         .carousel-nav{
           margin-top: 20PX;
+          padding: 0 50px;
           .carousel-cell{
             float: left;
             &.is-selected{
               opacity: 1;
+              filter: brightness(1);
             }
             width: 100px;
             margin: 0 5px;
             position: relative;
             overflow: hidden;
             opacity: 0.7;
+            filter: brightness(0.5);
             @include respond-to('medium-down'){
               width: 50px;
             }
@@ -3691,6 +3732,7 @@ table {border-collapse: inherit !important;}
               max-width: initial;
               top: 0;
               left: 50%;
+              height: 100%;
               transform: translateX(-50%);
             }
           }
@@ -3701,6 +3743,9 @@ table {border-collapse: inherit !important;}
           }
         }
         .carousel-main{
+          .flickity-viewport {
+            transition: height 0.5s;
+          }
           .flickity-prev-next-button{
             &.previous{
               left: -40px;
@@ -3741,6 +3786,24 @@ table {border-collapse: inherit !important;}
         }
       }
 
+      & > h1 {
+        &:first-of-type{
+          width: auto;
+        }
+        width: 100%;
+        & > img{
+          margin: 0 -200px;
+          margin-top: 50px;
+          width: calc(100% + 400px);
+          max-width: initial;
+          @include respond-to("medium-down"){
+            margin: 0 -15px;
+            width: calc(100% + 30px);
+            margin-top: 20px;
+          }
+        }
+      }
+
       span.title{
         float: left;
         margin-top: 20px;
@@ -3776,7 +3839,7 @@ table {border-collapse: inherit !important;}
       p{
         clear: both;
         position: relative;
-        display: content;
+        display: contents;
         width: 100%;
         font-size: 17px;
         font-family: larsseit;
@@ -3861,6 +3924,24 @@ table {border-collapse: inherit !important;}
         background: black;
         color: white;
         border-color: black;
+        width: 100%;
+        display: block;
+        margin: auto;
+        margin-top: 50px;
+        &:hover{
+          background: white;
+          color: black;
+          border-color: white;
+        }
+        &.white{
+          
+          background: white;
+          color: black;
+          &:hover{
+            background: black;
+            color: white;
+          }
+        }
       }
       
       blockquote {
@@ -3910,7 +3991,12 @@ table {border-collapse: inherit !important;}
       }
     }
   }
-
+  .wishlist, .wishlist-added {
+    text-decoration: none;
+  }
+  .product-title{
+    padding-right: 20px;
+  }
   .featured-products{
     margin: 0 -200px;
     @include respond-to('medium-down'){
@@ -4024,7 +4110,10 @@ table {border-collapse: inherit !important;}
               display: none;
             }
           }
-
+          .sold_out{
+            display: block;
+            color: red;
+          }
           .collec-title{
             position: relative;
             .wishlist{
@@ -4102,6 +4191,9 @@ table {border-collapse: inherit !important;}
         }
       }
     }
+    .flickity-button{
+      top: 40%;
+    }
   }
 
   .related-articles{
@@ -4124,7 +4216,7 @@ table {border-collapse: inherit !important;}
         color: #727E85;
         font-family: larsseit;
         font-weight: normal;
-        font-size: 17px;
+        font-size: 16px;
         line-height: 25px;
         @include respond-to('medium-down'){
           padding: 10px;
@@ -4146,9 +4238,11 @@ table {border-collapse: inherit !important;}
         }
 
         .title{
-          font-size: 20px;
-          line-height: 24px;
+          font-size: 17px;
+          line-height: 28px;
           font-family: larsseit;
+          font-weight: 300;
+          letter-spacing: 1px;
           margin: 20px 0;
           color: black;
           text-transform: uppercase;
@@ -4156,6 +4250,7 @@ table {border-collapse: inherit !important;}
         a{
           margin-top: 20px;
           color: black;
+          font-weight: 500;
           text-transform: uppercase;
           line-height: 60px;
           opacity: 1;
@@ -4235,7 +4330,7 @@ table {border-collapse: inherit !important;}
 
   .tab-content{
     @include respond-to("medium-down"){
-      margin-bottom: 100px;
+      margin-bottom: 50px;
     }
     .content{
       max-width: 995px;
@@ -4258,6 +4353,7 @@ table {border-collapse: inherit !important;}
         padding: 0;
         @include respond-to('medium-down'){
           margin-bottom: 0;
+          display: none;
         }
       }
 
@@ -4296,6 +4392,9 @@ table {border-collapse: inherit !important;}
       }
       .accordion{
         border-bottom: 1px solid  #ddd;
+        @include respond-to("medium-down"){
+          margin-top: 20px;
+        }
         .accordion-section{
           position: relative;
           .accordion-section-title{
@@ -4346,6 +4445,15 @@ table {border-collapse: inherit !important;}
               color: #727E89;
               a {
                 color: #727E89;
+                &.index_btn{
+                  margin-top: 10px;
+                  color: white;
+                  background: black;
+                  &:hover{
+                    background: white;
+                    color: black;
+                  }
+                }
               }
             }
 
@@ -4488,9 +4596,6 @@ table {border-collapse: inherit !important;}
         tr{
           &.order-tr{
             cursor: pointer;
-            &:hover{
-              background-color: #ddd;
-            }
           }
           th{
             background-color: transparent;
@@ -4501,6 +4606,10 @@ table {border-collapse: inherit !important;}
             color: #727E89;
             @include respond-to('medium-down'){
               font-size: 12px;
+            }
+            &.total{
+              text-align: right;
+              padding-right: 20px;
             }
           }
           td{
@@ -4911,6 +5020,9 @@ table {border-collapse: inherit !important;}
 }
 
 .login-content, .register-content{
+  @include respond-to("medium-down"){
+    margin-bottom: 30px;
+  }
   .wrapper{
     position: relative;
     .content{
@@ -5061,6 +5173,9 @@ table {border-collapse: inherit !important;}
               font-size: 18px;
               font-weight: normal;
               line-height: 2.3;
+              svg{
+                opacity: 0.85;
+              }
             }
           }
         }
@@ -5183,14 +5298,14 @@ table {border-collapse: inherit !important;}
         cursor: pointer;
         &.address-edit-toggle {
           background: url({{ 'icon-pen.png' | asset_url }}) no-repeat;
-          background-size: 24px;
+          background-size: 23px;
           font-size: 0;
           padding: 13px 15px;
           background-position: center;
         }
         &.address-delete {
           background: url({{ 'icon-trash.png' | asset_url }}) no-repeat;
-          background-size: 21px;
+          background-size: 20px;
           font-size: 0;
           padding: 13px 15px;
           background-position: center;
@@ -5239,6 +5354,8 @@ table {border-collapse: inherit !important;}
               float: left;
               @include respond-to('medium-down'){
                 float: right;
+                white-space: initial;
+                text-align: left;
               }
             }
             .action{
@@ -5264,6 +5381,7 @@ table {border-collapse: inherit !important;}
         }
       }
       #AddressNewForm, .edit-form{
+        padding-bottom: 30px;
         text-align: left;
         position: absolute;
         width: 100%;
@@ -5271,6 +5389,7 @@ table {border-collapse: inherit !important;}
         top: 0;
         background: white;
         z-index: 10;
+        min-height: 100%;
         @include respond-to('medium-down'){
           top: -100px;
           padding: 20px;
@@ -5278,6 +5397,9 @@ table {border-collapse: inherit !important;}
         form{
           max-width: 400px;
           margin: auto;
+          .form-control{
+            color: black;
+          }
           h3{
             font-weight: normal;
             margin: 0;
@@ -5308,11 +5430,14 @@ table {border-collapse: inherit !important;}
             }
 
             &.bottom{
-              margin-top: 40px;
               float: left;
               width: 100%;
               @include respond-to('medium-down'){
-                margin-top: 20px;
+                margin-top: 0px;
+              }
+              .checkbox{
+                width: 100%;
+                float: left;
               }
               .btn{
                 margin-top: 20px;
@@ -5377,6 +5502,8 @@ table {border-collapse: inherit !important;}
     margin: auto;
     height: 50px;
     text-transform: uppercase;
+    white-space: pre-wrap;
+    text-align-last: center;
   }
 }
 

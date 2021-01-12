@@ -36,7 +36,7 @@
                   <p>{{ 'customer.addresses.default' | t }}</p>
                 {% else %}
                   
-                  <span class="checkbox" >{{ 'customer.addresses.set_default' | t }}<input type="checkbox" id="set-default" class="hide"></span>
+                  <span class="checkbox default-check" >{{ 'customer.addresses.set_default' | t }}<input type="checkbox" id="set-default" class="hide"></span>
                 {% endif %}
                 <p class="action hide">
                   <a class="address-edit-toggle" data-form-id="{{ address.id }}">{{ 'customer.addresses.edit' | t }}</a>
@@ -57,7 +57,7 @@
                         <input type="text" class="form-control" id="AddressAddress2_{{ form.id }}" name="address[address2]" value="{{ form.address2 }}">
                       </div>
                     </div>
-                    
+
                     <div class="grid row">
                       <div class="grid__item col-sm-12">
                         <label for="AddressCity_{{ form.id }}">{{ 'customer.addresses.city' | t }}</label>
@@ -84,8 +84,7 @@
     
                     <div class="grid row bottom">
                       <div class="grid_item col-sm-12">
-                        {{ form.set_as_default_checkbox }}
-                        <label for="address_default_address_{{ form.id }}">{{ 'customer.addresses.set_default' | t }}</label>
+                        <span class="checkbox" for="address_default_address_{{ form.id }}">{{ 'customer.addresses.set_default' | t }}{{ form.set_as_default_checkbox }}</span>
                         <input type="submit" class="btn" value="{{ 'customer.addresses.update' | t }}"> or 
                         <a class="text-link address-edit-toggle" data-form-id="{{ form.id }}">{{ 'customer.addresses.cancel' | t }}</a>
                       </div>
@@ -115,7 +114,7 @@
                         <input type="text" class="form-control" id="AddressAddress2_{{ form.id }}" name="address[address2]" value="{{ form.address2 }}">
                       </div>
                     </div>
-                    
+
                     <div class="grid row">
                       <div class="grid__item col-sm-12">
                         <label for="AddressCity_{{ form.id }}">{{ 'customer.addresses.city' | t }}</label>

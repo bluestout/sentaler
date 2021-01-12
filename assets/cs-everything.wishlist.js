@@ -46,7 +46,7 @@ function wishlist_add(){
   $( "body" ).on( "click", "a.wishlist", function(e) {
     if(!$(this).hasClass('wishlist-added')){
       e.preventDefault();
-	  $('#quick-shop-modal').modal('hide');
+	    $('#quick-shop-modal').modal('hide');
       //store product ID
       var storeID = [];
       if(localStorage.getItem('cs-wishlist') == null )
@@ -139,6 +139,7 @@ function wishlist_add(){
       });
       $(".wltt").html("Added to Wishlist");
       //Modal
+      wishlist_header_show();
       $('#modalwishlist1').modal();
     }
   });
@@ -155,7 +156,6 @@ function wishlist_check(){
 
 function wishlist_show(){
   var cont = '#wishlistcontent ul',
-      contHeader = '#wishlistheader ul',
       productjson = '/products.js',
       getID= [];
   if(localStorage.getItem('cs-wishlist') != null ){
@@ -165,8 +165,8 @@ function wishlist_show(){
       var url = "/products/"+getID[j]+".js";
 
       jQuery.getJSON(url, function(product) {
-        var wcn = ".wishlist-"+product.handle;
-        $(contHeader).append('<li class="wlr wishlist-'+product.handle+'"><div class="wishlist-image-'+product.id+'"></div><div class="wishlist-info"><div class="wishlist-name"></div><div class="wishlist-price-'+product.id+' wishlist-price"></div></div></li>');
+        
+        var wcn = "#wishlistcontent .wishlist-"+product.handle;
         $(cont).append('<li class="wlr wishlist-'+product.handle+'"><div class="wishlist-image-'+product.id+'"></div><div class="wishlist-info"><div class="wishlist-name"></div><div class="wishlist-price-'+product.id+' wishlist-price"></div><div class="wishlist-addCart"></div><div class="wishlist-remove" data-wishlisthandle="'+product.handle+'"></div></div></li>');
         $(wcn).find('.wishlist-image-'+product.id).append('<img src="'+product.featured_image+'" alt="" />');
 
@@ -221,6 +221,125 @@ function wishlist_show(){
         $(wcn).find('.wishlist-addCart').append('<form action="/cart/add" method="post" class="variants" id="wishlist-form-cart-'+product.id+'" enctype="multipart/form-data"><input type="text" name="properties[ship_date]" value="'+localStorage.getItem('shipping_msg')+'" style="display:none;"><div id="wishlist-variants-container-'+product.id+'" class="variants-wrapper"></div> <div class="quantity-content"><label>QTY</label><input type="text" size="5" class="item-quantity item-quantity-qs" name="quantity" value="1" /></div><div class="others-bottom"><a id="wishlist-addToCart-'+product.id+'" class="btn btn-quick-shop add-to-cart">Add to cart</a><div class="wishlist-remove" data-wishlisthandle="'+product.handle+'"><span class="lnr lnr-trash"></span></div></div></form>');
 
         addToVariantsWishlist(product);
+
+        $(GLOBAL['common']['init']);
+
+        $(wcn).find('.wishlist-remove').on("click", function(){
+          $(wcn).hide("fade");
+          var storeID2= [],
+              ri = $(this).data("wishlisthandle");
+          storeID2 = JSON.parse(localStorage.getItem('cs-wishlist'));
+          storeID2 = jQuery.grep(storeID2, function(value) {
+            return value != ri;
+          });
+          localStorage.setItem('cs-wishlist', JSON.stringify(storeID2));
+          if(storeID2.length == 0){
+            $('.navUser-item--wishlist .wishlist-quantity').html('');
+            $('#wishlistcontent .none').css( 'display', 'block' );
+            $('#wishlistheader .none').css( 'display', 'block' );
+            $('#wishlistcontent .wishlist-count').css( 'display', 'none' );
+            $('#wishlistcontent ul').css( 'display', 'none' );
+            $('#wishlistheader ul').css( 'display', 'none' );
+          } else{
+            $('.navUser-item--wishlist .wishlist-quantity').html('('+storeID2.length+')');
+          }
+          $('.wishlist-page .wishlist-count').html(storeID2.length+' Saved products');
+        });
+        $(wcn).find('.wishlist-detail').append('<a href="'+product.url+'">View More</a>');
+
+      });
+
+    }
+  }
+  else{
+    $('.wishlist-0').hide();
+    $('#wishlistcontent .none').show();
+    $('#wishlistheader .none').show();
+  }
+
+}
+
+function wishlist_header_show(){
+  var  contHeader = '#wishlistheader ul',
+      productjson = '/products.js',
+      getID= [];
+      $(contHeader).html('');
+  if(localStorage.getItem('cs-wishlist') != null ){
+    getID = JSON.parse(localStorage.getItem('cs-wishlist'));
+    $('.wishlist-page .wishlist-count').html(getID.length+' Saved products');
+    for(j=0; j<getID.length; j++){
+      var url = "/products/"+getID[j]+".js";
+
+      jQuery.getJSON(url, function(product) {
+        var productVariants = product.variants;
+        var wcn = "#wishlistheader .wishlist-"+product.handle;
+        
+        $(wcn).find('.wishlist-name').html('');
+        $(contHeader).append('<li class="wlr wishlist-'+product.handle+'"><div class="wishlist-image-'+product.id+'"></div><div class="wishlist-info"><div class="wishlist-name"></div><div class="wishlist-price-'+product.id+' wishlist-price"></div></div></li>');
+        $(wcn).find('.wishlist-image-'+product.id).html('<img src="'+product.featured_image+'" alt="" />');
+
+        if (product.available) {
+          var in_stock = false;
+          for (v of product.variants) {
+            if (v.available) {
+              in_stock = true;
+            }
+          }
+          if (in_stock == false) {
+            $(wcn).find('.wishlist-name').append('<span style="color: #ea0000;">SOLD OUT</span>');
+          } else {
+            for (tag of product.tags) {
+              if (tag.indexOf('new in') > -1) {
+                $(wcn).find('.wishlist-name').append('<span style="color:#949494">New in</span>');
+              } else if (tag.indexOf('IN SUPPORT OF SICKKIDS') > -1) {
+                $(wcn).find('.wishlist-name').append('<span style="color:#4870AE">IN SUPPORT OF SICKKIDS</span>');
+              } else if (tag.indexOf('GIFT WITH PURCHASE') > -1) {
+                $(wcn).find('.wishlist-name').append('<span style="color:#949494">GIFT WITH PURCHASE</span>');
+              } else if (tag.indexOf('FW20 PREORDER') > -1) {
+                $(wcn).find('.wishlist-name').append('<span style="color:#949494">FW20 PREORDER</span>');
+              } else if (tag.indexOf('sale') > -1) {
+                $(wcn).find('.wishlist-name').append('<span style="color:red">SALE</span>');
+              }
+            }
+          }
+        } else {
+          $(wcn).find('.wishlist-name').append('<span style="color: #ea0000;">SOLD OUT</span>');
+        }
+        $(wcn).find('.wishlist-name').append('<a href="'+product.url+'">'+product.title+'</a>');
+
+        $(wcn).find('.wishlist-name').append('<div class="color_option">');
+
+        var index = -1;
+        var color = '';
+        for (option of product.options) {
+          index ++;
+          if (option.name == 'Color' || option.name == 'Colour') {
+            color = '';
+            for (variant of product.variants) {
+              color = variant.options[index];
+              $(wcn).find('.wishlist-name span.color').remove();
+              $(wcn).find('.wishlist-name').append('<span class="color">' + color + '</span>');
+            }
+          }
+        }
+
+        $(wcn).find('.wishlist-name').append('</div>');
+        $(wcn).find('.wishlist-name').append('<div class="wishlist-ship-date ship_'+product.id+'">' + localStorage.getItem('shipping_msg') + '</div>');
+        
+        if (product && product.available) {
+          if ( productVariants[0].compare_at_price > 0 && productVariants[0].compare_at_price > productVariants[0].price ) {
+            $(wcn).find('.wishlist-price-'+product.id).html('<span class="price">'+ Shopify.formatMoney(productVariants[0].price, quickShop_money_format) +'</span>'+'<del class="price_compare">'+ Shopify.formatMoney(productVariants[0].compare_at_price, quickShop_money_format) + '</del>' );
+          } else {
+            $(wcn).find('.wishlist-price-'+product.id).html('<span class="price">'+ Shopify.formatMoney(productVariants[0].price, quickShop_money_format) + '</span>' );
+          }
+        }
+        else {
+          if ( productVariants[0].compare_at_price > 0 && productVariants[0].compare_at_price > productVariants[0].price ) {
+            $(wcn).find('.wishlist-price-'+product.id).html('<span class="price">'+ Shopify.formatMoney(productVariants[0].price, quickShop_money_format) +'</span>'+'<del class="price_compare">'+ Shopify.formatMoney(productVariants[0].compare_at_price, quickShop_money_format) + '</del>' );
+          } else {
+            $(wcn).find('.wishlist-price-'+product.id).html('<span class="price">'+ Shopify.formatMoney(productVariants[0].price, quickShop_money_format) + '</span>' );
+          }
+        }
 
         $(GLOBAL['common']['init']);
 
@@ -433,4 +552,5 @@ $(window).ready(function($) {
   wishlist_check();
   wishlist_add();
   if(wishlistpage == 1) wishlist_show();
+  wishlist_header_show();
 });

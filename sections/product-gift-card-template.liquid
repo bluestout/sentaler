@@ -100,36 +100,39 @@
                     </div>
                     {% endif %}
                   </div>
-                 	{% assign arrow = false %}
+                  {% if product.metafields["global"]["product-info"] == 'show-info:true' %}
+                    {% assign arrow = false %}
                     {% for prd_collection in product.collections %}
-        				{% if prd_collection.handle contains 'accessories' %}{% assign arrow = true %}{% endif %}
+                      {% if prd_collection.handle contains 'accessories' %}{% assign arrow = true %}{% endif %}
                     {% endfor %}
                     <div class="prd_ctext c_pop" rel="fiber">
 
-                   {% for option in product.options %}
-                      {% assign option_in = forloop.index0 %}
+                      {% for option in product.options %}
+                          {% assign option_in = forloop.index0 %}
 
 
-                      {% if option == 'Material' or  option == 'material' %}
-                        {% for variant in product.variants %}
-                        {% unless variant.metafields.secomapp.freegifts %}
-                        {% unless variant.title contains '(Freegifts)' %}
+                          {% if option == 'Material' or  option == 'material' %}
+                            {% for variant in product.variants %}
+                            {% unless variant.metafields.secomapp.freegifts %}
+                            {% unless variant.title contains '(Freegifts)' %}
 
-                       {% assign value = variant.options[option_in] %}
-                          {% unless values contains value %}
-                      {% if forloop.index == 1 %}
-                      <span> {{value}}</span>{% if arrow %}{% else %}{% include 'info' %}{% endif %}
-                      {% endif %}
-                        {% endunless %}
+                          {% assign value = variant.options[option_in] %}
+                              {% unless values contains value %}
+                          {% if forloop.index == 1 %}
+                          <span> {{value}}</span>{% include 'info' %}
+                          {% endif %}
+                            {% endunless %}
 
-                        {%endunless%}
-                        {%endunless%}
-                        {% endfor %}
-                      {% endif %}
+                            {%endunless%}
+                            {%endunless%}
+                            {% endfor %}
+                          {% endif %}
 
-                   {% endfor %}
+                      {% endfor %}
 
                     </div>
+                  {% endif %}
+                 	
                	  {%-  assign prd_des_sh = product.description | strip_html | remove: "DESIGNER'S NOTES"   | split: '[split]'   -%}
 		          {% if section.settings.enable_quickoverview  %}
                   <div class="description">

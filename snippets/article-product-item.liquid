@@ -1,0 +1,157 @@
+{% include 'sca_freegift_price' with product %}
+{% unless grid_image_width %}
+  {%- assign grid_image_width = '1024x1536' -%}
+{% endunless %}
+  <div class="row-container list-unstyled clearfix">
+    <div class="row-inner">
+      <div class="row-left">
+        <a href="{{ product.url | within: collection }}" class="hoverBorder container_item">
+          <span id="secomapp-fg-image-{{ product.id }}" style="display: none;"> {{ "icon-freegift.png" | asset_url | img_tag: "", "sca-fg-img-collect" }} </span>
+          <span class="sca-fg-cat-list prod-show-list" style="display:none;" id="secomapp-fg-data-{{ product.id }}"> </span>
+             <img src="{{ product.featured_image | product_img_url: grid_image_width , crop: 'bottom' }}" class="{% if settings.product_item_effect != 'rotation' %}not-rotation{% endif %} img-responsive front" alt="{{ product.featured_image.alt | escape }}" />
+         </a>
+        <div class="product-box__overlay">
+          <div class="product-box__inner">
+            
+            {% if type == 'article_product_detail' %}
+              <h3 class="title">{{ title }}</h3>
+            {% endif %}
+            
+            <div class="collec-title">
+
+              {% assign in_stock = false %}
+              {% for v in product.variants %}
+                {% if v.available %}
+                  {% assign in_stock = true %}
+                {% endif %}
+              {% endfor %}
+              {% if in_stock == false %}
+              {% else %}
+                {% for tag in product.tags %}
+                  {% if tag contains 'new in' %}
+                    <span style="color:#949494">New in</span>
+                  {% elsif tag contains 'IN SUPPORT OF SICKKIDS' %}
+                    <span style="color:#4870AE">IN SUPPORT OF SICKKIDS</span>
+                  {% elsif tag contains 'GIFT WITH PURCHASE' %}
+                    <span style="color:#949494">GIFT WITH PURCHASE</span>
+                {% elsif tag contains 'FW20 PREORDER' %}
+                    <span style="color:#949494">FW20 PREORDER</span>
+                {% elsif tag contains 'sale' %}
+                    <span style="color:red">SALE</span>
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
+
+
+              <div class="wishlist hidden-xs">
+                <a title="Add To Wishlist" class="wishlist wishlist-{{ product.handle }}" data-wishlisthandle="{{ product.handle }}"><i class="sticon-heart" aria-hidden="true"></i></a>
+              </div>
+              <div class="product-title"><a class="title-5" href="{{ product.url | within: collection }}">{{ product.title }}</a></div>
+            </div>
+
+            <div class="color_option">
+              {% for option in product.options %}
+                {% if option == 'Color' or option == 'Colour' %}
+
+                {% assign index = forloop.index0 %}
+
+                {% assign colorlist = '' %}
+                {% assign color = '' %}
+                {% for variant in product.variants %}
+                {% unless variant.metafields.secomapp.freegifts %}
+                {% unless variant.title contains '(Freegifts)' %}
+
+
+                {% capture color %}
+                {{ variant.options[index] }}
+                {% endcapture %}
+
+                {% unless colorlist contains color %}
+                <span>{{color}}</span>
+                {% capture tempList %}
+                {{colorlist | append: color | append: ' '}}
+                {% endcapture %}
+                {% assign colorlist = tempList %}
+                {% endunless %}
+
+                {%endunless%}
+                {%endunless%}
+                {% endfor %}
+                {% endif %}
+                {% endfor %}
+            </div>
+            <div class="group_price_rating">
+              <div class="product-price">
+                {% if product.available %}
+                {% if sca_compare_at_price_max > sca_price %}
+
+                {% assign found_one_in_stock = false %}
+                {% for variant in product.variants %}
+                {% unless variant.metafields.secomapp.freegifts %}
+                {% unless variant.title contains '(Freegifts)' %}
+
+                {% if variant.available and variant.compare_at_price and found_one_in_stock == false %}
+                {% assign found_one_in_stock = true %}
+
+                <span class="price_sale">{{ variant.price | money }}</span>
+                <del class="price_compare"> {{ variant.compare_at_price | money }}</del>
+
+                {% endif %}
+
+                {%endunless%}
+                {%endunless%}
+                {% endfor %}
+
+                {% if found_one_in_stock == false %}
+                {% for variant in product.variants %}
+                {% unless variant.metafields.secomapp.freegifts %}
+                {% unless variant.title contains '(Freegifts)' %}
+
+                {% if variant.available and found_one_in_stock == false %}
+                {% assign found_one_in_stock = true %}
+                <span class="price">
+                  {{ variant.price | money }}
+                </span>
+                {% endif %}
+
+                {%endunless%}
+                {%endunless%}
+                {% endfor %}
+                {% endif %}
+                {% else %}
+                <span class="price">
+                  {% if sca_price_varies %}
+                  {{ sca_price | money }}
+                  {% else %}
+                  {{ sca_price | money }}
+                  {% endif %}
+                </span>
+                {% endif %}
+                {% else %}
+                <span class="sold_out">Sold Out</span>
+                <span class="price">
+                  {{ product.price | money }}
+                </span>
+                {% endif %}
+              </div>
+              <div class="rating-star">
+                <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+              </div>
+            </div>
+
+            <!--<div class="list-mode-description {% if template == 'index' %}hide{% endif %}">
+              {{ product.description | strip_html | truncatewords: 150 }}
+            </div>-->
+            <div class="grid-mode-description {% if template == 'index' or template contains 'page.product-detail' %}hide{% endif %}">
+              {{ product.description | strip_html | truncatewords: 20 }}
+            </div>
+            {% if quick_shop %}
+              <a class="index_btn" href="{{ product.url }}"> {{ 'products.product.shop_button' | t }} </a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>

@@ -5,156 +5,12 @@
     <div class="article-heading-wrapper">
       {% if  article.metafields["global"]["banner-image"] != blank %}
         <img src="{{ article.metafields["global"]["banner-image"] }}" class="feature_image">
-      {% else %}
+      {% elsif section.settings.feature_banner_image != blank %}
         <img src="{{ section.settings.feature_banner_image | img_url: '2048x' }}" class="feature_image">
       {% endif %}
     </div>
   </section>
 {% endif %}
-
-<!-- ////////////////////////////////   Get Featured collection  ////////////////////////////////////// -->
-
-{% assign article_block = article.content | strip_html | split: 'featured_collection(' %}
-{% for article_param in article_block %}
-
-  {% if forloop.index == 2 %}
-    {% assign collection_block = article_param | split: ')' %}
-    {% for collection_param in collection_block %}
-        {% if forloop.index == 1 %}
-          {% assign remove_collection_str = collection_param | prepend: '(' | append: ')' %}
-          {% assign collection_content = collection_param | split: ' : ' %}
-          {% assign title = collection_content[0] %}
-          {% assign collection_str = collection_content[1] %}
-        {% endif %}
-    {% endfor %}
-  {% endif %}
-{% endfor %}
-
-{% capture feature_collection %}
-  <div class="content-featured-products row">
-
-    {% assign products = collections[collection_str].products %}
-    {% if products != blank %}
-      <h3 class="text-center">{{ title }}</h3>
-      <div class="carousel">
-        {% for product_item in products limit: 6 %}
-          <div class="col-xs-6 col-sm-6 col-md-4 carousel-cell">
-            {% include 'product-item', product:product_item  %}
-          </div>
-        {% endfor %}
-      </div>
-      <a class="index_btn" href="{{collections[collection_str].url}}">Shop now</a>
-    {% endif %}
-
-  </div>
-{% endcapture %}
-
-<!-- /////////////////////////////////////  End  /////////////////////////////////// -->
-
-<!-- ///////////////////////////  Get Featured Products  /////////////////////////// -->
-
-{% assign article_block = article.content | strip_html | split: 'featured_products(' %}
-{% for article_param in article_block %}
-
-  {% if forloop.index == 2 %}
-    {% assign products_block = article_param | split: ')' %}
-    {% for products_param in products_block %}
-        {% if forloop.index == 1 %}
-          {% assign remove_products_str = products_param | prepend: '(' | append: ')' %}
-          {% assign products_content = products_param | split: ' : ' %}
-          {% assign title = products_content[0] %}
-          {% assign products_str_array = products_content[1] | split: ',' %}
-        {% endif %}
-    {% endfor %}
-  {% endif %}
-{% endfor %}
-
-{% capture featured_products %}
-  <div class="featured-products row">
-    <h3 class="text-center">{{ title }}</h3>
-    <div class="row content carousel">
-      {% for products_str in products_str_array %}
-        {% assign product_block = all_products[products_str] %}
-        {% if product_block != blank %}
-          <div class="col-xs-6 col-sm-6 col-md-4 carousel-cell">
-            {% include 'product-item', product:product_block  %}
-          </div>
-        {% endif %}
-      {% endfor %}
-    </div>
-  </div>
-{% endcapture %}
-
-<!-- //////////////////////////////////  End  ///////////////////////////////////// -->
-
-<!-- /////////////////////////////  Get Featured Product  ////////////////////////// -->
-{% assign article_block = article.content | strip_html | split: 'featured_item(' %}
-{% for article_param in article_block %}
-
-  {% if forloop.index == 2 %}
-    {% assign product_block = article_param | split: ')' %}
-    {% for product_param in product_block %}
-        {% if forloop.index == 1 %}
-          {% assign remove_product_str = product_param | prepend: '(' | append: ')' %}
-          {% assign product_content = product_param | split: ' : ' %}
-          {% assign title = product_content[0] %}
-          {% assign product_str = product_content[1] %}
-        {% endif %}
-    {% endfor %}
-  {% endif %}
-
-{% endfor %}
-
-{% capture featured_product %}
-  <div class="featured-product row">
-    {% assign product_block = all_products[product_str] %}
-    <h3 class="title">{{ title }}</h3>
-    {% if product_block != blank %}
-      <div class="col-md-12">
-        {% include 'product-item', product:product_block , title: title,  type: 'article_product_detail', quick_shop: true %}
-      </div>
-    {% endif %}
-  </div>
-{% endcapture %}
-
-{% capture featured_gallery %}
-  {% assign tags_str = '' %}
-  {% for block in section.blocks %}
-    {% if block.settings.tag != blank %}
-      {% unless tags_str contains block.settings.tag %}
-        {% assign tags_str = tags_str | append: ',' | append: block.settings.tag %}
-      {% endunless %}
-    {% endif %}
-  {% endfor %}
-  {% assign tags_str = tags_str | remove_first: ',' %}
-  {% assign tags = tags_str | split: ',' %}
-  {% for tag in tags %}
-    <div class="featured-gallery tag-{{tag}}" data-tag="{{tag}}">
-      <div class="carousel-main carousel">
-        {% for block in section.blocks %}
-          {% if block.settings.tag == tag %}
-            {% assign article_handle = block.settings.article_name | handleize %}
-            {% assign article_title = article.title | handleize %}
-
-            {% if article_handle == article_title %}
-              <div class="carousel-cell"><img src="{{ block.settings.image | img_url: '2048x' }}" /></div>
-            {% endif %}
-          {% endif %}
-        {% endfor %}
-      </div>
-      <div class="carousel-nav carousel">
-        {% for block in section.blocks %}
-          {% if article_handle == article_title and block.settings.tag == tag %}
-            <div class="carousel-cell"><img src="{{ block.settings.image | img_url: 'origin' }}" /></div>
-          {% endif %}
-        {% endfor %}
-      </div>
-    </div>
-  {% endfor %}
-  
-{% endcapture %}
-
-<!-- //////////////////////////////////  End  /////////////////////////////////////////// -->
 
 <section class="article-content">
   <div class="article-wrapper">
@@ -168,13 +24,163 @@
               <div class="heading">
                 <h4 class="las_25">{{ article.title }}</h4>
                 <p class="lass_17">{{ article.metafields["global"]["sub_title"] }}</p>
-                <span>{{ article.author }} | {{ article.updated_at }}</span>
+                <span>
+                  {% unless article.metafields["global"]["author-status"] == 'hide:true' %}
+                    {% if article.metafields["global"]["author-name"] != blank %}
+                      {{ article.metafields["global"]["author-name"] }} | 
+                    {% else %}
+                      {{ article.author }} |     
+                    {% endif %}
+                  {% endunless %}
+                  {% if article.metafields["global"]["publisher-name"] != blank %}
+                    {{ article.metafields["global"]["publisher-name"] }} | 
+                  {% endif %}
+                  {{ article.updated_at | time_tag: '%Y-%m-%d' }}</span>
               </div>
 
               <div class="content">
-                  {% assign content_1 = article.content | remove: remove_collection_str | remove: remove_product_str | remove: remove_products_str %}
-                  {% assign content = content_1 | replace: '<iframe', '<div class="video"><iframe' | replace: '</iframe>', '</iframe></div>' | replace: "feature_gallery", featured_gallery | replace: "featured_collection", feature_collection | replace: 'featured_item', featured_product | replace: 'featured_products', featured_products %}
-                  {{ content }}
+                {% assign content = article.content %}
+                {% assign article_block = article.content | strip_html | split: 'featured_item(' %}
+                {% for article_param in article_block %}
+
+                  {% if forloop.index != 1 %}
+                    {% assign product_block = article_param | split: ')' %}
+                    {% for product_param in product_block %}
+                        {% if forloop.index == 1 %}
+                          {% assign remove_product_str = product_param | prepend: '(' | append: ')' %}
+                          {% assign product_content = product_param | split: ' : ' %}
+                          {% assign title = product_content[0] %}
+                          {% assign product_str = product_content[1] %}
+                          {% capture featured_product %}
+                            <div class="featured-product row">
+                              {% assign product_block = all_products[product_str] %}
+                              <h3 class="title">{{ title }}</h3>
+                              {% if product_block != blank %}
+                                <div class="col-md-12">
+                                  {% include 'article-product-item', product:product_block , title: title,  type: 'article_product_detail', quick_shop: true %}
+                                </div>
+                              {% endif %}
+                            </div>
+                          {% endcapture %}
+                          {% assign content = content | remove: remove_product_str %}
+                          {% assign content = content | replace_first: 'featured_item', featured_product%}
+                        {% endif %}
+                    {% endfor %}
+                  {% endif %}
+                {% endfor %}
+
+                {% assign article_block = article.content | split: 'featured_products(' %}
+                {% for article_param in article_block %}
+                 
+                  {% if article_param contains ')' %}
+                  
+                    {% assign products_block = article_param | split: ')' | first %}
+                    {% assign remove_products_str = products_block | prepend: '(' | append: ')' %}
+                    {% assign products_content = products_block | split: ' : ' %}
+                    {% assign title = products_content[0] %}
+                    {% assign products_str_array = products_content[1] | strip_html | split: ',' %}
+                    
+                    {% capture featured_products %}
+                      <div class="featured-products row">
+                        <h3 class="text-center">{{ title }}</h3>
+                        <div class="row content carousel">
+                          {% for products_str in products_str_array %}
+                            {% assign product_block = all_products[products_str] %}
+                            {% if product_block != blank %}
+                              <div class="col-xs-6 col-sm-6 col-md-4 carousel-cell">
+                                {% include 'article-product-item', product:product_block  %}
+                              </div>
+                            {% endif %}
+                          {% endfor %}
+                        </div>
+                      </div>
+                    {% endcapture %}
+                    {% assign content = content | remove_first: remove_products_str %}
+                    {% assign content = content | replace_first: 'featured_products', featured_products %}
+                  {% endif %}
+                {% endfor %}
+
+                {% assign tags_str = '' %}
+                {% for block in section.blocks %}
+                  {% if block.settings.tag != blank %}
+                    {% unless tags_str contains block.settings.tag %}
+                        {% assign article_handle = block.settings.article_name | handleize %}
+                        {% assign article_title = article.title | handleize %}
+                      {% if article_handle == article_title %}
+                        {% assign tags_str = tags_str | append: ',' | append: block.settings.tag %}
+                      {% endif %}
+                    {% endunless %}
+                  {% endif %}
+                {% endfor %}
+                {% assign tags_str = tags_str | remove_first: ',' %}
+
+                {% assign tags = tags_str | split: ',' %}
+                {% for tag in tags %}
+                {% capture featured_gallery %}
+                  <div class="featured-gallery tag-{{tag}}" data-tag="{{tag}}">
+                    <div class="carousel-main carousel">
+                      {% for block in section.blocks %}
+                        {% if block.settings.tag == tag %}
+                          {% assign article_handle = block.settings.article_name | handleize %}
+                          {% assign article_title = article.title | handleize %}
+
+                          {% if article_handle == article_title %}
+                            <div class="carousel-cell"><img src="{{ block.settings.image | img_url: '2048x' }}" /></div>
+                          {% endif %}
+                        {% endif %}
+                      {% endfor %}
+                    </div>
+                    <div class="carousel-nav carousel">
+                      {% for block in section.blocks %}
+                        {% if article_handle == article_title and block.settings.tag == tag %}
+                          <div class="carousel-cell"><img src="{{ block.settings.image | img_url: '320x' }}" /></div>
+                        {% endif %}
+                      {% endfor %}
+                    </div>
+                  </div>
+                {% endcapture %}
+                {% assign content = content %}
+                {% assign content = content | replace_first: "feature_gallery", featured_gallery%}
+                {% endfor %}
+                
+                {% assign article_block = article.content | strip_html | split: 'featured_collection(' %}
+                {% for article_param in article_block %}
+
+                  {% if forloop.index != 1 %}
+                    {% assign collection_block = article_param | split: ')' %}
+                    {% for collection_param in collection_block %}
+                        {% if forloop.index == 1 %}
+                          {% assign remove_collection_str = collection_param | prepend: '(' | append: ')' %}
+                          {% assign collection_content = collection_param | split: ' : ' %}
+                          {% assign title = collection_content[0] %}
+                          {% assign collection_str = collection_content[1] %}
+                          {% capture feature_collection %}
+                          <div class="content-featured-products row">
+
+                            {% assign products = collections[collection_str].products %}
+                            {% if products != blank %}
+                              <h3 class="text-center">{{ title }}</h3>
+                              <div class="carousel">
+                                {% for product_item in products limit: 6 %}
+                                  <div class="col-xs-6 col-sm-6 col-md-4 carousel-cell">
+                                    {% include 'product-item', product:product_item  %}
+                                  </div>
+                                {% endfor %}
+                              </div>
+                              <!-- <a class="index_btn" href="{{collections[collection_str].url}}">Shop now</a> -->
+                            {% endif %}
+
+                          </div>
+                        {% endcapture %}
+                        {% assign content = content | remove: remove_collection_str  %}
+                        {% assign content = content | replace_first: "featured_collection", feature_collection %}
+                        {% endif %}
+                    {% endfor %}
+                  {% endif %}
+                {% endfor %}
+
+                {% assign content = content | replace: '<iframe', '<div class="video"><iframe' | replace: '</iframe>', '</iframe></div>' %}
+                {{ content }}
                   
               </div>
               <!-- End comments -->

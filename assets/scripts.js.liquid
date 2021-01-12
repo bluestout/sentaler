@@ -167,13 +167,13 @@ $(window).load(function() {
     });
   })
   
-  if ($('.featured-products .carousel-cell').size() > 3) {
-    $('.featured-products .carousel').flickity({
-      wrapAround: true,
-      pageDots: false,
-      cellAlign: "left"
-    });
-  }
+  // if ($('.featured-products .carousel-cell').size() > 3) {
+  //   $('.featured-products .carousel').flickity({
+  //     wrapAround: true,
+  //     pageDots: false,
+  //     cellAlign: "left"
+  //   });
+  // }
   if ($('.related-articles .carousel-cell').size() > 3) {
     $('.related-articles .related-article').flickity({
       wrapAround: true,
@@ -268,6 +268,23 @@ $(document).ready(function () {
       $img.after(titleHtml);
     }
   });
+
+  $('.article-content .article-inner .video').each(function () {
+    var caption = $(this).find('iframe').data('caption');
+    if (caption != undefined) {
+      $(this).find('iframe').after(`<span class="title text-center">${caption}</span>`)
+    }
+  })
+
+  $('.current-address-list tr').each(function () {
+    var $address = $(this);
+    $(this).find('.default-check').click(function (e) {
+      if ($(this).hasClass('active')) {
+        $address.find('.edit-form').find('input[name="address[default]"]').prop( "checked", true );
+        $address.find('.edit-form').find('form').submit();
+      }
+    })
+  })
 })
 
 
@@ -323,25 +340,6 @@ jQuery(document).ready(function($){
   $("#menu-toggle").on("click", function() {
     $(".flyout").slideToggle( "fast" );
   });
-
-  $('.toolbar-customer a.drop-down-link').click(function(e) {
-    e.preventDefault();
-    if ($('.main-header').hasClass('affix')) {
-      if ($(this).parent().hasClass('active')) {
-        $('.toolbar-customer').removeClass('active');
-        $('.toolbar-customer .pannel').slideUp();
-        $('.dark-bg').addClass('hide');
-      }else{
-        $('.toolbar-customer').removeClass('active');
-        $(this).parent().addClass('active');
-        $('.toolbar-customer .pannel').slideUp();
-        $(this).parent().find('.pannel').slideDown();
-        $('.dark-bg').removeClass('hide');
-      }
-    }else{
-      location = $(this).attr('href');
-    }
-  })
   
   $('.dark-bg').click(function () {
     $('.toolbar-customer').removeClass('active');

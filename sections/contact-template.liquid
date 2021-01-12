@@ -16,7 +16,7 @@
         <select class="page-links">
           {% for block in section.blocks %}
             {% assign page_item = pages[block.settings.page] %}
-            <option value="page_item.url" {% if page.handle == block.settings.page %}selected{% endif %}>{{ block.settings.title }}</option>
+            <option value="{{page_item.url}}" {% if page.handle == block.settings.page %}selected{% endif %}>{{ block.settings.title }}</option>
           {% endfor %}
         </select>
       </div>
