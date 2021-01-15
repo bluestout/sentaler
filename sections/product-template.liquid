@@ -300,26 +300,52 @@
                 {{ product.description |  split: '[split]' | last }}
                 </div>
                 <div class="customhalf img">
-                  <a data-fancybox="gallery" href="{{ product.images[1] | product_img_url: 'master' }}">
-                    <img class="normal" src="{{ product.images[1] | product_img_url: 'master' }}"/>
-                  </a>
+                  {% assign media = product.media[0] %}
+                  
+                  {% case media.media_type %}
+                    {% when 'image' %}
+                      <div class="prd_img_wrap  ">
+                        <div class="easyzoom easyzoom--overlay clickzoom">
+                          <a  data-fancybox="gallery" href="{{ media | product_img_url: '2400X' }}"><img class="normal" src="{{ media | product_img_url: '2400X' }}" alt="{{ media.alt | escape }}" /></a>
+                        </div>
+                      </div>
+                    {% when 'external_video' %}
+                      <div class="product-single__media">
+                        {{ media | external_video_tag : class: "youtube_video" }}
+                      </div>
+                    {% when 'video' %}
+                      <div class="product-single__video">
+                        {{ media | video_tag: autoplay: true,  loop: true }}
+                      </div>
+                    {% else %}
+                      <div class="product-single__media">
+                        {{ media | media_tag }}
+                      </div>
+                  {% endcase %}
                 </div>
-                {% assign imagesize = product.images.size | minus: 1 %}
+                {% assign imagesize = product.media.size %}
                 <div class="flex_row_prd {% if imagesize == 3 or imagesize == 7 %}last-imgfull{% endif %} {% if imagesize == 6 %}last-two{% endif%}" >
-                  {% for image in product.images %}
-                  {% if forloop.index > 1 %}
-                  {% if image.alt contains 'vimeo' %}
-                       {% assign video_id = image.alt | remove: "https://vimeo.com/" %}
-				       <div class="product_video_Wrap">
-                         <iframe id="prd_video2" src="https://player.vimeo.com/video/{{video_id}}?color=d4d4d4&title=0&byline=0&portrait=0&background=1"  frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-                       </div>
-                       {% else %}
-                        <a data-fancybox="gallery" href="{{ image | product_img_url: 'master' }}">
-                         <img src="{{ image | product_img_url: 'master' }}" alt="{{ image.alt | escape }}" />
-                        </a>
-                       {% endif %}
-
-                  {% endif %}
+                  {% for media in product.media %}
+                    {% if forloop.index > 1 %}
+                      {% case media.media_type %}
+                        {% when 'image' %}
+                          <a data-fancybox="gallery" href="{{ media | product_img_url: 'master' }}">
+                            <img src="{{ media | product_img_url: 'master' }}" alt="{{ media.alt | escape }}" />
+                          </a>
+                        {% when 'external_video' %}
+                          <div class="product-single__media">
+                            {{ media | external_video_tag : class: "youtube_video" }}
+                          </div>
+                        {% when 'video' %}
+                          <div class="product-single__video">
+                            {{ media | video_tag: autoplay: true,  loop: true }}
+                          </div>
+                        {% else %}
+                          <div class="product-single__media">
+                            {{ media | media_tag }}
+                          </div>
+                      {% endcase %}
+                    {% endif %}
                   {% endfor %}
 
                 </div>
@@ -343,7 +369,7 @@
 						                  <img src="{{section.settings.images1 | img_url: "master"}}">
                               {% endif %}
 					                 </div>
-					  <div class="customhalf left">
+					                <div class="customhalf left">
                             <div class="text--block text-center">
                               <div class="las_25">
                                 <div class="text-left">
@@ -363,8 +389,8 @@
                                   <img src="{{ section.settings.signature_2 | img_url: 'master' }}"/>
                               </div>
                               <div class="bt_text">{{section.settings.s_Des}}</div>
-                           </div>
-                       </div>
+                            </div>
+                          </div>
 					                </div>
         </div>
                <!--<div class="index_custom_section">

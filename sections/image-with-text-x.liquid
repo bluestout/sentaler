@@ -30,10 +30,10 @@
     .sentaler-x-section {background: {{ section.settings.background }};}
     #banner_{{ section.id }} h1, #banner_{{ section.id }} h4{color:{{section.settings.heading_color}} }
     #banner_{{ section.id }} p{color:{{section.settings.text_color}} }
-    .b_{{section.id}}{ background-image:url({{section.settings.image | img_url:"master"}})}
+    .b_{{section.id}}{ background-image:url({{section.settings.image | img_url:"2048x"}})}
     @media only screen
     and (max-width:767px) {
-     .b_{{section.id}}{ background-image:url({{section.settings.imagem | img_url:"master"}}) }
+     .b_{{section.id}}{ background-image:url({{section.settings.imagem | img_url:"1024x"}}) }
     }
   </style>
 </section>

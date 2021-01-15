@@ -7,26 +7,24 @@
   <section class="page-heading">
   <div class="page-heading-wrapper">
     <div class="container">
-      <div class="row">
-        <div class="page-heading-inner">
-          <h1 class="page-title block text-center">FLAGSHIP SHOWROOM</h1>
-          <p class="text-center"></p>
+      <div class="row flex-column">
+        <div class="col-md-6 item">
+          <div class="page-heading-banner">
+            <img src="{{section.settings.banner | img_url: '2048x' }}">
+          </div>
+        </div>
+        <div class="col-md-6 item">
+          <div class="page-heading-inner">
+            <h1 class="page-title block text-center">{{ section.settings.title }}</h1>
+            {{ section.settings.text }}
+            <a target="_blank" class="btn" href="{{section.settings.b_link}}">{{section.settings.b_title}}</a>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</section>
-  <p align="center">As we continuously monitor the recommendations of our local and national government,</p>
-    <p align="center">we are happy to announce the SENTALER showroom will reopen on June 26th on a by appointment basis.</p>  
-    <br>
-  <p align="center">Please contact us to book your appointment by</p>
-    <p align="center">Email service@sentaler.com </p>
-  <p align="center">Call / Text / WhatsApp +1 888 259 3374</p>
-  <br>
-  <p align="center">555 Richmond St. W., Suite 404</p>
-  <p align="center">Toronto, ON M5V 3B1</p>
-  <p align="center">Canada</p>
-  <br><br>
+  </section>
+  
 <div id='scasl-app-container' style="display:none">
 <div class="bh-sl-container scasl-container" >
 	<div id="page-header text-center">
@@ -204,7 +202,36 @@ h1.bh-sl-title {text-align: center;font-weight: 500;letter-spacing: 3px;font-siz
 			"type":"text",
 			"id":"disclaimer",
 			"label":"Disclaimer"
-		}
+    },
+    {
+      "type": "header",
+      "content": "heading Location container"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner",
+      "label": "Banner"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text"
+    },
+    {
+      "type": "url",
+      "id": "b_link",
+      "label": "Button link"
+    },
+    {
+      "type": "text",
+      "id": "b_title",
+      "label": "Button title"
+    }
 	],
  "blocks": [
     {

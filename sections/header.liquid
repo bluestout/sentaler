@@ -444,22 +444,12 @@
                   {% endif %}
                   <div class="account-area border-it m_hide">
                     {% if customer  %}
-                    <li class="toolbar-customer account logged-wishlist" title="Account">
+                    <li class="account logged-wishlist" title="Account">
                       <a href="/account" class="drop-down-link"><i class="sticon-user"></i></a>
-                      <ul class="pannel animated fadeIndown">
-                        <li><a href="/account">{{ 'customer.account.title' | t }}</a></li>
-                        <li><a href="/account">{{ 'customer.account.order' | t }}</a></li>
-                        <li><a href="/pages/wish-list">{{ 'customer.account.my_wishlist' | t }}</a></li>
-                        <li><a href="/pages/your-order/">{{ 'general.page.exchange' | t }}</a></li>
-                        <li class="bottom"><a href="/account/logout">{{ 'customer.account.logout' | t }}</a></li>
-                      </ul>
                     </li>
                     {% else %}
-                    <li class="toolbar-customer my-wishlist" title="Log In">
+                    <li class="my-wishlist" title="Log In">
                       <a href="/account/login" class="drop-down-link"><i class="sticon-user"></i></a>
-                      <ul class="pannel animated fadeIndown">
-                        <li><a href="/account/login">{{ 'customer.login.sign_in' | t }}</a></li>
-                      </ul>
                     </li>
                     {% endif %}
                   </div>
@@ -483,6 +473,10 @@
                     <li class="toolbar-customer my-wishlist" title="Wish List">
                       <a href="/pages/wish-list" class="drop-down-link"><i class="sticon-heart"></i></a>
                       <div class="pannel wishlist-pannel">
+                        <div class="header">
+                          <a href="/pages/wish-list">{{ 'layout.header.wishilist' | t }}</a>
+                          <a class="close">{% include 'icon-close' %}</a>
+                        </div>
                         <div id="wishlistheader">
                           <span class="none" style="display: none;">{{ 'wishlist.none' | t }}</span>
                           <ul></ul>

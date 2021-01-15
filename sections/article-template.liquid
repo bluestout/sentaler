@@ -32,10 +32,17 @@
                       {{ article.author }} |     
                     {% endif %}
                   {% endunless %}
-                  {% if article.metafields["global"]["publisher-name"] != blank %}
-                    {{ article.metafields["global"]["publisher-name"] }} | 
+                  {% unless article.metafields["global"]["publisher-status"] == 'hide:true' %}
+                    {% if article.metafields["global"]["publisher-name"] != blank %}
+                      {{ article.metafields["global"]["publisher-name"] }} | 
+                    {% endif %}
+                  {% endunless %}
+                  {% if article.metafields["global"]["date"] != blank %}
+                    {{ article.metafields["global"]["date"] | time_tag: '%Y-%m-%d' }} 
+                  {% else %}
+                    {{ article.updated_at | time_tag: '%Y-%m-%d' }}
                   {% endif %}
-                  {{ article.updated_at | time_tag: '%Y-%m-%d' }}</span>
+                  </span>
               </div>
 
               <div class="content">
@@ -163,7 +170,7 @@
                               <div class="carousel">
                                 {% for product_item in products limit: 6 %}
                                   <div class="col-xs-6 col-sm-6 col-md-4 carousel-cell">
-                                    {% include 'product-item', product:product_item  %}
+                                    {% include 'article-product-item', product:product_item  %}
                                   </div>
                                 {% endfor %}
                               </div>

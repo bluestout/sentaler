@@ -195,7 +195,6 @@ function wishlist_show(){
             }
           }
         } else {
-          $(wcn).find('.wishlist-name').append('<span style="color: #ea0000;">SOLD OUT</span>');
         }
         $(wcn).find('.wishlist-name').append('<a href="'+product.url+'">'+product.title+'</a>');
 
@@ -203,15 +202,14 @@ function wishlist_show(){
 
         var index = -1;
         var color = '';
+        $(wcn).find('.wishlist-name span.color').remove();
         for (option of product.options) {
           index ++;
           if (option.name == 'Color' || option.name == 'Colour') {
             color = '';
-            for (variant of product.variants) {
-              color = variant.options[index];
-              $(wcn).find('.wishlist-name span.color').remove();
-              $(wcn).find('.wishlist-name').append('<span class="color">' + color + '</span>');
-            }
+            color = product.variants[0].options[index];
+            $(wcn).find('.wishlist-name').append('<span class="color">' + color + '</span>');
+
           }
         }
 
@@ -285,25 +283,8 @@ function wishlist_header_show(){
               in_stock = true;
             }
           }
-          if (in_stock == false) {
-            $(wcn).find('.wishlist-name').append('<span style="color: #ea0000;">SOLD OUT</span>');
-          } else {
-            for (tag of product.tags) {
-              if (tag.indexOf('new in') > -1) {
-                $(wcn).find('.wishlist-name').append('<span style="color:#949494">New in</span>');
-              } else if (tag.indexOf('IN SUPPORT OF SICKKIDS') > -1) {
-                $(wcn).find('.wishlist-name').append('<span style="color:#4870AE">IN SUPPORT OF SICKKIDS</span>');
-              } else if (tag.indexOf('GIFT WITH PURCHASE') > -1) {
-                $(wcn).find('.wishlist-name').append('<span style="color:#949494">GIFT WITH PURCHASE</span>');
-              } else if (tag.indexOf('FW20 PREORDER') > -1) {
-                $(wcn).find('.wishlist-name').append('<span style="color:#949494">FW20 PREORDER</span>');
-              } else if (tag.indexOf('sale') > -1) {
-                $(wcn).find('.wishlist-name').append('<span style="color:red">SALE</span>');
-              }
-            }
-          }
         } else {
-          $(wcn).find('.wishlist-name').append('<span style="color: #ea0000;">SOLD OUT</span>');
+
         }
         $(wcn).find('.wishlist-name').append('<a href="'+product.url+'">'+product.title+'</a>');
 
@@ -311,15 +292,14 @@ function wishlist_header_show(){
 
         var index = -1;
         var color = '';
+        $(wcn).find('.wishlist-name span.color').remove();
         for (option of product.options) {
           index ++;
-          if (option.name == 'Color' || option.name == 'Colour') {
+          if (option.name == 'Color' || option.name == 'Colour' || option.name == 'Material') {
             color = '';
-            for (variant of product.variants) {
-              color = variant.options[index];
-              $(wcn).find('.wishlist-name span.color').remove();
-              $(wcn).find('.wishlist-name').append('<span class="color">' + color + '</span>');
-            }
+            color = product.variants[0].options[index];
+            $(wcn).find('.wishlist-name').append('<span class="color">' + color + '</span>');
+
           }
         }
 

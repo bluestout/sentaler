@@ -4,8 +4,8 @@
   {% for block in section.blocks %}
   <div class="custom_list_col col_{{section.blocks.size}}">
     <a href="{{block.settings.link}}">
-    <img class="desk-img" src="{{block.settings.image | img_url: "master" }}"/>
-    <img class="mob_img" src="{{block.settings.imagem | img_url: "master" }}"/>
+    <img class="desk-img" src="{{block.settings.image | img_url: "1024x" }}"/>
+    <img class="mob_img" src="{{block.settings.imagem | img_url: "1024x" }}"/>
     {% if block.settings.btn_text %}
     <div class="list-btn">
       <span class="index_btn white" href="{{block.settings.link}}">{{block.settings.btn_text}}</span>
