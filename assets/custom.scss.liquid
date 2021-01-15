@@ -3477,6 +3477,28 @@ body {
 .saso-cross-sell-popup .saso-add-to-cart, .saso-cross-sell-popup button.saso-click-here {background: #000 !important;}
 table {border-collapse: inherit !important;}
 
+.pick_currency {
+  .nice-select {
+    span {
+      &.current {
+        color: #FFF;
+      }
+    }
+  }
+  &.affix {
+    .nice-select {
+      span {
+        &.current {
+          color: #000;
+        }
+      }
+    }
+    @media only screen and (max-width: 767px) {
+      display: none;
+    }
+  }
+}
+
 .total_blog_section {
   h4{
       letter-spacing: 5px;
