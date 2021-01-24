@@ -474,6 +474,17 @@ input {
   z-index: 999;
   position: relative;
   width: 100%;
+  .wishlist-pannel{
+    #wishlistbottom{
+      padding-top: 20px;
+      .index_btn{
+        max-width: initial;
+        width: 87%;
+        background: black;
+        color: white;
+      }
+    }
+  }
   &.affix{
     position: fixed;
     .main-header-wrapper{
@@ -484,6 +495,7 @@ input {
               .pannel{
                 padding-top: 20px;
               }
+              
             }
             #cart-target{
               #cart-info{
@@ -2285,6 +2297,9 @@ body {
     .snize-ac-results-multicolumn-list {
       .snize-product {
         border-radius: 0;
+        &.snize-ac-over-nodrop{
+          background: transparent;
+        }
       }
       .snize-view-all-link {
         border-radius: 0;
@@ -3477,34 +3492,6 @@ body {
 .saso-cross-sell-popup .saso-add-to-cart, .saso-cross-sell-popup button.saso-click-here {background: #000 !important;}
 table {border-collapse: inherit !important;}
 
-.pick_currency {
-  .mldarrow {
-    color: #FFF;
-  }
-  .nice-select {
-    span {
-      &.current {
-        color: #FFF;
-      }
-    }
-  }
-  &.affix {
-    .mldarrow {
-      color: #000;
-    }
-    .nice-select {
-      span {
-        &.current {
-          color: #000;
-        }
-      }
-    }
-    @media only screen and (max-width: 767px) {
-      display: none;
-    }
-  }
-}
-
 .total_blog_section {
   h4{
       letter-spacing: 5px;
@@ -3556,10 +3543,9 @@ table {border-collapse: inherit !important;}
       .row{
         display: flex;
         flex-wrap: wrap;
+        padding: 0 5px;
         .article{
-          @include respond-to('medium-down'){
-            padding: 0 3px;
-          }
+          padding: 0 5px;
           .info{
             padding: 10px;
             padding-left: 0;
@@ -3689,6 +3675,7 @@ table {border-collapse: inherit !important;}
     @include respond-to('medium-down'){
       padding: 0;
       margin: 0;
+      margin-bottom: 50px;
     }
     div{
       display: block;
@@ -3857,6 +3844,7 @@ table {border-collapse: inherit !important;}
           &.title{
             font-size: 14px;
             line-height: 1.5em;
+            margin: 20px -200px;
             margin-bottom: 50px;
             @include respond-to('medium-down'){
               margin: 20px 0;
@@ -4016,9 +4004,9 @@ table {border-collapse: inherit !important;}
         position: relative;
         margin-bottom: 70px;
         @include respond-to("medium-down"){
-          margin: 0 -15px;
+          margin: 20px -15px;
           width: calc(100% + 30px);
-          margin-top: 20px;
+          margin-bottom: 50px;
         }
         *{
           width: 100%;
@@ -4029,6 +4017,8 @@ table {border-collapse: inherit !important;}
         }
         img{
           padding: 0;
+          display: block;
+          margin: 0;
         }
         span.title{
           position: absolute;
@@ -4078,16 +4068,12 @@ table {border-collapse: inherit !important;}
       display: none!important;
     }
     .content{
-      display: block;
-      padding: 0;
-      @include respond-to('medium-down'){
-        display: flex;
-        flex-wrap: wrap;
-      }
+      display: flex;
+      flex-wrap: wrap;
+      padding: 0 5px;
       .carousel-cell{
         clear: none;
-        padding: 0 10px;
-
+        padding: 0 5px;
         .row-container{
           padding: 0;
           .product-box__overlay{
@@ -4211,6 +4197,7 @@ table {border-collapse: inherit !important;}
     margin: 50px -200px;
     @include respond-to('medium-down'){
       margin: 50px -15px;
+      margin-bottom: 0;
     }
     img{
       width: 100%;
@@ -4229,9 +4216,12 @@ table {border-collapse: inherit !important;}
       display: none!important;
     }
     .carousel-cell{
-      padding: 0 10px;
+      padding: 0 5px;
       .row-container{
         padding: 0;
+        @include respond-to("medium-down"){
+          margin-bottom: 0;
+        }
         .product-box__overlay{
           padding-top: 20px;
           @include respond-to('medium-down'){
@@ -4266,6 +4256,7 @@ table {border-collapse: inherit !important;}
     margin: 50px auto;
     @include respond-to('medium-down'){
       margin: 50px 0;
+      margin-top: 0;
     }
     .sidebar-title{
       font-weight: normal;
@@ -4275,7 +4266,7 @@ table {border-collapse: inherit !important;}
     }
     .article{
       @include respond-to('medium-down'){
-        padding: 0 1px;
+        padding: 0 5px;
       }
       .info{
         color: #727E85;
@@ -4315,9 +4306,10 @@ table {border-collapse: inherit !important;}
         a{
           margin-top: 20px;
           color: black;
-          font-weight: 500;
           text-transform: uppercase;
-          line-height: 60px;
+          line-height: 16px;
+          font-weight: 700;
+          letter-spacing: 2px;
           opacity: 1;
           display: table;
           width: 100%;
@@ -5763,6 +5755,7 @@ table {border-collapse: inherit !important;}
       }
       .row-container{
         padding: 0;
+        
         .product-box__overlay{
           margin-top: 20px;
           position: relative;

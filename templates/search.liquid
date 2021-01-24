@@ -15,11 +15,11 @@
         {% endif %}
         <div class="grid col-xs-12">
           <div class="grid__item medium-up--two-fifths medium-up--push-three-tenths">
-            <form action="/search" method="get" role="search" class="search">
+            <form action="/pages/search-results-page" method="get" role="search" class="search">
               <div class="input-group">
                 <input type="search"
                        id="SearchInput"
-                       class="input-group__field search__input"
+                       class="input-group__field search__input snize-exclude-input"
                        name="q"
                        value="{{ search.terms | escape }}"
                        placeholder="{{ 'general.search.placeholder' | t }}"

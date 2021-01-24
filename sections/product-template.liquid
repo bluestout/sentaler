@@ -106,40 +106,41 @@
                     </div>
                     {% endif %}
                   </div>
-                  
+                
+                  {% assign arrow = false %}
+                  {% for prd_collection in product.collections %}
+                    {% if prd_collection.handle contains 'accessories' %}{% assign arrow = true %}{% endif %}
+                  {% endfor %}
+                  <div {% if product.metafields["global"]["badge-info"] != blank %} class="prd_ctext c_pop" rel="fiber" {% else %} class="prd_ctext" {% endif %}>
 
-                  {% if product.metafields["global"]["product-info"] == 'show-info:true' %}
-                    {% assign arrow = false %}
-                    {% for prd_collection in product.collections %}
-                      {% if prd_collection.handle contains 'accessories' %}{% assign arrow = true %}{% endif %}
-                    {% endfor %}
-                    <div class="prd_ctext c_pop" rel="fiber">
-
-                    {% for option in product.options %}
-                        {% assign option_in = forloop.index0 %}
+                  {% for option in product.options %}
+                      {% assign option_in = forloop.index0 %}
 
 
-                        {% if option == 'Material' or  option == 'material' %}
-                          {% for variant in product.variants %}
+                      {% if option == 'Material' or  option == 'material' %}
+                        {% for variant in product.variants %}
                           {% unless variant.metafields.secomapp.freegifts %}
-                          {% unless variant.title contains '(Freegifts)' %}
+                            {% unless variant.title contains '(Freegifts)' %}
 
-                        {% assign value = variant.options[option_in] %}
-                            {% unless values contains value %}
-                        {% if forloop.index == 1 %}
-                        <span> {{value}}</span>{% include 'info' %}
-                        {% endif %}
-                          {% endunless %}
+                              {% assign value = variant.options[option_in] %}
+                              {% unless values contains value %}
+                                {% if forloop.index == 1%}
+                                  {% if product.metafields["global"]["badge-link"] != blank and  product.metafields["global"]["badge-info"] == blank %}
+                                    <a href="{{product.metafields["global"]["badge-link"]}}"><span> {{value}}</span>{% include 'info' %}</a>
+                                  {% elsif product.metafields["global"]["badge-info"] != blank %}
+                                    <span> {{value}}</span>{% include 'info' %}
+                                  {% endif %}
+                                {% endif %}
+                              {% endunless %}
 
-                          {%endunless%}
-                          {%endunless%}
-                          {% endfor %}
-                        {% endif %}
+                            {%endunless%}
+                        {%endunless%}
+                        {% endfor %}
+                      {% endif %}
 
-                    {% endfor %}
+                  {% endfor %}
 
-                    </div>
-                  {% endif %}
+                  </div>
                  	
                  <div class="purchase">
                         <p class="price" id="price-preview" data-product-id="{{ product.id }}" data-variant-id="{{ product.selected_or_first_available_variant.id }}">

@@ -7,6 +7,7 @@ function wishlist_init(){
     $('#wishlistcontent .wishlist-count').css( 'display', 'none' );
     $('#wishlistcontent ul').css( 'display', 'none' );
     $('#wishlistheader ul').css( 'display', 'none' );
+    $('#wishlistbottom').css('display', 'none');
   }
   else{
     var activeID = [];
@@ -238,6 +239,7 @@ function wishlist_show(){
             $('#wishlistcontent .wishlist-count').css( 'display', 'none' );
             $('#wishlistcontent ul').css( 'display', 'none' );
             $('#wishlistheader ul').css( 'display', 'none' );
+            $('#wishlistbottom').css('display', 'none');
           } else{
             $('.navUser-item--wishlist .wishlist-quantity').html('('+storeID2.length+')');
           }
@@ -253,6 +255,7 @@ function wishlist_show(){
     $('.wishlist-0').hide();
     $('#wishlistcontent .none').show();
     $('#wishlistheader .none').show();
+    $('#wishlistbottom').css('display', 'none');
   }
 
 }
@@ -339,6 +342,7 @@ function wishlist_header_show(){
             $('#wishlistcontent .wishlist-count').css( 'display', 'none' );
             $('#wishlistcontent ul').css( 'display', 'none' );
             $('#wishlistheader ul').css( 'display', 'none' );
+            $('#wishlistbottom').css('display', 'none');
           } else{
             $('.navUser-item--wishlist .wishlist-quantity').html('('+storeID2.length+')');
           }
@@ -354,6 +358,7 @@ function wishlist_header_show(){
     $('.wishlist-0').hide();
     $('#wishlistcontent .none').show();
     $('#wishlistheader .none').show();
+    $('#wishlistbottom').css('display', 'none');
   }
 
 }

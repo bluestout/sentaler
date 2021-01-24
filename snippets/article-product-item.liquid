@@ -26,6 +26,7 @@
                 {% endif %}
               {% endfor %}
               {% if in_stock == false %}
+                <span style="color: #ea0000;">SOLD OUT</span>
               {% else %}
                 {% for tag in product.tags %}
                   {% if tag contains 'new in' %}
@@ -128,7 +129,6 @@
                 </span>
                 {% endif %}
                 {% else %}
-                <span class="sold_out">Sold Out</span>
                 <span class="price">
                   {{ product.price | money }}
                 </span>
