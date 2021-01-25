@@ -168,7 +168,7 @@
                             {% if products != blank %}
                               <h3 class="text-center">{{ title }}</h3>
                               <div class="carousel">
-                                {% for product_item in products limit: 6 %}
+                                {% for product_item in products %}
                                   <div class="col-xs-6 col-sm-6 col-md-4 carousel-cell">
                                     {% include 'article-product-item', product:product_item  %}
                                   </div>

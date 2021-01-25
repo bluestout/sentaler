@@ -31,7 +31,7 @@
         </div>
          
         {% if product.images[2]%}
-            <img src="{{ product.images[2]| product_img_url: '1000X1000' }}" class="secondimage" alt="{{ product.images[2].alt | escape }}" />
+            <img src="{{ product.images[1]| product_img_url: '1000X1000' }}" class="secondimage" alt="{{ product.images[1].alt | escape }}" />
         {% endif %}
        {% comment %} <div class="hoverBorderWrapper">
           {% for image in product.images %}
