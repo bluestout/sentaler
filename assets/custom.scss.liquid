@@ -5362,18 +5362,27 @@ table {border-collapse: inherit !important;}
       a{
         cursor: pointer;
         &.address-edit-toggle {
-          background: url({{ 'icon-pen.png' | asset_url }}) no-repeat;
-          background-size: 23px;
+          background: url({{ 'edit.svg' | asset_url }}) no-repeat;
+          background-size: 16px;
           font-size: 0;
           padding: 13px 15px;
           background-position: center;
         }
         &.address-delete {
-          background: url({{ 'icon-trash.png' | asset_url }}) no-repeat;
-          background-size: 20px;
+          background: url({{ 'delete.svg' | asset_url }}) no-repeat;
+          background-size: 16px;
           font-size: 0;
           padding: 13px 15px;
           background-position: center;
+        }
+      }
+      form {
+        a {
+          &.address-edit-toggle {
+            background: none;
+            font-size: 16px;
+            padding: 0;
+          }
         }
       }
       .address-new-toggle{
@@ -5400,7 +5409,9 @@ table {border-collapse: inherit !important;}
                 font-size: 14px;
               }
             }
-            .email{
+            .email,
+            .phone,
+            .company{
               color: #727E89;
             }
             .address{
@@ -5659,6 +5670,8 @@ table {border-collapse: inherit !important;}
                       }
                       label{
                         color: #727E89;
+                        padding-top: 3px;
+                        margin-right: 5px;
                       }
                       select{
                         border: none;
@@ -5923,7 +5936,18 @@ input:-webkit-autofill:focus {
             }
           }
         }
-        
+        .page-heading-inner {
+          &.location_btns {
+            .page-title {
+              margin-top: 30px;
+              margin-bottom: 30px;
+            }
+            .index_btn {
+              margin: 0 10px;
+            }
+            margin-bottom: 60px;
+          }
+        }
       }
     }
   }
@@ -5931,4 +5955,38 @@ input:-webkit-autofill:focus {
 
 button, input, select, .gm-style-iw{
   border-radius: 0!important;
+}
+
+.select2-container--default {
+  .select2-selection--single {
+    border: 1px solid #000;
+    border-radius: 0;
+    .select2-selection__arrow {
+      b {
+        border-color: #000 transparent transparent transparent;
+      }
+    }
+  }
+  &.select2-container--open {
+    .select2-selection--single {
+      .select2-selection__arrow {
+        b {
+          border-color: transparent transparent #000 transparent;
+        }
+      }
+    }
+  }
+  .select2-dropdown {
+    border: 1px solid #000;
+    border-radius: 0;
+    .select2-results__option--selected {
+      background-color: #000;
+      color: #FFF;
+    }
+    .select2-results__option--highlighted {
+      &.select2-results__option--selectable {
+        background-color: #000;
+      }
+    }
+  }
 }

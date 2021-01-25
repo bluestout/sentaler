@@ -59,6 +59,7 @@
   {{ 'cs-everything.styles.scss.css' | asset_url | stylesheet_tag }}
   {{ 'cart-translate.css' | asset_url | stylesheet_tag }}
   {{ 'bootstrap.css' | asset_url | stylesheet_tag }}
+  {{ 'select2.min.css' | asset_url | stylesheet_tag }}
   {{ 'custom.scss.css' | asset_url | stylesheet_tag }}
 
 <!--   {{ 'theme.scss.css' | asset_url | stylesheet_tag }} -->
@@ -85,6 +86,8 @@
   {% endif %}
   <!--[if (gt IE 9)|!(IE)]><!--><script src="{{ 'vendor.js' | asset_url }}" defer="defer"></script><!--<![endif]-->
   <!--[if lte IE 9]><script src="{{ 'vendor.js' | asset_url }}"></script><![endif]-->
+
+  <script src="{{ 'select2.min.js' | asset_url }}"></script>
 
   <!--[if (gt IE 9)|!(IE)]><!--><script src="{{ 'theme.js' | asset_url }}" defer="defer"></script><!--<![endif]-->
   <!--[if lte IE 9]><script src="{{ 'theme.js' | asset_url }}"></script><![endif]-->

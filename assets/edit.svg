@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>edit</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard" transform="translate(-401.000000, -355.000000)">
+            <g id="edit" transform="translate(401.000000, 355.000000)">
+                <rect id="Rectangle-Copy-5" x="0" y="0" width="16" height="16"></rect>
+                <path d="M12.0999451,0 L15.7262569,3.68512481 L3.56295184,16 L-1.13686838e-13,16 L-1.13686838e-13,12.1316592 L12.0999451,0 Z M10.2383666,3.47696638 L1.13717476,12.6023616 L1.13717476,14.8615362 L3.08715918,14.8615362 L12.2841431,5.54929904 L10.2383666,3.47696638 Z M12.0944559,1.61662743 L11.0426404,2.67079578 L13.0836746,4.74028313 L14.1279027,3.68326948 L12.0944559,1.61662743 Z" id="Shape" fill="#000000" fill-rule="nonzero"></path>
+            </g>
+        </g>
+    </g>
+</svg>

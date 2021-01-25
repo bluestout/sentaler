@@ -857,4 +857,9 @@ $(window).load(function() {
   if (hash != '') {
     $('html, body').animate({ scrollTop: $('#'+hash).offset().top - 50}, 1000);
   }
+
+  $('.wishlist-addCart select.Size').select2({
+    width: 50,
+    minimumResultsForSearch: Infinity
+  });
 });
