@@ -357,9 +357,9 @@ em {
 @font-face {
   font-family: 'sticon';
   src:
-    url('sticon.ttf?rmupx6'),
-    url('sticon.woff?rmupx6') format('woff'),
-    url('sticon.svg?rmupx6#sticon') format('svg');
+    url({{ 'sticon.ttf' | asset_url }}),
+    url({{ 'sticon.woff' | asset_url }}) format('woff'),
+    url({{ 'sticon.svg' | asset_url }}) format('svg');
   font-weight: normal;
   font-style: normal;
 }

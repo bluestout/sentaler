@@ -15,8 +15,8 @@
               Store Locations
             </h1>
             <div class="block">
-              <a href="#" class="index_btn">Flagship Showroom</a>
-              <a href="#" class="index_btn">Retailers</a> 
+              <a href="#flagship_section" class="index_btn">Flagship Showroom</a>
+              <a href="#retailer_section" class="index_btn">Retailers</a> 
             </div>
           </div>
         </div>
@@ -24,7 +24,7 @@
     </div>
   </div>
 </section>
-  <section class="page-heading">
+  <section class="page-heading" id="flagship_section">
   <div class="page-heading-wrapper">
     <div class="container">
       <div class="row flex-column">
@@ -37,7 +37,8 @@
           <div class="page-heading-inner">
             <h1 class="page-title block text-center">{{ section.settings.title }}</h1>
             {{ section.settings.text }}
-            <a target="_blank" class="btn" href="{{section.settings.b_link}}">{{section.settings.b_title}}</a>
+            <a target="_blank" class="btn" href="{{section.settings.b_link1}}">{{section.settings.b_title1}}</a>
+            <a target="_blank" class="btn" href="{{section.settings.b_link2}}">{{section.settings.b_title2}}</a>
           </div>
         </div>
       </div>
@@ -98,7 +99,7 @@
 
 </div>
 <br style="clear:both !important;" />
-<div class="ratiler_row">
+<div class="ratiler_row" id="retailer_section">
 <p>{{section.settings.re_head}}</p>
  {% for block in section.blocks %}
   <div class="storerow">
@@ -244,13 +245,23 @@ h1.bh-sl-title {text-align: center;font-weight: 500;letter-spacing: 3px;font-siz
     },
     {
       "type": "url",
-      "id": "b_link",
-      "label": "Button link"
+      "id": "b_link1",
+      "label": "Button link 1"
     },
     {
       "type": "text",
-      "id": "b_title",
-      "label": "Button title"
+      "id": "b_title1",
+      "label": "Button title 1"
+    },
+    {
+      "type": "url",
+      "id": "b_link2",
+      "label": "Button link 2"
+    },
+    {
+      "type": "text",
+      "id": "b_title2",
+      "label": "Button title 2"
     }
 	],
  "blocks": [

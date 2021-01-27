@@ -452,6 +452,14 @@ $(document).ready(function(){
         rewind:false,
         navText: ['<i class="sticon-caret-l-large" title="Previous" data-toggle="tooltip" data-placement="top"></i>', '<i class="sticon-caret-r-large" title="Next" data-toggle="tooltip" data-placement="top"></i>']
       });
+
+      $('.location_btns .index_btn').on('click', function(e){
+        e.preventDefault();
+        var id = $(this).attr('href');
+        $([document.documentElement, document.body]).animate({
+          scrollTop: $(id).offset().top - 170
+        }, 800);
+      });
   $('.footer_inf-content .foot_head').click(function(){
     $(this).closest('ul').toggleClass('m_open');
   });
@@ -812,6 +820,9 @@ $('a[data-fancybox]').fb({
     if ($(window).width() >= 768) {
       $('.isotope.has-video').each(function(){
         var adapt_height = $(this).next().height() * 2 + 10 - 1;
+        if ($(this).hasClass('col-md-3')) {
+          adapt_height = $(this).next().height() - 1;
+        }
         $(this).find('.video_wrap').css('height', adapt_height + 'px');
       });
     }
@@ -862,4 +873,9 @@ $(window).load(function() {
     width: 50,
     minimumResultsForSearch: Infinity
   });
+
+  $('#contactFormWrapper select.form-control').select2({
+    minimumResultsForSearch: Infinity
+  });
+
 });

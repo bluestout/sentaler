@@ -25,9 +25,16 @@
             <tr>
               <td class="name">
                 <p class="title">{{ address.first_name }} {{ address.last_name }}</p>
-                <p class="company">{{ address.company }}</p>
-                <p class="phone">{{ address.phone }}</p>
-                <div class="address hide">{{ address | format_address }}</div>
+                {% if address.company != '' %}<p class="company">{{ address.company }}</p>{% endif %}
+                {% if address.phone != '' %}<p class="phone">{{ address.phone }}</p>{% endif %}
+                <div class="address hide">
+                  <p>
+                    {{ address.address1 }}<br>
+                    {% if address.address2 != "" %}{{ address.address2 }}<br>{% endif %}
+                    {{ address.city }} {{ address.province_code }} {{ address.zip }}<br>
+                    {{ address.country }}
+                  </p>
+                </div>
               </td>
               <td class="address">
                 <p>
@@ -56,6 +63,20 @@
                       </div>
                     </div>
                     
+                    <div class="grid row">
+                      <div class="grid__item col-sm-12">
+                        <label for="AddressFirstName_{{ form.id }}">{{ 'customer.addresses.first_name' | t }}</label>
+                        <input type="text" class="form-control" id="AddressFirstName_{{ form.id }}" name="address[first_name]" value="{{ form.first_name }}">
+                      </div>
+                    </div>
+
+                    <div class="grid row">
+                      <div class="grid__item col-sm-12">
+                        <label for="AddressLastName_{{ form.id }}">{{ 'customer.addresses.last_name' | t }}</label>
+                        <input type="text" class="form-control" id="AddressLastName_{{ form.id }}" name="address[last_name]" value="{{ form.last_name }}">
+                      </div>
+                    </div>
+
                     <div class="grid row">
                       <div class="grid__item col-sm-12">
                         <label for="AddressPhone_{{ form.id }}">{{ 'customer.addresses.phone_account' | t }}</label>
