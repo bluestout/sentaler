@@ -301,8 +301,8 @@
       "reset_password_subtext": "Enter your email and we will send you a link to reset your password.",
       "cancel": "Cancel",
       "submit_recover": "Submit",
-      "signup_link": "Don't have an account? Sign up",
-      "keep": "Keep me  signed in"
+      "signup_link": "Don't have an account? Sign up.",
+      "keep": "Keep me  signed in."
     },
     "orders": {
       "title": "Order History",
@@ -343,7 +343,7 @@
       "title": "Reset password",
       "email": "Email",
       "submit": "Submit",
-      "cancel": "Back to Sign In",
+      "cancel": "Back to Sign In.",
       "subtext": "We will send you an email to reset your password.",
       "success": "We've sent you an email with a link to update your password."
     },
@@ -382,7 +382,7 @@
     }
   },
   "wishlist": {
-    "title": "Wishlist",
+    "title": "wishlist",
     "view_wishlist": "View Wishlist",
     "qty": "QTY",
     "back_to_shop": "Back to shopping",

@@ -5130,6 +5130,11 @@ table {border-collapse: inherit !important;}
           text-transform: capitalize;
           letter-spacing: 1px;
           word-spacing: 5px;
+          @include respond-to('medium-down') {
+            position: relative;
+            top: 10px;
+            margin-bottom: 20px;
+          }
         }
         .note {
           margin-top: 0;
@@ -5686,7 +5691,7 @@ table {border-collapse: inherit !important;}
               }
               .wishlist-addCart{
                 margin-top: 10px;
-                height: 80px;
+                height: 110px;
                 display: flex;
                 form{
                   width: 100%;
@@ -5701,7 +5706,7 @@ table {border-collapse: inherit !important;}
                       font-size: 14px;
                       line-height: 24px;
                       &:first-child{
-                        display: inline-flex;
+                        display: block;
                       }
                       label{
                         color: #727E89;
@@ -5858,6 +5863,7 @@ input:-webkit-autofill:focus {
     margin-left: 0;
     a {
       color: #000;
+      text-decoration: none;
     }
     .cirle {
       display: none;
@@ -5866,6 +5872,7 @@ input:-webkit-autofill:focus {
   .wishlist-name {
     a {
       color: #000;
+      text-decoration: none;
     }
     span {
       margin-bottom: 6px;
@@ -5896,6 +5903,13 @@ input:-webkit-autofill:focus {
         }
       }
     }
+  }
+  .btn {
+    text-decoration: none;
+  }
+  .close {
+    top: 2px;
+    right: 2px;
   }
 }
 
