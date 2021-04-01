@@ -29,10 +29,23 @@
             {% endif %}        
           {% endfor %}
         </div>
-         
+        
+      {% if product.media[1] %}
+        {% assign p_m = product.media[1] %}
+        {% case p_m.media_type %}
+          {% when 'image' %}
+          <img src="{{ p_m | product_img_url: 'master' }}" class="secondimage" alt="{{ p_m.alt | escape }}" />
+          {% when 'video' %}
+          <div class="product-single__video secondmedia">
+            {{ p_m | video_tag: autoplay: true,  loop: true }}
+          </div>
+        {% endcase %}
+      {% endif %}
+        {% comment %}
         {% if product.images[2]%}
             <img src="{{ product.images[1]| product_img_url: '1000X1000' }}" class="secondimage" alt="{{ product.images[1].alt | escape }}" />
         {% endif %}
+        {% endcomment %}
        {% comment %} <div class="hoverBorderWrapper">
           {% for image in product.images %}
           {% endfor %}

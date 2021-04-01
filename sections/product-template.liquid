@@ -301,11 +301,11 @@
                 {{ product.description |  split: '[split]' | last }}
                 </div>
                 <div class="customhalf img">
-                  {% assign media = product.media[0] %}
+                  {% assign media = product.media[1] %}
                   
                   {% case media.media_type %}
                     {% when 'image' %}
-                      <div class="prd_img_wrap  ">
+                      <div class="prd_img_wrap">
                         <div class="easyzoom easyzoom--overlay clickzoom">
                           <a  data-fancybox="gallery" href="{{ media | product_img_url: '2400X' }}"><img class="normal" src="{{ media | product_img_url: '2400X' }}" alt="{{ media.alt | escape }}" /></a>
                         </div>
@@ -330,19 +330,19 @@
                     {% if forloop.index > 1 %}
                       {% case media.media_type %}
                         {% when 'image' %}
-                          <a data-fancybox="gallery" href="{{ media | product_img_url: 'master' }}">
+                          <a data-fancybox="gallery" href="{{ media | product_img_url: 'master' }}" class="{% if forloop.index == 2 %}first{% endif %}">
                             <img src="{{ media | product_img_url: 'master' }}" alt="{{ media.alt | escape }}" />
                           </a>
                         {% when 'external_video' %}
-                          <div class="product-single__media">
+                          <div class="product-single__media {% if forloop.index == 2 %}first{% endif %}">
                             {{ media | external_video_tag : class: "youtube_video" }}
                           </div>
                         {% when 'video' %}
-                          <div class="product-single__video">
+                          <div class="product-single__video {% if forloop.index == 2 %}first{% endif %}">
                             {{ media | video_tag: autoplay: true,  loop: true }}
                           </div>
                         {% else %}
-                          <div class="product-single__media">
+                          <div class="product-single__media {% if forloop.index == 2 %}first{% endif %}">
                             {{ media | media_tag }}
                           </div>
                       {% endcase %}
