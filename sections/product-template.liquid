@@ -325,7 +325,7 @@
                   {% endcase %}
                 </div>
                 {% assign imagesize = product.media.size %}
-                <div class="flex_row_prd {% if imagesize == 3 or imagesize == 7 %}last-imgfull{% endif %} {% if imagesize == 6 %}last-two{% endif%}" >
+                <div class="flex_row_prd {% if imagesize == 4 or imagesize == 6 or imagesize == 8 %}last-imgfull{% endif %} {% if imagesize == 3 or imagesize == 5 or imagesize == 7 %}last-two{% endif%}" >
                   {% for media in product.media %}
                     {% if forloop.index > 1 %}
                       {% case media.media_type %}
